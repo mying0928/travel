@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動式金門行程規劃工具 (儀表板版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Earthen Kinmen -->
+    <!-- Application Structure Plan: The application uses a single-page, tab-based interactive dashboard structure. This includes: 1) A sticky top navigation bar for switching between '行程總覽', '詳細行程', '行前準備', '美食地圖', and '預算規劃'. 2) The '行程總覽' view uses interactive day-selector buttons for a quick daily overview. 3) The '詳細行程' section provides a comprehensive, scrollable list of all activities with details. 4) The '預算規劃' section features a dynamic Chart.js chart that updates based on user selections. This structure is ideal for trip planning, allowing both high-level exploration and deep dives into logistical details. -->
+    <!-- Visualization & Content Choices: 1. Itinerary Overview: Report Info (Schedule) -> Goal (Organize) -> Viz (Interactive cards) -> Interaction (Click buttons for daily view) -> Justification (Quick, digestible daily summary) -> Library (HTML/CSS/JS). 2. Detailed Itinerary: Report Info (Schedule, transport, costs) -> Goal (Inform/Organize) -> Viz (Structured list with icons & tags) -> Interaction (Scroll) -> Justification (Provides a complete, actionable master document for the trip) -> Library (HTML/CSS/JS). 3. Budget Planner: Report Info (Prices) -> Goal (Analyze) -> Viz (Checklist + dynamic bar chart) -> Interaction (Check items to update chart) -> Justification (Transforms static numbers into a personalized planning tool) -> Library (Chart.js/Canvas). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #FDFBF5; -webkit-tap-highlight-color: transparent; }
+        .tab-active { background-color: #A0522D; color: #FFFFFF; }
+        .tab-inactive { background-color: #EFEBE5; color: #A0522D; }
+        .day-btn-active { background-color: #8B4513; color: #FFFFFF; transform: scale(1.05); }
+        .day-btn-inactive { background-color: #D2B48C; color: #6B4226; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .section-fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 350px; max-height: 45vh; }
+        @media (min-width: 768px) { .chart-container { height: 400px; max-height: none; } }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div id="app" class="container mx-auto p-4 sm:p-6 max-w-7xl">
+
+        <header class="text-center mb-6 md:mb-8">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#8B4513]">金門深度漫遊</h1>
+            <p class="text-base md:text-lg text-gray-600 mt-2">您的互動式四日行程規劃儀表板</p>
+        </header>
+
+        <nav id="main-nav" class="sticky top-0 z-10 bg-[#FDFBF5] py-3 mb-6 md:mb-8 shadow-md rounded-lg">
+            <div class="flex flex-wrap justify-center gap-2 md:gap-3">
+                <button data-tab="itinerary" class="nav-tab tab-active px-3 py-2 rounded-lg font-semibold transition-colors duration-300 text-xs sm:text-sm">📅 行程總覽</button>
+                <button data-tab="detailed" class="nav-tab tab-inactive px-3 py-2 rounded-lg font-semibold transition-colors duration-300 text-xs sm:text-sm">📜 詳細行程</button>
+                <button data-tab="prep" class="nav-tab tab-inactive px-3 py-2 rounded-lg font-semibold transition-colors duration-300 text-xs sm:text-sm">📋 行前準備</button>
+                <button data-tab="food" class="nav-tab tab-inactive px-3 py-2 rounded-lg font-semibold transition-colors duration-300 text-xs sm:text-sm">🍜 美食地圖</button>
+                <button data-tab="budget" class="nav-tab tab-inactive px-3 py-2 rounded-lg font-semibold transition-colors duration-300 text-xs sm:text-sm">💰 預算規劃</button>
+            </div>
+        </nav>
+
+        <main>
+            <!-- Itinerary Section -->
+            <section id="itinerary-section" class="tab-content">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#8B4513] mb-4">行程總覽</h2>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">歡迎來到您的金門行程核心。點擊下方的日期按鈕，即可探索每日的詳細規劃。如需完整交通與費用細節，請切換至「詳細行程」分頁。</p>
+                    <div id="day-selector" class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-6"></div>
+                    <div id="itinerary-details" class="section-fade-in"></div>
+                </div>
+            </section>
+
+            <!-- Detailed Itinerary Section -->
+            <section id="detailed-section" class="tab-content hidden">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#8B4513] mb-4">詳細行程總覽</h2>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">此處為您提供最完整的行程規劃，包含每一站的建議時間、交通方式、門票費用及預計停留時間。您可以將此作為旅途中的主要行動指南。</p>
+                    <div id="detailed-itinerary-content" class="space-y-8"></div>
+                </div>
+            </section>
+
+            <!-- Prep Section -->
+            <section id="prep-section" class="tab-content hidden">
+                 <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#8B4513] mb-4">行前準備</h2>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">成功的旅程始于充分的準備。點擊各個項目以展開詳細內容，讓您在出發前就成為一位金門達人。</p>
+                    <div id="prep-accordion" class="space-y-4"></div>
+                </div>
+            </section>
+
+            <!-- Food Section -->
+            <section id="food-section" class="tab-content hidden">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#8B4513] mb-4">美食地圖</h2>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">金門是美食的寶庫。這裡我們為您整理了行程報告中提及的所有推薦餐廳與美食，您可以依據此清單，規劃您的美食探索之旅。</p>
+                    <div id="food-table" class="overflow-x-auto"></div>
+                </div>
+            </section>
+
+            <!-- Budget Section -->
+            <section id="budget-section" class="tab-content hidden">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#8B4513] mb-4">預算規劃工具</h2>
+                    <p class="text-gray-600 mb-6 text-sm md:text-base">這個互動工具能將您的旅行計畫轉化為清晰的預算。請在下方勾選您計畫參與的活動與想品嚐的美食。系統將即時為您計算總花費。</p>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div id="budget-items" class="max-h-[50vh] lg:max-h-[500px] overflow-y-auto pr-4"></div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-center mb-4">
+                                <h3 class="text-xl font-semibold">預估總花費</h3>
+                                <p class="text-4xl font-bold text-green-600">NT$ <span id="total-budget">0</span></p>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+    const AppData = {
+        itinerary: [
+            { day: 1, theme: "南岸序曲：古厝與坑道協奏", schedule: [
+                { time: "09:00 - 11:30", icon: "✈️", title: "抵達與安頓", details: "08:25 抵達金門尚義機場(KNH)，辦理租車後，前往珠山「依山初晴」民宿入住。", transport: "自駕", cost: 0, duration: "2.5小時" },
+                { time: "11:30 - 13:30", icon: "🍚", title: "午餐：金城鎮", details: "推薦：雨川食堂 (創新料理) 或 聯成廣東粥 (在地經典)。", transport: "自駕", cost: 300, duration: "2小時" },
+                { time: "13:30 - 15:00", icon: "⛰️", title: "翟山坑道", details: "參觀A字型戰時運補水道，感受雄偉的軍事工程。", transport: "自駕", cost: 0, duration: "1.5小時" },
+                { time: "15:00 - 17:00", icon: "🏛️", title: "水頭聚落", details: "探索得月樓、黃輝煌洋樓等僑鄉建築。", transport: "步行", cost: 0, duration: "2小時" },
+                { time: "17:30 - 19:00", icon: "🐂", title: "晚餐：金城鎮", details: "推薦：金門牛家莊 (全牛料理) 或 記德海鮮餐廳 (在地海產)。", transport: "自駕", cost: 600, duration: "1.5小時" },
+                { time: "19:30 - 21:00", icon: "🏮", title: "夜遊後浦小鎮導覽", details: "參加免費導覽，探索夜晚的總兵署與模範街。", transport: "步行", cost: 0, duration: "1.5小時" }
+            ]},
+            { day: 2, theme: "烈嶼全覽：跨越大橋，尋味芋島", schedule: [
+                { time: "09:30 - 10:00", icon: "🌉", title: "跨越金門大橋", details: "駕車前往烈嶼（小金門），欣賞沿途海景。", transport: "自駕", cost: 0, duration: "0.5小時" },
+                { time: "10:00 - 11:30", icon: "🚩", title: "沙溪堡 & 湖井頭戰史館", details: "探訪國境最西點，並參觀戰史館，了解前線歷史。", transport: "自駕", cost: 0, duration: "1.5小時" },
+                { time: "12:00 - 13:30", icon: "🍠", title: "午餐：烈嶼", details: "必訪三層樓芋頭餐館，或選擇嘉年華冰菓室。", transport: "自駕", cost: 400, duration: "1.5小時" },
+                { time: "13:30 - 15:30", icon: "⚓", title: "九宮坑道 & 八達樓子", details: "參觀巨大的花崗岩水道，並在城堡紀念碑前留影。", transport: "自駕", cost: 0, duration: "2小時" },
+                { time: "15:30 - 17:00", icon: "🚗", title: "烈嶼環島 & 返回", details: "悠閒駕車環島，感受寧靜風光後返回大金門。", transport: "自駕", cost: 0, duration: "1.5小時" },
+                { time: "18:00 - 19:30", icon: "🦐", title: "晚餐：金城鎮", details: "推薦：新大廟口活海鮮 (熱炒氛圍) 或 樸食 (精緻西餐)。", transport: "自駕", cost: 500, duration: "1.5小時" },
+            ]},
+            { day: 3, theme: "登高向東：太武之心與金沙風情", schedule: [
+                { time: "09:00 - 11:00", icon: "🏞️", title: "太武山 登高", details: "從「玉章路」緩步上山，拜訪「毋忘在莒」勒石與海印寺。", transport: "自駕至停車場", cost: 0, duration: "2小時" },
+                { time: "11:30 - 13:00", icon: "🍜", title: "午餐：金沙鎮", details: "推薦：長榮山西拌麵 或 王阿婆小吃店 (山后民俗村內)。", transport: "自駕", cost: 200, duration: "1.5小時" },
+                { time: "13:00 - 14:30", icon: "🏘️", title: "山后民俗文化村", details: "參觀由18棟閩南古厝組成的精美聚落。", transport: "步行", cost: 0, duration: "1.5小時" },
+                { time: "14:30 - 15:30", icon: "💣", title: "獅山砲陣地", details: "觀賞震撼的八吋榴彈砲砲操表演。", transport: "自駕", cost: 0, duration: "1小時" },
+                { time: "16:00 - 17:00", icon: "🏜️", title: "沙美摩洛哥", details: "在沙美老街的頹屋廢墟中尋找獨特場景。", transport: "步行", cost: 0, duration: "1小時" },
+                { time: "18:00 - 19:30", icon: "🥩", title: "晚餐：金湖/金沙鎮", details: "推薦：良金牧場 (頂級酒糟牛) 或 高坑餐廳 (全牛大餐)。", transport: "自駕", cost: 800, duration: "1.5小時" }
+            ]},
+            { day: 4, theme: "古城告別：潮汐記憶與歸途", schedule: [
+                { time: "09:00 - 10:00", icon: "🥣", title: "經典金門早餐", details: "在金城鎮品嚐永春廣東粥與和記油條。", transport: "自駕", cost: 150, duration: "1小時" },
+                { time: "10:00 - 11:00", icon: "🌊", title: "建功嶼 (視潮汐) 或 莒光樓", details: "彈性選擇，若退潮可走上石板路，否則可至莒光樓登高望遠。", transport: "自駕", cost: 0, duration: "1小時" },
+                { time: "11:00 - 11:30", icon: "🛍️", title: "最後採購", details: "在模範街或中興街採買貢糖、麵線等伴手禮。", transport: "步行", cost: 0, duration: "0.5小時" },
+                { time: "11:30", icon: "🛫", title: "整理行囊，前往機場", details: "返回民宿取行李，預留充裕時間前往尚義機場。", transport: "自駕", cost: 0, duration: "N/A" }
+            ]}
+        ],
+        prep: [
+            { title: "衣著與氣候：島嶼穿搭術", content: "金門四季分明，夏季炎熱需注意防曬；冬季風大濕冷，務必攜帶防風保暖衣物。不論季節，建議穿著方便行走的舒適鞋履。若要參訪太武山，運動鞋為佳。" },
+            { title: "交通須知：自駕與停車", content: "<b>主要工具：</b>租賃汽車是暢遊金門最便利的方式。建議出發前線上預訂。<br><b>停車：</b>多數景點設有停車場，市區路邊停車格也算充足，但熱門時段仍需耐心尋找。<br><b>金門大橋：</b>前往烈嶼請注意橋上速限，有區間測速。" },
+            { title: "潮汐與航班：行程的關鍵變數", content: "<b>建功嶼：</b>能否登島完全取決於潮汐，出發前務必至「金門國家公園」或相關網站查詢當日乾潮時間。<br><b>航班：</b>金門氣候多變，易起霧，航班可能受影響。建議購買旅遊不便險，並隨時關注航班動態。" },
+            { title: "必備物品：讓旅途更順暢", content: "除了個人藥品，建議攜帶防蚊液、防曬乳、太陽眼鏡、帽子。由於許多美食為現金交易，請準備足夠現金。也別忘了行動電源，以確保您的導航與相機隨時待命。" }
+        ],
+        food: [
+            { name: "雨川食堂", area: "金城鎮", specialty: "創新戰地料理", price: "NT$250-400" },
+            { name: "聯成廣東粥", area: "金城鎮", specialty: "無米粒粥糜", price: "NT$80-120" },
+            { name: "金門牛家莊", area: "金城鎮", specialty: "全牛料理", price: "NT$500-800" },
+            { name: "三層樓芋頭餐館", area: "烈嶼鄉", specialty: "芋頭套餐", price: "NT$350-500" },
+            { name: "長榮山西拌麵", area: "金沙鎮", specialty: "特色拌麵、麥芽雞", price: "NT$150-250" },
+            { name: "良金牧場", area: "金湖鎮", specialty: "溫體酒糟牛火鍋", price: "NT$800-1500" },
+            { name: "高坑餐廳", area: "金沙鎮", specialty: "全牛大餐", price: "NT$500-800" },
+            { name: "永春廣東粥", area: "金城鎮", specialty: "百年老店粥糜", price: "NT$80-120" }
+        ],
+        budgetItems: [
+            { name: "租車費用 (每日)", category: "交通", cost: 1500 },
+            { name: "油資 (4天預估)", category: "交通", cost: 800 },
+            { name: "良金牧場全牛宴 (人)", category: "特色體驗", cost: 1000 },
+            { name: "記德海鮮餐廳 (人)", category: "特色體驗", cost: 600 },
+            { name: "三層樓芋頭餐 (人)", category: "餐飲美食", cost: 400 },
+            { name: "金門牛家莊 (人)", category: "餐飲美食", cost: 600 },
+            { name: "每日小吃飲品預算", category: "餐飲美食", cost: 300 }
+        ]
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const daySelector = document.getElementById('day-selector');
+        const itineraryDetails = document.getElementById('itinerary-details');
+        const detailedItineraryContent = document.getElementById('detailed-itinerary-content');
+        const prepAccordion = document.getElementById('prep-accordion');
+        const foodTableContainer = document.getElementById('food-table');
+        const budgetItemsContainer = document.getElementById('budget-items');
+        const totalBudgetEl = document.getElementById('total-budget');
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        let budgetChart;
+        let selectedBudgetItems = [];
+
+        function renderDaySelector() {
+            daySelector.innerHTML = AppData.itinerary.map(dayData => `
+                <button data-day="${dayData.day}" class="day-btn day-btn-inactive p-3 rounded-lg font-semibold transition-all duration-200 shadow-sm hover:shadow-md text-sm">第 ${dayData.day} 天</button>
+            `).join('');
+        }
+
+        function renderItinerary(day) {
+            const dayData = AppData.itinerary.find(d => d.day == day);
+            if (!dayData) return;
+            itineraryDetails.innerHTML = `
+                <h3 class="text-xl font-bold text-[#A0522D] mb-4">${dayData.theme}</h3>
+                <div class="space-y-4">
+                    ${dayData.schedule.map(item => `
+                        <div class="flex items-start space-x-4 p-4 bg-amber-50 rounded-lg border-l-4 border-[#D2B48C]">
+                            <div class="text-2xl">${item.icon}</div>
+                            <div>
+                                <p class="font-semibold">${item.time} - ${item.title}</p>
+                                <p class="text-gray-600 text-sm">${item.details}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            itineraryDetails.classList.add('section-fade-in');
+            setTimeout(() => itineraryDetails.classList.remove('section-fade-in'), 500);
+        }
+
+        function renderDetailedItinerary() {
+            detailedItineraryContent.innerHTML = AppData.itinerary.map(dayData => `
+                <div class="p-3 sm:p-4 rounded-lg border-2 border-amber-200">
+                    <h3 class="text-lg sm:text-xl font-bold text-[#8B4513] border-b-2 border-amber-300 pb-2 mb-4">第 ${dayData.day} 天: ${dayData.theme}</h3>
+                    <div class="space-y-4">
+                        ${dayData.schedule.map(item => `
+                            <div class="flex flex-col md:flex-row md:items-start space-y-2 md:space-y-0 md:space-x-4 p-3 bg-gray-50 rounded-md">
+                                <div class="flex-shrink-0 w-full md:w-32 text-base md:text-lg font-bold text-amber-800">${item.time}</div>
+                                <div class="flex-grow">
+                                    <p class="font-semibold text-base sm:text-lg">${item.icon} ${item.title}</p>
+                                    <p class="text-sm text-gray-600 mt-1">${item.details}</p>
+                                    <div class="flex flex-wrap gap-x-3 gap-y-2 text-xs mt-2">
+                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">🚗 ${item.transport}</span>
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">💰 費用: ${item.cost > 0 ? `NT$${item.cost}` : '免費'}</span>
+                                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full">⏳ 停留: ${item.duration}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPrep() {
+            prepAccordion.innerHTML = AppData.prep.map(item => `
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="accordion-btn w-full text-left p-4 bg-amber-50 hover:bg-amber-100 flex justify-between items-center font-semibold text-[#6B4226]">
+                        <span class="text-sm sm:text-base">${item.title}</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content"><div class="p-4 bg-white text-gray-700 text-sm sm:text-base">${item.content}</div></div>
+                </div>
+            `).join('');
+        }
+
+        function renderFoodTable() {
+            foodTableContainer.innerHTML = `
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead><tr class="bg-[#A0522D] text-white"><th class="p-2 sm:p-3">餐廳</th><th class="p-2 sm:p-3">區域</th><th class="p-2 sm:p-3">招牌</th><th class="p-2 sm:p-3 text-right">預估價位</th></tr></thead>
+                    <tbody>${AppData.food.map((item, index) => `<tr class="border-b ${index % 2 === 0 ? 'bg-white' : 'bg-amber-50'}"><td class="p-2 sm:p-3 font-semibold">${item.name}</td><td class="p-2 sm:p-3">${item.area}</td><td class="p-2 sm:p-3">${item.specialty}</td><td class="p-2 sm:p-3 text-right">${item.price}</td></tr>`).join('')}</tbody>
+                </table>`;
+        }
+
+        function renderBudgetItems() {
+            budgetItemsContainer.innerHTML = AppData.budgetItems.map((item, index) => `
+                <label class="flex items-center justify-between p-3 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                    <div class="flex items-center"><input type="checkbox" data-index="${index}" class="budget-checkbox form-checkbox h-5 w-5 text-green-600 rounded"><span class="ml-3 text-gray-700 text-sm sm:text-base">${item.name} (${item.category})</span></div>
+                    <span class="font-semibold text-green-700 text-sm sm:text-base">NT$${item.cost}</span>
+                </label>`).join('');
+        }
+
+        function updateBudget() {
+            selectedBudgetItems = Array.from(document.querySelectorAll('.budget-checkbox:checked')).map(cb => AppData.budgetItems[cb.dataset.index]);
+            const total = selectedBudgetItems.reduce((sum, item) => sum + item.cost, 0);
+            totalBudgetEl.textContent = total.toLocaleString();
+            updateBudgetChart();
+        }
+
+        function createBudgetChart() {
+            if (budgetChart) {
+                budgetChart.destroy();
+            }
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            budgetChart = new Chart(ctx, {
+                type: 'bar', data: { labels: [], datasets: [{ label: '花費 (NT$)', data: [], backgroundColor: ['rgba(255, 99, 132, 0.5)','rgba(54, 162, 235, 0.5)','rgba(255, 206, 86, 0.5)','rgba(75, 192, 192, 0.5)'], borderWidth: 1 }] },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false }, title: { display: true, text: '預算分類佔比' } }, scales: { x: { beginAtZero: true } } }
+            });
+        }
+
+        function updateBudgetChart() {
+            if (!budgetChart) return;
+            const categoryTotals = selectedBudgetItems.reduce((acc, item) => { acc[item.category] = (acc[item.category] || 0) + item.cost; return acc; }, {});
+            budgetChart.data.labels = Object.keys(categoryTotals);
+            budgetChart.data.datasets[0].data = Object.values(categoryTotals);
+            budgetChart.update();
+        }
+
+        daySelector.addEventListener('click', (e) => {
+            if (e.target.matches('.day-btn')) {
+                document.querySelectorAll('.day-btn').forEach(btn => btn.classList.replace('day-btn-active', 'day-btn-inactive'));
+                e.target.classList.replace('day-btn-inactive', 'day-btn-active');
+                renderItinerary(e.target.dataset.day);
+            }
+        });
+
+        document.getElementById('prep-accordion').addEventListener('click', (e) => {
+            const button = e.target.closest('.accordion-btn');
+            if(button) {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('span:last-child');
+                const isOpening = !content.style.maxHeight || content.style.maxHeight === '0px';
+                document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = '0px');
+                document.querySelectorAll('.accordion-btn span:last-child').forEach(el => el.style.transform = 'rotate(0deg)');
+                if (isOpening) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            }
+        });
+
+        document.getElementById('budget-items').addEventListener('change', updateBudget);
+
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                navTabs.forEach(t => t.classList.replace('tab-active', 'tab-inactive'));
+                tab.classList.replace('tab-inactive', 'tab-active');
+                tabContents.forEach(content => content.classList.add('hidden'));
+                const activeContent = document.getElementById(`${target}-section`);
+                activeContent.classList.remove('hidden');
+                activeContent.classList.add('section-fade-in');
+                setTimeout(() => activeContent.classList.remove('section-fade-in'), 500);
+
+                if(target === 'budget') {
+                    if (!budgetChart) {
+                        createBudgetChart();
+                    }
+                    updateBudget();
+                }
+            });
+        });
+
+        function init() {
+            renderDaySelector();
+            renderDetailedItinerary();
+            renderPrep();
+            renderFoodTable();
+            renderBudgetItems();
+
+            const firstDayBtn = document.querySelector('.day-btn[data-day="1"]');
+            if (firstDayBtn) {
+                 firstDayBtn.classList.replace('day-btn-inactive', 'day-btn-active');
+                 renderItinerary(1);
+            }
+        }
+
+        init();
+    });
+    </script>
+</body>
+</html>
