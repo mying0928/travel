@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <!-- Crucial for responsive design: ensures the page scales correctly on all devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>璀璨曼谷：探索行程</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <style>
+        /* Ensures smooth scrolling when navigating via links */
         html {
             scroll-behavior: smooth;
         }
@@ -19,6 +21,7 @@
             font-family: 'Noto Sans TC', sans-serif; 
             background-color: #FFFBF0;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23eab308' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm-9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm-9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm-9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm-9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9z'/%3E%3Cpath d='M6 5V0h1v5h4v1H6v4H5V6H0V5h5z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            /* Add extra padding at the bottom to prevent content from being obscured by floating buttons */
             padding-bottom: 5rem; 
         }
         .timeline-item .icon {
@@ -74,7 +77,17 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.08);
         }
-        /* Mobile specific adjustments */
+
+        /* Utility to hide scrollbars for a cleaner look on the scrollable nav */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Responsive adjustments for smaller screens */
         @media (max-width: 767px) {
             .timeline-item .icon {
                 left: -32px;
@@ -91,10 +104,12 @@
 </head>
 <body class="text-slate-700">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+    <!-- Using max-w-6xl for the main container ensures content is readable on large screens -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl">
         <header class="text-center mb-8 animate-fadeIn" style="animation-delay: 0.1s;">
+            <!-- Responsive typography: font size adjusts based on screen width -->
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-amber-600 tracking-wider">璀璨曼谷：探索行程</h1>
-            <p class="mt-4 text-lg text-slate-500">一場沉浸在文化、美食與驚喜交織的奇幻旅程</p>
+            <p class="mt-4 text-base sm:text-lg text-slate-500">一場沉浸在文化、美食與驚喜交織的奇幻旅程</p>
         </header>
 
         <div class="text-center mb-10 animate-fadeIn" style="animation-delay: 0.2s;">
@@ -103,14 +118,17 @@
              </button>
         </div>
 
+        <!-- Sticky nav with backdrop-blur for a modern look -->
         <nav class="sticky top-0 z-20 bg-white/80 backdrop-blur-lg py-4 mb-12 rounded-xl shadow-md animate-fadeIn" style="animation-delay: 0.3s;">
-            <div class="flex flex-wrap justify-center gap-3 md:gap-4">
-                <button data-target="day1" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight">9/23<br><span class="text-xs font-medium">(週二)</span></button>
-                <button data-target="day2" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight">9/24<br><span class="text-xs font-medium">(週三)</span></button>
-                <button data-target="day3" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight">9/25<br><span class="text-xs font-medium">(週四)</span></button>
-                <button data-target="day4" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight">9/26<br><span class="text-xs font-medium">(週五)</span></button>
-                <button data-target="day5" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight">9/27<br><span class="text-xs font-medium">(週六)</span></button>
-                <button data-target="day6" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight">9/28<br><span class="text-xs font-medium">(週日)</span></button>
+            <!-- On mobile, this container becomes horizontally scrollable to prevent messy wrapping -->
+            <div class="flex justify-start md:justify-center gap-3 md:gap-4 px-4 overflow-x-auto hide-scrollbar">
+                <!-- whitespace-nowrap prevents button text from breaking into two lines -->
+                <button data-target="day1" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/23<br><span class="text-xs font-medium">(週二)</span></button>
+                <button data-target="day2" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/24<br><span class="text-xs font-medium">(週三)</span></button>
+                <button data-target="day3" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/25<br><span class="text-xs font-medium">(週四)</span></button>
+                <button data-target="day4" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/26<br><span class="text-xs font-medium">(週五)</span></button>
+                <button data-target="day5" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/27<br><span class="text-xs font-medium">(週六)</span></button>
+                <button data-target="day6" class="nav-btn bg-amber-100 text-amber-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/28<br><span class="text-xs font-medium">(週日)</span></button>
             </div>
         </nav>
 
@@ -118,15 +136,17 @@
             <!-- Overview Section -->
             <section id="overview" class="content-section">
                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
-                    <h2 class="text-3xl font-bold text-amber-600 mb-4 flex items-center"><i class="fas fa-chart-pie mr-3 text-amber-500"></i>旅程預算速覽</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-amber-600 mb-4 flex items-center"><i class="fas fa-chart-pie mr-3 text-amber-500"></i>旅程預算速覽</h2>
                     <p class="mb-6 text-slate-600">此圖表為您呈現每日預估的人均支出，讓您對旅程開銷一目了然。費用涵蓋交通、景點門票及餐飲，但不包含住宿、購物及9/26的一日遊。點擊圖表中的長條可快速跳至該日行程。</p>
-                    <div class="chart-container relative w-full h-96 max-h-[400px] max-w-3xl mx-auto">
+                    <!-- Chart container ensures the chart is responsive -->
+                    <div class="chart-container relative w-full h-80 sm:h-96 max-w-3xl mx-auto">
                         <canvas id="budgetChart"></canvas>
                     </div>
                 </div>
 
                 <div class="mt-8">
-                    <h2 class="text-3xl font-bold text-amber-600 mb-8 text-center flex items-center justify-center"><i class="fas fa-toolbox mr-3 text-amber-500"></i>曼谷探索領航工具包</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-amber-600 mb-8 text-center flex items-center justify-center"><i class="fas fa-toolbox mr-3 text-amber-500"></i>曼谷探索領航工具包</h2>
+                    <!-- Responsive grid: stacks on mobile, becomes 3 columns on medium screens and up -->
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
                             <h3 class="text-xl font-bold text-amber-600 mb-4 flex items-center"><i class="fas fa-traffic-light mr-3 text-amber-500"></i>城市脈動：交通攻略</h3>
@@ -162,7 +182,7 @@
         </main>
     </div>
 
-    <!-- Floating Buttons -->
+    <!-- Floating "Scroll to Top" Button -->
     <button id="scrollToTopBtn" title="回到頂部" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-amber-600 hover:scale-110">
         <i class="fas fa-arrow-up text-xl"></i>
     </button>
@@ -172,13 +192,11 @@
             const navButtons = document.querySelectorAll('.nav-btn');
             const dailySectionsContainer = document.getElementById('daily-sections-container');
             
-            // --- NEW: Function from test.astro ---
             function initializeScrollToTop() {
                 const scrollToTopBtn = document.getElementById('scrollToTopBtn');
                 if (scrollToTopBtn) {
                     window.addEventListener('scroll', () => {
                         const isVisible = window.scrollY > 300;
-                        // Toggle classes for smooth transition
                         scrollToTopBtn.classList.toggle('opacity-0', !isVisible);
                         scrollToTopBtn.classList.toggle('invisible', !isVisible);
                         scrollToTopBtn.classList.toggle('translate-y-2', !isVisible);
@@ -257,10 +275,10 @@
                         itemsHtml += `
                             <div class="timeline-item relative mb-4 card-hover">
                                 <div class="icon"><i class="fas ${item.icon}"></i></div>
-                                <div class="ml-8 bg-white rounded-lg shadow-md overflow-hidden">
+                                <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden">
                                     <div class="p-4 flex justify-between items-center">
                                         <div>
-                                            <h3 class="text-lg font-bold text-amber-700">${item.time} | ${item.title}</h3>
+                                            <h3 class="text-base sm:text-lg font-bold text-amber-700">${item.time} | ${item.title}</h3>
                                         </div>
                                     </div>
                                     <div class="details-content bg-gray-50 border-t border-gray-100">
@@ -273,8 +291,8 @@
 
                     const sectionHtml = `
                         <section id="${day}" class="content-section hidden">
-                            <h2 class="text-3xl font-bold text-center text-amber-600 mb-8">${dayData.title}</h2>
-                            <div class="relative pl-8 md:pl-12">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-center text-amber-600 mb-8">${dayData.title}</h2>
+                            <div class="relative pl-10 sm:pl-12">
                                 <div class="timeline-line"></div>
                                 ${itemsHtml}
                             </div>
@@ -318,12 +336,14 @@
                 });
             });
 
-            // --- Chart.js Initialization ---
+            // --- Chart.js Initialization with Responsive Fonts ---
             const budgetData = {
                 labels: ['9/23 (週二)', '9/24 (週三)', '9/25 (週四)', '9/27 (週六)'],
                 costs: [490, 1402, 2324, 750]
             };
             const ctx = document.getElementById('budgetChart').getContext('2d');
+            const isMobile = window.innerWidth < 768; // Check if the device is mobile
+
             new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -340,8 +360,24 @@
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    scales: { y: { beginAtZero: true, grid: { color: '#e5e7eb' } }, x: { grid: { display: false } } },
-                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y} THB` } } },
+                    scales: { 
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#e5e7eb' },
+                            ticks: { font: { size: isMobile ? 10 : 12 } } // Smaller font on mobile
+                        }, 
+                        x: { 
+                            grid: { display: false },
+                            ticks: { font: { size: isMobile ? 10 : 12 } } // Smaller font on mobile
+                        } 
+                    },
+                    plugins: { 
+                        legend: { display: false }, 
+                        tooltip: { 
+                            callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y} THB` },
+                            bodyFont: { size: 14 }
+                        } 
+                    },
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
                             const dayMap = ['day1', 'day2', 'day3', 'day5'];
@@ -351,9 +387,9 @@
                 }
             });
 
-            // Initialize all functions
+            // Initialize all core functions
             switchTab('overview');
-            initializeScrollToTop(); // Call the new function
+            initializeScrollToTop();
         });
     </script>
 </body>
