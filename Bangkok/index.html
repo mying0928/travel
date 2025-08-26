@@ -74,37 +74,6 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.08);
         }
-        #back-to-top {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 999; /* Increased z-index to ensure it's on top */
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 50%;
-            background-color: #fbbf24;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            opacity: 0;
-            visibility: hidden;
-            /* Add translateZ(0) to create a new rendering layer, fixing mobile bugs */
-            transform: translateY(10px) translateZ(0);
-        }
-        #back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) translateZ(0);
-        }
-        #back-to-top:hover {
-            background-color: #f59e0b;
-            transform: scale(1.1) translateZ(0); /* Maintain translateZ on hover */
-        }
         /* Mobile specific adjustments */
         @media (max-width: 767px) {
             .timeline-item .icon {
@@ -116,12 +85,6 @@
             }
             .timeline-line {
                 left: -18px;
-            }
-            #back-to-top {
-                bottom: 1.5rem; /* Increased spacing */
-                right: 1.5rem;  /* Increased spacing */
-                width: 3.25rem; /* Slightly larger for easier tapping */
-                height: 3.25rem;
             }
         }
     </style>
@@ -200,15 +163,31 @@
     </div>
 
     <!-- Floating Buttons -->
-    <button id="back-to-top" title="回到頂部">
-        <i class="fas fa-arrow-up"></i>
+    <button id="scrollToTopBtn" title="回到頂部" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-amber-600 hover:scale-110">
+        <i class="fas fa-arrow-up text-xl"></i>
     </button>
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const navButtons = document.querySelectorAll('.nav-btn');
             const dailySectionsContainer = document.getElementById('daily-sections-container');
-            const backToTopButton = document.getElementById('back-to-top');
+            
+            // --- NEW: Function from test.astro ---
+            function initializeScrollToTop() {
+                const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+                if (scrollToTopBtn) {
+                    window.addEventListener('scroll', () => {
+                        const isVisible = window.scrollY > 300;
+                        // Toggle classes for smooth transition
+                        scrollToTopBtn.classList.toggle('opacity-0', !isVisible);
+                        scrollToTopBtn.classList.toggle('invisible', !isVisible);
+                        scrollToTopBtn.classList.toggle('translate-y-2', !isVisible);
+                    });
+                    scrollToTopBtn.addEventListener('click', () => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            }
 
             const itineraryData = {
                 day1: {
@@ -246,7 +225,7 @@
                         { time: "09:00", title: "專車啟程・探索未知", icon: "fa-car", details: "<p class='text-sm text-slate-600'>今日我們將遠離塵囂，由專車帶領您深入曼谷近郊，探索充滿驚喜的文化與自然景觀。</p>" },
                         { time: "11:00", title: "丹能莎朵・水上風情", icon: "fa-ship", details: "<p class='text-sm text-slate-600'>搭乘傳統手搖船，穿梭在熱鬧的水上市場，感受水上人家最真實的生活樣貌，並品嚐船家販售的道地小吃。</p>" },
                         { time: "13:00", title: "百年教堂・味覺魔法", icon: "fa-church", details: "<p class='text-sm text-slate-600'>參觀莊嚴的哥德式百年天主教堂，隨後品嚐神秘果咖啡，體驗一場奇妙的味覺轉換魔法。</p>" },
-                        { time: "14:00", title: "自然奇蹟・文化巡禮", icon: "fa-tree", details: "<p class='text-sm text-slate-600'>見證被菩提樹根溫柔環抱的樹中佛寺，感受大自然的鬼斧神工，並在泰拳公園與各種招式雕像互動拍照。</p>" },
+                        { time: "14:00", title: "自然奇蹟・文化巡禮", icon: "fa-tree", details: "<p class='text-sm text-slate-600'>見證被菩提樹溫柔環抱的樹中佛寺，感受大自然的鬼斧神工，並在泰拳公園與各種招式雕像互動拍照。</p>" },
                         { time: "14:30", title: "美功鐵道・火車奇景", icon: "fa-train", details: "<p class='text-sm text-slate-600'>親眼見證火車穿過市集的驚險瞬間！攤販們在鳴笛聲中迅速收攤，火車駛過後又恢復原狀，展現出獨特的共生智慧。</p>" },
                         { time: "16:00", title: "安帕瓦・傍晚的悠閒", icon: "fa-shrimp", details: "<p class='text-sm text-slate-600'>相較於丹能莎朵，安帕瓦的氛圍更為寧靜悠閒。您可以在此品嚐美味的海鮮燒烤，並在市集中尋寶購物。</p>" },
                         { time: "18:00", title: "螢火蟲之舞", icon: "fa-star", details: "<p class='text-sm text-slate-600'>夜幕降臨，搭乘長尾船駛入靜謐的河道，欣賞成千上萬的螢火蟲在樹林間閃爍飛舞，如同聖誕樹般夢幻。</p>" },
@@ -339,24 +318,6 @@
                 });
             });
 
-            // --- Back to Top Button Logic ---
-            // This function checks the scroll position from multiple sources for better mobile compatibility.
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.scrollY || document.documentElement.scrollTop;
-                if (scrollTop > 300) {
-                    backToTopButton.classList.add('visible');
-                } else {
-                    backToTopButton.classList.remove('visible');
-                }
-            });
-
-            backToTopButton.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-
             // --- Chart.js Initialization ---
             const budgetData = {
                 labels: ['9/23 (週二)', '9/24 (週三)', '9/25 (週四)', '9/27 (週六)'],
@@ -390,7 +351,9 @@
                 }
             });
 
+            // Initialize all functions
             switchTab('overview');
+            initializeScrollToTop(); // Call the new function
         });
     </script>
 </body>
