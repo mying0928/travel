@@ -198,7 +198,7 @@
                         <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
                             <h3 class="text-xl font-bold text-amber-600 mb-4 flex items-center">
                                 <svg id="traffic-light-svg" class="animated-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 4C8 2.34315 9.34315 1 11 1H13C14.6569 1 16 2.34315 16 4V20C16 21.6569 14.6569 23 13 23H11C9.34315 23 8 21.6569 8 20V4Z" fill="#27272a"/><circle class="light red" cx="12" cy="6" r="2.5" fill="currentColor"/><circle class="light yellow" cx="12" cy="12" r="2.5" fill="currentColor"/><circle class="light green" cx="12" cy="18" r="2.5" fill="currentColor"/></svg>
-                                城市脈動：交通攻略
+                                <span>城市脈動：交通攻略</span>
                             </h3>
                             <ul class="space-y-3 text-sm">
                                 <li class="flex items-start"><i class="fas fa-plane-departure mt-1 mr-3 text-sky-500"></i><strong>機場快線 (ARL):</strong> 從機場到市中心最快的方式。</li>
@@ -210,7 +210,7 @@
                         <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
                              <h3 class="text-xl font-bold text-amber-600 mb-4 flex items-center">
                                 <svg id="ticket-svg" class="animated-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 16C9.55228 16 10 15.5523 10 15C10 14.4477 9.55228 14 9 14C8.44772 14 8 14.4477 8 15C8 15.5523 8.44772 16 9 16Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2 9C2 7.34315 3.34315 6 5 6H19C20.6569 6 22 7.34315 22 9V11C20.8954 11 20 11.8954 20 13C20 14.1046 20.8954 15 22 15V17C22 18.6569 20.6569 20 19 20H5C3.34315 20 2 18.6569 2 17V15C3.10457 15 4 14.1046 4 13C4 11.8954 3.10457 11 2 11V9ZM12 11V15H18V11H12Z" fill="currentColor"/></svg>
-                                智慧旅人：票券指南
+                                <span>智慧旅人：票券指南</span>
                             </h3>
                              <ul class="space-y-3 text-sm">
                                 <li class="flex items-start"><i class="fas fa-ticket mt-1 mr-3 text-gray-500"></i><strong>單程票:</strong> 適合單日搭乘次數少於3次。</li>
@@ -221,7 +221,7 @@
                         <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
                             <h3 class="text-xl font-bold text-amber-600 mb-4 flex items-center">
                                <svg id="temple-svg" class="animated-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 8.5V11H4V22H10V16C10 14.8954 10.8954 14 12 14C13.1046 14 14 14.8954 14 16V22H20V11H22V8.5L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path class="glow" d="M12 4L4 9.5V11H20V9.5L12 4Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                入境隨俗：寺廟禮儀
+                                <span>入境隨俗：寺廟禮儀</span>
                             </h3>
                              <ul class="space-y-3 text-sm">
                                 <li class="flex items-start"><i class="fas fa-tshirt mt-1 mr-3 text-indigo-500"></i><strong>服裝:</strong> 遮蓋肩膀、胸口及膝蓋。</li>
@@ -445,7 +445,7 @@
                 text.split('').forEach(char => {
                     const span = document.createElement('span');
                     span.className = 'char';
-                    span.innerText = char === ' ' ? '\u00A0' : char; // Handle spaces
+                    span.innerText = char === ' ' ? ' ' : char; // Handle spaces
                     heroTitle.appendChild(span);
                 });
 
@@ -840,13 +840,14 @@
                         const centerX = rect.width / 2;
                         const centerY = rect.height / 2;
 
-                        const rotateX = ((y - centerY) / centerY) * -8;
-                        const rotateY = ((x - centerX) / centerX) * 8;
+                        const rotateX = ((y - centerY) / centerY) * -12;
+                        const rotateY = ((x - centerX) / centerX) * 12;
 
                         gsap.to(svg, {
                             duration: 0.4,
                             rotationX: rotateX,
                             rotationY: rotateY,
+                            scale: 1.2,
                             transformPerspective: 600,
                             ease: 'power1.out'
                         });
@@ -854,9 +855,10 @@
 
                     card.addEventListener('mouseleave', () => {
                         gsap.to(svg, {
-                            duration: 0.6,
+                            duration: 0.8,
                             rotationX: 0,
                             rotationY: 0,
+                            scale: 1,
                             ease: 'elastic.out(1, 0.75)'
                         });
                     });
