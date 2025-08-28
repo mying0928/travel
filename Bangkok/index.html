@@ -165,13 +165,12 @@
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
                         <h2 class="text-2xl font-bold text-amber-600 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-amber-500"></i>曼谷天氣速覽</h2>
-                        <div class="flex items-center justify-around">
-                            <i class="fas fa-sun text-6xl text-yellow-400"></i>
+                        <div id="weather-info" class="flex items-center justify-around">
+                            <i id="weather-icon" class="fas fa-spinner fa-spin text-6xl text-yellow-400"></i>
                             <div>
-                                <div class="text-4xl font-bold text-slate-700">32°C</div>
-                                <div class="text-slate-500">晴朗</div>
+                                <div id="weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                                <div id="weather-desc" class="text-slate-500">讀取中...</div>
                             </div>
-                            <div class="text-sm text-slate-400">*此為示意圖</div>
                         </div>
                     </div>
                 </div>
@@ -359,13 +358,84 @@
             setupAnimations();
             setupInteractiveForeground();
             setupCountdown();
+            setupWeather();
             setupMap();
             generateDailySections();
             setupTabSwitching();
             setupScrollToTop();
             setupChart();
+            setupToolkitCardHover();
 
             // --- SETUP FUNCTIONS ---
+
+            function setupWeather() {
+                const weatherIconMap = {
+                    "Sunny": "fa-sun", "Partly cloudy": "fa-cloud-sun", "Cloudy": "fa-cloud",
+                    "Overcast": "fa-smog", "Mist": "fa-smog", "Patchy rain possible": "fa-cloud-showers-heavy",
+                    "Patchy snow possible": "fa-snowflake", "Patchy sleet possible": "fa-cloud-meatball",
+                    "Patchy freezing drizzle possible": "fa-icicles", "Thundery outbreaks possible": "fa-bolt",
+                    "Blowing snow": "fa-wind", "Blizzard": "fa-snowflake", "Fog": "fa-smog",
+                    "Freezing fog": "fa-smog", "Patchy light drizzle": "fa-cloud-rain", "Light drizzle": "fa-cloud-rain",
+                    "Freezing drizzle": "fa-icicles", "Heavy freezing drizzle": "fa-icicles", "Patchy light rain": "fa-cloud-rain",
+                    "Light rain": "fa-cloud-rain", "Moderate rain at times": "fa-cloud-showers-heavy", "Moderate rain": "fa-cloud-showers-heavy",
+                    "Heavy rain at times": "fa-cloud-showers-heavy", "Heavy rain": "fa-cloud-showers-heavy", "Light freezing rain": "fa-icicles",
+                    "Moderate or heavy freezing rain": "fa-icicles", "Light sleet": "fa-cloud-meatball", "Moderate or heavy sleet": "fa-cloud-meatball",
+                    "Patchy light snow": "fa-snowflake", "Light snow": "fa-snowflake", "Patchy moderate snow": "fa-snowflake",
+                    "Moderate snow": "fa-snowflake", "Patchy heavy snow": "fa-snowflake", "Heavy snow": "fa-snowflake",
+                    "Ice pellets": "fa-icicles", "Light rain shower": "fa-cloud-rain", "Moderate or heavy rain shower": "fa-cloud-showers-heavy",
+                    "Torrential rain shower": "fa-cloud-showers-heavy", "Light sleet showers": "fa-cloud-meatball",
+                    "Moderate or heavy sleet showers": "fa-cloud-meatball", "Light snow showers": "fa-snowflake",
+                    "Moderate or heavy snow showers": "fa-snowflake", "Light showers of ice pellets": "fa-icicles",
+                    "Moderate or heavy showers of ice pellets": "fa-icicles", "Patchy light rain with thunder": "fa-bolt",
+                    "Moderate or heavy rain with thunder": "fa-bolt", "Patchy light snow with thunder": "fa-bolt",
+                    "Moderate or heavy snow with thunder": "fa-bolt", "Clear": "fa-moon"
+                };
+                const weatherDescTranslations = {
+                    "Sunny": "晴朗", "Partly cloudy": "多雲時晴", "Cloudy": "多雲", "Overcast": "陰天", "Mist": "有霧",
+                    "Patchy rain possible": "可能有零星降雨", "Patchy snow possible": "可能有零星降雪", "Patchy sleet possible": "可能有零星雨夾雪",
+                    "Patchy freezing drizzle possible": "可能有零星凍毛毛雨", "Thundery outbreaks possible": "可能有雷暴", "Blowing snow": "吹雪",
+                    "Blizzard": "暴風雪", "Fog": "有霧", "Freezing fog": "凍霧", "Patchy light drizzle": "有零星小雨",
+                    "Light drizzle": "小雨", "Freezing drizzle": "凍毛毛雨", "Heavy freezing drizzle": "大凍毛毛雨",
+                    "Patchy light rain": "有零星小雨", "Light rain": "小雨", "Moderate rain at times": "偶有中雨",
+                    "Moderate rain": "中雨", "Heavy rain at times": "偶有大雨", "Heavy rain": "大雨",
+                    "Light freezing rain": "小凍雨", "Moderate or heavy freezing rain": "中或大凍雨", "Light sleet": "小雨夾雪",
+                    "Moderate or heavy sleet": "中或大雨夾雪", "Patchy light snow": "有零星小雪", "Light snow": "小雪",
+                    "Patchy moderate snow": "有零星中雪", "Moderate snow": "中雪", "Patchy heavy snow": "有零星大雪",
+                    "Heavy snow": "大雪", "Ice pellets": "冰粒", "Light rain shower": "陣雨", "Moderate or heavy rain shower": "中或大陣雨",
+                    "Torrential rain shower": "暴雨", "Light sleet showers": "雨夾雪陣雨", "Moderate or heavy sleet showers": "中或大雨夾雪陣雨",
+                    "Light snow showers": "陣雪", "Moderate or heavy snow showers": "中或大陣雪", "Light showers of ice pellets": "冰粒陣雨",
+                    "Moderate or heavy showers of ice pellets": "中或大冰粒陣雨", "Patchy light rain with thunder": "零星雷陣雨",
+                    "Moderate or heavy rain with thunder": "中或大雷陣雨", "Patchy light snow with thunder": "零星雷陣雪",
+                    "Moderate or heavy snow with thunder": "中或大雷陣雪", "Clear": "晴朗"
+                };
+
+                fetch('https://wttr.in/Bangkok?format=j1')
+                    .then(response => response.json())
+                    .then(data => {
+                        const condition = data.current_condition[0];
+                        const temp = condition.temp_C;
+                        const weatherDesc = condition.weatherDesc[0].value;
+                        const iconClass = weatherIconMap[weatherDesc] || 'fa-question-circle';
+                        const translatedDesc = weatherDescTranslations[weatherDesc] || weatherDesc;
+
+                        const weatherIconEl = document.getElementById('weather-icon');
+                        const weatherTempEl = document.getElementById('weather-temp');
+                        const weatherDescEl = document.getElementById('weather-desc');
+
+                        if (weatherIconEl && weatherTempEl && weatherDescEl) {
+                            weatherIconEl.className = `fas ${iconClass} text-6xl text-yellow-400`;
+                            weatherTempEl.textContent = `${temp}°C`;
+                            weatherDescEl.textContent = translatedDesc;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching weather:', error);
+                        const weatherInfoEl = document.getElementById('weather-info');
+                        if (weatherInfoEl) {
+                            weatherInfoEl.innerHTML = '<div class="text-sm text-slate-500">無法載入天氣資訊</div>';
+                        }
+                    });
+            }
 
             function setupAnimations() {
                 // Hero title animation
@@ -513,7 +583,7 @@
                         <section id="${dayId}" class="content-section" style="display: none;">
                             <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${dayData.themeImage}')">
                                 <h2 class="text-3xl sm:text-4xl font-black mb-4" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${dayData.title}</h2>
-                                <button class="view-timeline-btn mt-4 bg-amber-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-amber-600 transition-transform hover:scale-105">查看詳細行程</button>
+                                <button class="view-timeline-btn mt-4 bg-amber-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-amber-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
                             </div>
                             <div class="timeline-container hidden relative pl-10 sm:pl-12">
                                 <div class="timeline-line"></div>
@@ -550,15 +620,24 @@
                             }, 10);
 
                         } else {
-                            // Action: HIDE
-                            // Animate scrolling back to the top of the section card
+                            // Action: HIDE (with smooth animation)
+                            // First, scroll up to the top of the card for context
                             gsap.to(window, {
                                 duration: 0.5,
                                 ease: 'power3.inOut',
                                 scrollTo: { y: section.querySelector('.daily-theme-card'), offsetY: 100 },
                                 onComplete: () => {
-                                    timeline.classList.add('hidden');
-                                    button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                    // After scrolling, fade out the timeline and then hide it
+                                    gsap.to(timeline, {
+                                        duration: 0.4,
+                                        opacity: 0,
+                                        ease: 'power2.in',
+                                        onComplete: () => {
+                                            timeline.classList.add('hidden');
+                                            timeline.style.opacity = 1; // Reset opacity for the next time it's shown
+                                            button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -744,6 +823,43 @@
                 document.body.classList.add('loaded');
                 switchTab('overview');
             });
+
+            function setupToolkitCardHover() {
+                const toolCards = document.querySelectorAll('.tool-card');
+
+                toolCards.forEach(card => {
+                    const svg = card.querySelector('.animated-svg');
+
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+
+                        const rotateX = ((y - centerY) / centerY) * -8;
+                        const rotateY = ((x - centerX) / centerX) * 8;
+
+                        gsap.to(svg, {
+                            duration: 0.4,
+                            rotationX: rotateX,
+                            rotationY: rotateY,
+                            transformPerspective: 600,
+                            ease: 'power1.out'
+                        });
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        gsap.to(svg, {
+                            duration: 0.6,
+                            rotationX: 0,
+                            rotationY: 0,
+                            ease: 'elastic.out(1, 0.75)'
+                        });
+                    });
+                });
+            }
         });
     </script>
 </body>
