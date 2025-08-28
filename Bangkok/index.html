@@ -660,7 +660,7 @@
                 });
             }
 
-            function switchTab(targetId) {
+            function switchTab(targetId, shouldScroll = true) {
                 // 顯示/隱藏對應的區塊
                 document.querySelectorAll('.content-section').forEach(section => {
                     section.style.display = section.id === targetId ? 'block' : 'none';
@@ -715,14 +715,16 @@
                         ScrollTrigger.refresh();
 
                         // 現在，使用更新後的位置數據來滾動到目標區塊
-                        gsap.to(window, {
-                            duration: 0.8,
-                            ease: 'power2.inOut',
-                            scrollTo: {
-                                y: activeSection,
-                                offsetY: document.querySelector('nav').offsetHeight + 16 // 1rem padding
-                            }
-                        });
+                        if (shouldScroll) {
+                            gsap.to(window, {
+                                duration: 0.8,
+                                ease: 'power2.inOut',
+                                scrollTo: {
+                                    y: activeSection,
+                                    offsetY: document.querySelector('nav').offsetHeight + 16 // 1rem padding
+                                }
+                            });
+                        }
                     }
                 }, 0);
             }
@@ -821,7 +823,7 @@
                     preloader.classList.add('hidden');
                 }
                 document.body.classList.add('loaded');
-                switchTab('overview');
+                switchTab('overview', false);
             });
 
             function setupToolkitCardHover() {
