@@ -102,7 +102,7 @@
         }
         .daily-theme-card:hover { transform: scale(1.03); }
 
-        /* 【FIX】工具包光影效果 */
+        /* 工具包光影效果 */
         .tool-card {
             position: relative;
             overflow: hidden;
@@ -275,6 +275,7 @@
             // --- DOM Elements ---
             const navButtons = document.querySelectorAll('.nav-btn');
             const dailySectionsContainer = document.getElementById('daily-sections-container');
+            let currentActiveSectionId = null; // 【FIX】追蹤目前顯示的區塊，初始為 null
 
             // --- DATA ---
             const itineraryData = {
@@ -603,7 +604,7 @@
                     }
 
                     allSectionsHtml += `
-                        <section id="${dayId}" class="content-section" style="display: none;">
+                        <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
                             <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${dayData.themeImage}')">
                                 <h2 class="text-3xl sm:text-4xl font-black mb-4" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${dayData.title}</h2>
                                 <button class="view-timeline-btn mt-4 bg-amber-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-amber-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
@@ -683,73 +684,89 @@
                 });
             }
 
+            // 【FIX】重寫 switchTab 函數以實現淡入淡出效果
             function switchTab(targetId, shouldScroll = true) {
-                // 顯示/隱藏對應的區塊
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.style.display = section.id === targetId ? 'block' : 'none';
+                if (targetId === currentActiveSectionId) return; // 如果點擊的是當前區塊，則不執行任何操作
+
+                const oldSection = currentActiveSectionId ? document.getElementById(currentActiveSectionId) : null;
+                const newSection = document.getElementById(targetId);
+
+                if (!newSection) return; // 安全檢查
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        // 動畫完成後更新狀態
+                        currentActiveSectionId = targetId;
+                        ScrollTrigger.refresh(); // 重新計算滾動觸發位置
+                    }
                 });
 
-                // 更新按鈕樣式
-                navButtons.forEach(btn => {
-                    const isTarget = btn.dataset.target === targetId;
-                    btn.classList.toggle('bg-amber-500', isTarget);
-                    btn.classList.toggle('text-white', isTarget);
-                    btn.classList.toggle('bg-amber-100', !isTarget);
-                    btn.classList.toggle('text-amber-800', !isTarget);
+                // 1. 舊區塊淡出
+                if (oldSection) {
+                    tl.to(oldSection, {
+                        duration: 0.3,
+                        opacity: 0,
+                        ease: 'power2.in',
+                        onComplete: () => {
+                            oldSection.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // 2. 更新按鈕樣式
+                tl.add(() => {
+                    navButtons.forEach(btn => {
+                        const isTarget = btn.dataset.target === targetId;
+                        btn.classList.toggle('bg-amber-500', isTarget);
+                        btn.classList.toggle('text-white', isTarget);
+                        btn.classList.toggle('bg-amber-100', !isTarget);
+                        btn.classList.toggle('text-amber-800', !isTarget);
+                    });
                 });
+                
+                // 3. 準備並淡入新區塊
+                tl.set(newSection, { display: 'block', opacity: 0 })
+                  .to(newSection, {
+                    duration: 0.4,
+                    opacity: 1,
+                    ease: 'power2.out',
+                    onStart: () => {
+                        // 在新區塊開始顯示時更新地圖並觸發其內部動畫
+                        updateMapForDay(targetId);
+                        
+                        gsap.from(newSection.querySelectorAll('.daily-theme-card, #map, #budgetChart, .grid > .card-hover'), { 
+                            opacity: 0, 
+                            y: 50, 
+                            duration: 0.8, 
+                            ease: 'power3.out', 
+                            stagger: 0.1 
+                        });
 
-                // 更新地圖標記
-                updateMapForDay(targetId);
-
-                // 使用 setTimeout 確保 DOM 更新後再執行動畫
-                setTimeout(() => {
-                    const activeSection = document.getElementById(targetId);
-                    if (activeSection) {
-                        // 為新顯示的區塊建立入場動畫
-                        gsap.from(activeSection.querySelector('.daily-theme-card, #map, #budgetChart'), { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out' });
-
-                        // 為時間軸建立滾動觸發動畫
-                        const timelineContainer = activeSection.querySelector('.timeline-container');
-                        if (timelineContainer) {
+                        const timelineContainer = newSection.querySelector('.timeline-container');
+                        if (timelineContainer && !timelineContainer.classList.contains('hidden')) {
                             gsap.from(timelineContainer.querySelectorAll('.timeline-item'), {
-                                scrollTrigger: {
-                                    trigger: timelineContainer,
-                                    start: "top 80%",
-                                },
-                                opacity: 0,
-                                x: -50,
-                                stagger: 0.2,
-                                duration: 0.8,
-                                ease: "power3.out"
+                                scrollTrigger: { trigger: timelineContainer, start: "top 80%" },
+                                opacity: 0, x: -50, stagger: 0.2, duration: 0.8, ease: "power3.out"
                             });
                              gsap.to(timelineContainer.querySelector('.timeline-line-progress'), {
-                                scrollTrigger: {
-                                    trigger: timelineContainer,
-                                    start: "top center",
-                                    end: "bottom bottom",
-                                    scrub: true
-                                },
+                                scrollTrigger: { trigger: timelineContainer, start: "top center", end: "bottom bottom", scrub: true },
                                 height: "100%"
                             });
                         }
-
-                        // ******** THE FIX ********
-                        // 在滾動前，強制 ScrollTrigger 重新計算所有元素的位置
-                        ScrollTrigger.refresh();
-
-                        // 現在，使用更新後的位置數據來滾動到目標區塊
-                        if (shouldScroll) {
-                            gsap.to(window, {
-                                duration: 0.8,
-                                ease: 'power2.inOut',
-                                scrollTo: {
-                                    y: activeSection,
-                                    offsetY: document.querySelector('nav').offsetHeight + 16 // 1rem padding
-                                }
-                            });
-                        }
                     }
-                }, 0);
+                });
+                
+                // 4. 滾動到新區塊
+                if (shouldScroll) {
+                    tl.to(window, {
+                        duration: 0.8,
+                        ease: 'power2.inOut',
+                        scrollTo: {
+                            y: newSection,
+                            offsetY: document.querySelector('nav').offsetHeight + 32
+                        }
+                    }, "-=0.2"); // 讓滾動與淡入稍微重疊
+                }
             }
 
             function updateMapForDay(dayId) {
@@ -855,7 +872,7 @@
                 switchTab('overview', false);
             });
 
-            // 【FIX】修改工具包懸停效果，增加光影
+            // 工具包懸停效果
             function setupToolkitCardHover() {
                 const toolCards = document.querySelectorAll('.tool-card');
 
@@ -874,14 +891,14 @@
                         const centerX = rect.width / 2;
                         const centerY = rect.height / 2;
 
-                        const rotateX = ((y - centerY) / centerY) * -8; // 稍微減小旋轉幅度
+                        const rotateX = ((y - centerY) / centerY) * -8;
                         const rotateY = ((x - centerX) / centerX) * 8;
 
                         gsap.to(svg, {
                             duration: 0.4,
                             rotationX: rotateX,
                             rotationY: rotateY,
-                            scale: 1.15, // 稍微減小縮放
+                            scale: 1.15,
                             transformPerspective: 600,
                             ease: 'power1.out'
                         });
