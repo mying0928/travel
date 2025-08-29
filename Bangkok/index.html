@@ -102,6 +102,29 @@
         }
         .daily-theme-card:hover { transform: scale(1.03); }
 
+        /* 【FIX】工具包光影效果 */
+        .tool-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            /* JS 會更新 --x 和 --y 的值 */
+            top: var(--y, 0);
+            left: var(--x, 0);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(251, 191, 36, 0.25) 0%, transparent 50%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none; /* 確保偽元素不影響滑鼠事件 */
+        }
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
         /* Map styles */
         #map { height: 450px; border-radius: 1rem; z-index: 1; }
         .leaflet-popup-content-wrapper { border-radius: 0.5rem; }
@@ -764,7 +787,13 @@
                         // Add a temporary highlight class
                         if (marker._icon) {
                             marker._icon.classList.add('highlighted-marker');
-                            setTimeout(() => marker._icon.classList.remove('highlighted-marker'), 800);
+                            setTimeout(() => {
+                                // 【FIX】在執行 classList.remove 之前，再次檢查 marker._icon 是否存在。
+                                // 這是為了防止在計時器觸發前，地圖標記已經被移除而導致的錯誤。
+                                if (marker._icon) {
+                                    marker._icon.classList.remove('highlighted-marker');
+                                }
+                            }, 800);
                         }
                     } else {
                         marker.closePopup();
@@ -826,28 +855,33 @@
                 switchTab('overview', false);
             });
 
+            // 【FIX】修改工具包懸停效果，增加光影
             function setupToolkitCardHover() {
                 const toolCards = document.querySelectorAll('.tool-card');
 
                 toolCards.forEach(card => {
                     const svg = card.querySelector('.animated-svg');
-
+                    
                     card.addEventListener('mousemove', (e) => {
                         const rect = card.getBoundingClientRect();
                         const x = e.clientX - rect.left;
                         const y = e.clientY - rect.top;
 
+                        // 更新光影 CSS 變數
+                        card.style.setProperty('--x', `${x}px`);
+                        card.style.setProperty('--y', `${y}px`);
+
                         const centerX = rect.width / 2;
                         const centerY = rect.height / 2;
 
-                        const rotateX = ((y - centerY) / centerY) * -12;
-                        const rotateY = ((x - centerX) / centerX) * 12;
+                        const rotateX = ((y - centerY) / centerY) * -8; // 稍微減小旋轉幅度
+                        const rotateY = ((x - centerX) / centerX) * 8;
 
                         gsap.to(svg, {
                             duration: 0.4,
                             rotationX: rotateX,
                             rotationY: rotateY,
-                            scale: 1.2,
+                            scale: 1.15, // 稍微減小縮放
                             transformPerspective: 600,
                             ease: 'power1.out'
                         });
