@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>璀璨曼谷：探索行程 (專業美化版)</title>
+    <title>璀璨曼谷：探索行程</title>
 
     <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,7 +29,9 @@
         /* [REMOVED] html { scroll-behavior: smooth; } */
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #FFFBF0;
+            /* [CHANGED] Updated background to a subtle texture */
+            background-color: #FFFBF0; /* Fallback color */
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/light-yellow-wall.png');
             opacity: 0;
             transition: opacity 0.5s ease-in;
         }
@@ -373,7 +375,7 @@
                 },
                 day6: {
                     title: "第六日：滿載而歸・期待下次相遇",
-                    themeImage: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1480,h_848/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/oygrp0evkx8r7nveaqqd/%E6%9B%BC%E8%B0%B7%E6%9B%99%E7%BE%85%E5%8F%A4%E5%9F%8E76%E5%BA%9C%EF%BC%88%E4%B8%89%E9%A0%AD%E8%B1%A1%E7%A5%9E%E5%8D%9A%E7%89%A9%E9%A4%A8%E9%96%80%E7%A5%A8-Klook%E5%AE%A2%E8%B7%AF.jpg",
+                    themeImage: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1480,h_848/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/oygrp0evkx8r7nveaqqd/%E6%9B%BC%E8%B0%B7%E6%9B%99%E7%BE%85%E5%8F%A4%E5%9F%8E76%E5%BA%9C%EF%BC%88%E4%B8%89%E9%A0%AD%E8%B1%A1%E7%A5%E5%E0%B3%E7%89%A9%E9%A4%A8%E9%96%80%E7%A5%A8-Klook%E5%AE%A2%E8%B7%AF.jpg",
                     locations: {},
                     items: [
                         { time: "04:15 - 05:00", title: "晨光中的告別", icon: "fa-plane-departure", details: "<p class='text-sm text-slate-600 mb-2'>您的航班時間為 08:05，為確保有充裕的時間辦理登機手續，我們將為您安排最穩妥的交通。</p><ul class='list-disc list-inside mt-2 text-sm text-slate-600 space-y-1'><li><strong>交通方式：</strong> **搭乘計程車或預約 Grab 是唯一且最佳的選擇**。</li><li><strong>預估車程：</strong> 清晨交通順暢，約需 30-40 分鐘。</li><li><strong>預估費用：</strong> 約 400-500 THB (含過路費及機場服務費)。</li></ul><p class='text-sm text-slate-600 mt-3'>帶著滿滿的回憶，期待與曼谷的下一次相遇。祝您旅途愉快，平安回家！</p>" }
@@ -485,7 +487,7 @@
                 text.split('').forEach(char => {
                     const span = document.createElement('span');
                     span.className = 'char';
-                    span.innerText = char === ' ' ? ' ' : char; // Handle spaces
+                    span.innerText = char === ' ' ? '\u00A0' : char; // Handle spaces
                     heroTitle.appendChild(span);
                 });
 
@@ -607,7 +609,7 @@
                     let timelineHtml = '';
                     if (dayData.items) {
                         timelineHtml = dayData.items.map((item, index) => `
-                            <div class="timeline-item" data-location="${item.title.split('・')[0].trim()}">
+                            <div class="timeline-item relative mb-8" data-location="${item.title.split('・')[0].trim()}">
                                 <div class="icon"><i class="fas ${item.icon}"></i></div>
                                 <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
                                     <div class="p-4">
