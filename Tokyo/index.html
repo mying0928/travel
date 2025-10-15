@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>櫻之東京：探索行程</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-sakura: #f8cdda;
+            --brand-dark-sakura: #d1a3b3;
+            --brand-light-sakura: #fff0f5;
+            --brand-indigo: #4a5568;
+        }
+        body {
+            font-family: 'Noto Sans JP', 'Noto Sans TC', sans-serif;
+            background-color: #f9fafb;
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/seigaiha.png');
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        body.loaded { opacity: 1; }
+
+        /* Pre-loader */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #fff; display: flex; justify-content: center;
+            align-items: center; z-index: 10000;
+            transition: opacity 0.75s ease, visibility 0.75s ease;
+        }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .sakura-loader {
+            font-size: 5rem;
+            color: var(--brand-sakura);
+            animation: sakura-spin 2s linear infinite;
+        }
+        @keyframes sakura-spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Hero Header & Interactive Foreground */
+        .hero-header { height: 100vh; min-height: 600px; max-height: 800px; }
+        #hero-title .char { display: inline-block; will-change: transform, opacity; }
+        #interactive-foreground { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+
+        /* Card hover effects */
+        .card-hover { transition: transform 0.4s ease, box-shadow 0.4s ease; will-change: transform; }
+        .card-hover:hover {
+            transform: translateY(-8px) perspective(1000px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 20px 40px -10px rgba(248, 205, 218, 0.5);
+        }
+
+        /* Timeline styles */
+        .timeline-item .icon {
+            position: absolute; left: -38px; top: 5px; width: 36px; height: 36px;
+            border-radius: 50%; background-color: var(--brand-sakura); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            border: 3px solid var(--brand-light-sakura); font-size: 1.1rem; z-index: 10;
+            transition: transform 0.3s ease;
+        }
+        .timeline-item:hover .icon { transform: scale(1.2); }
+        .timeline-line {
+            position: absolute; left: -21px; top: 20px; bottom: -20px; width: 4px;
+            background-color: #f3f4f6; border-radius: 2px;
+        }
+        .timeline-line-progress {
+            position: absolute; left: -21px; top: 20px; width: 4px;
+            background-color: var(--brand-sakura); border-radius: 2px;
+            height: 0;
+        }
+
+        /* Daily Theme Card */
+        .daily-theme-card {
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+        .daily-theme-card:hover { transform: scale(1.03); }
+
+        /* Toolkit glow effect */
+        .tool-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: var(--y, 0);
+            left: var(--x, 0);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(248, 205, 218, 0.35) 0%, transparent 50%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+        .tool-card h3 {
+            color: var(--brand-indigo);
+        }
+
+        /* Map styles */
+        #map { height: 450px; border-radius: 1rem; z-index: 1; }
+        .leaflet-popup-content-wrapper { border-radius: 0.5rem; }
+        .leaflet-popup-content { font-family: 'Noto Sans JP', sans-serif; }
+        .leaflet-marker-icon.highlighted-marker {
+            animation: marker-bounce 0.8s ease-in-out;
+        }
+        @keyframes marker-bounce { 0%,100%{transform:translateY(0) scale(1.2)} 50%{transform:translateY(-15px) scale(1.2)} }
+
+        /* Drag & Drop styles */
+        .nav-btn {
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+        }
+        .nav-btn.dragging {
+            opacity: 0.6;
+            cursor: grabbing;
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+        .nav-btn.drag-over {
+            transform: scale(1.1);
+            background-color: var(--brand-dark-sakura) !important;
+            color: white !important;
+            box-shadow: 0 0 20px var(--brand-dark-sakura);
+        }
+
+        /* Dropdown style for details */
+        details > summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary:before {
+            content: '▼';
+            font-size: 0.7em;
+            margin-right: 8px;
+        }
+        details[open] > summary:before {
+            content: '▲';
+        }
+
+        /* Utility */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="preloader">
+        <div class="sakura-loader">🌸</div>
+    </div>
+
+    <header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden">
+        <canvas id="interactive-foreground"></canvas>
+        <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+             style="background-image: url('https://static.gltjp.com/glt/data/article/12000/11396/20240301_153511_932c8d42_w1920.webp'); z-index: 0;">
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-index: 1;"></div>
+        <div class="relative text-center z-10 p-4">
+            <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 12px rgba(0,0,0,0.7);">櫻之東京：探索行程</h1>
+            <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl text-shadow" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.7);">一場沉浸在傳統與現代交織的探索之旅</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl -mt-24 z-20 relative">
+        <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg">
+            <div id="nav-container" class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
+                <button data-target="overview" class="nav-btn bg-pink-400 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
+                <button data-target="day1" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">3/27<br><span class="text-xs font-medium">(週五)</span></button>
+                <button data-target="day2" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">3/28<br><span class="text-xs font-medium">(週六)</span></button>
+                <button data-target="day3" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">3/29<br><span class="text-xs font-medium">(週日)</span></button>
+                <button data-target="day4" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">3/30<br><span class="text-xs font-medium">(週一)</span></button>
+                <button data-target="day5" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">3/31<br><span class="text-xs font-medium">(週二)</span></button>
+                <button data-target="day6" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/1<br><span class="text-xs font-medium">(週三)</span></button>
+                <button data-target="day7" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/2<br><span class="text-xs font-medium">(週四)</span></button>
+                <button data-target="day8" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/3<br><span class="text-xs font-medium">(週五)</span></button>
+                <button data-target="day9" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/4<br><span class="text-xs font-medium">(週六)</span></button>
+            </div>
+        </nav>
+
+        <main>
+            <section id="overview" class="content-section">
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h2 class="text-2xl font-bold text-pink-600 mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-pink-500"></i>出發倒數計時</h2>
+                        <div id="countdown" class="text-center grid grid-cols-4 gap-2">
+                            <div><div class="text-4xl font-bold text-slate-700" id="days">00</div><div class="text-xs text-slate-500">天</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="hours">00</div><div class="text-xs text-slate-500">小時</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="minutes">00</div><div class="text-xs text-slate-500">分鐘</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="seconds">00</div><div class="text-xs text-slate-500">秒</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h2 class="text-2xl font-bold text-pink-600 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-pink-500"></i>東京天氣速覽</h2>
+                        <div id="weather-info" class="flex items-center justify-around">
+                            <i id="weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
+                            <div>
+                                <div id="weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                                <div id="weather-desc" class="text-slate-500">讀取中...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-4 flex items-center"><i class="fas fa-map-marked-alt mr-3 text-pink-500"></i>互動行程地圖</h2>
+                    <p class="mb-6 text-slate-600">將滑鼠懸停在每日行程的時間軸上，即可在地圖上高亮顯示對應景點！</p>
+                    <div id="map"></div>
+                </div>
+
+                <div class="mt-8">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-8 text-center flex items-center justify-center"><i class="fas fa-toolbox mr-3 text-pink-500"></i>東京探索領航工具包</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                            <h3 class="text-xl font-bold mb-4 flex items-center">
+                                <i class="fas fa-train-subway mr-3 text-green-500 text-2xl"></i>
+                                <span>交通網絡攻略</span>
+                            </h3>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start"><i class="fas fa-ticket-alt mt-1 mr-3 text-sky-500"></i><strong>N'EX / Skyliner:</strong> 從成田機場快速進入市區。</li>
+                                <li class="flex items-start"><i class="fas fa-train mt-1 mr-3 text-orange-500"></i><strong>JR 山手線:</strong> 環繞東京市中心，連接主要樞紐。</li>
+                                <li class="flex items-start"><i class="fas fa-subway mt-1 mr-3 text-blue-500"></i><strong>東京 Metro:</strong> 路線密集，深入城市各個角落。</li>
+                            </ul>
+                        </div>
+                        <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                            <h3 class="text-xl font-bold mb-4 flex items-center">
+                               <i class="fas fa-credit-card mr-3 text-indigo-500 text-2xl"></i>
+                                <span>必備IC卡</span>
+                            </h3>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-3 text-green-500"></i><strong>Suica / Pasmo:</strong> 交通、便利商店、販賣機皆可用。</li>
+                                <li class="flex items-start"><i class="fas fa-mobile-alt mt-1 mr-3 text-gray-700"></i><strong>手機綁定:</strong> 可將卡片加入 Apple Pay 或 Google Pay。</li>
+                                <li class="flex items-start"><i class="fas fa-info-circle mt-1 mr-3 text-yellow-500"></i><strong>遊客版卡:</strong> Welcome Suica 等，短期免押金。</li>
+                            </ul>
+                        </div>
+                        <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                            <h3 class="text-xl font-bold mb-4 flex items-center">
+                                <i class="fas fa-torii-gate mr-3 text-red-600 text-2xl"></i>
+                                <span>神社參拜禮儀</span>
+                            </h3>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start"><i class="fas fa-archway mt-1 mr-3 text-gray-500"></i><strong>鳥居:</strong> 進入前先輕輕一鞠躬。</li>
+                                <li class="flex items-start"><i class="fas fa-hands-wash mt-1 mr-3 text-teal-500"></i><strong>手水舍:</strong> 洗手漱口，淨化身心。</li>
+                                <li class="flex items-start"><i class="fas fa-praying-hands mt-1 mr-3 text-amber-600"></i><strong>參拜:</strong> 二拜、二拍手、一拜。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div id="daily-sections-container"></div>
+        </main>
+
+        <footer class="text-center mt-20 py-8">
+            <p class="text-slate-500 text-sm">&copy; 2026 櫻之東京旅遊. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <button id="scrollToTopBtn" title="回到頂部" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-pink-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-pink-600 hover:scale-110">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const dailySectionsContainer = document.getElementById('daily-sections-container');
+            let currentActiveSectionId = null;
+            let draggedButton = null;
+
+            // --- ✨ 日本行程資料 ---
+            const itineraryData = {
+                day1: {
+                    title: "第一日：抵達・熱鬧的上野初體驗",
+                    themeImage: "https://static.gltjp.com/glt/data/article/21000/20604/20240127_171051_3ed959f4_w1920.webp",
+                    locations: {
+                        "阿美橫丁": { lat: 35.710, lon: 139.774 }
+                    },
+                    items: [
+                        { time: "08:00 - 12:10", title: "啟程・高雄飛往成田", icon: "fa-plane-departure", details: "<p>從高雄小港機場出發，搭機飛往東京成田機場，準備開啟期待已久的旅程！</p>" },
+                        { time: "下午", title: "入境・前往田端", icon: "fa-plane-arrival", details: "<p>辦理入境手續、領取行李後，前往市區下榻處。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 建議搭乘 <strong>Skyliner</strong> 至日暮里站，再轉乘 <strong>JR山手線</strong> 僅一站即可抵達田端站辦理入住。</p>" },
+                        { time: "傍晚", title: "阿美橫丁・初探庶民活力", icon: "fa-utensils", details: "<p>安頓好行李後，前往充滿活力的阿美橫丁商店街。感受在地市場的熱鬧氛圍，並在此解決晚餐，品嚐各式各樣的B級美食。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> 或 <strong>御徒町站</strong> (約 5-7 分鐘)。</p>" }
+                    ]
+                },
+                day2: {
+                    title: "第二日：上野漫步・古韻與新空的交響",
+                    themeImage: "https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/Japan_Tokyo_Tokyo-Sky-Tree_Ashutterstock_405927199.jpg",
+                    locations: {
+                        "上野恩賜公園": { lat: 35.714, lon: 139.774 },
+                        "上野動物園": { lat: 35.717, lon: 139.771 },
+                        "上野東照宮": { lat: 35.717, lon: 139.773 },
+                        "阿美橫丁": { lat: 35.710, lon: 139.774 },
+                        "墨田水族館": { lat: 35.710, lon: 139.811 },
+                        "東京晴空塔": { lat: 35.710, lon: 139.810 }
+                    },
+                    items: [
+                        { time: "09:00 - 09:30", title: "晨間啟程・前往上野", icon: "fa-train", details: "<p>從充滿懷舊氣息的田端出發，迎接充滿文化與活力的一天。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> (約 5-7 分鐘)。</p>" },
+                        { time: "09:30 - 12:30", title: "上野恩賜公園・櫻花盛宴", icon: "fa-tree", details: "<p>漫步在東京最著名的櫻花隧道下，感受春日的浪漫氣息。公園內景點豐富，您可以自由探索：</p><ul class='list-disc list-inside mt-2 text-sm'><li><strong>上野動物園：</strong> 與可愛的動物們相見歡。</li><li><strong>上野東照宮：</strong> 金碧輝煌的德川家康神社。</li><li><strong>五條天神社 & 不忍池：</strong> 尋求學問與健康的庇佑，欣賞池畔風光。</li></ul>" },
+                        { time: "12:30 - 14:00", title: "阿美橫丁・庶民美食巡禮", icon: "fa-utensils", details: "<p>鑽進充滿活力的商店街，感受在地市場的熱鬧氛圍。這裡是解決午餐和品嚐各式小吃的絕佳地點，從海鮮丼到水果串應有盡有。</p>" },
+                        { time: "14:00 - 15:00", title: "轉場・前往晴空塔", icon: "fa-subway", details: "<p>從上野的古典氛圍，轉換場景至現代化的東京地標。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>上野站</strong> 搭乘東京Metro銀座線至 <strong>淺草站</strong>，再轉乘東武晴空塔線至 <strong>東京晴空塔站</strong> (總耗時約 20-25 分鐘)。</p>" },
+                        { time: "15:00 - 17:30", title: "墨田水族館・都會中的海洋幻想", icon: "fa-fish", details: "<p>位於晴空塔下的現代水族館，開放式的企鵝與海狗展示區是最大亮點，讓您近距離觀察牠們的可愛姿態。</p>" },
+                        { time: "17:30 - 20:00", title: "東京晴空塔・雲端漫步與晚餐", icon: "fa-building", details: "<p>登上東京地標，將壯麗的城市夜景盡收眼底。傍晚時分更能同時欣賞日落與華燈初上的美景。晚餐可在樓下的「東京晴空街道」商場解決，選擇豐富。</p>" }
+                    ]
+                },
+                day3: {
+                    title: "第三日：未來之島・水上巡遊至淺草",
+                    themeImage: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/67/e7/52/fuji-tv.jpg?w=1200&h=-1&s=1",
+                    locations: {
+                        "富士電視台本社大樓": { lat: 35.626, lon: 139.775 },
+                        "自由女神像": { lat: 35.627, lon: 139.775 },
+                        "獨角獸鋼彈": { lat: 35.624, lon: 139.775 },
+                        "淺草寺": { lat: 35.714, lon: 139.796 }
+                    },
+                    items: [
+                        { time: "09:00 - 10:00", title: "啟程・前往未來港灣台場", icon: "fa-train-tram", details: "<p>搭上無人駕駛的百合海鷗號，穿越彩虹大橋，駛向充滿現代感與娛樂設施的人工島。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線至 <strong>新橋站</strong>，轉乘 <strong>百合海鷗號 (Yurikamome)</strong> 至 <strong>台場海濱公園站</strong> (總耗時約 45-50 分鐘)。</p>" },
+                        { time: "10:00 - 13:30", title: "台場巡禮・動漫與未來", icon: "fa-robot", details: "<p>盡情探索台場的經典地標，感受動漫文化的魅力與未來都市的設計感。</p><ul class='list-disc list-inside mt-2 text-sm'><li><strong>富士電視台 (AQUA CITY旁)：</strong> 尋找童年回憶中《數碼寶貝》的場景。</li><li><strong>獨角獸鋼彈 (DiverCity廣場)：</strong> 親眼見證壯觀的1:1獨角獸鋼彈立像，特定時間還有燈光秀。</li><li><strong>自由女神像：</strong> 與彩虹大橋和東京鐵塔一同合影的經典角度。</li></ul><p class='text-sm mt-2'>午餐可在AQUA CITY或DiverCity商場內解決。</p>" },
+                        { time: "13:30 - 15:15", title: "TOKYO CRUISE・水上巴士之旅", icon: "fa-water", details: "<p>從台場碼頭搭乘充滿未來感的「HOTALUNA」號，沿著隅田川航向淺草，從水上欣賞東京的城市天際線。</p><div class='mt-4 pt-4 border-t border-gray-200'><h4 class='font-semibold text-slate-800'>【重要資訊】</h4><p class='text-sm text-slate-600 mt-2'>建議選擇 <strong>14:15</strong> 的班次，請務必提早至碼頭換票登船。</p><p class='text-sm mt-2'><strong>購票參考：</strong><a href='https://www.kkday.com/zh-tw/product/28490' target='_blank' class='text-blue-500 hover:underline'>KKday 預訂頁面</a></p><details class='mt-2 text-sm'><summary class='font-semibold'>查看水上巴士時刻表</summary><ul class='list-disc list-inside mt-2 pl-4 bg-gray-50 p-2 rounded'><li>快速 A1 班次：10:30出航 ~ 11:30抵達淺草</li><li>快速 A2 班次：14:15出航 ~ 15:15抵達淺草</li><li>快速 A3 班次：17:10出航 ~ 18:10抵達淺草</li></ul></details></div>" },
+                        { time: "15:15 - 18:00", title: "淺草寺・雷門祈福", icon: "fa-torii-gate", details: "<p>抵達淺草後，穿過巨大的雷門燈籠，沿著熱鬧的「仲見世商店街」一路品嚐小吃、選購紀念品，最後抵達本堂參拜祈福。</p>" },
+                        { time: "18:00後", title: "淺草晚間散策與歸途", icon: "fa-utensils", details: "<p>在淺草周邊享用晚餐，體驗與白天截然不同的寧靜氛圍後，準備返回田端。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>淺草站</strong> 搭乘東京Metro銀座線至 <strong>上野站</strong>，再轉乘 <strong>JR山手線</strong> 返回 <strong>田端站</strong> (總耗時約 20-25 分鐘)。</p>" }
+                    ]
+                },
+                day4: {
+                    title: "第四日：箱根周遊・火山與湖光山色",
+                    themeImage: "https://images.unsplash.com/photo-1571595493192-5a2a29774136?q=80&w=1972&auto=format&fit=crop",
+                    locations: {
+                        "大涌谷": { lat: 35.242, lon: 139.020 },
+                        "箱根海賊船": { lat: 35.198, lon: 139.029 },
+                        "元箱根港": { lat: 35.197, lon: 139.030 },
+                        "箱根神社": { lat: 35.204, lon: 139.025 },
+                        "箱根湯本商店街": { lat: 35.233, lon: 139.104 }
+                    },
+                    items: [
+                        { time: "06:00 - 06:20", title: "晨間準備・起床與早餐", icon: "fa-mug-saucer", details: "<p>準備開始箱根一日遊！可以選擇在家吃早餐，或晚點起床在車上享用。</p>" },
+                        { time: "06:30 - 07:00", title: "移動・從田端至新宿", icon: "fa-train", details: "<p>搭乘JR山手線前往新宿站，準備轉乘前往箱根的列車。</p><p class='mt-3 text-sm'><strong>車程時間：</strong> 約 20 分鐘。</p>" },
+                        { time: "07:00 - 08:30", title: "啟程・搭乘小田急電鐵奔向箱根", icon: "fa-ticket-alt", details: "<p>從新宿站搭乘小田急電鐵或更快速的「浪漫特急」列車，奔向目的地箱根湯本站。</p><div class='mt-4 pt-4 border-t border-gray-200'><h4 class='font-semibold text-slate-800'>【實用連結】</h4><ul class='list-disc list-inside mt-2 text-sm'><li><a href='https://www.hakonenavi.jp/international/tw/discount_passes/free_pass' target='_blank' class='text-blue-500 hover:underline'>箱根週遊券</a> (建議在新宿站購買)</li><li><a href='https://www.odakyu.jp/tc/transport/' target='_blank' class='text-blue-500 hover:underline'>小田急電鐵</a></li><li><a href='https://www.odakyu.jp/tc/romancecar/' target='_blank' class='text-blue-500 hover:underline'>浪漫特急</a></li></ul></div>" },
+                        { time: "08:30 - 11:00", title: "大涌谷・地獄谷的呼吸", icon: "fa-mountain", details: "<p>搭乘多種交通工具，一路攀升至白煙繚繞的火山谷。在這裡可以遠眺富士山，並品嚐延年益壽的「黑玉子」溫泉蛋。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 箱根登山電車 → 箱根登山纜車 → 箱根空中纜車。</p>" },
+                        { time: "11:00 - 12:30", title: "箱根海賊船・蘆之湖巡航", icon: "fa-ship", details: "<p>從大涌谷搭乘纜車至「桃源台港」，登上華麗的海賊船，在蘆之湖上航行，欣賞湖光山色與遠方的富士山景。</p>" },
+                        { time: "12:30 - 14:30", title: "元箱根港 & 箱根神社", icon: "fa-torii-gate", details: "<p>抵達「元箱根港」後，步行至湖邊的停車場，尋找拍攝水上「平和的鳥居」的經典角度。若時間和體力允許，可再步行約20分鐘至箱根神社本殿參拜。</p>" },
+                        { time: "14:30 - 16:00", title: "箱根湯本・溫泉街散策", icon: "fa-store", details: "<p>回到箱根的門戶「箱根湯本」，在熱鬧的商店街上選購伴手禮、品嚐溫泉饅頭，為箱根之旅畫下句點。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從「元箱根港」搭乘箱根登山巴士返回「箱根湯本站」。</p>" },
+                        { time: "16:00後", title: "滿載而歸・告別箱根", icon: "fa-train", details: "<p>從 <strong>箱根湯本站</strong> 搭乘 <strong>小田急浪漫特快</strong> 返回新宿，再轉乘JR山手線回到田端。</p>" }
+                    ]
+                },
+                day5: {
+                    title: "第五日：澀谷+新宿・都會潮流心臟",
+                    themeImage: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070&auto=format&fit=crop",
+                    locations: {},
+                    items: [
+                        { time: "全天", title: "行程待規劃", icon: "fa-pencil-alt", details: "<p>這一天將探索東京最時尚、最繁華的兩個區域，敬請期待詳細規劃！</p>" }
+                    ]
+                },
+                day6: {
+                    title: "第六日：東京市區・深度探索",
+                    themeImage: "https://images.unsplash.com/photo-1513407030348-c983a97b98d8?q=80&w=2072&auto=format&fit=crop",
+                    locations: {},
+                    items: [
+                         { time: "全天", title: "行程待規劃", icon: "fa-pencil-alt", details: "<p>這一天將深入探索東京市區的魅力景點，敬請期待詳細規劃！</p>" }
+                    ]
+                },
+                day7: {
+                    title: "第七日：富士絕景・河口湖的完美一日",
+                    themeImage: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=2069&auto=format&fit=crop",
+                    locations: {
+                        "河口湖車站": { lat: 35.498, lon: 138.767 },
+                        "天上山公園": { lat: 35.508, lon: 138.772 },
+                        "河口湖遊覽船": { lat: 35.509, lon: 138.772 },
+                        "河口湖音樂盒之森美術館": { lat: 35.518, lon: 138.766 },
+                        "河口湖耍猴劇場": { lat: 35.519, lon: 138.763 }
+                    },
+                    items: [
+                        { time: "07:30 - 09:30", title: "啟程・奔向富士山", icon: "fa-train", details: "<p>從東京心臟地帶，搭上直達特急列車，窗外景色將從都市叢林逐漸轉變為壯麗山景。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>新宿站</strong> 搭乘 JR 特急「富士回遊」號直達河口湖 (約 2 小時)。</p>" },
+                        { time: "09:30 - 10:00", title: "抵達河口湖 & 萬全準備", icon: "fa-map-signs", details: "<p>抵達後，先在車站購買「河口湖周遊巴士二日券」，並確認「耍猴劇場」的表演時間。別忘了在車站前的羅森便利商店拍下與富士山的經典合照！</p>" },
+                        { time: "10:00 - 11:45", title: "天上山公園・纜車絕景", icon: "fa-cable-car", details: "<p>搭上纜車，攀升至能將富士山與河口湖全景盡收眼底的觀景台，感受令人屏息的壯闊美景。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 在車站前搭乘紅線周遊巴士至 <strong>No.11 遊覽船・山纜車入口</strong> (約 11 分鐘)。</p>" },
+                        { time: "11:45 - 13:00", title: "河口湖遊覽船・湖上風光", icon: "fa-ship", details: "<p>從湖上欣賞富士山，感受不同角度的靜謐與美麗。遊覽船將帶您環湖，享受微風與開闊的視野。</p>" },
+                        { time: "13:00 - 14:50", title: "音樂盒之森・歐風午后", icon: "fa-music", details: "<p>走進如同歐洲童話般的庭園，欣賞世界級的自動演奏樂器與音樂盒收藏。您可以在此的景觀餐廳享用午餐。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 搭乘紅線周遊巴士至 <strong>No.15 河口湖音樂盒之森美術館</strong> (約 5 分鐘)。</p>" },
+                        { time: "14:50 - 16:00", title: "耍猴劇場・歡樂藝能秀", icon: "fa-theater-masks", details: "<p>從美術館步行至劇場，準備觀賞15:00的場次。欣賞日本傳統的猴子藝能表演，牠們的聰明才智絕對會讓您捧腹大笑。</p>" },
+                        { time: "17:40 - 19:40", title: "歸途・告別富士", icon: "fa-train", details: "<p>帶著滿滿的美景與回憶，搭上返回東京的列車。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從河口湖車站搭乘 JR 特急「富士回遊」號或高速巴士返回新宿。</p>" }
+                    ]
+                },
+                day8: {
+                    title: "第八日：秋葉原・動漫電玩聖地巡禮",
+                    themeImage: "https://images.unsplash.com/photo-1613487957484-32c977a4c747?q=80&w=1974&auto=format&fit=crop",
+                    locations: {},
+                    items: [
+                         { time: "全天", title: "行程待規劃", icon: "fa-pencil-alt", details: "<p>這一天將深入探索動漫與電玩的聖地秋葉原，敬請期待詳細規劃！</p>" }
+                    ]
+                },
+                day9: {
+                    title: "第九日：秋葉原・滿載而歸",
+                    themeImage: "https://images.unsplash.com/photo-1605283439974-f2523a1a4b3d?q=80&w=2070&auto=format&fit=crop",
+                    locations: {},
+                    items: [
+                         { time: "全天", title: "行程待規劃", icon: "fa-pencil-alt", details: "<p>在旅程的最後一天，進行最後的採購與巡禮，敬請期待詳細規劃！</p>" }
+                    ]
+                }
+            };
+            
+            // --- INITIALIZATION ---
+            let map;
+            let markers = [];
+
+            setupAnimations();
+            setupInteractiveForeground();
+            setupCountdown();
+            setupWeather();
+            setupMap();
+            generateDailySections(); // This will now create the new structure
+            setupTabSwitching();
+            setupDragAndDrop();
+            setupScrollToTop();
+            setupToolkitCardHover();
+
+            // --- SETUP FUNCTIONS ---
+
+            function setupWeather() {
+                // ... (內容不變, 保持東京天氣)
+                fetch('https://wttr.in/Tokyo?format=j1').then(r=>r.json()).then(d=>{const c=d.current_condition[0],t=c.temp_C,i={"Sunny":"fa-sun","Partly cloudy":"fa-cloud-sun","Clear":"fa-sun"}[c.weatherDesc[0].value]||"fa-cloud-sun",e=document.getElementById("weather-icon"),o=document.getElementById("weather-temp"),n=document.getElementById("weather-desc");e.className=`fas ${i} text-6xl text-blue-300`,o.textContent=`${t}°C`,n.textContent=c.weatherDesc[0].value}).catch(()=>{document.getElementById("weather-info").innerHTML="天氣讀取失敗"})
+            }
+
+            function setupAnimations() {
+                const heroTitle=document.getElementById('hero-title');const text=heroTitle.innerText;heroTitle.innerHTML='';text.split('').forEach(char=>{const span=document.createElement('span');span.className='char';span.innerText=char===' '?'\u00A0':char;heroTitle.appendChild(span)});gsap.from(heroTitle.querySelectorAll('.char'),{duration:1.2,y:100,autoAlpha:0,stagger:0.05,ease:"back.out(1.7)"});gsap.from("#hero-subtitle",{duration:1,y:30,opacity:0,ease:"power3.out",delay:1});gsap.utils.toArray('.card-hover, .tool-card').forEach(card=>{gsap.from(card,{scrollTrigger:{trigger:card,start:"top 90%",toggleActions:"play none none none"},opacity:0,y:50,duration:0.8,ease:"power3.out"})});
+            }
+
+            function setupInteractiveForeground() {
+                const canvas = document.getElementById('interactive-foreground'); const ctx = canvas.getContext('2d'); let particles = []; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = document.querySelector('.hero-header').offsetHeight; } resizeCanvas(); window.addEventListener('resize', resizeCanvas); class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 8 + 4; this.speedY = Math.random() * 1 + 0.5; this.speedX = Math.random() * 1 - 0.5; this.opacity = Math.random() * 0.7 + 0.3; this.angle = Math.random() * Math.PI * 2; this.spin = Math.random() > 0.5 ? 0.01 : -0.01; } update() { this.y += this.speedY; this.x += this.speedX; this.angle += this.spin; if (this.y > canvas.height) { this.y = -this.size; this.x = Math.random() * canvas.width; } } draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); ctx.font = `${this.size}px Arial`; ctx.fillStyle = `rgba(255, 240, 245, ${this.opacity})`; ctx.fillText('🌸', 0, 0); ctx.restore(); } } function initParticles() { for (let i = 0; i < 30; i++) { particles.push(new Particle()); } } function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); } initParticles(); animateParticles();
+            }
+
+            function setupCountdown() {
+                const targetDate=new Date('2026-03-27T00:00:00').getTime();const countdownElement=document.getElementById('countdown');if(!countdownElement)return;const interval=setInterval(()=>{const now=new Date().getTime();const distance=targetDate-now;if(distance<0){clearInterval(interval);countdownElement.innerHTML="<div class='col-span-4 text-2xl font-bold text-pink-600'>旅程已開始！</div>";return}document.getElementById('days').innerText=Math.floor(distance/(1000*60*60*24)).toString().padStart(2,'0');document.getElementById('hours').innerText=Math.floor(distance%(1000*60*60*24)/(1000*60*60)).toString().padStart(2,'0');document.getElementById('minutes').innerText=Math.floor(distance%(1000*60*60)/(1000*60)).toString().padStart(2,'0');document.getElementById('seconds').innerText=Math.floor(distance%(1000*60)/1000).toString().padStart(2,'0')},1000);
+            }
+
+            function setupMap() {
+                map=L.map('map').setView([35.6895, 139.6917], 11);L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',subdomains:'abcd',maxZoom:20}).addTo(map);
+            }
+            
+            function generateDailySections() {
+                let allSectionsHtml = '';
+                for (const dayId in itineraryData) {
+                    const dayData = itineraryData[dayId];
+                    let timelineHtml = '';
+                    if (dayData.items && dayData.items.length > 0) {
+                        timelineHtml = dayData.items.map((item, index) => `
+                            <div class="timeline-item relative mb-8" data-location="${item.title.split('・')[0].trim()}">
+                                <div class="icon"><i class="fas ${item.icon}"></i></div>
+                                <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                                    <div class="p-4">
+                                        <h3 class="text-base sm:text-lg font-bold text-pink-700">${item.time} | ${item.title}</h3>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 border-t border-gray-100 text-slate-600">${item.details}</div>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                         timelineHtml = `<p class="ml-10 text-slate-500">此日行程待規劃...</p>`;
+                    }
+
+                    allSectionsHtml += `
+                        <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
+                            <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${dayData.themeImage}')">
+                                <h2 class="text-3xl sm:text-4xl font-black mb-4" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${dayData.title}</h2>
+                                <button class="view-timeline-btn mt-4 bg-pink-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-pink-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
+                            </div>
+                            <div class="timeline-container hidden relative pl-10 sm:pl-12">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-line-progress"></div>
+                                ${timelineHtml}
+                            </div>
+                        </section>
+                    `;
+                }
+                dailySectionsContainer.innerHTML = allSectionsHtml;
+
+                // 為新的按鈕和時間軸項目添加事件監聽器
+                document.querySelectorAll('.view-timeline-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const button = e.currentTarget;
+                        const section = button.closest('.content-section');
+                        const timeline = section.querySelector('.timeline-container');
+                        if (!timeline) return;
+
+                        if (timeline.classList.contains('hidden')) {
+                            timeline.classList.remove('hidden');
+                            button.innerHTML = '隱藏詳細行程 <i class="fas fa-chevron-up ml-2"></i>';
+                            setTimeout(() => {
+                                ScrollTrigger.refresh();
+                                gsap.from(timeline.querySelectorAll('.timeline-item'), { opacity: 0, x: -50, stagger: 0.2, duration: 0.8, ease: "power3.out" });
+                                gsap.to(timeline.querySelector('.timeline-line-progress'), { scrollTrigger: { trigger: timeline, start: "top center", end: "bottom bottom", scrub: true }, height: "100%" });
+                                gsap.to(window, { duration: 0.8, ease: 'power3.inOut', scrollTo: { y: timeline, offsetY: 100 } });
+                            }, 10);
+                        } else {
+                            gsap.to(window, { duration: 0.5, ease: 'power3.inOut', scrollTo: { y: section.querySelector('.daily-theme-card'), offsetY: 100 },
+                                onComplete: () => {
+                                    gsap.to(timeline, { duration: 0.4, opacity: 0, ease: 'power2.in',
+                                        onComplete: () => {
+                                            timeline.classList.add('hidden');
+                                            timeline.style.opacity = 1;
+                                            button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.timeline-item').forEach(item => {
+                    item.addEventListener('mouseenter', (e) => {
+                        const locationName = e.currentTarget.dataset.location;
+                        highlightMapMarker(locationName);
+                    });
+                });
+            }
+
+            function setupTabSwitching() {
+                let isAnimating=false;const navButtons=document.querySelectorAll('.nav-btn');navButtons.forEach(button=>{button.addEventListener('click',()=>{const targetId=button.dataset.target;if(!isAnimating&&targetId!==currentActiveSectionId){isAnimating=true;switchTab(targetId,true,()=>{isAnimating=false})}})});
+            }
+
+            function switchTab(targetId, shouldScroll = true, onCompleteCallback = () => {}) {
+                 const oldSection=currentActiveSectionId?document.getElementById(currentActiveSectionId):null;const newSection=document.getElementById(targetId);const navButtons=document.querySelectorAll('.nav-btn');if(!newSection)return;const tl=gsap.timeline({onComplete:()=>{currentActiveSectionId=targetId;ScrollTrigger.refresh();onCompleteCallback()}});if(oldSection){tl.to(oldSection,{duration:0.3,opacity:0,ease:'power2.in',onComplete:()=>{oldSection.style.display='none'}})}tl.add(()=>{navButtons.forEach(btn=>{const isTarget=btn.dataset.target===targetId;btn.classList.toggle('bg-pink-400',isTarget);btn.classList.toggle('text-white',isTarget);btn.classList.toggle('bg-pink-100',!isTarget);btn.classList.toggle('text-pink-800',!isTarget)})});tl.set(newSection,{display:'block',opacity:0}).to(newSection,{duration:0.4,opacity:1,ease:'power2.out',onStart:()=>{updateMapForDay(targetId);gsap.from(newSection.querySelectorAll('.daily-theme-card, #map, .grid > .card-hover'),{opacity:0,y:50,duration:0.8,ease:'power3.out',stagger:0.1})}});if(shouldScroll){tl.to(window,{duration:0.8,ease:'power2.inOut',scrollTo:{y:newSection,offsetY:document.querySelector('nav').offsetHeight+32}},"-=0.2")}
+            }
+            
+            function updateMapForDay(dayId) {
+                markers.forEach(marker=>map.removeLayer(marker));markers=[];const dayData=itineraryData[dayId];if(!dayData||!dayData.locations||Object.keys(dayData.locations).length===0){map.setView([35.6895,139.6917],10);return}
+                const locations=dayData.locations;const bounds=L.latLngBounds();for(const name in locations){const loc=locations[name];const marker=L.marker([loc.lat,loc.lon]).addTo(map).bindPopup(`<b>${name}</b>`);marker.locationName=name;markers.push(marker);bounds.extend([loc.lat,loc.lon])}if(bounds.isValid()){map.fitBounds(bounds,{padding:[50,50]})}
+            }
+
+            function highlightMapMarker(locationName) {
+                if (!locationName) return;
+                markers.forEach(marker => {
+                    if (marker.locationName.includes(locationName)) {
+                        marker.openPopup();
+                        if (marker._icon) {
+                            marker._icon.classList.add('highlighted-marker');
+                            setTimeout(() => { if (marker._icon) { marker._icon.classList.remove('highlighted-marker'); } }, 800);
+                        }
+                    } else {
+                        marker.closePopup();
+                    }
+                });
+            }
+
+            function setupScrollToTop() {
+                const btn=document.getElementById('scrollToTopBtn');if(btn){window.addEventListener('scroll',()=>{const isVisible=window.scrollY>300;btn.classList.toggle('opacity-0',!isVisible);btn.classList.toggle('invisible',!isVisible)});btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}))}
+            }
+
+            function setupToolkitCardHover() {
+                document.querySelectorAll('.tool-card').forEach(card=>{card.addEventListener('mousemove',e=>{const rect=card.getBoundingClientRect();card.style.setProperty('--x',`${e.clientX-rect.left}px`);card.style.setProperty('--y',`${e.clientY-rect.top}px`)})});
+            }
+
+            // --- 拖曳功能 (保持不變) ---
+            function setupDragAndDrop() {
+                const dayButtons = document.querySelectorAll('.nav-btn:not([data-target="overview"])');
+                dayButtons.forEach(button => {
+                    button.setAttribute('draggable', 'true');
+                    button.addEventListener('dragstart', (e) => {
+                        draggedButton = button;
+                        e.dataTransfer.setData('text/plain', button.dataset.target);
+                        e.dataTransfer.effectAllowed = 'move';
+                        const clone = button.cloneNode(true);
+                        clone.id = 'drag-ghost';
+                        clone.style.position = 'absolute';
+                        clone.style.top = '-9999px';
+                        clone.style.left = '-9999px';
+                        const style = window.getComputedStyle(button);
+                        clone.style.width = style.getPropertyValue('width');
+                        clone.style.height = style.getPropertyValue('height');
+                        document.body.appendChild(clone);
+                        e.dataTransfer.setDragImage(clone, clone.offsetWidth / 2, clone.offsetHeight / 2);
+                        setTimeout(() => button.classList.add('dragging'), 0);
+                    });
+                    button.addEventListener('dragend', (e) => {
+                        if (draggedButton) { draggedButton.classList.remove('dragging'); }
+                        draggedButton = null;
+                        const ghost = document.getElementById('drag-ghost');
+                        if (ghost) { ghost.parentNode.removeChild(ghost); }
+                    });
+                    button.addEventListener('dragover', (e) => { e.preventDefault(); const targetButton = e.currentTarget; if (targetButton !== draggedButton) { targetButton.classList.add('drag-over'); } });
+                    button.addEventListener('dragleave', (e) => { e.currentTarget.classList.remove('drag-over'); });
+                    button.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        const targetButton = e.currentTarget;
+                        targetButton.classList.remove('drag-over');
+                        const sourceButton = draggedButton;
+                        if (!sourceButton || sourceButton === targetButton) { return; }
+                        const sourceDayId = sourceButton.dataset.target;
+                        const targetDayId = targetButton.dataset.target;
+                        const sourceRect = sourceButton.getBoundingClientRect();
+                        const targetRect = targetButton.getBoundingClientRect();
+                        const xDiff = sourceRect.left - targetRect.left;
+                        const tl = gsap.timeline({
+                            onComplete: () => {
+                                gsap.set([sourceButton, targetButton], { clearProps: "transform,zIndex" });
+                                const tempData = itineraryData[sourceDayId];
+                                itineraryData[sourceDayId] = itineraryData[targetDayId];
+                                itineraryData[targetDayId] = tempData;
+                                generateDailySections();
+                                switchTab(currentActiveSectionId, false);
+                            }
+                        });
+                        gsap.set(sourceButton, { zIndex: 100 });
+                        tl.to(sourceButton, { x: -xDiff, duration: 0.4, ease: 'power2.inOut' }, 0).to(targetButton, { x: xDiff, duration: 0.4, ease: 'power2.inOut' }, 0);
+                    });
+                });
+            }
+
+            window.addEventListener('load', () => {
+                document.querySelector('.preloader')?.classList.add('hidden');
+                document.body.classList.add('loaded');
+                switchTab('overview', false);
+            });
+        });
+    </script>
+</body>
+</html>
