@@ -53,6 +53,8 @@
             100% { transform: rotate(360deg) scale(1); }
         }
 
+        
+
         /* Hero Header & Interactive Foreground */
         .hero-header { height: 100vh; min-height: 600px; max-height: 800px; }
         #hero-title .char { display: inline-block; will-change: transform, opacity; }
@@ -168,6 +170,11 @@
 </head>
 <body class="text-slate-700">
 
+    <audio id="background-music" loop>
+        <source src="打上花火.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <div class="preloader">
         <div class="sakura-loader">🌸</div>
     </div>
@@ -278,12 +285,65 @@
         </footer>
     </div>
 
-    <button id="scrollToTopBtn" title="回到頂部" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-pink-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-pink-600 hover:scale-110">
-        <i class="fas fa-arrow-up text-xl"></i>
-    </button>
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+        <button id="scrollToTopBtn" title="回到頂部" class="w-14 h-14 rounded-full bg-pink-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-pink-600 hover:scale-110">
+            <i class="fas fa-arrow-up text-xl"></i>
+        </button>
+        <button id="toggleMusicBtn" title="切換音樂" class="w-14 h-14 rounded-full bg-pink-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-pink-600 hover:scale-110">
+            <i class="fas fa-volume-mute text-xl"></i>
+        </button>
+    </div>
 
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // --- MUSIC PLAYER ---
+        function setupMusicPlayer() {
+            const music = document.getElementById('background-music');
+            const toggleMusicBtn = document.getElementById('toggleMusicBtn');
+            const icon = toggleMusicBtn.querySelector('i');
+            const loopStartTime = 59;
+            const loopEndTime = 82; // 1 minute 22 seconds
+
+            music.volume = 0.5;
+
+            toggleMusicBtn.addEventListener('click', () => {
+                if (music.paused) {
+                    // If starting from a paused state outside the loop, jump to the start
+                    if (music.currentTime < loopStartTime || music.currentTime > loopEndTime) {
+                        music.currentTime = loopStartTime;
+                    }
+                    music.play().catch(error => {
+                        console.error('Music play failed:', error);
+                    });
+                } else {
+                    music.pause();
+                }
+            });
+
+            music.addEventListener('timeupdate', () => {
+                if (music.currentTime >= loopEndTime) {
+                    music.currentTime = loopStartTime;
+                }
+            });
+
+            // Update icon if music ends or is paused by other means
+            music.onpause = () => {
+                icon.className = 'fas fa-play text-xl';
+                toggleMusicBtn.title = '播放音樂';
+            };
+
+            music.onplay = () => {
+                icon.className = 'fas fa-pause text-xl';
+                toggleMusicBtn.title = '暫停音樂';
+            };
+
+            // Set initial icon and time
+            music.currentTime = loopStartTime;
+            icon.className = 'fas fa-play text-xl';
+            toggleMusicBtn.title = '播放音樂';
+        }
+
 
         document.addEventListener('DOMContentLoaded', function () {
             const dailySectionsContainer = document.getElementById('daily-sections-container');
@@ -440,6 +500,7 @@
             setupDragAndDrop();
             setupScrollToTop();
             setupToolkitCardHover();
+            setupMusicPlayer(); // Added this call
 
             // --- SETUP FUNCTIONS ---
 
