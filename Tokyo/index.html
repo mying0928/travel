@@ -158,6 +158,33 @@
             box-shadow: 0 0 20px var(--brand-dark-sakura);
         }
 
+        .nav-arrow {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            color: var(--brand-dark-sakura);
+            cursor: pointer;
+            z-index: 10;
+            transition: opacity 0.3s, background-color 0.3s;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-arrow.visible {
+            display: flex;
+        }
+        .nav-arrow:hover {
+            background-color: white;
+        }
+        .nav-arrow.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
         /* Dropdown style for details */
         details > summary {
             cursor: pointer;
@@ -204,7 +231,8 @@
     </header>
 
     <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl -mt-24 z-20 relative">
-        <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg">
+        <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg relative">
+            <button id="nav-arrow-left" class="nav-arrow left-2"><i class="fas fa-chevron-left"></i></button>
             <div id="nav-container" class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
                 <button data-target="overview" class="nav-btn bg-pink-400 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
                 <button data-target="day1" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">3/27<br><span class="text-xs font-medium">(週五)</span></button>
@@ -217,6 +245,7 @@
                 <button data-target="day8" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/3<br><span class="text-xs font-medium">(週五)</span></button>
                 <button data-target="day9" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/4<br><span class="text-xs font-medium">(週六)</span></button>
             </div>
+            <button id="nav-arrow-right" class="nav-arrow right-2"><i class="fas fa-chevron-right"></i></button>
         </nav>
 
         <main>
@@ -510,9 +539,49 @@
             setupDragAndDrop();
             setupScrollToTop();
             setupToolkitCardHover();
-            setupMusicPlayer(); // Added this call
+            setupMusicPlayer();
+            setupNavArrows(); // Added this call
 
             // --- SETUP FUNCTIONS ---
+
+            function setupNavArrows() {
+                const navContainer = document.getElementById('nav-container');
+                const arrowLeft = document.getElementById('nav-arrow-left');
+                const arrowRight = document.getElementById('nav-arrow-right');
+
+                function updateArrows() {
+                    const hasOverflow = navContainer.scrollWidth > navContainer.clientWidth;
+                    if (!hasOverflow) {
+                        arrowLeft.classList.remove('visible');
+                        arrowRight.classList.remove('visible');
+                        return;
+                    }
+
+                    arrowLeft.classList.add('visible');
+                    arrowRight.classList.add('visible');
+
+                    const scrollLeft = navContainer.scrollLeft;
+                    const scrollWidth = navContainer.scrollWidth;
+                    const clientWidth = navContainer.clientWidth;
+
+                    arrowLeft.classList.toggle('disabled', scrollLeft <= 0);
+                    arrowRight.classList.toggle('disabled', scrollLeft + clientWidth >= scrollWidth - 1); // -1 for precision issues
+                }
+
+                arrowLeft.addEventListener('click', () => {
+                    gsap.to(navContainer, { duration: 0.5, scrollTo: { x: 0 }, ease: 'power3.inOut' });
+                });
+
+                arrowRight.addEventListener('click', () => {
+                    gsap.to(navContainer, { duration: 0.5, scrollTo: { x: navContainer.scrollWidth }, ease: 'power3.inOut' });
+                });
+
+                navContainer.addEventListener('scroll', () => requestAnimationFrame(updateArrows));
+                window.addEventListener('resize', updateArrows);
+                
+                // Initial check
+                setTimeout(updateArrows, 100); // Timeout to allow layout to settle
+            }
 
             function setupWeather() {
                 fetch('https://wttr.in/Tokyo?format=j1').then(r=>r.json()).then(d=>{const c=d.current_condition[0],t=c.temp_C,i={"Sunny":"fa-sun","Partly cloudy":"fa-cloud-sun","Clear":"fa-sun"}[c.weatherDesc[0].value]||"fa-cloud-sun",e=document.getElementById("weather-icon"),o=document.getElementById("weather-temp"),n=document.getElementById("weather-desc");e.className=`fas ${i} text-6xl text-blue-300`,o.textContent=`${t}°C`,n.textContent=c.weatherDesc[0].value}).catch(()=>{document.getElementById("weather-info").innerHTML="天氣讀取失敗"})
