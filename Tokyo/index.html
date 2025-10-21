@@ -27,7 +27,7 @@
         body {
             font-family: 'Noto Sans JP', 'Noto Sans TC', sans-serif;
             background-color: #f9fafb;
-            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/seigaiha.png');
+            background-image: url('image/background-pattern.png');
             opacity: 0;
             transition: opacity 0.5s ease-in;
         }
@@ -210,7 +210,7 @@
 <body class="text-slate-700">
 
     <audio id="background-music" loop>
-        <source src="打上花火.mp3" type="audio/mpeg">
+        <source src="music/打上花火.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -221,7 +221,7 @@
     <header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden">
         <canvas id="interactive-foreground"></canvas>
         <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
-             style="background-image: url('https://static.gltjp.com/glt/data/article/12000/11396/20240301_153511_932c8d42_w1920.webp'); z-index: 0;">
+             style="background-image: url('image/hero-background.webp'); z-index: 0;">
         </div>
         <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-index: 1;"></div>
         <div class="relative text-center z-10 p-4">
@@ -395,7 +395,7 @@
             const itineraryData = {
                 day1: {
                     title: "抵達・熱鬧的上野初體驗",
-                    themeImage: "https://static.gltjp.com/glt/data/article/21000/20604/20240127_171051_3ed959f4_w1920.webp",
+                    themeImage: "image/ueno-arrival-theme.webp",
                     locations: {
                         "阿美橫丁": { lat: 35.710, lon: 139.774 }
                     },
@@ -407,7 +407,7 @@
                 },
                 day2: {
                     title: "上野漫步・古韻與新空的交響",
-                    themeImage: "https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/Japan_Tokyo_Tokyo-Sky-Tree_Ashutterstock_405927199.jpg",
+                    themeImage: "image/ueno-park-theme.jpg",
                     locations: { "上野恩賜公園": { lat: 35.714, lon: 139.774 }, "上野動物園": { lat: 35.717, lon: 139.771 }, "阿美橫丁": { lat: 35.710, lon: 139.774 }, "墨田水族館": { lat: 35.710, lon: 139.811 }, "東京晴空塔": { lat: 35.710, lon: 139.810 }, "叙々苑": { lat: 35.710, lon: 139.812 } },
                     items: [
                         { time: "08:00 - 09:30", title: "晨間準備・前往上野", icon: "fa-train", details: "<p>☀️ 享用早餐後，從田端出發，迎接充滿文化與活力的一天。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> (約 5-7 分鐘)。</p>" },
@@ -421,7 +421,7 @@
                 },
                 day3: {
                     title: "築地、汐留至台場的經典一日",
-                    themeImage: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/67/e7/52/fuji-tv.jpg?w=1200&h=-1&s=1",
+                    themeImage: "image/tsukiji-odaiba-theme.jpg",
                     locations: { "築地場外市場": { lat: 35.665, lon: 139.770 }, "宮崎駿大時鐘": { lat: 35.664, lon: 139.762 }, "Caretta 汐留": { lat: 35.664, lon: 139.763 }, "富士電視台本社大樓": { lat: 35.626, lon: 139.775 }, "自由女神像": { lat: 35.627, lon: 139.775 }, "獨角獸鋼彈": { lat: 35.624, lon: 139.775 }, "淺草寺": { lat: 35.714, lon: 139.796 }, "牛たんの檸檬": { lat: 35.712, lon: 139.798 } },
                     items: [
                         { time: "08:00 - 09:15", title: "晨間啟程・前往築地", icon: "fa-train", details: "<p>☀️ 享用早餐後，搭乘電車，前往充滿活力的美食市集。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 搭乘 <strong>JR山手線</strong> 至「浜松町」，轉乘 <strong>都營大江戶線</strong> 至「築地市場站」。</p>" },
@@ -437,7 +437,7 @@
                 },
                 day4: {
                     title: "箱根周遊・火山與湖光山色",
-                    themeImage: "https://d1grca2t3zpuug.cloudfront.net/2025/07/hako31759993_m-1200x690-1752223750.webp",
+                    themeImage: "image/hakone-theme.webp",
                     locations: { "大涌谷": { lat: 35.242, lon: 139.020 }, "箱根海賊船": { lat: 35.198, lon: 139.029 }, "元箱根港": { lat: 35.197, lon: 139.030 }, "箱根神社": { lat: 35.204, lon: 139.025 }, "箱根湯本商店街": { lat: 35.233, lon: 139.104 } },
                     items: [
                         { time: "06:00 - 09:30", title: "清晨啟程・奔向箱根", icon: "fa-ticket-alt", details: "<p>🌄 為了充分享受箱根的一天，我們需要早點出發！</p><ul class='list-disc list-inside mt-2 text-sm space-y-2'><li><strong>06:30 前往新宿：</strong>從 <strong>JR田端站</strong> 搭山手線至 <strong>新宿站</strong> (車程約 20 分鐘)。</li><li><strong>07:00-07:30 啟程前往箱根：</strong>在新宿站購買「<a href='https://www.hakonenavi.jp/international/tw/discount_passes/free_pass' target='_blank' class='text-blue-500 hover:underline'>箱根周遊券</a>」後，搭乘以下任一車種前往「箱根湯本站」。<ul class='list-disc list-inside mt-1 pl-4'><li><a href='https://www.odakyu.jp/tc/romancecar/' target='_blank' class='text-blue-500 hover:underline'>浪漫特快</a>：速度最快、最舒適，需另外加購特急券。</li><li><a href='https://www.odakyu.jp/tc/transport/' target='_blank' class='text-blue-500 hover:underline'>小田急電鐵</a>：較經濟實惠的選擇。</li></ul></li></ul>" },
@@ -450,7 +450,7 @@
                 },
                 day5: {
                     title: "經典地標・都會藝術巡禮",
-                    themeImage: "https://images.unsplash.com/photo-1513407030348-c983a97b98d8?q=80&w=2072&auto=format&fit=crop",
+                    themeImage: "image/tokyo-tower-azabudai-theme.avif",
                     locations: { "增上寺": { lat: 35.657, lon: 139.748 }, "東京鐵塔": { lat: 35.658, lon: 139.745 }, "麻布台之丘": { lat: 35.660, lon: 139.743 }, "六本木之丘": { lat: 35.660, lon: 139.729 } },
                     items: [
                         { time: "08:00 - 09:30", title: "晨間啟程・前往東京鐵塔", icon: "fa-train", details: "<p>🗼 享用早餐後，出發前往東京的經典地標。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 搭乘 <strong>JR山手線</strong> 至「浜松町站」或 <strong>都營大江戶線</strong> 至「赤羽橋站」。</p>" },
@@ -463,7 +463,7 @@
                 },
                 day6: {
                     title: "澀谷x新宿・潮流心臟雙城記",
-                    themeImage: "https://static.gltjp.com/glt/data/directory/12000/11195/20200917_092752_6bcfbec3_w1920.webp",
+                    themeImage: "image/shibuya-shinjuku-theme.webp",
                     locations: { "明治神宮": { lat: 35.676, lon: 139.699 }, "忠犬八公像": { lat: 35.659, lon: 139.700 }, "澀谷十字路口": { lat: 35.659, lon: 139.700 }, "SHIBUYA SKY": { lat: 35.659, lon: 139.703 }, "新宿歌舞伎町": { lat: 35.693, lon: 139.700 }, "東京都廳舍": { lat: 35.689, lon: 139.691 } },
                     items: [
                         { time: "08:00 - 09:30", title: "晨間啟程・前往原宿", icon: "fa-train", details: "<p>☀️ 享用早餐後，搭上山手線，前往時尚與文化匯集的原宿地區。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘 <strong>山手線</strong> 至 <strong>原宿站</strong> (約 25 分鐘)。</p>" },
@@ -476,7 +476,7 @@
                 },
                 day7: {
                     title: "富士絕景・河口湖的完美一日",
-                    themeImage: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=2069&auto=format&fit=crop",
+                    themeImage: "image/kawaguchiko-fuji-theme.avif",
                     locations: { "河口湖車站": { lat: 35.498, lon: 138.767 }, "天上山公園": { lat: 35.508, lon: 138.772 }, "河口湖遊覽船": { lat: 35.509, lon: 138.772 }, "河口湖音樂盒之森美術館": { lat: 35.518, lon: 138.766 }, "河口湖耍猴劇場": { lat: 35.519, lon: 138.763 } },
                     items: [
                         { time: "06:00 - 09:30", title: "啟程・奔向富士山", icon: "fa-train", details: "<p>🗻 清晨從東京出發，搭上直達特急列車，窗外景色將從都市叢林逐漸轉變為壯麗山景。</p><ul class='list-disc list-inside mt-2 text-sm'><li><strong>06:20-07:00：</strong>從田端出發前往新宿。</li><li><strong>07:00-09:30：</strong>從 <strong>新宿站</strong> 搭乘 JR 特急「富士回遊」號直達河口湖。</li></ul>" },
@@ -493,7 +493,7 @@
                 day8: [
                     {
                         title: "秋葉原・次文化聖地巡禮",
-                        themeImage: "https://static.gltjp.com/glt/data/article/21000/20306/20230428_135604_e305c90f_w1920.webp",
+                        themeImage: "image/akihabara-theme.webp",
                         locations: { "Yodobashi-Akiba": { lat: 35.698, lon: 139.774 }, "秋葉原Radio會館": { lat: 35.698, lon: 139.771 }, "Mandarake Complex": { lat: 35.702, lon: 139.771 } },
                         items: [
                             { time: "09:30 - 12:00", title: "電器巨擘探險", icon: "fa-camera-retro", details: "<p>從車站旁的「Yodobashi-Akiba」開始，這裡不僅有最新的電子產品 💻，還有各式模型 🤖 和動漫周邊 🎨。</p>" },
@@ -504,7 +504,7 @@
                     },
                     {
                         title: "池袋漫遊・動漫與水族館樂園",
-                        themeImage: "https://static.gltjp.com/glt/data/article/21000/20300/20230426_120439_fd9c889e_w1920.webp",
+                        themeImage: "image/ikebukuro-theme.webp",
                         locations: { "Sunshine City": { lat: 35.729, lon: 139.718 }, "Animate池袋總店": { lat: 35.730, lon: 139.715 } },
                         items: [
                             { time: "09:30 - 13:00", title: "陽光城 Sunshine City", icon: "fa-shopping-bag", details: "<p>主攻大型複合商城「Sunshine City」，參觀 Pokémon Center 👾 並在此的餐廳街享用午餐。</p>" },
@@ -516,7 +516,7 @@
                 ],
                 day9: {
                     title: "最終採購・滿載而歸",
-                    themeImage: "https://static.gltjp.com/glt/data/directory/13000/12035/20210920_010805_a19de28a_w1920.webp",
+                    themeImage: "image/shopping-theme.webp",
                     locations: { "唐吉訶德": { lat: 35.700, lon: 139.772 } },
                     items: [
                         { time: "上午", title: "最終補貨與伴手禮採購", icon: "fa-gifts", details: "<p>🛍️ 享用早餐後，這是您查漏補缺的最後機會。可以去前一天沒逛夠的店家，或是前往大型連鎖雜貨店「驚安的殿堂・唐吉訶德」一次買齊藥妝、零食和各種有趣的伴手禮。</p>" },
