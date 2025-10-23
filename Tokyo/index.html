@@ -194,12 +194,12 @@
             display: none;
         }
         details > summary:before {
-            content: '▼';
+            content: '▲';
             font-size: 0.7em;
             margin-right: 8px;
         }
         details[open] > summary:before {
-            content: '▲';
+            content: '▼';
         }
 
         /* Utility */
@@ -401,8 +401,8 @@
                     },
                     items: [
                         { time: "08:00 - 12:10", title: "啟程・高雄飛往成田", icon: "fa-plane-departure", details: "<p>✈️ 從高雄小港機場出發，搭機飛往東京成田機場，準備開啟期待已久的旅程！</p>" },
-                        { time: "下午", title: "入境・前往田端", icon: "fa-plane-arrival", details: "<p>🛬 辦理入境手續、領取行李後，前往市區下榻處。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 建議搭乘 <strong>Skyliner</strong> 至日暮里站，再轉乘 <strong>JR山手線</strong> 僅一站即可抵達田端站辦理入住。</p>" },
-                        { time: "傍晚", title: "阿美橫丁・初探庶民活力", icon: "fa-utensils", details: "<p>🏮 安頓好行李後，前往充滿活力的阿美橫丁商店街。感受在地市場的熱鬧氣氛，並在此解決晚餐，品嚐各式各樣的B級美食。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> 或 <strong>御徒町站</strong> (約 5-7 分鐘)。</p>" }
+                        { time: "下午", title: "入境・前往田端", icon: "fa-plane-arrival", details: "<p>🛬 辦理入境手續、領取行李後，前往市區下榻處。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 建議搭乘 <strong>Skyliner 🚆</strong> 至日暮里站，再轉乘 <strong>JR山手線</strong> 僅一站即可抵達田端站辦理入住。</p>" },
+                        { time: "傍晚", title: "阿美橫丁・初探庶民活力", icon: "fa-utensils", details: "<p>🏮 安頓好行李後，前往充滿活力的阿美橫丁商店街。感受在地市場的熱鬧氣氛，並在此解決晚餐，品嚐各式各樣的B級美食 🍢。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> 或 <strong>御徒町站</strong> (約 5-7 分鐘)。</p>" }
                     ]
                 },
                 day2: {
@@ -411,28 +411,29 @@
                     locations: { "上野恩賜公園": { lat: 35.714, lon: 139.774 }, "上野動物園": { lat: 35.717, lon: 139.771 }, "阿美橫丁": { lat: 35.710, lon: 139.774 }, "墨田水族館": { lat: 35.710, lon: 139.811 }, "東京晴空塔": { lat: 35.710, lon: 139.810 }, "叙々苑": { lat: 35.710, lon: 139.812 } },
                     items: [
                         { time: "08:00 - 09:30", title: "晨間準備・前往上野", icon: "fa-train", details: "<p>☀️ 享用早餐後，從田端出發，迎接充滿文化與活力的一天。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> (約 5-7 分鐘)。</p>" },
-                        { time: "09:30 - 13:30", title: "上野公園深度探索", icon: "fa-tree", details: "<p>🌸 您有充裕的4小時，可以好好探索這個巨大的城市綠洲。</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🐼 上野動物園 (建議停留 2.5-3小時)</h4><p class='text-sm text-slate-600 mt-1'>與可愛的動物們相見歡，特別是人氣明星熊貓！</p></div><div><h4 class='font-semibold text-slate-800'>🌳 公園散策 (建議停留 1-1.5小時)</h4><p class='text-sm text-slate-600 mt-1'>悠閒參觀金碧輝煌的<strong>上野東照宮</strong>，並在櫻花大道與**不忍池**畔享受春日風光。</p></div>" },
-                        { time: "13:30 - 15:30", title: "阿美橫丁・午餐與尋寶", icon: "fa-utensils", details: "<p>🏮 在熱鬧的商店街享用午餐，並利用時間逛逛藥妝店、零食店，體驗在地市場的活力。</p>" },
+                        { time: "09:30 - 13:30", title: "上野公園深度探索", icon: "fa-tree", details: "<p>🌸 您有充裕的4小時，可以好好探索這個巨大的城市綠洲。</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🐼 上野動物園 (建議停留 2.5-3小時)</h4><p class='text-sm text-slate-600 mt-1'>與可愛的動物們相見歡，特別是人氣明星熊貓！🐼</p></div><div><h4 class='font-semibold text-slate-800'>🌳 公園散策 (建議停留 1-1.5小時)</h4><p class='text-sm text-slate-600 mt-1'>悠閒參觀金碧輝煌的<strong>上野東照宮</strong>，並在櫻花大道與**不忍池**畔享受春日風光 🌸。</p></div>" },
+                        { time: "13:30 - 15:30", title: "阿美橫丁・午餐與尋寶", icon: "fa-utensils", details: "<p>🏮 在熱鬧的商店街享用午餐，並利用時間逛逛藥妝店、零食店，體驗在地市場的活力 🛍️。</p>" },
                         { time: "15:30 - 16:30", title: "轉場・前往晴空塔", icon: "fa-subway", details: "<p>從上野的古典氛圍，轉換場景至現代化的東京地標。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>上野站</strong> 搭乘東京Metro銀座線至 <strong>淺草站</strong>，再轉乘東武晴空塔線至 <strong>東京晴空塔站</strong> (總耗時約 20-25 分鐘)。</p>" },
-                        { time: "16:30 - 18:00", title: "墨田水族館・都會海洋幻想", icon: "fa-fish", details: "<p>🐧 位於晴空塔下的現代水族館，開放式的企鵝與海狗展示區是最大亮點，讓您近距離觀察牠們的可愛姿態。</p>" },
-                        { time: "18:00 - 19:30", title: "東京晴空塔・雲端漫步", icon: "fa-building", details: "<p>🌆 登上東京地標，將壯麗的城市夜景盡收眼底。這個黃金時段更能同時欣賞日落與華燈初上的美景。</p>" },
+                        { time: "16:30 - 18:00", title: "墨田水族館・都會海洋幻想", icon: "fa-fish", details: "<p>🐧 位於晴空塔下的現代水族館，開放式的企鵝與海狗展示區是最大亮點，讓您近距離觀察牠們的可愛姿態 🐧。</p>" },
+                        { time: "18:00 - 19:30", title: "東京晴空塔・雲端漫步", icon: "fa-building", details: "<p>🌆 登上東京地標，將壯麗的城市夜景盡收眼底。這個黃金時段更能同時欣賞日落與華燈初上的美景 ✨。</p>" },
                         { time: "19:30後", title: "晚餐・晴空下的饗宴", icon: "fa-drumstick-bite", details: "<p>🥩 在晴空街道商場30樓的**叙々苑**享用高級燒肉，同時從高空俯瞰東京的璀璨夜景，為完美的一天畫上句點。</p>" }
                     ]
                 },
                 day3: {
-                    title: "築地、汐留至台場的經典一日",
+                    title: "台場漫遊・航向淺草和服體驗",
                     themeImage: "image/tsukiji-odaiba-theme.jpg",
-                    locations: { "築地場外市場": { lat: 35.665, lon: 139.770 }, "宮崎駿大時鐘": { lat: 35.664, lon: 139.762 }, "Caretta 汐留": { lat: 35.664, lon: 139.763 }, "富士電視台本社大樓": { lat: 35.626, lon: 139.775 }, "自由女神像": { lat: 35.627, lon: 139.775 }, "獨角獸鋼彈": { lat: 35.624, lon: 139.775 }, "淺草寺": { lat: 35.714, lon: 139.796 }, "牛たんの檸檬": { lat: 35.712, lon: 139.798 } },
+                    locations: { "富士電視台本社大樓": { lat: 35.626, lon: 139.775 }, "自由女神像": { lat: 35.627, lon: 139.775 }, "獨角獸鋼彈": { lat: 35.624, lon: 139.775 }, "淺草寺": { lat: 35.714, lon: 139.796 }, "雷門": { lat: 35.711, lon: 139.796 }, "牛たんの檸檬": { lat: 35.712, lon: 139.798 } },
                     items: [
-                        { time: "08:00 - 09:15", title: "晨間啟程・前往築地", icon: "fa-train", details: "<p>☀️ 享用早餐後，搭乘電車，前往充滿活力的美食市集。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 搭乘 <strong>JR山手線</strong> 至「浜松町」，轉乘 <strong>都營大江戶線</strong> 至「築地市場站」。</p>" },
-                        { time: "09:15 - 11:00", title: "築地場外市場・活力早餐巡禮", icon: "fa-fish", details: "<p>🍣 在這裡享用最新鮮的海鮮早餐或早午餐，品嚐玉子燒 🍳、飯糰 🍙 等各式小吃，感受市場的熱鬧氣氛。</p>" },
-                        { time: "11:00 - 12:30", title: "汐留漫步・宮崎駿時鐘與都會展望", icon: "fa-clock", details: "<p>🏙️ 從築地步行至汐留，正好可以趕上 **12:00** 的**宮崎駿大時鐘**報時表演，並登上 **Caretta 46樓展望台**俯瞰市景。</p>" },
-                        { time: "12:30 - 13:00", title: "啟程・前往未來港灣台場", icon: "fa-train-tram", details: "<p>🌉 從汐留站搭乘**百合海鷗號**，穿越彩虹大橋，駛向充滿現代感的人工島。</p>" },
-                        { time: "13:00 - 16:30", title: "台場精華巡禮", icon: "fa-robot", details: "<p>🤖 抵達台場後，你有充足的時間可以探索經典地標。</p><ul class='list-disc list-inside mt-2 text-sm space-y-2'><li><strong>富士電視台 & 自由女神像 (約1.5小時):</strong> 與女神像及彩虹大橋合影，並參觀富士電視台，尋找《數碼寶貝》的經典場景。</li><li><strong>獨角獸鋼彈 & DiverCity 廣場 (約2小時):</strong> 觀賞 15:00 的鋼彈變身表演，並可逛逛商場內的鋼彈基地。</li></ul>" },
-                        { time: "16:30 - 17:10", title: "前往碼頭", icon: "fa-walking", details: "<p>從 DiverCity 廣場悠閒散步回到台場海濱公園碼頭，準備搭船。</p>" },
-                        { time: "17:10 - 18:10", title: "TOKYO CRUISE・黃昏水上巴士之旅", icon: "fa-water", details: "<p>🌇 從台場碼頭搭乘充滿未來感的「HOTALUNA」號，沿著隅田川航向淺草，從水上欣賞東京的城市天際線。</p><div class='mt-4 pt-4 border-t border-gray-200'><h4 class='font-semibold text-slate-800'>【重要資訊】</h4><p class='text-sm text-slate-600 mt-2'><strong>購票參考：</strong><a href='https://www.kkday.com/zh-tw/product/28490' target='_blank' class='text-blue-500 hover:underline'>KKday 預訂頁面</a></p><details class='mt-2 text-sm'><summary class='font-semibold'>查看水上巴士時刻表</summary><ul class='list-disc list-inside mt-2 pl-4 bg-gray-50 p-2 rounded'><li>快速 A1 班次：10:30出航 ~ 11:30抵達淺草</li><li>快速 A2 班次：14:15出航 ~ 15:15抵達淺草</li><li>快速 A3 班次：17:10出航 ~ 18:10抵達淺草</li></ul></details></div>" },
-                        { time: "18:10 - 19:30", title: "淺草夜間散策", icon: "fa-torii-gate", details: "<p>🏮 欣賞夜晚點燈的淺草寺與雷門，感受與白天截然不同的靜謐氛圍。</p>" },
-                        { time: "19:30後", title: "晚餐・極厚牛舌專門店", icon: "fa-drumstick-bite", details: "<p>🥩 前往**牛たんの檸檬 浅草店**，品嚐美味的厚切牛舌燒肉，為豐富的一天畫下完美句點。</p>" }
+                        { time: "08:00", title: "起床", icon: "fa-bed", details: "<p>☀️ 美好的一天開始！從容地起床、梳洗，為今天的台場與淺草之旅做好準備。</p>" },
+                        { time: "09:00 - 10:00", title: "出發・前往未來港灣台場", icon: "fa-train-tram", details: "<p>🌉 搭上電車，經由彩虹大橋或地下隧道，向著充滿現代感的人工島前進。</p><p class='mt-3 text-sm'><strong>建議交通：</strong> 搭乘 <strong>JR山手線</strong> 至「新橋站」，轉乘無人駕駛的 <strong>百合海鷗號 (Yurikamome) 🚝</strong>，享受窗外的海灣景色。</p>" },
+                        { time: "10:00 - 13:00", title: "台場精華巡禮 & 午餐", icon: "fa-robot", details: "<p>🏙️ 抵達台場後，你有充足的時間可以探索經典地標，並在商場內享用午餐。</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🗽 富士電視台 & 自由女神像 (建議停留 1.5小時)</h4><p class='text-sm text-slate-600 mt-1'>與女神像及彩虹大橋合影 📸，感受東京灣的開闊，並可參觀富士電視台的球體展望室。</p></div><div><h4 class='font-semibold text-slate-800'>🤖 DiverCity 廣場 & 獨角獸鋼彈 (建議停留 1.5小時)</h4><p class='text-sm text-slate-600 mt-1'>朝聖實物大的獨角獸鋼彈，感受其震撼力 🤖，並可逛逛商場內的鋼彈基地。</p></div>" },
+                        { time: "13:00 - 13:50", title: "前往碼頭・準備搭船", icon: "fa-ship", details: "<p>🚢 悠閒散步至 'お台場海浜公園' 碼頭，準備搭乘水上巴士，從不同的視角欣賞東京。</p>" },
+                        { time: "13:50 - 14:50", title: "TOKYO CRUISE・隅田川水上之旅", icon: "fa-water", details: "<p>🌇 從台場碼頭搭乘水上巴士，沿著隅田川航向淺草，從水上欣賞東京的城市天際線與橋樑風光 🌉。</p><div class='mt-4 pt-4 border-t border-gray-200'><h4 class='font-semibold text-slate-800'>【重要資訊】</h4><p class='text-sm text-slate-600 mt-2'><strong>購票參考：</strong><a href='https://www.kkday.com/zh-tw/product/28490' target='_blank' class='text-blue-500 hover:underline'>KKday 預訂頁面</a></p><details class='mt-2 text-sm'><summary class='font-semibold'>水上巴士參考班次 (請以官網為準)</summary><ul class='list-disc list-inside mt-2 pl-4 bg-gray-50 p-2 rounded'><li>快速 A1 班次：10:30出航~11:30抵達淺草</li><li>快速 A2 班次：14:15出航~15:15抵達淺草</li><li>快速 A3 班次：17:10出航~18:10抵達淺草</li></ul></details></div>" },
+                        { time: "15:00 - 15:30", title: "抵達淺草・變身和服美人", icon: "fa-user-tie", details: "<p>👘 抵達淺草碼頭後，前往預約好的和服店，挑選喜愛的花色，由專人協助換裝 👘。</p>" },
+                        { time: "15:30 - 18:30", title: "淺草古街漫步", icon: "fa-torii-gate", details: "<p>🏮 穿著美麗的和服，悠閒地參拜香火鼎盛的<strong>淺草寺</strong>、在掛著巨大燈籠的<strong>雷門</strong>前拍照留念，並在熱鬧的<strong>仲見世商店街</strong>逛街、品嚐人形燒等特色小吃 🍡。</p>" },
+                        { time: "18:30 - 19:00", title: "歸還和服", icon: "fa-undo", details: "<p>✅ 回到和服店，換回現代服裝，結束美好的和服體驗。</p>" },
+                        { time: "19:00 - 19:30", title: "夜訪淺草・步行前往餐廳", icon: "fa-walking", details: "<p>🌙 感受入夜後稍微靜謐的淺草，輕鬆散步至預定的晚餐地點。</p>" },
+                        { time: "19:30", title: "晚餐・極厚牛舌專門店", icon: "fa-drumstick-bite", details: "<p>🥩 前往**牛たんの檸檬 浅草店**，品嚐美味的厚切牛舌燒肉，為豐富的一天畫下完美句點 😋。</p>" }
                     ]
                 },
                 day4: {
@@ -440,11 +441,11 @@
                     themeImage: "image/hakone-theme.webp",
                     locations: { "大涌谷": { lat: 35.242, lon: 139.020 }, "箱根海賊船": { lat: 35.198, lon: 139.029 }, "元箱根港": { lat: 35.197, lon: 139.030 }, "箱根神社": { lat: 35.204, lon: 139.025 }, "箱根湯本商店街": { lat: 35.233, lon: 139.104 } },
                     items: [
-                        { time: "06:00 - 09:30", title: "清晨啟程・奔向箱根", icon: "fa-ticket-alt", details: "<p>🌄 為了充分享受箱根的一天，我們需要早點出發！</p><ul class='list-disc list-inside mt-2 text-sm space-y-2'><li><strong>06:30 前往新宿：</strong>從 <strong>JR田端站</strong> 搭山手線至 <strong>新宿站</strong> (車程約 20 分鐘)。</li><li><strong>07:00-07:30 啟程前往箱根：</strong>在新宿站購買「<a href='https://www.hakonenavi.jp/international/tw/discount_passes/free_pass' target='_blank' class='text-blue-500 hover:underline'>箱根周遊券</a>」後，搭乘以下任一車種前往「箱根湯本站」。<ul class='list-disc list-inside mt-1 pl-4'><li><a href='https://www.odakyu.jp/tc/romancecar/' target='_blank' class='text-blue-500 hover:underline'>浪漫特快</a>：速度最快、最舒適，需另外加購特急券。</li><li><a href='https://www.odakyu.jp/tc/transport/' target='_blank' class='text-blue-500 hover:underline'>小田急電鐵</a>：較經濟實惠的選擇。</li></ul></li></ul>" },
-                        { time: "09:30 - 12:00", title: "大涌谷・地獄谷的呼吸", icon: "fa-mountain", details: "<p>♨️ 搭乘多種交通工具，一路攀升至白煙繚繞的火山谷。在這裡可以遠眺富士山 🗻，並品嚐延年益壽的「黑玉子」溫泉蛋 ⚫。</p>" },
-                        { time: "12:00 - 13:30", title: "箱根海賊船・蘆之湖巡航", icon: "fa-ship", details: "<p>🏴‍☠️ 從大涌谷搭乘纜車至「桃源台港」，登上華麗的海賊船，在蘆之湖上航行，欣賞湖光山色與遠方的富士山景。巡航時間約 20-30 分鐘。</p>" },
-                        { time: "13:30 - 15:30", title: "元箱根港・湖畔時光", icon: "fa-utensils", details: "<p>⛩️ 抵達「元箱根港」後，您可以在湖畔的餐廳享用午餐。餐後，步行至湖邊的停車場，尋找拍攝水上「平和的鳥居」的經典角度。若時間和體力允許，可再步行約20分鐘至**箱根神社**本殿參拜。</p>" },
-                        { time: "15:30 - 17:00", title: "箱根湯本・溫泉街散策", icon: "fa-store", details: "<p>🍡 回到箱根的門戶「箱根湯本」，在熱鬧的商店街上選購伴手禮、品嚐溫泉饅頭，為箱根之旅畫下句點。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從「元箱根港」搭乘箱根登山巴士返回「箱根湯本站」。</p>" },
+                        { time: "06:00 - 09:30", title: "清晨啟程・奔向箱根", icon: "fa-ticket-alt", details: "<p>🌄 為了充分享受箱根的一天，我們需要早點出發！</p><ul class='list-disc list-inside mt-2 text-sm space-y-2'><li><strong>06:30 前往新宿：</strong>從 <strong>JR田端站</strong> 搭山手線至 <strong>新宿站</strong> (車程約 20 分鐘)。</li><li><strong>07:00-07:30 啟程前往箱根：</strong>在新宿站購買「<a href='https://www.hakonenavi.jp/international/tw/discount_passes/free_pass' target='_blank' class='text-blue-500 hover:underline'>箱根周遊券</a>」後，搭乘以下任一車種前往「箱根湯本站」。<ul class='list-disc list-inside mt-1 pl-4'><li><a href='https://www.odakyu.jp/tc/romancecar/' target='_blank' class='text-blue-500 hover:underline'>浪漫特快 🚆</a>：速度最快、最舒適，需另外加購特急券。</li><li><a href='https://www.odakyu.jp/tc/transport/' target='_blank' class='text-blue-500 hover:underline'>小田急電鐵</a>：較經濟實惠的選擇。</li></ul></li></ul>" },
+                        { time: "09:30 - 12:00", title: "大涌谷・地獄谷的呼吸", icon: "fa-mountain", details: "<p>♨️ 搭乘多種交通工具，一路攀升至白煙繚繞的火山谷 🌋。在這裡可以遠眺富士山 🗻，並品嚐延年益壽的「黑玉子」溫泉蛋 ⚫。</p>" },
+                        { time: "12:00 - 13:30", title: "箱根海賊船・蘆之湖巡航", icon: "fa-ship", details: "<p>🏴‍☠️ 從大涌谷搭乘纜車至「桃源台港」，登上華麗的海賊船 🚢，在蘆之湖上航行，欣賞湖光山色與遠方的富士山景。巡航時間約 20-30 分鐘。</p>" },
+                        { time: "13:30 - 15:30", title: "元箱根港・湖畔時光", icon: "fa-utensils", details: "<p>⛩️ 抵達「元箱根港」後，您可以在湖畔的餐廳享用午餐 🍽️。餐後，步行至湖邊的停車場，尋找拍攝水上「平和的鳥居」的經典角度。若時間和體力允許，可再步行約20分鐘至**箱根神社**本殿參拜。</p>" },
+                        { time: "15:30 - 17:00", title: "箱根湯本・溫泉街散策", icon: "fa-store", details: "<p>🍡 回到箱根的門戶「箱根湯本」，在熱鬧的商店街上選購伴手禮、品嚐溫泉饅頭 🎁，為箱根之旅畫下句點。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從「元箱根港」搭乘箱根登山巴士返回「箱根湯本站」。</p>" },
                         { time: "17:00後", title: "滿載而歸・告別箱根", icon: "fa-train", details: "<p>從 <strong>箱根湯本站</strong> 搭乘 <strong>小田急浪漫特快</strong> 返回新宿，再轉乘JR山手線回到田端。</p>" }
                     ]
                 },
@@ -454,11 +455,11 @@
                     locations: { "增上寺": { lat: 35.657, lon: 139.748 }, "東京鐵塔": { lat: 35.658, lon: 139.745 }, "麻布台之丘": { lat: 35.660, lon: 139.743 }, "六本木之丘": { lat: 35.660, lon: 139.729 } },
                     items: [
                         { time: "08:00 - 09:30", title: "晨間啟程・前往東京鐵塔", icon: "fa-train", details: "<p>🗼 享用早餐後，出發前往東京的經典地標。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 搭乘 <strong>JR山手線</strong> 至「浜松町站」或 <strong>都營大江戶線</strong> 至「赤羽橋站」。</p>" },
-                        { time: "09:30 - 10:30", title: "增上寺・歷史與鐵塔的經典合影", icon: "fa-landmark", details: "<p>參拜德川家康的家廟，並從寺廟廣場拍攝以古老寺廟為前景、現代東京鐵塔為背景的經典照片。</p>" },
-                        { time: "10:30 - 12:30", title: "東京鐵塔・登上昭和時代的象徵", icon: "fa-tower-broadcast", details: "<p>登上主甲板或頂層甲板，從市中心的不同角度俯瞰東京景色。</p>" },
-                        { time: "12:30 - 14:00", title: "麻布台之丘・午餐與新地標巡禮", icon: "fa-utensils", details: "<p>🏙️ 步行至最新地標「麻布台之丘」享用午餐，並前往 33 樓的免費展望台，從絕佳角度近距離欣賞東京鐵塔。</p>" },
-                        { time: "14:00 - 18:00", title: "六本木之丘・藝術與時尚的午後", icon: "fa-palette", details: "<p>🎨 步行或搭一站地鐵至「六本木」，參觀**森美術館**，或在六本木之丘的商場逛街、喝下午茶。</p>" },
-                        { time: "18:00後", title: "六本木夜景與晚餐", icon: "fa-city", details: "<p>登上六本木之丘的「Tokyo City View」展望台，欣賞包含東京鐵塔在內的壯麗夜景，之後在六本木地區享用晚餐。</p>" }
+                        { time: "09:30 - 10:30", title: "增上寺・歷史與鐵塔的經典合影", icon: "fa-landmark", details: "<p>參拜德川家康的家廟，並從寺廟廣場拍攝以古老寺廟為前景、現代東京鐵塔為背景的經典照片 📸。</p>" },
+                        { time: "10:30 - 12:30", title: "東京鐵塔・登上昭和時代的象徵", icon: "fa-tower-broadcast", details: "<p>登上主甲板或頂層甲板，從市中心的不同角度俯瞰東京景色 🗼。</p>" },
+                        { time: "12:30 - 14:00", title: "麻布台之丘・午餐與新地標巡禮", icon: "fa-utensils", details: "<p>🏙️ 步行至最新地標「麻布台之丘」享用午餐，並前往 33 樓的免費展望台，從絕佳角度近距離欣賞東京鐵塔 ✨。</p>" },
+                        { time: "14:00 - 18:00", title: "六本木之丘・藝術與時尚的午後", icon: "fa-palette", details: "<p>🎨 步行或搭一站地鐵至「六本木」，參觀**森美術館** 🖼️，或在六本木之丘的商場逛街、喝下午茶。</p>" },
+                        { time: "18:00後", title: "六本木夜景與晚餐", icon: "fa-city", details: "<p>登上六本木之丘的「Tokyo City View」展望台，欣賞包含東京鐵塔在內的壯麗夜景，之後在六本木地區享用晚餐。<ul><li><strong>高空酒吧:</strong> 選擇一家位於高樓飯店的酒吧，點杯調酒 🍸，享受更奢華的夜景體驗。</li></ul></p>" }
                     ]
                 },
                 day6: {
@@ -467,11 +468,11 @@
                     locations: { "明治神宮": { lat: 35.676, lon: 139.699 }, "忠犬八公像": { lat: 35.659, lon: 139.700 }, "澀谷十字路口": { lat: 35.659, lon: 139.700 }, "SHIBUYA SKY": { lat: 35.659, lon: 139.703 }, "新宿歌舞伎町": { lat: 35.693, lon: 139.700 }, "東京都廳舍": { lat: 35.689, lon: 139.691 } },
                     items: [
                         { time: "08:00 - 09:30", title: "晨間啟程・前往原宿", icon: "fa-train", details: "<p>☀️ 享用早餐後，搭上山手線，前往時尚與文化匯集的原宿地區。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘 <strong>山手線</strong> 至 <strong>原宿站</strong> (約 25 分鐘)。</p>" },
-                        { time: "09:30 - 11:30", title: "明治神宮・都會中的靜謐森林", icon: "fa-tree", details: "<p>⛩️ 走進這片都市中的巨大森林，洗滌心靈。穿過巨大的木造鳥居，漫步在碎石道上，感受莊嚴而寧靜的氛圍。</p>" },
-                        { time: "11:30 - 17:00", title: "澀谷探索・十字路口的脈動", icon: "fa-users", details: "<p>🚶‍♂️從原宿散步至澀谷，準備迎接世界上最繁忙的路口！</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🐕 忠犬八公像 & 澀谷十字路口 (約1小時)</h4><p class='text-sm text-slate-600 mt-1'>與忠犬八公像合影，然後從星巴克2樓或天橋上，欣賞人潮洶湧的十字路口奇觀。</p></div><div><h4 class='font-semibold text-slate-800'>🍜 午餐 & 逛街 (約2.5小時)</h4><p class='text-sm text-slate-600 mt-1'>在澀谷中心街或周邊百貨尋找美食，餐後自由探索，無論是唱片行、服飾店，這裡應有盡有。</p></div>" },
+                        { time: "09:30 - 11:30", title: "明治神宮・都會中的靜謐森林", icon: "fa-tree", details: "<p>⛩️ 走進這片都市中的巨大森林，洗滌心靈。穿過巨大的木造鳥居，漫步在碎石道上，感受莊嚴而寧靜的氛圍 🍃。</p>" },
+                        { time: "11:30 - 17:00", title: "澀谷探索・十字路口的脈動", icon: "fa-users", details: "<p>🚶‍♂️從原宿散步至澀谷，準備迎接世界上最繁忙的路口！</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🐕 忠犬八公像 & 澀谷十字路口 (約1小時)</h4><p class='text-sm text-slate-600 mt-1'>與忠犬八公像合影 🐕，然後從星巴克2樓或天橋上，欣賞人潮洶湧的十字路口奇觀。</p></div><div><h4 class='font-semibold text-slate-800'>🍜 午餐 & 逛街 (約2.5小時)</h4><p class='text-sm text-slate-600 mt-1'>在澀谷中心街或周邊百貨尋找美食，餐後自由探索，無論是唱片行、服飾店，這裡應有盡有 🛍️。</p></div>" },
                         { time: "17:00 - 18:30", title: "SHIBUYA SKY・雲端上的東京", icon: "fa-city", details: "<p>🌇 在日落時分登上澀谷制高點，360度無死角地欣賞東京從黃昏 🌆 轉為璀璨夜景 🌃 的魔幻時刻。</p>" },
                         { time: "18:30 - 19:30", title: "移動・前往不夜城新宿", icon: "fa-subway", details: "<p>告別澀谷，搭上電車前往下一個目的地。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR澀谷站</strong> 搭乘 <strong>山手線</strong> 至 <strong>新宿站</strong> (約 7 分鐘)。</p>" },
-                        { time: "19:30 - 23:00", title: "新宿之夜・歌舞伎町與高空夜景", icon: "fa-moon", details: "<p>✨ 深入東京最著名的不夜城，感受其獨特的魅力。</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🏮 歌舞伎町 & 思出橫丁 (建議停留 1.5-2小時)</h4><p class='text-sm text-slate-600 mt-1'>穿過歌舞伎町一番街的標誌性拱門，感受五光十色的街區氛圍。之後可以鑽進充滿昭和風情的「思出橫丁」，在串燒的香氣中享用晚餐。</p></div><div><h4 class='font-semibold text-slate-800'>🍸 高空夜景 (二選一)</h4><p class='text-sm text-slate-600 mt-1'>為今晚畫上完美句點。<ul><li><strong>東京都廳舍展望室 (免費):</strong> 前往45樓免費欣賞新宿夜景。</li><li><strong>高空酒吧:</strong> 選擇一家位於高樓飯店的酒吧，點杯調酒，享受更奢華的夜景體驗。</li></ul></p></div>" }
+                        { time: "19:30 - 23:00", title: "新宿之夜・歌舞伎町與高空夜景", icon: "fa-moon", details: "<p>✨ 深入東京最著名的不夜城，感受其獨特的魅力。</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🏮 歌舞伎町 & 思出橫丁 (建議停留 1.5-2小時)</h4><p class='text-sm text-slate-600 mt-1'>穿過歌舞伎町一番街的標誌性拱門，感受五光十色的街區氛圍。之後可以鑽進充滿昭和風情的「思出橫丁」，在串燒的香氣中享用晚餐 🍢。</p></div><div><h4 class='font-semibold text-slate-800'>🍸 高空夜景 (二選一)</h4><p class='text-sm text-slate-600 mt-1'>為今晚畫上完美句點。<ul><li><strong>東京都廳舍展望室 (免費):</strong> 前往45樓免費欣賞新宿夜景。</li><li><strong>高空酒吧:</strong> 選擇一家位於高樓飯店的酒吧，點杯調酒，享受更奢華的夜景體驗。</li></ul></p></div>" }
                     ]
                 },
                 day7: {
@@ -479,13 +480,13 @@
                     themeImage: "image/kawaguchiko-fuji-theme.avif",
                     locations: { "河口湖車站": { lat: 35.498, lon: 138.767 }, "天上山公園": { lat: 35.508, lon: 138.772 }, "河口湖遊覽船": { lat: 35.509, lon: 138.772 }, "河口湖音樂盒之森美術館": { lat: 35.518, lon: 138.766 }, "河口湖耍猴劇場": { lat: 35.519, lon: 138.763 } },
                     items: [
-                        { time: "06:00 - 09:30", title: "啟程・奔向富士山", icon: "fa-train", details: "<p>🗻 清晨從東京出發，搭上直達特急列車，窗外景色將從都市叢林逐漸轉變為壯麗山景。</p><ul class='list-disc list-inside mt-2 text-sm'><li><strong>06:20-07:00：</strong>從田端出發前往新宿。</li><li><strong>07:00-09:30：</strong>從 <strong>新宿站</strong> 搭乘 JR 特急「富士回遊」號直達河口湖。</li></ul>" },
-                        { time: "09:30 - 10:00", title: "抵達河口湖 & 萬全準備", icon: "fa-map-signs", details: "<p>抵達後，先在車站購買「河口湖周遊巴士券」。別忘了在車站前的羅森便利商店拍下與富士山的經典合照！</p>" },
-                        { time: "10:00 - 11:45", title: "天上山公園・纜車絕景", icon: "fa-cable-car", details: "<p>搭上纜車，攀升至能將富士山與河口湖全景盡收眼底的觀景台，感受令人屏息的壯闊美景。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 在車站前搭乘紅線周遊巴士至 <strong>No.11 遊覽船・山纜車入口</strong> (約 11 分鐘)。</p>" },
-                        { time: "11:45 - 13:00", title: "河口湖遊覽船・湖上風光", icon: "fa-ship", details: "<p>從湖上欣賞富士山，感受不同角度的靜謐與美麗。遊覽船將帶您環湖，享受微風與開闊的視野。</p>" },
+                        { time: "06:00 - 09:30", title: "啟程・奔向富士山", icon: "fa-train", details: "<p>🗻 清晨從東京出發，搭上直達特急列車，窗外景色將從都市叢林逐漸轉變為壯麗山景。</p><ul class='list-disc list-inside mt-2 text-sm'><li><strong>06:20-07:00：</strong>從田端出發前往新宿。</li><li><strong>07:00-09:30：</strong>從 <strong>新宿站</strong> 搭乘 JR 特急「富士回遊」號 🚄 直達河口湖。</li></ul>" },
+                        { time: "09:30 - 10:00", title: "抵達河口湖 & 萬全準備", icon: "fa-map-signs", details: "<p>抵達後，先在車站購買「河口湖周遊巴士券」。別忘了在車站前的羅森便利商店拍下與富士山的經典合照 📸！</p>" },
+                        { time: "10:00 - 11:45", title: "天上山公園・纜車絕景", icon: "fa-cable-car", details: "<p>搭上纜車，攀升至能將富士山與河口湖全景盡收眼底的觀景台，感受令人屏息的壯闊美景 😍。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 在車站前搭乘紅線周遊巴士至 <strong>No.11 遊覽船・山纜車入口</strong> (約 11 分鐘)。</p>" },
+                        { time: "11:45 - 13:00", title: "河口湖遊覽船・湖上風光", icon: "fa-ship", details: "<p>從湖上欣賞富士山，感受不同角度的靜謐與美麗。遊覽船將帶您環湖，享受微風與開闊的視野 🛶。</p>" },
                         { time: "13:00 - 13:40", title: "前往耍猴劇場", icon: "fa-bus-alt", details: "<p>從遊覽船碼頭搭乘紅線巴士，準備欣賞有趣的猴子表演。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 搭乘紅線巴士至 <strong>No.16 耍猴劇場・木之花美術館站</strong>。</p>" },
-                        { time: "14:00 - 14:40", title: "耍猴劇場・歡樂藝能秀", icon: "fa-theater-masks", details: "<p>🐵 欣賞日本傳統的猴子藝能表演，牠們的聰明才智絕對會讓您捧腹大笑。</p>" },
-                        { time: "14:50 - 17:10", title: "河口湖音樂盒之森・悠閒午茶時光", icon: "fa-music", details: "<p>🎶 從耍猴劇場步行至隔壁，走進如同歐洲童話般的庭園。您有充裕的時間可以在此的景觀餐廳享用午餐，並欣賞世界級的音樂盒收藏。</p>" },
+                        { time: "14:00 - 14:40", title: "耍猴劇場・歡樂藝能秀", icon: "fa-theater-masks", details: "<p>🐵 欣賞日本傳統的猴子藝能表演，牠們的聰明才智絕對會讓您捧腹大笑 😂。</p>" },
+                        { time: "14:50 - 17:10", title: "河口湖音樂盒之森・悠閒午茶時光", icon: "fa-music", details: "<p>🎶 從耍猴劇場步行至隔壁，走進如同歐洲童話般的庭園。您有充裕的時間可以在此的景觀餐廳享用午餐或下午茶 ☕，並欣賞世界級的音樂盒收藏。</p>" },
                         { time: "17:10 - 17:40", title: "返回河口湖車站", icon: "fa-bus", details: "<p>從美術館搭乘紅線巴士返回車站，準備告別富士山。</p>" },
                         { time: "17:40後", title: "歸途・告別富士", icon: "fa-train", details: "<p>帶著滿滿的美景與回憶，搭上返回東京的列車。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從河口湖車站搭乘 <strong>JR 特急「富士回遊」號</strong>或<strong>高速巴士</strong>返回新宿。</p>" }
                     ]
@@ -498,7 +499,7 @@
                         items: [
                             { time: "09:30 - 12:00", title: "電器巨擘探險", icon: "fa-camera-retro", details: "<p>從車站旁的「Yodobashi-Akiba」開始，這裡不僅有最新的電子產品 💻，還有各式模型 🤖 和動漫周邊 🎨。</p>" },
                             { time: "12:00 - 14:00", title: "中央通漫步 & 午餐", icon: "fa-utensils", details: "<p>沿著秋葉原的主要街道「中央通」漫步，感受獨特的街景，並在此尋找拉麵 🍜 或咖哩飯 🍛 等經典日式午餐。</p>" },
-                            { time: "14:00 - 18:30", title: "挖寶時間", icon: "fa-gem", details: "<p>深入探索「秋葉原Radio會館」的模型、「Mandarake Complex」的二手寶物 💎，並在「Gachapon會館」試試手氣 🎲，轉出意想不到的驚喜。</p>" },
+                            { time: "14:00 - 18:30", title: "挖寶時間", icon: "fa-gem", details: "<p>深入探索「秋葉原Radio會館」的模型、「Mandarake Complex」的二手寶物 💎，並在「Gachapon會館」試試手氣 🎲，轉出意想不到的驚喜 ✨！</p>" },
                             { time: "晚上", title: "特色文化體驗", icon: "fa-mug-hot", details: "<p>可以選擇體驗一次聞名世界的女僕咖啡廳 ☕️，或是尋找隱藏在巷弄中的特色居酒屋 🏮，為今天畫下句點。</p>" }
                         ]
                     },
@@ -507,7 +508,7 @@
                         themeImage: "image/ikebukuro-theme.webp",
                         locations: { "Sunshine City": { lat: 35.729, lon: 139.718 }, "Animate池袋總店": { lat: 35.730, lon: 139.715 } },
                         items: [
-                            { time: "09:30 - 13:00", title: "陽光城 Sunshine City", icon: "fa-shopping-bag", details: "<p>主攻大型複合商城「Sunshine City」，參觀 Pokémon Center 👾 並在此的餐廳街享用午餐。</p>" },
+                            { time: "09:30 - 13:00", title: "陽光城 Sunshine City", icon: "fa-shopping-bag", details: "<p>主攻大型複合商城「Sunshine City」，參觀 Pokémon Center 👾 並在此的餐廳街享用午餐 🍽️。</p>" },
                             { time: "13:00 - 15:00", title: "都市中的海洋綠洲", icon: "fa-fish", details: "<p>參觀位於頂樓的「Sunshine Aquarium」，欣賞可愛的天空企鵝 🐧 在頭頂上游泳的奇景。</p>" },
                             { time: "15:00 - 17:30", title: "動漫少女聖地巡禮", icon: "fa-heart", details: "<p>朝聖全世界最大的「Animate池袋總店」，並逛逛旁邊專為女性粉絲打造的「乙女路」💖。</p>" },
                             { time: "晚上", title: "百貨公司最後衝刺", icon: "fa-credit-card", details: "<p>在東武、西武百貨公司進行最後的購物 🛍️，並在美食街享用晚餐，選擇豐富多元。</p>" }
@@ -519,8 +520,8 @@
                     themeImage: "image/shopping-theme.webp",
                     locations: { "唐吉訶德": { lat: 35.700, lon: 139.772 } },
                     items: [
-                        { time: "上午", title: "最終補貨與伴手禮採購", icon: "fa-gifts", details: "<p>🛍️ 享用早餐後，這是您查漏補缺的最後機會。可以去前一天沒逛夠的店家，或是前往大型連鎖雜貨店「驚安的殿堂・唐吉訶德」一次買齊藥妝、零食和各種有趣的伴手禮。</p>" },
-                        { time: "13:00後", title: "告別的午餐・前往機場", icon: "fa-plane-departure", details: "<p>在秋葉原或上野享用在日本的最後一餐，之後返回住處整理行李，準備前往機場，結束愉快的旅程。</p>" }
+                        { time: "上午", title: "最終補貨與伴手禮採購", icon: "fa-gifts", details: "<p>🛍️ 享用早餐後，這是您查漏補缺的最後機會。可以去前一天沒逛夠的店家，或是前往大型連鎖雜貨店「驚安的殿堂・唐吉訶德」一次買齊藥妝、零食和各種有趣的伴手禮 🎁。</p>" },
+                        { time: "13:00後", title: "告別的午餐・前往機場", icon: "fa-plane-departure", details: "<p>在秋葉原或上野享用在日本的最後一餐 🍱，之後返回住處整理行李，準備前往機場，結束愉快的旅程。</p>" }
                     ]
                 }
             };
