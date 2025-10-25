@@ -473,32 +473,6 @@
                     ]
                 },
                 day5: {
-                    title: "阿佐谷・澀谷・新宿一日精華遊",
-                    themeImage: "image/shibuya-shinjuku-theme.webp",
-                    locations: {
-                        "阿佐ヶ谷神明宮": { lat: 35.704, lon: 139.635 },
-                        "忠犬八公像": { lat: 35.659, lon: 139.700 },
-                        "澀谷十字路口": { lat: 35.659, lon: 139.700 },
-                        "明治神宮": { lat: 35.676, lon: 139.699 },
-                        "新宿御苑": { lat: 35.685, lon: 139.711 },
-                        "花園神社": { lat: 35.694, lon: 139.704 },
-                        "思出橫丁": { lat: 35.693, lon: 139.699 },
-                        "新宿歌舞伎町": { lat: 35.693, lon: 139.700 },
-                        "新宿黃金街": { lat: 35.694, lon: 139.705 },
-                        "牛たんの檸檬": { lat: 35.692, lon: 139.698 }
-                    },
-                    items: [
-                        { time: "08:00 - 09:00", title: "晨間準備・享用早餐", icon: "fa-coffee", details: "<p>☀️ 美好的一天從早餐開始！在出發前悠閒地享用早餐，為今天的旅程儲備滿滿的能量。</p>" },
-                        { time: "09:00 - 10:30", title: "阿佐谷神明宮・結緣參拜", icon: "fa-om", details: "<p>⛩️ 前往以獨特的刺繡御朱印「神結」聞名的阿佐谷神明宮，為這趟旅程祈求美好的緣分。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘山手線至新宿，轉乘中央・總武線至 <strong>阿佐ヶ谷站</strong> (總耗時約 30-35 分鐘)。</p>" },
-                        { time: "10:30 - 13:00", title: "澀谷初探與午餐", icon: "fa-users", details: "<p>🚶‍♂️ 回到潮流的中心地帶！與忠犬八公像合影 🐕，並在全世界最繁忙的澀谷十字路口感受人潮脈動。之後在周邊的百貨或巷弄中尋找美食，享用午餐 🍜。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>阿佐ヶ谷站</strong> 搭乘中央・總武線至新宿，轉乘山手線至 <strong>澀谷站</strong> (總耗時約 25-30 分鐘)。</p>" },
-                        { time: "13:00 - 15:30", title: "午後的靜謐時光 (二選一)", icon: "fa-tree", details: "<p>🏙️ 從澀谷的喧囂中短暫抽離，選擇一個你喜歡的地方享受寧靜的午後。</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>方案一：明治神宮 🌳 <a href='https://www.meijijingu.or.jp/en/visit/' target='_blank' class='text-blue-500 hover:underline text-sm'>(官網資訊)</a></h4><p class='text-sm text-slate-600 mt-1'>參拜紀念明治天皇與昭憲皇太后的莊嚴神宮，漫步於都市中的廣闊森林，感受片刻的寧靜。</p></div><div><h4 class='font-semibold text-slate-800'>方案二：新宿御苑 🌸 <a href='https://www.env.go.jp/garden/shinjukugyoen/2_guide/guide.html' target='_blank' class='text-blue-500 hover:underline text-sm'>(官網資訊)</a></h4><p class='text-sm text-slate-600 mt-1'>探訪融合日式、法式、英式風格的庭園。春天時是著名的賞櫻景點，平時也是都市中的一片綠洲。</p><p class='text-sm text-slate-600 mt-2'><strong>入場費：</strong> 一般 500日圓 (※可使用交通IC卡付款)</p></div><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>澀谷站</strong> 搭乘JR山手線至 <strong>原宿站</strong> (明治神宮) 或 <strong>新宿站</strong> (新宿御苑)。</p>" },
-                        { time: "15:30 - 17:30", title: "新宿東口・潮流與傳統的交會", icon: "fa-cat", details: "<p>🐾 探訪新宿東口的熱鬧街區！抬頭尋找「Cross Shinjuku Vision」上逼真的巨大3D貓咪 🐈，再步行至隱身於鬧區中的「花園神社」⛩️，感受都會中難得的寧靜。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 此區域景點間距離很近，建議步行探索。</p>" },
-                        { time: "17:30 - 19:00", title: "晚餐・極厚牛舌饗宴", icon: "fa-drumstick-bite", details: "<p>🥩 晚餐時間！從東口步行至西新宿，途中快速穿梭充滿昭和風情的「思出橫丁」，感受下班後居酒屋的熱鬧氣氛，接著前往「新宿焼肉 牛たんの檸檬 総本店」品嚐美味的牛舌定食！(※注意：定食有用餐時間60分鐘限制)</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 步行前往餐廳。</p><div class='mt-4 pt-4 border-t border-gray-200'><h4 class='font-semibold text-slate-800'>【訂位資訊】</h4><p class='text-sm text-slate-600 mt-2'><strong>訂位連結：</strong><a href='https://maps.app.goo.gl/qPrSRGfzxqEkiCyj8' target='_blank' class='text-blue-500 hover:underline'>點我訂位</a></p></div>" },
-                        { time: "19:00 - 22:00", title: "新宿不夜城深度漫遊", icon: "fa-moon", details: "<p>✨ 體驗新宿越夜越美麗的魅力！</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🏮 思出橫丁 (Omoide Yokocho)</h4><p class='text-sm text-slate-600 mt-1'>晚餐後重返此地，深入探索狹窄巷弄中的串燒店與居酒屋，感受濃厚的懷舊氛圍。</p></div><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🌃 歌舞伎町 (Kabukicho)</h4><p class='text-sm text-slate-600 mt-1'>欣賞夜晚更加閃亮的3D貓咪、尋找藏在飯店上方的哥吉拉頭像 🦖，感受五光十色的街區活力。</p></div><div><h4 class='font-semibold text-slate-800'>🥃 新宿黃金街 (Golden Gai)</h4><p class='text-sm text-slate-600 mt-1'>最後鑽進由數百家微型酒吧組成的黃金街，這裡保留了戰後東京的樣貌，是體驗在地夜生活的絕佳地點。</p></div><p class='mt-3 text-sm'><strong>交通方式：</strong> 「思出橫丁」、「歌舞伎町」、「黃金街」皆位於新宿車站周邊，步行即可輕鬆往返。</p>" },
-                        { time: "22:00 - 22:30", title: "滿載而歸", icon: "fa-train", details: "<p>結束充實的一天，準備返回住處。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR新宿站</strong> 搭乘 <strong>山手線</strong> 返回 <strong>田端站</strong> (車程約 25 分鐘)。</p>" }
-                    ]
-                },
-                day6: {
                     title: "經典地標・都會藝術巡禮",
                     themeImage: "image/tokyo-tower-azabudai-theme.avif",
                     locations: { "增上寺": { lat: 35.657, lon: 139.748 }, "東京鐵塔": { lat: 35.658, lon: 139.745 }, "麻布台之丘": { lat: 35.660, lon: 139.743 }, "六本木之丘": { lat: 35.660, lon: 139.729 } },
@@ -509,6 +483,19 @@
                         { time: "12:30 - 14:00", title: "麻布台之丘・午餐與新地標巡禮", icon: "fa-utensils", details: "<p>🏙️ 步行至最新地標「麻布台之丘」享用午餐，並前往 33 樓的免費展望台，從絕佳角度近距離欣賞東京鐵塔 ✨。</p>" },
                         { time: "14:00 - 18:00", title: "六本木之丘・藝術與時尚的午後", icon: "fa-palette", details: "<p>🎨 步行或搭一站地鐵至「六本木」，參觀**森美術館** 🖼️，或在六本木之丘的商場逛街、喝下午茶。</p>" },
                         { time: "18:00後", title: "六本木夜景與晚餐", icon: "fa-city", details: "<p>登上六本木之丘的「Tokyo City View」展望台，欣賞包含東京鐵塔在內的壯麗夜景，之後在六本木地區享用晚餐。<ul><li><strong>高空酒吧:</strong> 選擇一家位於高樓飯店的酒吧，點杯調酒 🍸，享受更奢華的夜景體驗。</li></ul></p>" }
+                    ]
+                },
+                day6: {
+                    title: "澀谷x新宿・潮流心臟雙城記",
+                    themeImage: "image/shibuya-shinjuku-theme.webp",
+                    locations: { "明治神宮": { lat: 35.676, lon: 139.699 }, "忠犬八公像": { lat: 35.659, lon: 139.700 }, "澀谷十字路口": { lat: 35.659, lon: 139.700 }, "SHIBUYA SKY": { lat: 35.659, lon: 139.703 }, "新宿歌舞伎町": { lat: 35.693, lon: 139.700 }, "東京都廳舍": { lat: 35.689, lon: 139.691 } },
+                    items: [
+                        { time: "08:00 - 09:30", title: "晨間啟程・前往原宿", icon: "fa-train", details: "<p>☀️ 享用早餐後，搭上山手線，前往時尚與文化匯集的原宿地區。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR田端站</strong> 搭乘 <strong>山手線</strong> 至 <strong>原宿站</strong> (約 25 分鐘)。</p>" },
+                        { time: "09:30 - 11:30", title: "明治神宮・都會中的靜謐森林", icon: "fa-tree", details: "<p>⛩️ 走進這片都市中的巨大森林，洗滌心靈。穿過巨大的木造鳥居，漫步在碎石道上，感受莊嚴而寧靜的氛圍 🍃。</p>" },
+                        { time: "11:30 - 17:00", title: "澀谷探索・十字路口的脈動", icon: "fa-users", details: "<p>🚶‍♂️從原宿散步至澀谷，準備迎接世界上最繁忙的路口！</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🐕 忠犬八公像 & 澀谷十字路口 (約1小時)</h4><p class='text-sm text-slate-600 mt-1'>與忠犬八公像合影 🐕，然後從星巴克2樓或天橋上，欣賞人潮洶湧的十字路口奇觀。</p></div><div><h4 class='font-semibold text-slate-800'>🍜 午餐 & 逛街 (約2.5小時)</h4><p class='text-sm text-slate-600 mt-1'>在澀谷中心街或周邊百貨尋找美食，餐後自由探索，無論是唱片行、服飾店，這裡應有盡有 🛍️。</p></div>" },
+                        { time: "17:00 - 18:30", title: "SHIBUYA SKY・雲端上的東京", icon: "fa-city", details: "<p>🌇 在日落時分登上澀谷制高點，360度無死角地欣賞東京從黃昏 🌆 轉為璀璨夜景 🌃 的魔幻時刻。</p>" },
+                        { time: "18:30 - 19:30", title: "移動・前往不夜城新宿", icon: "fa-subway", details: "<p>告別澀谷，搭上電車前往下一個目的地。</p><p class='mt-3 text-sm'><strong>交通方式：</strong> 從 <strong>JR澀谷站</strong> 搭乘 <strong>山手線</strong> 至 <strong>新宿站</strong> (約 7 分鐘)。</p>" },
+                        { time: "19:30 - 23:00", title: "新宿之夜・歌舞伎町與高空夜景", icon: "fa-moon", details: "<p>✨ 深入東京最著名的不夜城，感受其獨特的魅力。</p><div class='mb-4 mt-2'><h4 class='font-semibold text-slate-800'>🏮 歌舞伎町 & 思出橫丁 (建議停留 1.5-2小時)</h4><p class='text-sm text-slate-600 mt-1'>穿過歌舞伎町一番街的標誌性拱門，感受五光十色的街區氛圍。之後可以鑽進充滿昭和風情的「思出橫丁」，在串燒的香氣中享用晚餐 🍢。</p></div><div><h4 class='font-semibold text-slate-800'>🍸 高空夜景 (二選一)</h4><p class='text-sm text-slate-600 mt-1'>為今晚畫上完美句點。<ul><li><strong>東京都廳舍展望室 (免費):</strong> 前往45樓免費欣賞新宿夜景。</li><li><strong>高空酒吧:</strong> 選擇一家位於高樓飯店的酒吧，點杯調酒，享受更奢華的夜景體驗。</li></ul></p></div>" }
                     ]
                 },
                 day7: {
@@ -801,7 +788,6 @@
             }
             
             function updateMapForDay(dayId) {
-                if (!map) return; // Ensure map is initialized
                 markers.forEach(marker => map.removeLayer(marker));
                 markers = [];
                 const dayOrArrayData = itineraryData[dayId];
@@ -825,15 +811,6 @@
                 for (const name in locations) {
                     const loc = locations[name];
                     const marker = L.marker([loc.lat, loc.lon]).addTo(map).bindPopup(`<b>${name}</b>`);
-                    
-                    // Add hover events to show/hide popup
-                    marker.on('mouseover', function (e) {
-                        this.openPopup();
-                    });
-                    marker.on('mouseout', function (e) {
-                        this.closePopup();
-                    });
-
                     marker.locationName = name;
                     markers.push(marker);
                     bounds.extend([loc.lat, loc.lon]);
