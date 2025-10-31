@@ -664,7 +664,12 @@
                 for (const dayId in itineraryData) {
                     const dayOrArrayData = itineraryData[dayId];
                     if (Array.isArray(dayOrArrayData)) {
-                        const multipleCardsHtml = dayOrArrayData.map(planData => createCardHtml(planData)).join('');
+                        let multipleCardsHtml = '<div class="grid grid-cols-1 gap-12">';
+                        multipleCardsHtml += dayOrArrayData.map(planData => {
+                            // For cards in a grid, we remove their individual bottom margin
+                            return createCardHtml(planData).replace(' mb-12', '');
+                        }).join('');
+                        multipleCardsHtml += '</div>';
                         allSectionsHtml += `<section id="${dayId}" class="content-section" style="display: none; opacity: 0;">${multipleCardsHtml}</section>`;
                     } else {
                         const singleCardHtml = createCardHtml(dayOrArrayData);
