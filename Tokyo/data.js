@@ -1,16 +1,51 @@
 const itineraryData = {
     day1: {
-        title: "抵達・熱鬧的上野初體驗",
-        themeImage: "image/ueno-arrival-theme.webp",
+        title: "下町春色・櫻與古街的散策",
+        themeImage: "travel_image/Ueno_Park.jpg",
         highlights: [
-            { icon: "fa-plane-departure", text: "抵達機場" },
-            { icon: "fa-train", text: "Skyliner" },
-            { icon: "fa-utensils", text: "阿美橫丁" }
+            { icon: "fa-tree", text: "六義園枝垂櫻" },
+            { icon: "fa-store", text: "谷中銀座" },
+            { icon: "fa-torii-gate", text: "根津神社" }
         ],
         items: [
-            { time: "上午", title: "啟程・飛往成田機場", icon: "fa-plane-departure", content: { description: "✈️ 從高雄小港機場出發，搭機飛往東京成田機場，準備開啟期待已久的旅程！" } },
-            { time: "下午", title: "入境・前往田端", icon: "fa-plane-arrival", content: { description: "🛬 辦理入境手續、領取行李後，前往市區下榻處。", transport: "建議搭乘 <strong>Skyliner 🚆</strong> 至日暮里站，再轉乘 <strong>JR山手線</strong> 僅一站即可抵達田端站辦理入住。" } },
-            { time: "傍晚", title: "阿美橫丁・初探庶民活力", icon: "fa-utensils", content: { description: "🏮 安頓好行李後，前往充滿活力的<strong>阿美橫丁</strong>商店街。感受在地市場的熱鬧氣氛，並在此解決晚餐，品嚐各式各樣的B級美食 🍢。", transport: "從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> 或 <strong>御徒町站</strong> (約 5-7 分鐘)。" } }
+            { time: "07:00 - 09:00", title: "抵達・輕裝上陣", icon: "fa-plane-arrival", content: { 
+                description: "🛬 抵達東京成田機場後，搭乘便捷的 <strong>Skyliner 🚆</strong> 直達日暮里。建議先將大件行李寄放於車站置物櫃，解放雙手，輕鬆開始第一天的行程！"
+            }},
+            { time: "09:00 - 11:00", title: "駒込・名園的勝運祈願", icon: "fa-place-of-worship", content: {
+                description: "走訪江戶時代的代表性庭園，並為旅程祈求好運。🌸",
+                transport: "從 <strong>JR日暮里站</strong> 搭乘山手線至 <strong>駒込站</strong> (約 5 分鐘)。",
+                subsections: [
+                    { title: "⛩️ 妙義神社", description: "首先來到寧靜的妙義神社，為旅程祈求「勝運」，戰勝所有挑戰！" },
+                    { title: "🌸 六義園", description: "漫步至名園<strong>六義園</strong>，欣賞巨大「枝垂櫻」如瀑布般盛開的壯觀景象。" }
+                ]
+            }},
+            { time: "11:00 - 14:00", title: "谷根千・老街的慢活時光", icon: "fa-walking", content: {
+                description: "鑽進充滿懷舊風情的「谷根千」地區，感受慢活步調與老街魅力。🚶‍♀️",
+                transport: "從 <strong>JR駒込站</strong> 搭乘山手線至 <strong>日暮里站</strong>，由南口出站。",
+                subsections: [
+                    { title: "🌳 谷中靈園", description: "穿越櫻花大道，欣賞古樹與光影交織的靜謐風景。" },
+                    { title: "🌇 夕陽階梯 & 谷中銀座", description: "在經典的<strong>夕陽階梯</strong>拍照後，於<strong>谷中銀座商店街</strong>享用午餐，品嚐炸肉餅、貓尾巴甜甜圈等排隊美食。🍩" }
+                ]
+            }},
+            { time: "14:00 - 17:30", title: "根津與上野・鳥居與櫻花祭典", icon: "fa-torii-gate", content: {
+                description: "穿梭於朱紅鳥居之間，再投入上野公園熱鬧的櫻花祭典。🎉",
+                transport: "從根津神社搭乘計程車至上野公園約 5-10 分鐘 (車資約 1000 日圓)。",
+                subsections: [
+                    { title: "⛩️ 根津神社", description: "散步至<strong>根津神社</strong>，欣賞「乙女稻荷神社」彷彿京都縮影般的千本鳥居。" },
+                    { title: "🌸 上野恩賜公園", description: "投入「上野櫻花祭」的熱鬧懷抱！感受被粉紅燈籠海包圍的幸福感，欣賞櫻花樹下的歡樂景象。" }
+                ]
+            }},
+            { time: "17:30 - 21:30", title: "上野・不夜城的晚餐與購物", icon: "fa-shopping-bag", content: {
+                description: "夜幕低垂，走進充滿活力的<strong>阿美橫丁</strong>，在熱鬧的叫賣聲中享用道地晚餐，並完成最後的購物任務！",
+                transport: "上野公園周邊景點皆可步行抵達。",
+                subsections: [
+                    { title: "🍣 晚餐時間", description: "在阿美橫丁有各式各樣的露天居酒屋、燒肉、迴轉壽司可供選擇。" },
+                    { title: "🛍️ 購物行程", description: "餐後前往 24 小時營業的<strong>唐吉訶德</strong>，一站式補齊所有藥妝、零食和伴手禮。" }
+                ]
+            }},
+            { time: "21:30 - 22:00", title: "滿載而歸", icon: "fa-hotel", content: {
+                description: "🌙 結束充實的一天，返回 <strong>JR 日暮里站</strong> 取回行李，準備前往飯店辦理入住手續，好好休息。"
+            }}
         ]
     },
     day2: {
@@ -38,7 +73,13 @@ const itineraryData = {
                 description: "登上東京地標，將壯麗的城市夜景盡收眼底。這個黃金時段更能同時欣賞日落與華燈初上的美景。✨ 在晴空塔底下，您有以下選擇：",
                 transport: "晴空塔站出站即達，此區域內建議步行探索。",
                 subsections: [
-                    { title: "🐧 墨田水族館", description: "位於晴空塔內的都市型水族館，可以近距離觀賞企鵝和海狗。<br>票價：成人（18歲以上）¥2,500 <a href='https://www.sumida-aquarium.com/cn_han/index.html' target='_blank' class='text-blue-500 hover:underline text-sm'>(官方資訊)</a>" },
+                    { 
+                        title: "🐧 墨田水族館", 
+                        description: "位於晴空塔內的都市型水族館，可以近距離觀賞企鵝和海狗。<br>票價：成人（18歲以上）¥2,500",
+                        links: [
+                            { icon: "fas fa-info-circle", text: "官方資訊", url: "https://www.sumida-aquarium.com/cn_han/index.html" }
+                        ]
+                    },
                     { title: "🛍️ 晴空街道 (Tokyo Solamachi)", description: "享受購物樂趣！這裡有超過300家店鋪，從動漫迷必逛的「<strong>寶可夢中心</strong> 👾」、「<strong>吉卜力共和國</strong> 🌳」，到伴手禮首選「<strong>東京芭娜娜</strong> 🍌」限定口味，應有盡有。" }
                 ]
             }},
@@ -75,7 +116,7 @@ const itineraryData = {
             { time: "13:00 - 13:30", title: "漫步碼頭・準備搭乘水上巴士", icon: "fa-ship", content: { description: "悠閒散步至 'お台場海浜公園' 碼頭 🚶‍♀️，準備搭乘水上巴士，從不同的視角欣賞東京。", transport: "從 DiverCity 廣場步行約 10-15 分鐘即可抵達台場海濱公園碼頭。" } },
             { time: "13:30 - 14:30", title: "隅田川遊船・航向淺草", icon: "fa-water", content: {
                 description: "從台場碼頭搭乘水上巴士，沿著隅田川航向淺草，從水上欣賞東京的城市天際線與橋樑風光。🌉",
-                links: [{ text: "KKday 預訂頁面", url: "https://www.kkday.com/zh-tw/product/28490" }],
+                links: [{ icon: "fas fa-ticket-alt", text: "KKday 預訂頁面", url: "https://www.kkday.com/zh-tw/product/28490" }],
                 special: {
                     summary: "水上巴士參考班次 (請以官網為準)",
                     content: "此處時間為行程規劃參考，實際請務必依據官網公告的船班時間為準。<ul class='list-disc list-inside mt-2 pl-4 bg-gray-50 p-2 rounded'><li>快速 A1 班次：10:30出航~11:30抵達淺草</li><li>快速 A2 班次：14:15出航~15:15抵達淺草</li><li>快速 A3 班次：17:10出航~18:10抵達淺草</li></ul>"
@@ -101,7 +142,15 @@ const itineraryData = {
                 description: "🌄 為了充分享受箱根的一天，我們需要早點出發！",
                 subsections: [
                     { title: "06:30 前往新宿", description: "從 <strong>JR田端站</strong> 搭山手線至 <strong>新宿站</strong> (車程約 20 分鐘)。" },
-                    { title: "07:00-07:30 啟程前往箱根", description: "在新宿站購買「<a href='https://www.hakonenavi.jp/international/tw/discount_passes/free_pass' target='_blank' class='text-blue-500 hover:underline'>箱根周遊券</a>」後，搭乘以下任一車種前往「<strong>箱根湯本站</strong>」。<ul class='list-disc list-inside mt-1 pl-4'><li><a href='https://www.odakyu.jp/tc/romancecar/' target='_blank' class='text-blue-500 hover:underline'>浪漫特快 🚆</a>：速度最快、最舒適，需另外加購特急券。</li><li><a href='https://www.odakyu.jp/tc/transport/' target='_blank' class='text-blue-500 hover:underline'>小田急電鐵</a>：較經濟實惠的選擇。</li></ul>" }
+                    { 
+                        title: "07:00-07:30 啟程前往箱根", 
+                        description: "在新宿站購買「箱根周遊券」後，搭乘以下任一車種前往「<strong>箱根湯本站</strong>」。",
+                        links: [
+                            { icon: "fas fa-info-circle", text: "箱根周遊券", url: "https://www.hakonenavi.jp/international/tw/discount_passes/free_pass" },
+                            { icon: "fas fa-train", text: "浪漫特快 🚆", url: "https://www.odakyu.jp/tc/romancecar/" },
+                            { icon: "fas fa-train", text: "小田急電鐵", url: "https://www.odakyu.jp/tc/transport/" }
+                        ]
+                    }
                 ]
             }},
             { time: "09:30 - 12:00", title: "大涌谷・地獄谷的呼吸", icon: "fa-mountain", content: { description: "♨️ 搭乘經典的箱根交通工具，一路攀升至白煙繚繞的火山谷<strong>大涌谷</strong> 🌋。在這裡可以遠眺富士山 🗻，並品嚐延年益壽的「黑玉子」溫泉蛋 ⚫。", transport: "1. 搭乘 <strong>箱根登山電車</strong> 至「強羅站」。<br>2. 轉乘 <strong>箱根登山纜車</strong> 至「早雲山站」。<br>3. 換乘 <strong>箱根空中纜車</strong> 🚠 前往「大涌谷站」。" } },
@@ -127,15 +176,23 @@ const itineraryData = {
                 description: "從澀谷的喧囂中短暫抽離，選擇一個你喜歡的地方享受寧靜的午後。🏙️",
                 transport: "從 <strong>澀谷站</strong> 搭乘JR山手線至 <strong>原宿站</strong> (明治神宮) 或 <strong>新宿站</strong> (新宿御苑)。",
                 subsections: [
-                    { title: "方案一：明治神宮 🌳", description: "參拜紀念明治天皇與昭憲皇太后的莊嚴神宮，漫步於都市中的廣闊森林，感受片刻的寧靜。", links: [{ text: "官網資訊", url: "https://www.meijijingu.or.jp/en/visit/" }] },
-                    { title: "方案二：新宿御苑 🌸", description: "探訪融合日式、法式、英式風格的庭園。春天時是著名的賞櫻景點，平時也是都市中的一片綠洲。<br><strong>入場費：</strong> 一般 500日圓 (※可使用交通IC卡付款)", links: [{ text: "官網資訊", url: "https://www.env.go.jp/garden/shinjukugyoen/2_guide/guide.html" }] }
+                    { 
+                        title: "方案一：明治神宮 🌳", 
+                        description: "參拜紀念明治天皇與昭憲皇太后的莊嚴神宮，漫步於都市中的廣闊森林，感受片刻的寧靜。", 
+                        links: [{ icon: "fas fa-info-circle", text: "官網資訊", url: "https://www.meijijingu.or.jp/en/visit/" }] 
+                    },
+                    { 
+                        title: "方案二：新宿御苑 🌸", 
+                        description: "探訪融合日式、法式、英式風格的庭園。春天時是著名的賞櫻景點，平時也是都市中的一片綠洲。<br><strong>入場費：</strong> 一般 500日圓 (※可使用交通IC卡付款)", 
+                        links: [{ icon: "fas fa-info-circle", text: "官網資訊", url: "https://www.env.go.jp/garden/shinjukugyoen/2_guide/guide.html" }] 
+                    }
                 ]
             }},
             { time: "15:30 - 17:30", title: "新宿東口・3D貓咪與花園神社", icon: "fa-cat", content: { description: "探訪新宿東口的熱鬧街區！抬頭尋找「Cross Shinjuku Vision」上逼真的巨大3D貓咪 🐈，再步行至隱身於鬧區中的<strong>花園神社</strong>，感受都會中難得的寧靜。⛩️", transport: "此區域景點間距離很近，建議步行探索。" } },
             { time: "17:30 - 19:00", title: "晚餐・極厚牛舌饗宴", icon: "fa-drumstick-bite", content: {
                 description: "晚餐時間！從東口步行至西新宿，途中快速穿梭充滿昭和風情的<strong>思出橫丁</strong>，感受下班後居酒屋的熱鬧氣氛，接著前往<strong>新宿焼肉 牛たんの檸檬 総本店</strong>品嚐美味的牛舌定食！😋 (※注意：定食有用餐時間60分鐘限制)",
                 transport: "步行前往餐廳。",
-                links: [{ text: "點我訂位", url: "https://maps.app.goo.gl/qPrSRGfzxqEkiCyj8" }]
+                links: [{ icon: "fas fa-calendar-check", text: "預約連結 (Google Map)", url: "https://maps.app.goo.gl/qPrSRGfzxqEkiCyj8" }]
             }},
             { time: "19:00 - 22:00", title: "新宿不夜城・黃金街的深夜探險", icon: "fa-moon", content: {
                 description: "✨ 體驗新宿越夜越美麗的魅力！",
@@ -186,10 +243,11 @@ const itineraryData = {
             { icon: "fa-mountain", text: "山中湖" }
         ],
         items: [
-            { time: "07:00 - 09:00", title: "啟程出發・奔向富士山", icon: "fa-bus-alt", content: { description: "包車司機準時接送，我們從田端出發，沿高速公路直奔富士山區 🚗，準備迎接一整天的絕景！", transport: "由<strong>包車司機</strong>從田端接送，經由<strong>首都高速道路</strong>接上<strong>中央自動車道</strong>，一路開往河口湖。" } },
-            { time: "09:00 - 09:45", title: "大石公園・湖畔花街道", icon: "fa-leaf", content: { description: "抵達<strong>大石公園</strong>，這裡是河口湖畔的絕佳觀景點 🏞️。沿著「花街道」散步，將富士山與湖景一次捕捉，並可逛逛一旁的自然生活館。", transport: "司機將載我們沿<strong>河口湖大橋</strong>至北岸的<strong>大石公園</strong>，此處設有停車場。" } },
-            { time: "10:00 - 13:00", title: "音樂與森林博物館・童話庭園午餐", icon: "fa-music", content: { description: "走進宛如歐洲童話的<strong>音樂與森林博物館</strong> 🏰，欣賞世界級的自動音樂盒演奏。我們將在此悠閒漫步，並在園區的景觀餐廳享用午餐 🍽️。<br><strong>門票：</strong> 成人約 1,800 日圓 (依平假日浮動)。", transport: "從大石公園出發，由司機沿<strong>縣道21號（河口湖北岸道路）</strong>駕駛約 5 分鐘即可抵達。" } },
-            { time: "13:15 - 14:15", title: "車站周邊・經典打卡點巡禮", icon: "fa-camera-retro", content: { 
+            { time: "07:00 - 07:30", title: "晨間準備・享用早餐", icon: "fa-coffee", content: { description: "☀️ 為了準時出發，今天得早點起床！迅速享用早餐，為富士山之旅做好準備。" } },
+            { time: "07:30 - 09:30", title: "啟程出發・奔向富士山", icon: "fa-bus-alt", content: { description: "包車司機準時接送，我們從田端出發，沿高速公路直奔富士山區 🚗，準備迎接一整天的絕景！", transport: "由<strong>包車司機</strong>從田端接送，經由<strong>首都高速道路</strong>接上<strong>中央自動車道</strong>，一路開往河口湖。" } },
+            { time: "09:30 - 10:15", title: "大石公園・湖畔花街道", icon: "fa-leaf", content: { description: "抵達<strong>大石公園</strong>，這裡是河口湖畔的絕佳觀景點 🏞️。沿著「花街道」散步，將富士山與湖景一次捕捉，並可逛逛一旁的自然生活館。", transport: "司機將載我們沿<strong>河口湖大橋</strong>至北岸的<strong>大石公園</strong>，此處設有停車場。" } },
+            { time: "10:30 - 13:30", title: "音樂與森林博物館・童話庭園午餐", icon: "fa-music", content: { description: "走進宛如歐洲童話的<strong>音樂與森林博物館</strong> 🏰，欣賞世界級的自動音樂盒演奏。我們將在此悠閒漫步，並在園區的景觀餐廳享用午餐 🍽️。<br><strong>門票：</strong> 成人約 1,800 日圓 (依平假日浮動)。", transport: "從大石公園出發，由司機沿<strong>縣道21號（河口湖北岸道路）</strong>駕駛約 5 分鐘即可抵達。" } },
+            { time: "13:45 - 14:45", title: "車站周邊・經典打卡點巡禮", icon: "fa-camera-retro", content: { 
                 description: "來到河口湖車站周邊，這裡是拍攝經典照片與品嚐特色點心的好地方。",
                 subsections: [
                     { title: "📸 羅森便利商店", description: "朝聖社群媒體上最火紅的打卡點，在<strong>羅森便利商店</strong>前可以拍下以富士山為背景的完美街景照。" },
@@ -197,10 +255,10 @@ const itineraryData = {
                 ],
                 transport: "由司機載我們返回河口湖車站周邊區域，車程約 10-15 分鐘。"
             } },
-            { time: "14:45 - 16:00", title: "忍野八海・探訪名水湧泉", icon: "fa-water", content: { description: "探訪由富士山雪水融化後形成的八個清澈湧泉池 💧。在<strong>忍野八海</strong>欣賞水面倒影與傳統茅草屋構成的日式鄉村風情，還能嚐嚐這裡的名水豆腐和草餅。", transport: "從河口湖車站區域出發，行經<strong>國道138號</strong>，由司機駕駛約 15-20 分鐘即可抵達。" } },
-            { time: "16:30 - 17:00", title: "平野之濱・靜賞逆富士", icon: "fa-image", content: { description: "來到山中湖畔的<strong>平野之濱</strong>，這裡是欣賞「逆富士」的著名景點。在寧靜的湖畔散步 🦢，享受夕陽餘暉灑落富士山的片刻浪漫。", transport: "離開忍野八海後，由司機繼續沿<strong>國道138號</strong>載我們前往山中湖，車程約 15 分鐘。" } },
-            { time: "17:15 - 18:00", title: "山中湖全景台・日落最終章", icon: "fa-mountain", content: { description: "本日的完美終點！從遼闊的<strong>山中湖全景台</strong>俯瞰山中湖與雄偉的富士山 🤩，靜靜欣賞從傍晚到日落的壯麗景色。", transport: "由司機沿<strong>國道413號（山中湖畔道路）</strong>載我們開上山，路況較窄，約 15 分鐘即可抵達觀景台。" } },
-            { time: "18:00後", title: "啟程返回東京", icon: "fa-bus-alt", content: { description: "帶著滿滿的美景與回憶，我們搭上包車，從山中湖交流道上高速公路，返回東京市區 🌃。", transport: "從山中湖IC上<strong>中央自動車道</strong>，由司機載我們返回東京市區。" } }
+            { time: "15:15 - 16:30", title: "忍野八海・探訪名水湧泉", icon: "fa-water", content: { description: "探訪由富士山雪水融化後形成的八個清澈湧泉池 💧。在<strong>忍野八海</strong>欣賞水面倒影與傳統茅草屋構成的日式鄉村風情，還能嚐嚐這裡的名水豆腐和草餅。", transport: "從河口湖車站區域出發，行經<strong>國道138號</strong>，由司機駕駛約 15-20 分鐘即可抵達。" } },
+            { time: "17:00 - 17:30", title: "平野之濱・靜賞逆富士", icon: "fa-image", content: { description: "來到山中湖畔的<strong>平野之濱</strong>，這裡是欣賞「逆富士」的著名景點。在寧靜的湖畔散步 🦢，享受夕陽餘暉灑落富士山的片刻浪漫。", transport: "離開忍野八海後，由司機繼續沿<strong>國道138號</strong>載我們前往山中湖，車程約 15 分鐘。" } },
+            { time: "17:45 - 18:30", title: "山中湖全景台・日落最終章", icon: "fa-mountain", content: { description: "本日的完美終點！從遼闊的<strong>山中湖全景台</strong>俯瞰山中湖與雄偉的富士山 🤩，靜靜欣賞從傍晚到日落的壯麗景色。", transport: "由司機沿<strong>國道413號（山中湖畔道路）</strong>載我們開上山，路況較窄，約 15 分鐘即可抵達觀景台。" } },
+            { time: "18:30後", title: "啟程返回東京", icon: "fa-bus-alt", content: { description: "帶著滿滿的美景與回憶，我們搭上包車，從山中湖交流道上高速公路，返回東京市區 🌃。", transport: "從山中湖IC上<strong>中央自動車道</strong>，由司機載我們返回東京市區。" } }
         ]
     },
     day8: [
