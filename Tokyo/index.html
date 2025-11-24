@@ -586,10 +586,6 @@
                     html += `<p class='mt-3 text-sm'><strong>交通方式：</strong> ${content.transport}</p>`;
                 }
 
-                if (content.notes) {
-                    html += `<p class='mt-3 text-sm text-slate-500'>${content.notes}</p>`;
-                }
-
                 if (content.subsections && content.subsections.length > 0) {
                     html += '<div class="mt-4 space-y-4">';
                     content.subsections.forEach(sub => {
@@ -636,7 +632,7 @@
                     ` : '';
 
                     const timelineHtml = planData.items.map(item => `
-                        <div class="timeline-item relative mb-8" data-location="${item.title.split('・')[0].trim()}">
+                        <div class="timeline-item relative mb-8">
                             <div class="icon"><i class="fas ${item.icon}"></i></div>
                             <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
                                 <div class="p-4">
