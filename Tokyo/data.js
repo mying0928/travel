@@ -1,7 +1,7 @@
 const itineraryData = {
     day1: {
         title: "下町春色・櫻與古街的散策",
-        themeImage: "travel_image/Ueno_Park.jpg",
+        themeImage: "images/Ueno_Park.webp",
         highlights: [
             { icon: "fa-tree", text: "六義園枝垂櫻" },
             { icon: "fa-store", text: "谷中銀座" },
@@ -50,7 +50,7 @@ const itineraryData = {
     },
     day2: {
         title: "上野漫步・古韻與新空的交響",
-        themeImage: "image/ueno-park-theme.jpg",
+        themeImage: "images/ueno-park-theme.webp",
         highlights: [
             { icon: "fa-tree", text: "上野公園" },
             { icon: "fa-building", text: "晴空塔" },
@@ -96,7 +96,7 @@ const itineraryData = {
     },
     day3: {
         title: "台場漫遊・航向淺草和服體驗",
-        themeImage: "image/tsukiji-odaiba-theme.jpg",
+        themeImage: "images/tsukiji-odaiba-theme.webp",
         highlights: [
             { icon: "fa-robot", text: "台場" },
             { icon: "fa-ship", text: "水上巴士" },
@@ -131,7 +131,7 @@ const itineraryData = {
     },
     day4: {
         title: "箱根周遊・火山與湖光山色",
-        themeImage: "image/hakone-theme.webp",
+        themeImage: "images/hakone-theme.webp",
         highlights: [
             { icon: "fa-mountain", text: "大涌谷" },
             { icon: "fa-ship", text: "海賊船" },
@@ -162,7 +162,7 @@ const itineraryData = {
     },
     day5: {
         title: "都會巡禮・阿佐谷、澀谷與新宿",
-        themeImage: "image/shibuya-shinjuku-theme.webp",
+        themeImage: "images/shibuya-shinjuku-theme.webp",
         highlights: [
             { icon: "fa-om", text: "阿佐谷神明宮" },
             { icon: "fa-users", text: "澀谷" },
@@ -208,7 +208,7 @@ const itineraryData = {
     },
     day6: {
         title: "經典巡禮・皇居與東京鐵塔",
-        themeImage: "image/tokyo-tower-azabudai-theme.avif",
+        themeImage: "images/tokyo-tower-azabudai-theme.avif",
         highlights: [
             { icon: "fa-landmark", text: "皇居" },
             { icon: "fa-tower-broadcast", text: "東京鐵塔" },
@@ -236,7 +236,7 @@ const itineraryData = {
     },
     day7: {
         title: "富士絕景・山中湖與忍野八海",
-        themeImage: "image/kawaguchiko-fuji-theme.avif",
+        themeImage: "images/kawaguchiko-fuji-theme.avif",
         highlights: [
             { icon: "fa-leaf", text: "大石公園" },
             { icon: "fa-water", text: "忍野八海" },
@@ -264,7 +264,7 @@ const itineraryData = {
     day8: [
         {
             title: "秋葉原・文化與次文化交錯",
-            themeImage: "image/akihabara-theme.webp",
+            themeImage: "images/akihabara-theme.webp",
             highlights: [
                 { icon: "fa-torii-gate", text: "神田明神" },
                 { icon: "fa-robot", text: "動漫模型" },
@@ -286,7 +286,7 @@ const itineraryData = {
         },
         {
             title: "池袋・動漫聖地與都市夜遊",
-            themeImage: "image/ikebukuro-theme.webp",
+            themeImage: "images/ikebukuro-theme.webp",
             highlights: [
                 { icon: "fa-fish", text: "太陽城水族館" },
                 { icon: "fa-heart", text: "Animate" },
@@ -315,7 +315,7 @@ const itineraryData = {
     ],
     day9: {
         title: "最終採購・滿載而歸",
-        themeImage: "image/shopping-theme.webp",
+        themeImage: "images/shopping-theme.webp",
         highlights: [
             { icon: "fa-gifts", text: "伴手禮採購" },
             { icon: "fa-utensils", text: "最後的午餐" },

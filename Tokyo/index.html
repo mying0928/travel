@@ -4,254 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>櫻之東京：探索行程</title>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="icon" href="images/favicon.svg" type="images/svg+xml">
     
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 
-    <style>
-        :root {
-            --brand-sakura: #f8cdda;
-            --brand-dark-sakura: #d1a3b3;
-            --brand-light-sakura: #fff0f5;
-            --brand-indigo: #4a5568;
-        }
-        body {
-            font-family: 'Noto Sans JP', 'Noto Sans TC', sans-serif;
-            background-color: #f9fafb;
-            background-image: url('image/background-pattern.png');
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
-        }
-        body.loaded { opacity: 1; }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #fff0f5; }
-        ::-webkit-scrollbar-thumb { background: #f8cdda; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #d1a3b3; }
-
-        /* Pre-loader */
-        .preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #fff; display: flex; justify-content: center;
-            align-items: center; z-index: 10000;
-            transition: opacity 0.75s ease, visibility 0.75s ease;
-        }
-        .preloader.hidden { opacity: 0; visibility: hidden; }
-        .sakura-loader {
-            font-size: 5rem;
-            color: var(--brand-sakura);
-            animation: sakura-spin 2s linear infinite;
-        }
-        @keyframes sakura-spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        /* ✨ New: 3D Background Canvas Style */
-        #sakura-background-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1; /* Below content (z-10, z-20, etc.) */
-            pointer-events: none; /* Allow clicks to pass through */
-        }
-
-        /* Hero Header & Interactive Foreground */
-        .hero-header { height: 100vh; min-height: 600px; max-height: 800px; }
-        #hero-title .char { display: inline-block; will-change: transform, opacity; }
-        #interactive-foreground { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-
-        /* Card hover effects */
-        .card-hover { transition: transform 0.4s ease, box-shadow 0.4s ease; will-change: transform; }
-        .card-hover:hover {
-            transform: translateY(-8px) perspective(1000px) rotateX(2deg) rotateY(-2deg);
-            box-shadow: 0 20px 40px -10px rgba(248, 205, 218, 0.5);
-        }
-
-        /* Timeline styles */
-        .timeline-item {
-            cursor: pointer;
-        }
-        .timeline-item .icon {
-            position: absolute; left: -38px; top: 5px; width: 36px; height: 36px;
-            border-radius: 50%; background-color: var(--brand-sakura); color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            border: 3px solid var(--brand-light-sakura); font-size: 1.1rem; z-index: 10;
-            transition: transform 0.3s ease;
-        }
-        .timeline-item:hover .icon { transform: scale(1.2); }
-        .timeline-line {
-            position: absolute; left: -21px; top: 20px; bottom: -20px; width: 4px;
-            background-color: #f3f4f6; border-radius: 2px;
-        }
-        .timeline-line-progress {
-            position: absolute; left: -21px; top: 20px; width: 4px;
-            background-color: var(--brand-sakura); border-radius: 2px;
-            height: 0;
-        }
-
-        /* Daily Theme Card */
-        .daily-theme-card {
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.5s ease;
-        }
-        .daily-theme-card:hover { transform: scale(1.03); }
-
-        /* Toolkit glow effect */
-        .tool-card {
-            position: relative;
-            overflow: hidden;
-        }
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: var(--y, 0);
-            left: var(--x, 0);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle at center, rgba(248, 205, 218, 0.35) 0%, transparent 50%);
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-        .tool-card:hover::before {
-            opacity: 1;
-        }
-        .tool-card h3 {
-            color: var(--brand-indigo);
-        }
-
-        /* Gallery styles */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            height: 250px; /* Added for consistent height */
-        }
-        .gallery-item:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        .gallery-item .overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
-            color: white;
-            padding: 2rem 1rem 1rem;
-            transform: translateY(100%);
-            transition: transform 0.4s ease-in-out;
-            text-align: center; /* Centered text */
-        }
-        .gallery-item:hover .overlay {
-            transform: translateY(0);
-        }
-        .gallery-item .overlay-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-
-        
-
-        /* Drag & Drop styles */
-        .nav-btn {
-            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
-        }
-        .nav-btn.dragging {
-            opacity: 0.6;
-            cursor: grabbing;
-            transform: scale(1.1) rotate(3deg);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            z-index: 100;
-        }
-        .nav-btn.drag-over {
-            transform: scale(1.1);
-            background-color: var(--brand-dark-sakura) !important;
-            color: white !important;
-            box-shadow: 0 0 20px var(--brand-dark-sakura);
-        }
-
-        .nav-arrow {
-            display: none; /* Hidden by default */
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            color: var(--brand-dark-sakura);
-            cursor: pointer;
-            z-index: 10;
-            transition: opacity 0.3s, background-color 0.3s;
-            align-items: center;
-            justify-content: center;
-        }
-        .nav-arrow.visible {
-            display: flex;
-        }
-        .nav-arrow:hover {
-            background-color: white;
-        }
-        .nav-arrow.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        /* Dropdown style for details */
-        details > summary {
-            cursor: pointer;
-            list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
-        details > summary:before {
-            content: '▲';
-            font-size: 0.7em;
-            margin-right: 8px;
-        }
-        details[open] > summary:before {
-            content: '▼';
-        }
-
-        /* Utility */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    <style>:root{--brand-sakura:#f8cdda;--brand-dark-sakura:#d1a3b3;--brand-light-sakura:#fff0f5;--brand-indigo:#4a5568}body{font-family:'Noto Sans JP','Noto Sans TC',sans-serif;background-color:#f9fafb;background-image:url('images/background-pattern.png');opacity:0;transition:opacity .5s ease-in}body.loaded{opacity:1}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#fff0f5}::-webkit-scrollbar-thumb{background:#f8cdda;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#d1a3b3}.preloader{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#fff;display:flex;justify-content:center;align-items:center;z-index:10000;transition:opacity .75s ease,visibility .75s ease}.preloader.hidden{opacity:0;visibility:hidden}.sakura-loader{font-size:5rem;color:var(--brand-sakura);animation:sakura-spin 2s linear infinite}@keyframes sakura-spin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}#sakura-background-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}.hero-header{height:100vh;min-height:600px;max-height:800px}#hero-title .char{display:inline-block;will-change:transform,opacity}#interactive-foreground{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none}.card-hover{transition:transform .4s ease,box-shadow .4s ease;will-change:transform}.card-hover:hover{transform:translateY(-8px) perspective(1000px) rotateX(2deg) rotateY(-2deg);box-shadow:0 20px 40px -10px rgba(248,205,218,.5)}.timeline-item{cursor:pointer}.timeline-item .icon{position:absolute;left:-38px;top:5px;width:36px;height:36px;border-radius:50%;background-color:var(--brand-sakura);color:#fff;display:flex;align-items:center;justify-content:center;border:3px solid var(--brand-light-sakura);font-size:1.1rem;z-index:10;transition:transform .3s ease}.timeline-item:hover .icon{transform:scale(1.2)}.timeline-line{position:absolute;left:-21px;top:20px;bottom:-20px;width:4px;background-color:#f3f4f6;border-radius:2px}.timeline-line-progress{position:absolute;left:-21px;top:20px;width:4px;background-color:var(--brand-sakura);border-radius:2px;height:0}.daily-theme-card{background-size:cover;background-position:center;transition:transform .5s ease}.daily-theme-card:hover{transform:scale(1.03)}.tool-card{position:relative;overflow:hidden}.tool-card::before{content:'';position:absolute;top:var(--y,0);left:var(--x,0);width:300px;height:300px;background:radial-gradient(circle at center,rgba(248,205,218,.35) 0%,transparent 50%);transform:translate(-50%,-50%);opacity:0;transition:opacity .4s ease;pointer-events:none}.tool-card:hover::before{opacity:1}.tool-card h3{color:var(--brand-indigo)}.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.gallery-item{position:relative;overflow:hidden;border-radius:1rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);transition:transform .4s ease,box-shadow .4s ease;height:250px}.gallery-item:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)}.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.gallery-item:hover img{transform:scale(1.1)}.gallery-item .overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 100%);color:#fff;padding:2rem 1rem 1rem;transform:translateY(100%);transition:transform .4s ease-in-out;text-align:center}.gallery-item:hover .overlay{transform:translateY(0)}.gallery-item .overlay-title{font-size:1.25rem;font-weight:700}.nav-btn{transition:transform .3s ease,opacity .3s ease,box-shadow .3s ease}.nav-btn.dragging{opacity:.6;cursor:grabbing;transform:scale(1.1) rotate(3deg);box-shadow:0 10px 20px rgba(0,0,0,.2);z-index:100}.nav-btn.drag-over{transform:scale(1.1);background-color:var(--brand-dark-sakura)!important;color:#fff!important;box-shadow:0 0 20px var(--brand-dark-sakura)}.nav-arrow{display:none;position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background-color:rgba(255,255,255,.8);border-radius:50%;color:var(--brand-dark-sakura);cursor:pointer;z-index:10;transition:opacity .3s,background-color .3s;align-items:center;justify-content:center}.nav-arrow.visible{display:flex}.nav-arrow:hover{background-color:#fff}.nav-arrow.disabled{opacity:.3;cursor:not-allowed}details>summary{cursor:pointer;list-style:none}details>summary::-webkit-details-marker{display:none}details>summary:before{content:'▲';font-size:.7em;margin-right:8px}details[open]>summary:before{content:'▼'}.hide-scrollbar::-webkit-scrollbar{display:none}.hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none}</style>
 </head>
 <body class="text-slate-700">
 
@@ -270,7 +32,7 @@
     <header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden z-10">
         <canvas id="interactive-foreground"></canvas>
         <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
-             style="background-image: url('image/hero-background.webp'); z-index: 0;">
+             style="background-image: url('images/hero-background.webp'); z-index: 0;">
         </div>
         <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-index: 1;"></div>
         <div class="relative text-center z-10 p-4">
@@ -340,39 +102,39 @@
                     <p class="mb-6 text-slate-600">這次旅程的精彩瞬間與必訪景點的驚鴻一瞥。</p>
                     <div class="gallery-grid">
                         <div class="gallery-item">
-                            <img src="travel_image/Senso-ji_Temple_Tokyo.jpg" alt="淺草寺">
+                            <img loading="lazy" src="images/Senso-ji_Temple_Tokyo.webp" alt="淺草寺">
                             <div class="overlay"><div class="overlay-title">淺草寺</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Ueno_Park.jpg" alt="上野公園">
+                            <img loading="lazy" src="images/Ueno_Park.webp" alt="上野公園">
                             <div class="overlay"><div class="overlay-title">上野公園</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Shibuya_Crossing.jpg" alt="澀谷十字路口">
+                            <img loading="lazy" src="images/Shibuya_Crossing.webp" alt="澀谷十字路口">
                             <div class="overlay"><div class="overlay-title">澀谷十字路口</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Tokyo_Tower.jpg" alt="東京鐵塔">
+                            <img loading="lazy" src="images/Tokyo_Tower.webp" alt="東京鐵塔">
                             <div class="overlay"><div class="overlay-title">東京鐵塔</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Tokyo_Imperial_Palace.jpg" alt="皇居">
+                            <img loading="lazy" src="images/Tokyo_Imperial_Palace.webp" alt="皇居">
                             <div class="overlay"><div class="overlay-title">皇居</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Odaiba_Rainbow_Bridge.jpg" alt="台場彩虹橋">
+                            <img loading="lazy" src="images/Odaiba_Rainbow_Bridge.webp" alt="台場彩虹橋">
                             <div class="overlay"><div class="overlay-title">台場彩虹橋</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Hakone_Shrine.jpg" alt="箱根神社">
+                            <img loading="lazy" src="images/Hakone_Shrine.webp" alt="箱根神社">
                             <div class="overlay"><div class="overlay-title">箱根神社</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Kawaguchiko_Fuji.jpg" alt="河口湖與富士山">
+                            <img loading="lazy" src="images/Kawaguchiko_Fuji.webp" alt="河口湖與富士山">
                             <div class="overlay"><div class="overlay-title">河口湖與富士山</div></div>
                         </div>
                         <div class="gallery-item">
-                            <img src="travel_image/Kabukicho.jpg" alt="歌舞伎町">
+                            <img loading="lazy" src="images/Kabukicho.webp" alt="歌舞伎町">
                             <div class="overlay"><div class="overlay-title">歌舞伎町</div></div>
                         </div>
                     </div>
@@ -435,6 +197,11 @@
         </button>
     </div>
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="data.js"></script>
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
