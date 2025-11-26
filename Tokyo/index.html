@@ -183,6 +183,26 @@
             <div id="daily-sections-container"></div>
         </main>
 
+        <div class="mt-16">
+            <h2 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-8 text-center flex items-center justify-center"><i class="fas fa-link mr-3 text-pink-500"></i>實用外部連結</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <a href="https://japantravel.navitime.com/zh-tw/area/jp/route/" target="_blank" class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover flex items-center gap-4 no-underline">
+                    <i class="fas fa-route text-3xl text-sky-500"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">JapanTravel 路線規劃</h3>
+                        <p class="text-sm text-slate-600 mt-1">全日本通用的交通轉乘查詢。</p>
+                    </div>
+                </a>
+                <a href="https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/traffic/skyliner.php" target="_blank" class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover flex items-center gap-4 no-underline">
+                    <i class="fas fa-train-tram text-3xl text-orange-500"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">Skyliner 時刻表</h3>
+                        <p class="text-sm text-slate-600 mt-1">查詢成田機場快線的詳細資訊。</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
         <footer class="text-center mt-20 py-8">
             <p class="text-slate-500 text-sm">&copy; 2026 櫻之東京旅遊. All Rights Reserved.</p>
         </footer>
@@ -318,29 +338,104 @@
                 setTimeout(updateArrows, 100); // Timeout to allow layout to settle
             }
 
+            function getFontAwesomeIcon(owmIconCode) {
+                const mapping = {
+                    "01d": "fa-sun", "01n": "fa-moon",
+                    "02d": "fa-cloud-sun", "02n": "fa-cloud-moon",
+                    "03d": "fa-cloud", "03n": "fa-cloud",
+                    "04d": "fa-cloud", "04n": "fa-cloud",
+                    "09d": "fa-cloud-showers-heavy", "09n": "fa-cloud-showers-heavy",
+                    "10d": "fa-cloud-sun-rain", "10n": "fa-cloud-moon-rain",
+                    "11d": "fa-bolt", "11n": "fa-bolt",
+                    "13d": "fa-snowflake", "13n": "fa-snowflake",
+                    "50d": "fa-smog", "50n": "fa-smog"
+                };
+                return mapping[owmIconCode] || "fa-cloud";
+            }
+
             function setupWeather() {
-                fetch('https://wttr.in/Tokyo?format=j1').then(r=>r.json()).then(d=>{const c=d.current_condition[0],t=c.temp_C,i={"Sunny":"fa-sun","Partly cloudy":"fa-cloud-sun","Clear":"fa-sun"}[c.weatherDesc[0].value]||"fa-cloud-sun",e=document.getElementById("weather-icon"),o=document.getElementById("weather-temp"),n=document.getElementById("weather-desc");e.className=`fas ${i} text-6xl text-blue-300`,o.textContent=`${t}°C`,n.textContent=c.weatherDesc[0].value}).catch(()=>{document.getElementById("weather-info").innerHTML="天氣讀取失敗"})
+                const weatherInfo = document.getElementById("weather-info");
+                weatherInfo.innerHTML = `
+                    <i id="weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
+                    <div>
+                        <div id="weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                        <div id="weather-desc" class="text-slate-500">讀取中...</div>
+                    </div>`;
+
+                const apiKey = '649511f2bb0e2d800703857f225002c8';
+                const city = 'Tokyo';
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=zh_tw`;
+
+                fetch(url)
+                    .then(r => {
+                        if (!r.ok) throw new Error('Network response was not ok');
+                        return r.json();
+                    })
+                    .then(d => {
+                        const temp = d.main.temp;
+                        const description = d.weather[0].description;
+                        const iconCode = d.weather[0].icon;
+                        const faIcon = getFontAwesomeIcon(iconCode);
+
+                        weatherInfo.innerHTML = `
+                            <i id="weather-icon" class="fas ${faIcon} text-6xl text-blue-300"></i>
+                            <div>
+                                <div id="weather-temp" class="text-4xl font-bold text-slate-700">${Math.round(temp)}°C</div>
+                                <div id="weather-desc" class="text-slate-500">${description}</div>
+                            </div>`;
+                    })
+                    .catch(() => {
+                        weatherInfo.innerHTML = `
+                            <div class="text-center w-full">
+                                <p class="text-slate-500 mb-2">天氣讀取失敗</p>
+                                <button onclick="setupWeather()" class="bg-pink-500 text-white py-1 px-4 rounded-full hover:bg-pink-600 transition-colors text-sm">點擊重試</button>
+                            </div>`;
+                    });
             }
 
             function setupFujiWeather() {
-                fetch('https://wttr.in/Kawaguchiko?format=j1')
-                    .then(r => r.json())
+                const weatherInfo = document.getElementById("fuji-weather-info");
+                weatherInfo.innerHTML = `
+                    <i id="fuji-weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
+                    <div>
+                        <div id="fuji-weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                        <div id="fuji-weather-desc" class="text-slate-500">讀取中...</div>
+                    </div>`;
+
+                const apiKey = '649511f2bb0e2d800703857f225002c8';
+                const city = 'Fujiyoshida';
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=zh_tw`;
+
+                fetch(url)
+                    .then(r => {
+                        if (!r.ok) throw new Error('Network response was not ok');
+                        return r.json();
+                    })
                     .then(d => {
-                        const c = d.current_condition[0];
-                        const t = c.temp_C;
-                        const i = {"Sunny":"fa-sun","Partly cloudy":"fa-cloud-sun","Clear":"fa-sun"}[c.weatherDesc[0].value] || "fa-cloud-sun";
-                        const iconEl = document.getElementById("fuji-weather-icon");
-                        const tempEl = document.getElementById("fuji-weather-temp");
-                        const descEl = document.getElementById("fuji-weather-desc");
-                        if(iconEl) iconEl.className = `fas ${i} text-6xl text-blue-300`;
-                        if(tempEl) tempEl.textContent = `${t}°C`;
-                        if(descEl) descEl.textContent = c.weatherDesc[0].value;
+                        const temp = d.main.temp;
+                        const description = d.weather[0].description;
+                        const iconCode = d.weather[0].icon;
+                        const faIcon = getFontAwesomeIcon(iconCode);
+
+                        weatherInfo.innerHTML = `
+                            <i id="fuji-weather-icon" class="fas ${faIcon} text-6xl text-blue-300"></i>
+                            <div>
+                                <div id="fuji-weather-temp" class="text-4xl font-bold text-slate-700">${Math.round(temp)}°C</div>
+                                <div id="fuji-weather-desc" class="text-slate-500">${description}</div>
+                            </div>`;
                     })
                     .catch(() => {
-                        const weatherInfo = document.getElementById("fuji-weather-info");
-                        if(weatherInfo) weatherInfo.innerHTML = "富士山天氣讀取失敗";
+                        weatherInfo.innerHTML = `
+                            <div class="text-center w-full">
+                                <p class="text-slate-500 mb-2">富士山天氣讀取失敗</p>
+                                <button onclick="setupFujiWeather()" class="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition-colors text-sm">點擊重試</button>
+                            </div>`;
                     });
             }
+
+            // Expose to global scope for inline onclick handlers
+            window.setupWeather = setupWeather;
+            window.setupFujiWeather = setupFujiWeather;
 
             function setupAnimations() {
                 const heroTitle=document.getElementById('hero-title');const text=heroTitle.innerText;heroTitle.innerHTML='';text.split('').forEach(char=>{const span=document.createElement('span');span.className='char';span.innerText=char===' '?'\u00A0':char;heroTitle.appendChild(span)});gsap.from(heroTitle.querySelectorAll('.char'),{duration:1.2,y:100,autoAlpha:0,stagger:0.05,ease:"back.out(1.7)"});gsap.from("#hero-subtitle",{duration:1,y:30,opacity:0,ease:"power3.out",delay:1});gsap.utils.toArray('.card-hover, .tool-card').forEach(card=>{gsap.from(card,{scrollTrigger:{trigger:card,start:"top 90%",toggleActions:"play none none none"},opacity:0,y:50,duration:0.8,ease:"power3.out"})});
