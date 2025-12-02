@@ -57,22 +57,46 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- ✨ 日本行程資料 is now loaded from data.js ---
     
     // --- INITIALIZATION ---
-
+    generateNavButtons(); // DYNAMICALLY CREATE NAV BUTTONS
     setupAnimations();
     setupInteractiveForeground();
     setupCountdown();
-    setupWeather();
-    setupFujiWeather();
+    setupWeatherWidget('weather-info', 'Tokyo');
+    setupWeatherWidget('fuji-weather-info', 'Fujiyoshida');
     generateDailySections();
     setupTabSwitching();
     setupDragAndDrop();
     setupScrollToTop();
     setupToolkitCardHover();
     setupMusicPlayer();
-    setupNavArrows(); // Added this call
-    setupThreeJSSakuraBackground(); // ✨ NEW: Initialize the 3D Sakura background
+    setupNavArrows();
+    setupThreeJSSakuraBackground();
 
     // --- SETUP FUNCTIONS ---
+
+    function generateNavButtons() {
+        const navContainer = document.getElementById('nav-container');
+        if (!navContainer) return;
+
+        let buttonsHtml = '';
+
+        // Add the Overview button first, and ensure it's active by default
+        buttonsHtml += `<button data-target="overview" class="nav-btn bg-pink-400 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>`;
+
+        // Loop through itinerary data to create a button for each day
+        for (const dayId in itineraryData) {
+            const dayData = itineraryData[dayId];
+            if (dayData.navInfo) {
+                buttonsHtml += `
+                    <button data-target="${dayId}" class="nav-btn bg-pink-100 text-pink-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">
+                        ${dayData.navInfo.date}<br><span class="text-xs font-medium">${dayData.navInfo.day}</span>
+                    </button>
+                `;
+            }
+        }
+
+        navContainer.innerHTML = buttonsHtml;
+    }
 
     function setupNavArrows() {
         const navContainer = document.getElementById('nav-container');
@@ -128,18 +152,20 @@ document.addEventListener('DOMContentLoaded', function () {
         return mapping[owmIconCode] || "fa-cloud";
     }
 
-    function setupWeather() {
-        const weatherInfo = document.getElementById("weather-info");
-        weatherInfo.innerHTML = `
-            <i id="weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
-            <div>
-                <div id="weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
-                <div id="weather-desc" class="text-slate-500">讀取中...</div>
-            </div>`;
+    function setupWeatherWidget(elementId, city) {
+        const weatherInfo = document.getElementById(elementId);
+        if (!weatherInfo) return;
 
         const apiKey = '649511f2bb0e2d800703857f225002c8';
-        const city = 'Tokyo';
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=zh_tw`;
+
+        // Show loading state
+        weatherInfo.innerHTML = `
+            <i class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
+            <div>
+                <div class="text-4xl font-bold text-slate-700">--°C</div>
+                <div class="text-slate-500">讀取中...</div>
+            </div>`;
 
         fetch(url)
             .then(r => {
@@ -153,75 +179,152 @@ document.addEventListener('DOMContentLoaded', function () {
                 const faIcon = getFontAwesomeIcon(iconCode);
 
                 weatherInfo.innerHTML = `
-                    <i id="weather-icon" class="fas ${faIcon} text-6xl text-blue-300"></i>
+                    <i class="fas ${faIcon} text-6xl text-blue-300"></i>
                     <div>
-                        <div id="weather-temp" class="text-4xl font-bold text-slate-700">${Math.round(temp)}°C</div>
-                        <div id="weather-desc" class="text-slate-500">${description}</div>
+                        <div class="text-4xl font-bold text-slate-700">${Math.round(temp)}°C</div>
+                        <div class="text-slate-500">${description}</div>
                     </div>`;
             })
             .catch(() => {
+                const retryButtonId = `retry-${elementId}`;
                 weatherInfo.innerHTML = `
                     <div class="text-center w-full">
-                        <p class="text-slate-500 mb-2">天氣讀取失敗</p>
-                        <button onclick="setupWeather()" class="bg-pink-500 text-white py-1 px-4 rounded-full hover:bg-pink-600 transition-colors text-sm">點擊重試</button>
+                        <p class="text-slate-500 mb-2">${city}天氣讀取失敗</p>
+                        <button id="${retryButtonId}" class="bg-pink-500 text-white py-1 px-4 rounded-full hover:bg-pink-600 transition-colors text-sm">點擊重試</button>
                     </div>`;
+                
+                const retryButton = document.getElementById(retryButtonId);
+                if (retryButton) {
+                    retryButton.addEventListener('click', () => {
+                        setupWeatherWidget(elementId, city);
+                    }, { once: true });
+                }
             });
     }
-
-    function setupFujiWeather() {
-        const weatherInfo = document.getElementById("fuji-weather-info");
-        weatherInfo.innerHTML = `
-            <i id="fuji-weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
-            <div>
-                <div id="fuji-weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
-                <div id="fuji-weather-desc" class="text-slate-500">讀取中...</div>
-            </div>`;
-
-        const apiKey = '649511f2bb0e2d800703857f225002c8';
-        const city = 'Fujiyoshida';
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=zh_tw`;
-
-        fetch(url)
-            .then(r => {
-                if (!r.ok) throw new Error('Network response was not ok');
-                return r.json();
-            })
-            .then(d => {
-                const temp = d.main.temp;
-                const description = d.weather[0].description;
-                const iconCode = d.weather[0].icon;
-                const faIcon = getFontAwesomeIcon(iconCode);
-
-                weatherInfo.innerHTML = `
-                    <i id="fuji-weather-icon" class="fas ${faIcon} text-6xl text-blue-300"></i>
-                    <div>
-                        <div id="fuji-weather-temp" class="text-4xl font-bold text-slate-700">${Math.round(temp)}°C</div>
-                        <div id="fuji-weather-desc" class="text-slate-500">${description}</div>
-                    </div>`;
-            })
-            .catch(() => {
-                weatherInfo.innerHTML = `
-                    <div class="text-center w-full">
-                        <p class="text-slate-500 mb-2">富士山天氣讀取失敗</p>
-                        <button onclick="setupFujiWeather()" class="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition-colors text-sm">點擊重試</button>
-                    </div>`;
-            });
-    }
-
-    // Expose to global scope for inline onclick handlers
-    window.setupWeather = setupWeather;
-    window.setupFujiWeather = setupFujiWeather;
 
     function setupAnimations() {
-        const heroTitle=document.getElementById('hero-title');const text=heroTitle.innerText;heroTitle.innerHTML='';text.split('').forEach(char=>{const span=document.createElement('span');span.className='char';span.innerText=char===' '?'\u00A0':char;heroTitle.appendChild(span)});gsap.from(heroTitle.querySelectorAll('.char'),{duration:1.2,y:100,autoAlpha:0,stagger:0.05,ease:"back.out(1.7)"});gsap.from("#hero-subtitle",{duration:1,y:30,opacity:0,ease:"power3.out",delay:1});gsap.utils.toArray('.card-hover, .tool-card').forEach(card=>{gsap.from(card,{scrollTrigger:{trigger:card,start:"top 90%",toggleActions:"play none none none"},opacity:0,y:50,duration:0.8,ease:"power3.out"})});
+        const heroTitle = document.getElementById('hero-title');
+        const text = heroTitle.innerText;
+        heroTitle.innerHTML = '';
+        text.split('').forEach(char => {
+            const span = document.createElement('span');
+            span.className = 'char';
+            span.innerText = char === ' ' ? '\u00A0' : char;
+            heroTitle.appendChild(span);
+        });
+
+        gsap.from(heroTitle.querySelectorAll('.char'), {
+            duration: 1.2,
+            y: 100,
+            autoAlpha: 0,
+            stagger: 0.05,
+            ease: "back.out(1.7)"
+        });
+
+        gsap.from("#hero-subtitle", {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            ease: "power3.out",
+            delay: 1
+        });
+        
+        gsap.utils.toArray('.card-hover, .tool-card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                ease: "power3.out"
+            })
+        });
     }
 
     function setupInteractiveForeground() {
-        const canvas = document.getElementById('interactive-foreground'); const ctx = canvas.getContext('2d'); let particles = []; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = document.querySelector('.hero-header').offsetHeight; } resizeCanvas(); window.addEventListener('resize', resizeCanvas); class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 8 + 4; this.speedY = Math.random() * 1 + 0.5; this.speedX = Math.random() * 1 - 0.5; this.opacity = Math.random() * 0.7 + 0.3; this.angle = Math.random() * Math.PI * 2; this.spin = Math.random() > 0.5 ? 0.01 : -0.01; } update() { this.y += this.speedY; this.x += this.speedX; this.angle += this.spin; if (this.y > canvas.height) { this.y = -this.size; this.x = Math.random() * canvas.width; } } draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); ctx.font = `${this.size}px Arial`; ctx.fillStyle = `rgba(255, 240, 245, ${this.opacity})`; ctx.fillText('🌸', 0, 0); ctx.restore(); } } function initParticles() { for (let i = 0; i < 30; i++) { particles.push(new Particle()); } } function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); } initParticles(); animateParticles();
+        const canvas = document.getElementById('interactive-foreground');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = document.querySelector('.hero-header').offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 8 + 4;
+                this.speedY = Math.random() * 1 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.angle = Math.random() * Math.PI * 2;
+                this.spin = Math.random() > 0.5 ? 0.01 : -0.01;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.angle += this.spin;
+                if (this.y > canvas.height) {
+                    this.y = -this.size;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.font = `${this.size}px Arial`;
+                ctx.fillStyle = `rgba(255, 240, 245, ${this.opacity})`;
+                ctx.fillText('🌸', 0, 0);
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
     }
 
     function setupCountdown() {
-        const targetDate=new Date('2026-03-27T00:00:00').getTime();const countdownElement=document.getElementById('countdown');if(!countdownElement)return;const interval=setInterval(()=>{const now=new Date().getTime();const distance=targetDate-now;if(distance<0){clearInterval(interval);countdownElement.innerHTML="<div class='col-span-4 text-2xl font-bold text-pink-600'>旅程已開始！</div>";return}document.getElementById('days').innerText=Math.floor(distance/(1000*60*60*24)).toString().padStart(2,'0');document.getElementById('hours').innerText=Math.floor(distance%(1000*60*60*24)/(1000*60*60)).toString().padStart(2,'0');document.getElementById('minutes').innerText=Math.floor(distance%(1000*60*60)/(1000*60)).toString().padStart(2,'0');document.getElementById('seconds').innerText=Math.floor(distance%(1000*60)/1000).toString().padStart(2,'0')},1000);
+        const targetDate = new Date('2026-03-27T00:00:00').getTime();
+        const countdownElement = document.getElementById('countdown');
+        if (!countdownElement) return;
+
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "<div class='col-span-4 text-2xl font-bold text-pink-600'>旅程已開始！</div>";
+                return;
+            }
+            
+            document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }, 1000);
     }
     
     // --- HELPER TO BUILD HTML FROM STRUCTURED CONTENT ---
@@ -271,104 +374,132 @@ document.addEventListener('DOMContentLoaded', function () {
         return html;
     }
 
-    function generateDailySections() {
-        let allSectionsHtml = '';
-        const createCardHtml = (planData) => {
-            const highlightsHtml = planData.highlights ? `
-                <div class="mt-4 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-white/90" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
-                    ${planData.highlights.map(h => `
-                        <span class="flex items-center"><i class="fas ${h.icon} mr-2"></i>${h.text}</span>
-                    `).join('')}
-                </div>
-            ` : '';
-
-            const timelineHtml = planData.items.map(item => `
-                <div class="timeline-item relative mb-8">
-                    <div class="icon"><i class="fas ${item.icon}"></i></div>
-                    <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
-                        <div class="p-4">
-                            <h3 class="text-base sm:text-lg font-bold text-pink-700">${item.time} | ${item.title}</h3>
-                        </div>
-                        <div class="p-4 bg-gray-50 border-t border-gray-100 text-slate-600">${buildContentHtml(item.content)}</div>
-                    </div>
-                </div>
-            `).join('');
-
-            return `
-                <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${planData.themeImage}')">
-                    <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${planData.title}</h2>
-                    ${highlightsHtml}
-                    <button class="view-timeline-btn mt-6 bg-pink-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-pink-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
-                </div>
-                <div class="timeline-container hidden relative pl-10 sm:pl-12">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-line-progress"></div>
-                    ${timelineHtml}
-                </div>
-            `;
-        };
-
-        for (const dayId in itineraryData) {
-            const dayOrArrayData = itineraryData[dayId];
-            if (Array.isArray(dayOrArrayData)) {
-                let multipleCardsHtml = '<div class="grid grid-cols-1 gap-12">';
-                multipleCardsHtml += dayOrArrayData.map(planData => {
-                    // For cards in a grid, we remove their individual bottom margin
-                    return createCardHtml(planData).replace(' mb-12', '');
-                }).join('');
-                multipleCardsHtml += '</div>';
-                allSectionsHtml += `<section id="${dayId}" class="content-section" style="display: none; opacity: 0;">${multipleCardsHtml}</section>`;
-            } else {
-                const singleCardHtml = createCardHtml(dayOrArrayData);
-                allSectionsHtml += `<section id="${dayId}" class="content-section" style="display: none; opacity: 0;">${singleCardHtml}</section>`;
-            }
-        }
-        dailySectionsContainer.innerHTML = allSectionsHtml;
-
-        document.querySelectorAll('.view-timeline-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const button = e.currentTarget;
-                const timeline = button.closest('.daily-theme-card').nextElementSibling;
-                if (!timeline || !timeline.classList.contains('timeline-container')) return;
-
-                const isOpening = timeline.classList.contains('hidden');
-
-                document.querySelectorAll('.timeline-container:not(.hidden)').forEach(openTimeline => {
-                    if (openTimeline !== timeline) {
-                        openTimeline.classList.add('hidden');
-                        const openButton = openTimeline.previousElementSibling.querySelector('.view-timeline-btn');
-                        if (openButton) {
-                            openButton.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
-                        }
-                    }
-                });
-
-                if (isOpening) {
-                    timeline.classList.remove('hidden');
-                    button.innerHTML = '隱藏詳細行程 <i class="fas fa-chevron-up ml-2"></i>';
-                    setTimeout(() => {
-                        ScrollTrigger.refresh();
-                        gsap.from(timeline.querySelectorAll('.timeline-item'), { opacity: 0, x: -50, stagger: 0.2, duration: 0.8, ease: "power3.out" });
-                        gsap.to(timeline.querySelector('.timeline-line-progress'), { scrollTrigger: { trigger: timeline, start: "top center", end: "bottom bottom", scrub: true }, height: "100%" });
-                        gsap.to(window, { duration: 0.8, ease: 'power3.inOut', scrollTo: { y: timeline, offsetY: 100 } });
-                    }, 10);
+        function generateDailySections() {
+            let allSectionsHtml = '';
+            const createCardHtml = (planData) => {
+                const highlightsHtml = planData.highlights ? `
+                            <div class="mt-4 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-white/90" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
+                                ${planData.highlights.map(h => `
+                                    <span class="flex items-center"><i class="fas ${h.icon} mr-2"></i>${h.text}</span>
+                                `).join('')}
+                            </div>
+                        ` : '';
+    
+                const timelineHtml = planData.items.map(item => `
+                            <div class="timeline-item relative mb-8">
+                                <div class="icon"><i class="fas ${item.icon}"></i></div>
+                                <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                                    <div class="p-4">
+                                        <h3 class="text-base sm:text-lg font-bold text-pink-700">${item.time} | ${item.title}</h3>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 border-t border-gray-100 text-slate-600">${buildContentHtml(item.content)}</div>
+                                </div>
+                            </div>
+                        `).join('');
+    
+                return `
+                            <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${planData.themeImage}')">
+                                <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${planData.title}</h2>
+                                ${highlightsHtml}
+                                <button class="view-timeline-btn mt-6 bg-pink-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-pink-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
+                            </div>
+                            <div class="timeline-container hidden relative pl-10 sm:pl-12">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-line-progress"></div>
+                                ${timelineHtml}
+                            </div>
+                        `;
+            };
+    
+            for (const dayId in itineraryData) {
+                const dayData = itineraryData[dayId];
+                if (dayData.choices && Array.isArray(dayData.choices)) {
+                    let multipleCardsHtml = '<div class="grid grid-cols-1 gap-12">';
+                    multipleCardsHtml += dayData.choices.map(planData => {
+                        return createCardHtml(planData).replace(' mb-12', '');
+                    }).join('');
+                    multipleCardsHtml += '</div>';
+                    allSectionsHtml += `<section id="${dayId}" class="content-section" style="display: none; opacity: 0;">${multipleCardsHtml}</section>`;
                 } else {
-                    gsap.to(window, { duration: 0.5, ease: 'power3.inOut', scrollTo: { y: button.closest('.daily-theme-card'), offsetY: 100 },
-                        onComplete: () => {
-                            gsap.to(timeline, { duration: 0.4, opacity: 0, ease: 'power2.in',
-                                onComplete: () => {
-                                    timeline.classList.add('hidden');
-                                    timeline.style.opacity = 1;
-                                    button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
-                                }
-                            });
+                    const singleCardHtml = createCardHtml(dayData);
+                    allSectionsHtml += `<section id="${dayId}" class="content-section" style="display: none; opacity: 0;">${singleCardHtml}</section>`;
+                }
+            }
+            dailySectionsContainer.innerHTML = allSectionsHtml;
+    
+            document.querySelectorAll('.view-timeline-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const button = e.currentTarget;
+                    const timeline = button.closest('.daily-theme-card').nextElementSibling;
+                    if (!timeline || !timeline.classList.contains('timeline-container')) return;
+    
+                    const isOpening = timeline.classList.contains('hidden');
+    
+                    document.querySelectorAll('.timeline-container:not(.hidden)').forEach(openTimeline => {
+                        if (openTimeline !== timeline) {
+                            openTimeline.classList.add('hidden');
+                            const openButton = openTimeline.previousElementSibling.querySelector('.view-timeline-btn');
+                            if (openButton) {
+                                openButton.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                            }
                         }
                     });
-                }
+    
+                    if (isOpening) {
+                        timeline.classList.remove('hidden');
+                        button.innerHTML = '隱藏詳細行程 <i class="fas fa-chevron-up ml-2"></i>';
+                        setTimeout(() => {
+                            ScrollTrigger.refresh();
+                            gsap.from(timeline.querySelectorAll('.timeline-item'), {
+                                opacity: 0,
+                                x: -50,
+                                stagger: 0.2,
+                                duration: 0.8,
+                                ease: "power3.out"
+                            });
+                            gsap.to(timeline.querySelector('.timeline-line-progress'), {
+                                scrollTrigger: {
+                                    trigger: timeline,
+                                    start: "top center",
+                                    end: "bottom bottom",
+                                    scrub: true
+                                },
+                                height: "100%"
+                            });
+                            gsap.to(window, {
+                                duration: 0.8,
+                                ease: 'power3.inOut',
+                                scrollTo: {
+                                    y: timeline,
+                                    offsetY: 100
+                                }
+                            });
+                        }, 10);
+                    } else {
+                        gsap.to(window, {
+                            duration: 0.5,
+                            ease: 'power3.inOut',
+                            scrollTo: {
+                                y: button.closest('.daily-theme-card'),
+                                offsetY: 100
+                            },
+                            onComplete: () => {
+                                gsap.to(timeline, {
+                                    duration: 0.4,
+                                    opacity: 0,
+                                    ease: 'power2.in',
+                                    onComplete: () => {
+                                        timeline.classList.add('hidden');
+                                        timeline.style.opacity = 1;
+                                        button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             });
-        });
-    }
-
+        }
     function setupTabSwitching() {
         let isAnimating=false;
         const navContainer = document.getElementById('nav-container');
@@ -400,15 +531,79 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function switchTab(targetId, shouldScroll = true, onCompleteCallback = () => {}) {
-         const oldSection=currentActiveSectionId?document.getElementById(currentActiveSectionId):null;const newSection=document.getElementById(targetId);const navButtons=document.querySelectorAll('.nav-btn');if(!newSection)return;const tl=gsap.timeline({onComplete:()=>{currentActiveSectionId=targetId;ScrollTrigger.refresh();onCompleteCallback()}});if(oldSection){tl.to(oldSection,{duration:0.3,opacity:0,ease:'power2.in',onComplete:()=>{oldSection.style.display='none'}})}tl.add(()=>{navButtons.forEach(btn=>{const isTarget=btn.dataset.target===targetId;btn.classList.toggle('bg-pink-400',isTarget);btn.classList.toggle('text-white',isTarget);btn.classList.toggle('bg-pink-100',!isTarget);btn.classList.toggle('text-pink-800',!isTarget)})});tl.set(newSection,{display:'block',opacity:0}).to(newSection,{duration:0.4,opacity:1,ease:'power2.out'});if(shouldScroll){tl.to(window,{duration:0.8,ease:'power2.inOut',scrollTo:{y:newSection,offsetY:document.querySelector('nav').offsetHeight+32}},"-=0.2")}
+         const oldSection = currentActiveSectionId ? document.getElementById(currentActiveSectionId) : null;
+         const newSection = document.getElementById(targetId);
+         const navButtons = document.querySelectorAll('.nav-btn');
+         if (!newSection) return;
+         const tl = gsap.timeline({
+             onComplete: () => {
+                 currentActiveSectionId = targetId;
+                 ScrollTrigger.refresh();
+                 onCompleteCallback()
+             }
+         });
+         if (oldSection) {
+             tl.to(oldSection, {
+                 duration: 0.3,
+                 opacity: 0,
+                 ease: 'power2.in',
+                 onComplete: () => {
+                     oldSection.style.display = 'none'
+                 }
+             });
+         }
+         tl.add(() => {
+             navButtons.forEach(btn => {
+                 const isTarget = btn.dataset.target === targetId;
+                 btn.classList.toggle('bg-pink-400', isTarget);
+                 btn.classList.toggle('text-white', isTarget);
+                 btn.classList.toggle('bg-pink-100', !isTarget);
+                 btn.classList.toggle('text-pink-800', !isTarget)
+             })
+         });
+         tl.set(newSection, {
+             display: 'block',
+             opacity: 0
+         }).to(newSection, {
+             duration: 0.4,
+             opacity: 1,
+             ease: 'power2.out'
+         });
+         if (shouldScroll) {
+             tl.to(window, {
+                 duration: 0.8,
+                 ease: 'power2.inOut',
+                 scrollTo: {
+                     y: newSection,
+                     offsetY: document.querySelector('nav').offsetHeight + 32
+                 }
+             }, "-=0.2")
+         }
     }
 
     function setupScrollToTop() {
-        const btn=document.getElementById('scrollToTopBtn');if(btn){window.addEventListener('scroll',()=>{const isVisible=window.scrollY>300;btn.classList.toggle('opacity-0',!isVisible);btn.classList.toggle('invisible',!isVisible)});btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}))}
+        const btn = document.getElementById('scrollToTopBtn');
+        if (btn) {
+            window.addEventListener('scroll', () => {
+                const isVisible = window.scrollY > 300;
+                btn.classList.toggle('opacity-0', !isVisible);
+                btn.classList.toggle('invisible', !isVisible)
+            });
+            btn.addEventListener('click', () => window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            }))
+        }
     }
 
     function setupToolkitCardHover() {
-        document.querySelectorAll('.tool-card').forEach(card=>{card.addEventListener('mousemove',e=>{const rect=card.getBoundingClientRect();card.style.setProperty('--x',`${e.clientX-rect.left}px`);card.style.setProperty('--y',`${e.clientY-rect.top}px`)})});
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--y', `${e.clientY - rect.top}px`)
+            })
+        });
     }
 
     function setupDragAndDrop() {

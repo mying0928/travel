@@ -1,5 +1,6 @@
 const itineraryData = {
     day1: {
+        navInfo: { date: '3/27', day: '(週五)' },
         title: "下町春色・櫻與古街的散策",
         themeImage: "images/Ueno_Park.webp",
         highlights: [
@@ -49,6 +50,7 @@ const itineraryData = {
         ]
     },
     day2: {
+        navInfo: { date: '3/28', day: '(週六)' },
         title: "上野漫步・古韻與新空的交響",
         themeImage: "images/ueno-park-theme.webp",
         highlights: [
@@ -95,6 +97,7 @@ const itineraryData = {
         ]
     },
     day3: {
+        navInfo: { date: '3/29', day: '(週日)' },
         title: "台場漫遊・航向淺草和服體驗",
         themeImage: "images/tsukiji-odaiba-theme.webp",
         highlights: [
@@ -130,6 +133,7 @@ const itineraryData = {
         ]
     },
     day4: {
+        navInfo: { date: '3/30', day: '(週一)' },
         title: "箱根周遊・火山與湖光山色",
         themeImage: "images/hakone-theme.webp",
         highlights: [
@@ -161,6 +165,7 @@ const itineraryData = {
         ]
     },
     day5: {
+        navInfo: { date: '3/31', day: '(週二)' },
         title: "都會巡禮・阿佐谷、澀谷與新宿",
         themeImage: "images/shibuya-shinjuku-theme.webp",
         highlights: [
@@ -207,6 +212,7 @@ const itineraryData = {
         ]
     },
     day6: {
+        navInfo: { date: '4/1', day: '(週三)' },
         title: "經典巡禮・皇居與東京鐵塔",
         themeImage: "images/tokyo-tower-azabudai-theme.avif",
         highlights: [
@@ -235,6 +241,7 @@ const itineraryData = {
         ]
     },
     day7: {
+        navInfo: { date: '4/2', day: '(週四)' },
         title: "富士絕景・山中湖與忍野八海",
         themeImage: "images/kawaguchiko-fuji-theme.avif",
         highlights: [
@@ -261,59 +268,64 @@ const itineraryData = {
             { time: "18:30後", title: "啟程返回東京", icon: "fa-bus-alt", content: { description: "帶著滿滿的美景與回憶，我們搭上包車，從山中湖交流道上高速公路，返回東京市區 🌃。", transport: "從山中湖IC上<strong>中央自動車道</strong>，由司機載我們返回東京市區。" } }
         ]
     },
-    day8: [
-        {
-            title: "秋葉原・文化與次文化交錯",
-            themeImage: "images/akihabara-theme.webp",
-            highlights: [
-                { icon: "fa-torii-gate", text: "神田明神" },
-                { icon: "fa-robot", text: "動漫模型" },
-                { icon: "fa-gamepad", text: "電玩中心" }
-            ],
-            items: [
-                { time: "08:00 - 09:00", title: "晨間準備・享用早餐", icon: "fa-coffee", content: { description: "☀️ 美好的一天從早餐開始，為今天的秋葉原探索儲備能量！" } },
-                { time: "09:00 - 09:30", title: "出發・前往秋葉原", icon: "fa-train", content: { description: "搭上電車，向著充滿活力的電氣街前進！", transport: "從「田端」站搭乘 <strong>JR山手線</strong> (內回) 或 <strong>JR京濱東北線</strong> 前往「秋葉原」站 (車程約 10 分鐘)。" } },
-                { time: "09:30 - 10:30", title: "神田明神・動漫聖地巡禮", icon: "fa-torii-gate", content: { description: "參訪守護秋葉原的宏偉神社<strong>神田明神</strong>，這裡也是《Love Live!》等動漫的聖地。您可以在此尋找獨特的「IT 御守」。⛩️", transport: "從秋葉原站電氣街口步行約 10 分鐘。" } },
-                { time: "10:30 - 12:00", title: "電氣街核心・無線電會館探險", icon: "fa-building", content: { description: "走入秋葉原的中心，回到車站前的地標<strong>秋葉原無線電會館</strong>，在這棟「動漫高塔」中快速瀏覽琳瑯滿目的模型、公仔和卡牌。🤖", transport: "從神田明神步行返回電氣街區域約 10 分鐘。" } },
-                { time: "12:00 - 13:00", title: "午餐・AKIBA_ICHI美食街", icon: "fa-utensils", content: { description: "在車站旁的「<strong>秋葉原 UDX</strong>」大樓 2-3 樓的「AKIBA_ICHI」餐廳街用餐，這裡選擇多樣且環境舒適。🍱", transport: "從無線電會館步行約 3-5 分鐘。" } },
-                { time: "13:00 - 15:00", title: "午後漫步・從萬世橋到職人街", icon: "fa-bridge-water", content: { description: "下午來點不一樣的。先到舊萬世橋車站改建的<strong>mAAch ecute</strong>，在神田川畔享受片刻悠閒。接著探訪鐵軌下的<strong>2k540職人街</strong>，欣賞日本手作工藝品。🎨 (2k540週三公休)", transport: "此區域建議全程步行探索。" } },
-                { time: "15:00 - 17:00", title: "自由時間・動漫與電器挖寶", icon: "fa-gem", content: { description: "💎 這是您的主要購物時段，您可以依興趣選擇：<div class='mt-2'><strong>電器：</strong> 逛「<strong>友都八喜 (Yodobashi-Akiba)</strong>」。</div><div class='mt-1'><strong>動漫二手：</strong> 逛「<strong>Mandarake Complex</strong>」(整棟黑色的二手專賣店) 或「<strong>Super Potato</strong>」(傳奇復古遊戲店)。</div>", transport: "步行即可在各店家間移動。" } },
-                { time: "17:00 - 18:00", title: "娛樂時間・GiGO電玩中心", icon: "fa-gamepad", content: { description: "體驗日本的大型電玩中心 🎮，在 <strong>GiGO</strong> 玩玩夾娃娃機或最新的音樂遊戲，感受秋葉原的另一種活力。", transport: "步行即可抵達。" } },
-                { time: "18:00 - 19:30", title: "晚餐・秋葉原美食探索", icon: "fa-drumstick-bite", content: { description: "可在秋葉原周邊尋找美食，例如知名的拉麵或丼飯 (如「<strong>Roast Beef 大野</strong>」)。🥩", transport: "步行即可抵達。" } },
-                { time: "19:30 - 21:30", title: "夜景採買・感受不夜城魅力", icon: "fa-moon", content: { description: "晚餐後，在霓虹閃爍的<strong>中央通</strong>漫步，感受賽博龐克般的未來都市感。之後可前往 24 小時營業的<strong>唐吉訶德</strong>完成最後的採買任務。✨", transport: "步行即可抵達。" } },
-                { time: "21:30後", title: "滿載而歸・告別秋葉原", icon: "fa-train", content: { description: "結束充實的一天，準備返回住處。", transport: "從「秋葉原」站搭乘 <strong>JR京濱東北線</strong> 或 <strong>JR山手線</strong> 返回「田端」站。" } }
-            ]
-        },
-        {
-            title: "池袋・動漫聖地與都市夜遊",
-            themeImage: "images/ikebukuro-theme.webp",
-            highlights: [
-                { icon: "fa-fish", text: "太陽城水族館" },
-                { icon: "fa-heart", text: "Animate" },
-                { icon: "fa-utensils", text: "無敵家拉麵" }
-            ],
-            items: [
-                { time: "08:00 - 09:00", title: "晨間準備・享用早餐", icon: "fa-coffee", content: { description: "☀️ 起床梳洗，享用早餐，為池袋的動漫與都市探險日做好準備！" } },
-                { time: "09:00 - 09:30", title: "出發・前往池袋", icon: "fa-train", content: { description: "搭上電車，向著今天的目的地前進！", transport: "從「田端」站搭乘 <strong>JR山手線</strong> (外回) 🚆 前往「池袋」站 (車程約 10-12 分鐘)。" } },
-                { time: "09:30 - 12:00", title: "太陽城水族館・天空的企鵝", icon: "fa-fish", content: { description: "參觀位於<strong>太陽城</strong>頂樓的都市型水族館 🏙️，欣賞可愛的「天空的企鵝」在頭頂上的空中水槽游泳 🐧。", transport: "抵達池袋站後，由「東口」出站，沿著Green大通步行約 11 分鐘至「太陽城」。" } },
-                { time: "12:00 - 13:00", title: "午餐・太陽城美食探索", icon: "fa-utensils", content: { description: "在<strong>太陽城</strong>內的「ALPA 購物中心」餐廳街，或 Sunshine 60 大樓的景觀餐廳享用午餐 🍱。 (例如 3F 的「<strong>和幸豬排</strong>」)" } },
-                { time: "13:00 - 16:00", title: "Animate總店・乙女路的動漫巡禮", icon: "fa-heart", content: { description: "沉浸在動漫、漫畫與周邊商品的世界 📚，探索<strong>Animate 池袋總店</strong>和女性向的動漫二手店，這裡是粉絲們的天堂！💖", transport: "從太陽城步行至 Animate 池袋總店約 10 分鐘。" } },
-                { time: "16:00 - 18:00", title: "陽光60瞭望台・黃昏與夜景", icon: "fa-building", content: { description: "返回<strong>太陽城</strong>，登上 60 樓的「<strong>陽光60瞭望台 (TENBOU-PARK)</strong>」🌳，欣賞東京從黃昏到夜景的壯麗變化 🌇。<br><strong>[注意]</strong>：瞭望台通常開放至 20:00，建議提早前往。" } },
-                { time: "18:00 - 19:30", title: "晚餐・拉麵激戰區", icon: "fa-utensils", content: { description: "前往池袋東口的拉麵激戰區享用晚餐，例如大名鼎鼎的「<strong>無敵家拉麵</strong>」或「<strong>一蘭拉麵</strong>」🍜。" } },
-                { time: "19:30 - 21:30", title: "池袋夜生活・自由探索", icon: "fa-moon", content: {
-                    description: "晚餐後的自由活動時間 🥳，可以根據您的喜好選擇一個地方繼續探索 ✨。",
-                    subsections: [
-                        { title: "【選擇 1：動漫娛樂】 🎮", description: "前往 <strong>GiGO 池袋</strong> (大型電玩中心，營業至 23:00) 玩夾娃娃機和最新遊戲。" },
-                        { title: "【選擇 2：聲光藝術】 💡", description: "步行至 <strong>池袋西口公園</strong>，欣賞「GLOBAL RING」的夜間聲光秀。" },
-                        { title: "【選擇 3：觀賞電影】 🎬", description: "參觀豪華的 <strong>Grand Cinema Sunshine</strong> (營業至 23:00)。" },
-                        { title: "【選擇 4：購物血拼】 🛍️", description: "在車站附近的「<strong>唐吉訶德</strong>」、「<strong>Bic Camera</strong>」或「<strong>Parco 百貨</strong>」進行最後採買。" }
-                    ]
-                }},
-                { time: "21:30後", title: "滿載而歸", icon: "fa-train", content: { description: "結束充實的一天，準備返回住處。", transport: "從「池袋」站搭乘 <strong>JR山手線</strong> (內回) 返回「田端」站。" } }
-            ]
-        }
-    ],
+    day8: {
+        navInfo: { date: '4/3', day: '(週五)' },
+        title: "文化或購物擇一",
+        choices: [
+            {
+                title: "秋葉原・文化與次文化交錯",
+                themeImage: "images/akihabara-theme.webp",
+                highlights: [
+                    { icon: "fa-torii-gate", text: "神田明神" },
+                    { icon: "fa-robot", text: "動漫模型" },
+                    { icon: "fa-gamepad", text: "電玩中心" }
+                ],
+                items: [
+                    { time: "08:00 - 09:00", title: "晨間準備・享用早餐", icon: "fa-coffee", content: { description: "☀️ 美好的一天從早餐開始，為今天的秋葉原探索儲備能量！" } },
+                    { time: "09:00 - 09:30", title: "出發・前往秋葉原", icon: "fa-train", content: { description: "搭上電車，向著充滿活力的電氣街前進！", transport: "從「田端」站搭乘 <strong>JR山手線</strong> (內回) 或 <strong>JR京濱東北線</strong> 前往「秋葉原」站 (車程約 10 分鐘)。" } },
+                    { time: "09:30 - 10:30", title: "神田明神・動漫聖地巡禮", icon: "fa-torii-gate", content: { description: "參訪守護秋葉原的宏偉神社<strong>神田明神</strong>，這裡也是《Love Live!》等動漫的聖地。您可以在此尋找獨特的「IT 御守」。⛩️", transport: "從秋葉原站電氣街口步行約 10 分鐘。" } },
+                    { time: "10:30 - 12:00", title: "電氣街核心・無線電會館探險", icon: "fa-building", content: { description: "走入秋葉原的中心，回到車站前的地標<strong>秋葉原無線電會館</strong>，在這棟「動漫高塔」中快速瀏覽琳瑯滿目的模型、公仔和卡牌。🤖", transport: "從神田明神步行返回電氣街區域約 10 分鐘。" } },
+                    { time: "12:00 - 13:00", title: "午餐・AKIBA_ICHI美食街", icon: "fa-utensils", content: { description: "在車站旁的「<strong>秋葉原 UDX</strong>」大樓 2-3 樓的「AKIBA_ICHI」餐廳街用餐，這裡選擇多樣且環境舒適。🍱", transport: "從無線電會館步行約 3-5 分鐘。" } },
+                    { time: "13:00 - 15:00", title: "午後漫步・從萬世橋到職人街", icon: "fa-bridge-water", content: { description: "下午來點不一樣的。先到舊萬世橋車站改建的<strong>mAAch ecute</strong>，在神田川畔享受片刻悠閒。接著探訪鐵軌下的<strong>2k540職人街</strong>，欣賞日本手作工藝品。🎨 (2k540週三公休)", transport: "此區域建議全程步行探索。" } },
+                    { time: "15:00 - 17:00", title: "自由時間・動漫與電器挖寶", icon: "fa-gem", content: { description: "💎 這是您的主要購物時段，您可以依興趣選擇：<div class='mt-2'><strong>電器：</strong> 逛「<strong>友都八喜 (Yodobashi-Akiba)</strong>」。</div><div class='mt-1'><strong>動漫二手：</strong> 逛「<strong>Mandarake Complex</strong>」(整棟黑色的二手專賣店) 或「<strong>Super Potato</strong>」(傳奇復古遊戲店)。</div>", transport: "步行即可在各店家間移動。" } },
+                    { time: "17:00 - 18:00", title: "娛樂時間・GiGO電玩中心", icon: "fa-gamepad", content: { description: "體驗日本的大型電玩中心 🎮，在 <strong>GiGO</strong> 玩玩夾娃娃機或最新的音樂遊戲，感受秋葉原的另一種活力。", transport: "步行即可抵達。" } },
+                    { time: "18:00 - 19:30", title: "晚餐・秋葉原美食探索", icon: "fa-drumstick-bite", content: { description: "可在秋葉原周邊尋找美食，例如知名的拉麵或丼飯 (如「<strong>Roast Beef 大野</strong>」)。🥩", transport: "步行即可抵達。" } },
+                    { time: "19:30 - 21:30", title: "夜景採買・感受不夜城魅力", icon: "fa-moon", content: { description: "晚餐後，在霓虹閃爍的<strong>中央通</strong>漫步，感受賽博龐克般的未來都市感。之後可前往 24 小時營業的<strong>唐吉訶德</strong>完成最後的採買任務。✨", transport: "步行即可抵達。" } },
+                    { time: "21:30後", title: "滿載而歸・告別秋葉原", icon: "fa-train", content: { description: "結束充實的一天，準備返回住處。", transport: "從「秋葉原」站搭乘 <strong>JR京濱東北線</strong> 或 <strong>JR山手線</strong> 返回「田端」站。" } }
+                ]
+            },
+            {
+                title: "池袋・動漫聖地與都市夜遊",
+                themeImage: "images/ikebukuro-theme.webp",
+                highlights: [
+                    { icon: "fa-fish", text: "太陽城水族館" },
+                    { icon: "fa-heart", text: "Animate" },
+                    { icon: "fa-utensils", text: "無敵家拉麵" }
+                ],
+                items: [
+                    { time: "08:00 - 09:00", title: "晨間準備・享用早餐", icon: "fa-coffee", content: { description: "☀️ 起床梳洗，享用早餐，為池袋的動漫與都市探險日做好準備！" } },
+                    { time: "09:00 - 09:30", title: "出發・前往池袋", icon: "fa-train", content: { description: "搭上電車，向著今天的目的地前進！", transport: "從「田端」站搭乘 <strong>JR山手線</strong> (外回) 🚆 前往「池袋」站 (車程約 10-12 分鐘)。" } },
+                    { time: "09:30 - 12:00", title: "太陽城水族館・天空的企鵝", icon: "fa-fish", content: { description: "參觀位於<strong>太陽城</strong>頂樓的都市型水族館 🏙️，欣賞可愛的「天空的企鵝」在頭頂上的空中水槽游泳 🐧。", transport: "抵達池袋站後，由「東口」出站，沿著Green大通步行約 11 分鐘至「太陽城」。" } },
+                    { time: "12:00 - 13:00", title: "午餐・太陽城美食探索", icon: "fa-utensils", content: { description: "在<strong>太陽城</strong>內的「ALPA 購物中心」餐廳街，或 Sunshine 60 大樓的景觀餐廳享用午餐 🍱。 (例如 3F 的「<strong>和幸豬排</strong>」)" } },
+                    { time: "13:00 - 16:00", title: "Animate總店・乙女路的動漫巡禮", icon: "fa-heart", content: { description: "沉浸在動漫、漫畫與周邊商品的世界 📚，探索<strong>Animate 池袋總店</strong>和女性向的動漫二手店，這裡是粉絲們的天堂！💖", transport: "從太陽城步行至 Animate 池袋總店約 10 分鐘。" } },
+                    { time: "16:00 - 18:00", title: "陽光60瞭望台・黃昏與夜景", icon: "fa-building", content: { description: "返回<strong>太陽城</strong>，登上 60 樓的「<strong>陽光60瞭望台 (TENBOU-PARK)</strong>」🌳，欣賞東京從黃昏到夜景的壯麗變化 🌇。<br><strong>[注意]</strong>：瞭望台通常開放至 20:00，建議提早前往。" } },
+                    { time: "18:00 - 19:30", title: "晚餐・拉麵激戰區", icon: "fa-utensils", content: { description: "前往池袋東口的拉麵激戰區享用晚餐，例如大名鼎鼎的「<strong>無敵家拉麵</strong>」或「<strong>一蘭拉麵</strong>」🍜。" } },
+                    { time: "19:30 - 21:30", title: "池袋夜生活・自由探索", icon: "fa-moon", content: {
+                        description: "晚餐後的自由活動時間 🥳，可以根據您的喜好選擇一個地方繼續探索 ✨。",
+                        subsections: [
+                            { title: "【選擇 1：動漫娛樂】 🎮", description: "前往 <strong>GiGO 池袋</strong> (大型電玩中心，營業至 23:00) 玩夾娃娃機和最新遊戲。" },
+                            { title: "【選擇 2：聲光藝術】 💡", description: "步行至 <strong>池袋西口公園</strong>，欣賞「GLOBAL RING」的夜間聲光秀。" },
+                            { title: "【選擇 3：觀賞電影】 🎬", description: "參觀豪華的 <strong>Grand Cinema Sunshine</strong> (營業至 23:00)。" },
+                            { title: "【選擇 4：購物血拼】 🛍️", description: "在車站附近的「<strong>唐吉訶德</strong>」、「<strong>Bic Camera</strong>」或「<strong>Parco 百貨</strong>」進行最後採買。" }
+                        ]
+                    }},
+                    { time: "21:30後", title: "滿載而歸", icon: "fa-train", content: { description: "結束充實的一天，準備返回住處。", transport: "從「池袋」站搭乘 <strong>JR山手線</strong> (內回) 返回「田端」站。" } }
+                ]
+            }
+        ]
+    },
     day9: {
+        navInfo: { date: '4/4', day: '(週六)' },
         title: "最終採購・滿載而歸",
         themeImage: "images/shopping-theme.webp",
         highlights: [
