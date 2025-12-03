@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
     setupInteractiveForeground();
     setupCountdown();
     setupWeatherWidget('weather-info', 'Tokyo');
-    setupWeatherWidget('fuji-weather-info', 'Fujiyoshida');
     generateDailySections();
+    setupLazyBackgroundImages(); // Call the new lazy loading function
     setupTabSwitching();
     setupDragAndDrop();
     setupScrollToTop();
@@ -374,6 +374,45 @@ document.addEventListener('DOMContentLoaded', function () {
         return html;
     }
 
+    // --- LAZY LOADING FOR BACKGROUND IMAGES ---
+    function setupLazyBackgroundImages() {
+        const lazyBackgrounds = document.querySelectorAll('.daily-theme-card');
+
+        if ('IntersectionObserver' in window) {
+            let lazyBackgroundObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        let card = entry.target;
+                        let imageUrl = card.dataset.bgSrc;
+                        if (imageUrl) {
+                            // Add a class to indicate loading is complete (optional, for styling)
+                            card.classList.add('bg-loaded');
+                            card.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${imageUrl}')`;
+                        }
+                        lazyBackgroundObserver.unobserve(card);
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px 100px 0px', // Load image when it's 100px from viewport
+                threshold: 0.01 // Trigger once just a small part is visible
+            });
+
+            lazyBackgrounds.forEach(function(card) {
+                lazyBackgroundObserver.observe(card);
+            });
+        } else {
+            // Fallback for browsers that don't support Intersection Observer
+            lazyBackgrounds.forEach(function(card) {
+                let imageUrl = card.dataset.bgSrc;
+                if (imageUrl) {
+                    card.classList.add('bg-loaded'); // Add class even for fallback
+                    card.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${imageUrl}')`;
+                }
+            });
+        }
+    }
+
+
         function generateDailySections() {
             let allSectionsHtml = '';
             const createCardHtml = (planData) => {
@@ -398,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         `).join('');
     
                 return `
-                            <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${planData.themeImage}')">
+                            <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" data-bg-src="${planData.themeImage}" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));">
                                 <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${planData.title}</h2>
                                 ${highlightsHtml}
                                 <button class="view-timeline-btn mt-6 bg-pink-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-pink-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
