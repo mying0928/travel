@@ -597,7 +597,12 @@ document.addEventListener('DOMContentLoaded', function () {
                  btn.classList.toggle('bg-pink-400', isTarget);
                  btn.classList.toggle('text-white', isTarget);
                  btn.classList.toggle('bg-pink-100', !isTarget);
-                 btn.classList.toggle('text-pink-800', !isTarget)
+                 btn.classList.toggle('text-pink-800', !isTarget);
+                 if (isTarget) {
+                    btn.setAttribute('aria-current', 'page');
+                 } else {
+                    btn.removeAttribute('aria-current');
+                 }
              })
          });
          tl.set(newSection, {
