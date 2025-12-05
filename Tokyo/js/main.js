@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
     setupAnimations();
     setupInteractiveForeground();
     setupCountdown();
-    setupWeatherWidget('weather-info', 'Tokyo');
+        setupWeatherWidget('weather-info', 'Tokyo');
+    setupWeatherWidget('fuji-weather-info', 'Fujikawaguchiko');
     generateDailySections();
     setupLazyBackgroundImages(); // Call the new lazy loading function
     setupTabSwitching();
