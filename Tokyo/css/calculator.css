@@ -1,0 +1,73 @@
+/* Styles from calculator.html */
+.calculator-body {
+    font-family: 'Noto Sans TC', 'Inter', system-ui, sans-serif;
+}
+
+.display-font {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+@keyframes float {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+.sakura-petal {
+    position: absolute;
+    background-color: #fecdd3;
+    border-radius: 100% 0 100% 0;
+    opacity: 0.6;
+    animation: float linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.spin-animate {
+    animation: spin-slow 1s linear infinite;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@keyframes scale-in {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.animate-scale-in {
+    animation: scale-in 0.2s ease-out forwards;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.animate-fade-in {
+    animation: fade-in 0.2s ease-out forwards;
+}
+
+.btn-active:active {
+    transform: scale(0.95);
+}
+.num-btn {
+    user-select: none;
+    -webkit-user-select: none;
+}
+.num-btn:active {
+    border-bottom-width: 0px;
+    transform: translateY(2px);
+}

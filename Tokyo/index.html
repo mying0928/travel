@@ -14,87 +14,12 @@
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 
-    <!-- Styles and scripts from calculator.html -->
+    <!-- Dependencies for Calculator -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Styles from calculator.html */
-        .calculator-body {
-            font-family: 'Noto Sans TC', 'Inter', system-ui, sans-serif;
-        }
-        
-        .display-font {
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-        .sakura-petal {
-            position: absolute;
-            background-color: #fecdd3;
-            border-radius: 100% 0 100% 0;
-            opacity: 0.6;
-            animation: float linear infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .spin-animate {
-            animation: spin-slow 1s linear infinite;
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        @keyframes scale-in {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .animate-scale-in {
-            animation: scale-in 0.2s ease-out forwards;
-        }
-        
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .animate-fade-in {
-            animation: fade-in 0.2s ease-out forwards;
-        }
-
-        .btn-active:active {
-            transform: scale(0.95);
-        }
-        .num-btn {
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        .num-btn:active {
-            border-bottom-width: 0px;
-            transform: translateY(2px);
-        }
-    </style>
-    <!-- End of styles from calculator.html -->
-
+    <link rel="stylesheet" href="css/calculator.css">
+    
     <link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="text-slate-700">
@@ -281,7 +206,7 @@
         </footer>
     </div>
 
-    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
         <button id="scrollToTopBtn" title="回到頂部" class="w-14 h-14 rounded-full bg-pink-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-pink-600 hover:scale-110">
             <i class="fas fa-arrow-up text-xl"></i>
         </button>
@@ -436,12 +361,12 @@
     <script src="data.js" defer></script>
     <script src="js/main.js" defer></script>
 
-    <!-- Calculator Logic -->
+    <!-- Calculator and Modal Control Logic -->
     <script>
-        // 狀態變數
+        // --- Calculator Logic ---
         let state = {
             amount: '0',
-            rate: 0.215, // 預設值
+            rate: 0.215,
             isJpyToTwd: true,
             isTaxFree: false,
             isLoading: false,
@@ -449,7 +374,6 @@
             apiError: false
         };
 
-        // DOM 元素參考
         const els = {
             displayInput: document.getElementById('display-input'),
             displayOutput: document.getElementById('display-output'),
@@ -466,7 +390,6 @@
             inputRate: document.getElementById('input-rate')
         };
 
-        // 初始化
         function initCalculator() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
@@ -479,7 +402,6 @@
             bindEvents();
         }
 
-        // 綁定事件
         function bindEvents() {
             document.querySelectorAll('.num-btn[data-value]').forEach(btn => {
                 btn.addEventListener('click', () => handleNumInput(btn.dataset.value));
@@ -678,7 +600,7 @@
 
         function createSakura() {
             const container = document.getElementById('sakura-container');
-            if (!container.childElementCount) { // Only create if not already populated
+            if (container && !container.childElementCount) {
                 for (let i = 0; i < 12; i++) {
                     const petal = document.createElement('div');
                     petal.className = 'sakura-petal';
@@ -691,21 +613,18 @@
                 }
             }
         }
-    </script>
 
-    <!-- Modal Control Script -->
-    <script>
+        // --- Modal Control Logic ---
         document.addEventListener('DOMContentLoaded', () => {
             const calculatorModal = document.getElementById('calculator-modal');
             const toggleCalculatorBtn = document.getElementById('toggleCalculatorBtn');
-            const calculatorContainer = document.getElementById('calculator-container');
             let isCalculatorInitialized = false;
 
             toggleCalculatorBtn.addEventListener('click', () => {
                 const isHidden = calculatorModal.classList.contains('hidden');
                 if (isHidden) {
                     calculatorModal.classList.remove('hidden');
-                    calculatorModal.classList.add('flex'); // Use flex to center content
+                    calculatorModal.classList.add('flex');
                     if (!isCalculatorInitialized) {
                         initCalculator();
                         isCalculatorInitialized = true;
@@ -717,7 +636,6 @@
             });
 
             calculatorModal.addEventListener('click', (event) => {
-                // If the click is on the modal backdrop (the parent), close the modal.
                 if (event.target === calculatorModal) {
                     calculatorModal.classList.add('hidden');
                     calculatorModal.classList.remove('flex');
