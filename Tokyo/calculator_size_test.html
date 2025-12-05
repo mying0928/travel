@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算機尺寸選擇</title>
+    <!-- Dependencies from index.html -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .calculator-body {
+            font-family: 'Noto Sans TC', 'Inter', system-ui, sans-serif;
+        }
+        .display-font {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .num-btn { user-select: none; -webkit-user-select: none; }
+    </style>
+</head>
+<body class="bg-slate-100 p-8 calculator-body">
+
+    <h1 class="text-3xl font-bold text-center mb-10">計算機尺寸預覽</h1>
+    <p class="text-center text-slate-600 mb-12">請選擇您喜歡的尺寸，然後告訴我您選擇的尺寸名稱 (例如: "max-w-xl")。</p>
+
+    <div class="space-y-16">
+
+        <!-- Calculator Size: max-w-lg (512px) -->
+        <div>
+            <h2 class="text-xl font-bold mb-4">尺寸: <code>max-w-lg</code></h2>
+            <div class="w-full max-w-lg glass-panel rounded-3xl shadow-2xl border border-white/50 relative z-10 flex flex-col max-h-[95vh] h-auto overflow-hidden mx-auto">
+                <div class="bg-rose-500 text-white p-4 flex justify-between items-center shadow-md relative shrink-0">... Header ...</div>
+                <div class="flex-1 flex flex-col overflow-y-auto no-scrollbar">
+                    <div class="flex flex-col p-6 pb-2 gap-2 shrink-0">
+                        <div class="flex flex-col items-end gap-1 bg-white/50 p-3 rounded-2xl border border-slate-100">
+                            <div id="display-input" class="text-4xl font-bold text-slate-800 break-all display-font w-full text-right min-h-[3rem] flex items-end justify-end">123,456</div>
+                        </div>
+                        <div class="relative h-6 w-full flex items-center justify-center z-10 -my-3"></div>
+                        <div class="flex flex-col items-end gap-1 bg-rose-50/50 p-3 rounded-2xl border border-rose-100/50 pt-5">
+                            <div id="display-output" class="text-5xl font-extrabold text-rose-600 break-all display-font min-h-[3.5rem] flex items-end justify-end">26,543 元</div>
+                        </div>
+                    </div>
+                    <div class="mt-auto bg-white p-4 rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)] border-t border-slate-100 shrink-0 relative">... Keypad ...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Size: max-w-xl (576px) -->
+        <div>
+            <h2 class="text-xl font-bold mb-4">尺寸: <code>max-w-xl</code></h2>
+            <div class="w-full max-w-xl glass-panel rounded-3xl shadow-2xl border border-white/50 relative z-10 flex flex-col max-h-[95vh] h-auto overflow-hidden mx-auto">
+                <div class="bg-rose-500 text-white p-4 flex justify-between items-center shadow-md relative shrink-0">... Header ...</div>
+                <div class="flex-1 flex flex-col overflow-y-auto no-scrollbar">
+                    <div class="flex flex-col p-6 pb-2 gap-2 shrink-0">
+                        <div class="flex flex-col items-end gap-1 bg-white/50 p-3 rounded-2xl border border-slate-100">
+                            <div class="text-4xl font-bold text-slate-800 break-all display-font w-full text-right min-h-[3rem] flex items-end justify-end">123,456</div>
+                        </div>
+                        <div class="relative h-6 w-full flex items-center justify-center z-10 -my-3"></div>
+                        <div class="flex flex-col items-end gap-1 bg-rose-50/50 p-3 rounded-2xl border border-rose-100/50 pt-5">
+                            <div class="text-5xl font-extrabold text-rose-600 break-all display-font min-h-[3.5rem] flex items-end justify-end">26,543 元</div>
+                        </div>
+                    </div>
+                    <div class="mt-auto bg-white p-4 rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)] border-t border-slate-100 shrink-0 relative">... Keypad ...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Calculator Size: max-w-2xl (672px) -->
+        <div>
+            <h2 class="text-xl font-bold mb-4">尺寸: <code>max-w-2xl</code></h2>
+            <div class="w-full max-w-2xl glass-panel rounded-3xl shadow-2xl border border-white/50 relative z-10 flex flex-col max-h-[95vh] h-auto overflow-hidden mx-auto">
+                <div class="bg-rose-500 text-white p-4 flex justify-between items-center shadow-md relative shrink-0">... Header ...</div>
+                <div class="flex-1 flex flex-col overflow-y-auto no-scrollbar">
+                    <div class="flex flex-col p-6 pb-2 gap-2 shrink-0">
+                        <div class="flex flex-col items-end gap-1 bg-white/50 p-3 rounded-2xl border border-slate-100">
+                            <div class="text-4xl font-bold text-slate-800 break-all display-font w-full text-right min-h-[3rem] flex items-end justify-end">123,456</div>
+                        </div>
+                        <div class="relative h-6 w-full flex items-center justify-center z-10 -my-3"></div>
+                        <div class="flex flex-col items-end gap-1 bg-rose-50/50 p-3 rounded-2xl border border-rose-100/50 pt-5">
+                            <div class="text-5xl font-extrabold text-rose-600 break-all display-font min-h-[3.5rem] flex items-end justify-end">26,543 元</div>
+                        </div>
+                    </div>
+                    <div class="mt-auto bg-white p-4 rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)] border-t border-slate-100 shrink-0 relative">... Keypad ...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Size: max-w-3xl (768px) -->
+        <div>
+            <h2 class="text-xl font-bold mb-4">尺寸: <code>max-w-3xl</code></h2>
+            <div class="w-full max-w-3xl glass-panel rounded-3xl shadow-2xl border border-white/50 relative z-10 flex flex-col max-h-[95vh] h-auto overflow-hidden mx-auto">
+                <div class="bg-rose-500 text-white p-4 flex justify-between items-center shadow-md relative shrink-0">... Header ...</div>
+                <div class="flex-1 flex flex-col overflow-y-auto no-scrollbar">
+                    <div class="flex flex-col p-6 pb-2 gap-2 shrink-0">
+                        <div class="flex flex-col items-end gap-1 bg-white/50 p-3 rounded-2xl border border-slate-100">
+                            <div class="text-4xl font-bold text-slate-800 break-all display-font w-full text-right min-h-[3rem] flex items-end justify-end">123,456</div>
+                        </div>
+                        <div class="relative h-6 w-full flex items-center justify-center z-10 -my-3"></div>
+                        <div class="flex flex-col items-end gap-1 bg-rose-50/50 p-3 rounded-2xl border border-rose-100/50 pt-5">
+                            <div class="text-5xl font-extrabold text-rose-600 break-all display-font min-h-[3.5rem] flex items-end justify-end">26,543 元</div>
+                        </div>
+                    </div>
+                    <div class="mt-auto bg-white p-4 rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)] border-t border-slate-100 shrink-0 relative">... Keypad ...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
