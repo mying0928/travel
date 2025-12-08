@@ -75,18 +75,19 @@
 @media (max-width: 640px) {
     #calculator-modal {
         padding: 8px; /* Reduced padding for smaller screens */
+        align-items: center; /* Center horizontally */
+        justify-content: center; /* Center vertically */
     }
 
     #calculator-container {
-        max-width: 90%; /* Smaller max-width */
-        height: auto; /* Allow height to adjust */
+        max-width: 85%; /* Further reduced max-width */
+        max-height: 75vh; /* Further reduced max-height */
         margin: auto; /* Center the container */
         display: flex;
         flex-direction: column;
     }
 
     .glass-panel {
-        height: 100%;
         border-radius: 1rem; /* Re-apply some border-radius */
     }
 }
