@@ -79,15 +79,28 @@
         justify-content: center; /* Center vertically */
     }
 
-    #calculator-container {
-        max-width: 85%; /* Further reduced max-width */
-        max-height: 75vh; /* Further reduced max-height */
-        margin: auto; /* Center the container */
-        display: flex;
-        flex-direction: column;
-    }
-
+        #calculator-container {
+            max-width: 85%; /* Further reduced max-width */
+            max-height: 75vh; /* Further reduced max-height */
+            margin: auto; /* Center the container */
+            display: flex;
+            flex-direction: column;
+        }
     .glass-panel {
         border-radius: 1rem; /* Re-apply some border-radius */
     }
 }
+
+/* Animation smoothness optimization */
+.btn-active,
+.num-btn,
+#btn-swap i,
+#icon-refresh.spin-animate {
+    will-change: transform;
+}
+
+#calculator-modal,
+#modal-settings {
+    will-change: opacity, transform;
+}
+
