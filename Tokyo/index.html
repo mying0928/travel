@@ -59,6 +59,45 @@
             border-radius: clamp(0.5rem, 2.2vw, 0.75rem);
         }
     }
+
+    /* 
+      NEW: Add more aggressive vertical compression for short screens.
+      This ensures the calculator fits without scrolling while preserving bottom padding.
+    */
+    @media (max-height: 740px) and (max-width: 576px) {
+        #calculator-modal .p-6 { /* Display Area Padding */
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.25rem !important;
+        }
+        #calculator-modal .gap-2 { /* Reduce gaps between elements */
+            gap: 0.35rem !important;
+        }
+        #btn-swap { /* Reduce space taken by swap button */
+            margin-top: -0.6rem !important;
+            margin-bottom: -0.6rem !important;
+        }
+        #keypad-container {
+            padding-top: 0.5rem !important;
+            /* Increase bottom padding to create the desired breathing room */
+            padding-bottom: 1.25rem !important; 
+        }
+        #keypad-container .mb-4 { /* Margin above keypad grid */
+            margin-bottom: 0.5rem !important;
+        }
+        #keypad-grid {
+            gap: 0.4rem !important;
+        }
+        #calculator-modal .num-btn {
+            /* Reduce button height significantly to make space */
+            height: 2.6rem; 
+            font-size: 1.2rem !important;
+            border-radius: 0.9rem;
+        }
+        #btn-tax-free {
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
+        }
+    }
     </style>
 </head>
 <body class="text-slate-700">
