@@ -90,6 +90,7 @@ const itineraryData = {
         themeImage: "images/ueno-park-theme.webp",
         highlights: [
             { icon: "fa-tree", text: "上野公園" },
+            { icon: "fa-lightbulb", text: "小野照崎神社" },
             { icon: "fa-building-columns", text: "美術館巡禮" },
             { icon: "fa-tower-observation", text: "晴空塔" }
         ],
@@ -102,19 +103,27 @@ const itineraryData = {
             }
         }, {
             time: "09:00 - 09:30",
-            title: "出發・前往上野公園",
+            title: "出發・前往小野照崎神社",
             icon: "fa-train",
             content: {
-                description: "從田端出發，搭上電車，迎接公園的綠意與文化氣息。",
-                transport: "從 <strong>JR田端站</strong> 搭乘山手線或京濱東北線至 <strong>上野站</strong> (約 5-7 分鐘)。"
+                description: "從田端出發，搭上電車，首先前往今天的第一个神社目的地！",
+                transport: "從 <strong>JR田端站</strong> 搭乘山手線至「鶯谷站」下車後步行約 12 分鐘，或在「上野站」轉乘地鐵日比谷線至 <strong>入谷站</strong>。"
             }
         }, {
-            time: "09:30 - 13:30",
+            time: "09:30 - 10:00",
+            title: "小野照崎神社・學問與技藝之神御朱印",
+            icon: "fa-lightbulb",
+            content: {
+                description: "前往供奉學問之神小野篁的<b>小野照崎神社</b>。這裡也是著名藝人推薦求取技藝精進之地，許多藝術創作者會來此祈願。領取象徵智慧與成就的御朱印！💡",
+                transport: "神社參拜，步行即可。"
+            }
+        }, {
+            time: "10:00 - 13:30",
             title: "上野恩賜公園・深度探索",
             icon: "fa-paw",
             content: {
-                description: "您有充裕的4小時，可以好好探索這個巨大的城市綠洲。🌸",
-                transport: "上野車站出站即達，此區域內各景點間建議步行探索。",
+                description: "您有充裕的3.5小時，可以好好探索這個巨大的城市綠洲。🌸",
+                transport: "從小野照崎神社步行約 15-20 分鐘即可抵達上野公園北側入口。",
                 subsections: [{
                     title: "🐼 上野動物園",
                     description: "與可愛的動物們相見歡！<br>⭐ <b>達人秘訣：</b> 人氣明星<b>熊貓</b>的場館總是大排長龍，建議一開園就先去探望牠們，以避開人潮。(建議停留 2.5-3小時)"
@@ -400,27 +409,36 @@ const itineraryData = {
         title: "都會巡禮・阿佐谷、澀谷與新宿",
         themeImage: "images/shibuya-shinjuku-theme.webp",
         highlights: [
+            { icon: "fa-cloud-sun", text: "高円寺氷川神社" },
             { icon: "fa-hands-praying", text: "阿佐谷神明宮" },
             { icon: "fa-users-viewfinder", text: "澀谷十字路口" },
             { icon: "fa-moon", text: "新宿夜生活" }
         ],
         items: [{
-            time: "08:00 - 09:00",
+            time: "08:00 - 08:45",
             title: "晨間準備・享用早餐",
             icon: "fa-mug-hot",
             content: {
                 description: "☀️ 美好的一天從早餐開始！在出發前悠閒地享用早餐，為今天的都會時尚之旅儲備滿滿的能量。"
             }
         }, {
-            time: "09:00 - 10:30",
+            time: "08:45 - 09:45",
+            title: "高円寺氷川神社・氣象神社御朱印",
+            icon: "fa-cloud-sun",
+            content: {
+                description: "從飯店出發，前往全國唯一祭祀氣象之神的<b>高円寺氷川神社</b>，此處的「氣象神社」是動漫《天氣之子》的參考原型。領取特色御朱印為旅程祈求晴朗好天氣！☀️",
+                transport: "從 <strong>JR田端站</strong> 搭乘山手線至新宿，轉乘中央線快速至 <strong>高円寺站</strong> (約 30 分鐘)。"
+            }
+        }, {
+            time: "09:45 - 10:45",
             title: "阿佐谷神明宮・結緣參拜",
             icon: "fa-hands-praying",
             content: {
                 description: "前往以獨特的刺繡蕾絲手鍊御守「<b>神結</b>」聞名的<b>阿佐谷神明宮</b>，為這趟旅程祈求美好的緣分。⛩️<br>⭐ <b>達人秘訣：</b>「神結」會依季節月份推出限定款式，極具收藏價值，是送禮自用兩相宜的特色紀念品。",
-                transport: "從 <strong>JR田端站</strong> 搭乘山手線至新宿，轉乘中央・總武線至 <strong>阿佐ヶ谷站</strong> (總耗時約 30-35 分鐘)。"
+                transport: "從 <strong>JR高円寺站</strong> 搭乘中央線至 <strong>阿佐ヶ谷站</strong> (僅1站，約 2 分鐘)。"
             }
         }, {
-            time: "10:30 - 13:00",
+            time: "10:45 - 13:00",
             title: "澀谷十字路口・潮流中心初探",
             icon: "fa-users-viewfinder",
             content: {
@@ -522,23 +540,23 @@ const itineraryData = {
                 transport: "從東京車站「丸之內中央口」步行約 10-15 分鐘至「大手門」入口。"
             }
         }, {
-            time: "11:30 - 12:30",
-            title: "千鳥淵公園・護城河畔散策",
+            time: "11:30 - 13:30",
+            title: "千鳥淵散策與午餐時光",
             icon: "fa-leaf",
             content: {
-                description: "沿著舊江戶城的護城河悠閒散步，這裡是東京最著名的賞櫻名所之一 🌸。<br>⭐ <b>達人秘訣：</b> 櫻花季時，可以考慮租一艘小船在護城河上划行，享受被櫻花隧道包圍的極致浪漫。",
+                description: "沿著舊江戶城的護城河悠閒散步至**千鳥淵公園**，這裡是東京最著名的賞櫻名所之一 🌸。之後在「九段下」站附近享用午餐，補充體力。<br>⭐ <b>達人秘訣：</b> 這個兩小時的時段非常彈性，你可以根據當天情況，決定在櫻花下多逗留一會，或是找家喜歡的餐廳好好坐下來吃飯。",
                 transport: "從皇居東御苑「北桔橋門」離開，沿護城河往北散步約 15-20 分鐘至「千鳥淵綠道」。"
             }
         }, {
-            time: "12:30 - 14:00",
-            title: "午餐 & 前往增上寺",
-            icon: "fa-utensils",
+            time: "13:30 - 14:15",
+            title: "前往增上寺",
+            icon: "fa-train-tram",
             content: {
-                description: "在「九段下」站附近享用午餐 🍜，補充體力後繼續下午的行程。",
+                description: "午餐後，搭乘地鐵，準備前往下一個經典地標。",
                 transport: "從「九段下」站搭乘 <strong>都營三田線</strong> 🚇 (往「日吉」或「白金高輪」方向) 至「御成門」站 (車程約 15 分鐘)。"
             }
         }, {
-            time: "14:00 - 14:30",
+            time: "14:15 - 15:00",
             title: "增上寺・鐵塔與古寺的合影",
             icon: "fa-camera",
             content: {
@@ -546,45 +564,44 @@ const itineraryData = {
                 transport: "「御成門」站 B6 出口即達。"
             }
         }, {
-            time: "14:30 - 17:00",
+            time: "15:00 - 17:00",
             title: "東京鐵塔・登上經典地標",
             icon: "fa-tower-broadcast",
             content: {
-                description: "登上東京的昭和時代象徵 🗼 <b>東京鐵塔</b>，感受它獨特的紅色魅力。建議登上觀景台，欣賞白天、日落至傍晚的景色。",
+                description: "登上東京的昭和時代象徵 🗼 <b>東京鐵塔</b>，感受它獨特的紅色魅力。這個時段登上觀景台，光線正好，是欣賞城市景觀的好時機。",
                 transport: "從增上寺步行 10-15 分鐘即可抵達。"
             }
         }, {
-            time: "17:00 - 17:30",
-            title: "前往東京車站",
+            time: "17:00 - 17:45",
+            title: "前往銀座・品味東京時尚",
             icon: "fa-train-subway",
             content: {
-                description: "準備前往晚餐地點，並欣賞東京車站被譽為藝術品的夜景。",
-                transport: "從東京鐵塔步行至 JR「浜松町」站，搭乘 <strong>JR京濱東北線</strong> 或 <strong>JR山手線</strong> (2 站，約 5 分鐘) 抵達「東京」站。"
+                description: "從東京鐵塔周邊，搭乘地鐵前往繁華的銀座。",
+                transport: "從東京鐵塔步行至「御成門」站或「大門」站，搭乘都營地鐵前往「銀座站」或「新橋站」。"
             }
         }, {
-            time: "17:30 - 20:00",
-            title: "KITTE丸之內・晚餐與車站夜景",
-            icon: "fa-cart-shopping",
+            time: "17:45 - 20:30",
+            title: "銀座探索 & 晚餐・時尚與美食饗宴",
+            icon: "fa-utensils",
             content: {
-                description: "在由舊郵局改建的 <b>KITTE</b> 商場享用晚餐，這裡的 B1、5F、6F 聚集了多家知名餐廳。 <br>⭐ <b>達人秘訣：</b> 餐後務必至 6 樓的「<b>屋頂花園</b>」，這裡是免費拍攝<b>東京車站</b>紅磚站房經典夜景的最佳地點！🌃",
-                transport: "東京車站「丸之內南口」出站即達。"
+                description: "在銀座感受東京的高雅與時尚。夜幕低垂，您可以欣賞絢麗的櫥窗設計，並在此享用精緻的晚餐。銀座提供各式各樣的餐飲選擇，從高級料理到大眾美食應有盡有。",
+                transport: "銀座區域景點間步行即可抵達。"
             }
         }, {
-            time: "20:00 - 22:30",
-            title: "夜間自由探索 (三選一)",
-            icon: "fa-wand-magic-sparkles",
+            time: "20:30 - 21:30",
+            title: "KITTE丸之內・拍攝東京車站夜景",
+            icon: "fa-camera",
             content: {
-                description: "晚餐後的自由活動時間，可以根據您的喜好選擇一個地方繼續探索。✨",
-                subsections: [{
-                    title: "【選擇 1：秋葉原】(電器 / 玩具 / 動漫) 🎮",
-                    description: "目標是「<b>Yodobashi Camera (ヨドバシAkiba)</b>」(營業至 22:00)。<br><b>交通：</b>從東京車站搭乘 <strong>JR京濱東北線</strong> 或 <strong>JR山手線</strong> (2 站，約 4 分鐘) 抵達「秋葉原」站。<br><b>返回田端：</b>從「秋葉原」站搭乘 <strong>JR山手線</strong> (外回) 直達「田端」站 (約 10-12 分鐘)。"
-                }, {
-                    title: "【選擇 2：銀座】(藥妝 / 零食 / 雜貨) 🛍️",
-                    description: "目標是「<b>唐吉訶德 (Don Quijote) 銀座本館</b>」(24 小時營業)。<br><b>交通：</b>從東京車站步行 15-20 分鐘，或搭地鐵丸之內線 1 站到「銀座」。<br><b>返回田端：</b>從銀座步行至 JR「有樂町」站，搭乘 <strong>JR山手線</strong> (內回) 直達「田端」站 (約 20 分鐘)。"
-                }, {
-                    title: "【選擇 3：新宿】(感受氛圍 / 綜合) 🌃",
-                    description: "目標是新宿東口、<b>歌舞伎町</b>周邊、遊戲中心、<b>唐吉訶德</b> (24 小時)。<br><b>交通：</b>從東京車站搭乘 <strong>JR中央線快速</strong> (約 15 分鐘) 抵達「新宿」站。<br><b>返回田端：</b>從「新宿」站搭乘 <strong>JR山手線</strong> (外回) 直達「田端」站 (約 20-22 分鐘)。"
-                }]
+                description: "晚餐後，前往東京車站丸之內側，登上 KITTE 大樓 6 樓的「<b>屋頂花園</b>」。這裡能免費拍攝到東京車站紅磚站房的經典夜景，感受其在夜晚的磅礴氣勢。🌃<br>⭐ <b>開放時間：</b>屋頂花園免費開放至 23:00 (週日/假日 22:00)。",
+                transport: "從銀座步行約 15-20 分鐘即可抵達東京車站，KITTE 位於丸之內南口對面。"
+            }
+        }, {
+            time: "21:30 後",
+            title: "美好的一天・返回飯店",
+            icon: "fa-hotel",
+            content: {
+                description: "帶著豐富的回憶和美麗的照片，從東京車站搭乘地鐵或 JR 返回飯店，結束充實的一天。",
+                transport: "從 <strong>JR東京站</strong> 搭乘山手線或京濱東北線返回田端站。"
             }
         }]
     },
