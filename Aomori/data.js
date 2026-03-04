@@ -1,8 +1,8 @@
 const itineraryData = {
     day1: {
-        navInfo: { date: '9/8', day: '(週日)' },
+        navInfo: { date: '9/8', day: '(週二)' },
         title: "青森初見・港町與睡魔之夜",
-        themeImage: "images/aomori_bay_bridge.webp",
+        themeImage: "https://static.gltjp.com/glt/data/directory/13000/12553/20220112_100953_0cf27000_w1920.webp",
         highlights: [
             { icon: "fa-plane-arrival", text: "抵達青森" },
             { icon: "fa-apple-alt", text: "A-Factory" },
@@ -20,9 +20,9 @@ const itineraryData = {
         ]
     },
     day2: {
-        navInfo: { date: '9/9', day: '(週一)' },
+        navInfo: { date: '9/9', day: '(週三)' },
         title: "自然巡禮・市場、蘋果與紅葉前線",
-        themeImage: "images/hakkoda_ropeway.webp",
+        themeImage: "https://images.unsplash.com/photo-1622276522354-29759c1b3243?q=80&w=2070&auto=format&fit=crop",
         highlights: [
             { icon: "fa-fish", text: "古川市場" },
             { icon: "fa-tree", text: "弘前蘋果公園" },
@@ -37,9 +37,9 @@ const itineraryData = {
         ]
     },
     day3: {
-        navInfo: { date: '9/10', day: '(週二)' },
+        navInfo: { date: '9/10', day: '(週四)' },
         title: "奧入瀨溪流與十和田湖",
-        themeImage: "images/oirase_stream.webp",
+        themeImage: "https://images.unsplash.com/photo-1506143825237-c69c35b89429?q=80&w=2070&auto=format&fit=crop",
         highlights: [
             { icon: "fa-water", text: "奧入瀨溪流" },
             { icon: "fa-ship", text: "十和田湖" },
@@ -53,9 +53,9 @@ const itineraryData = {
         ]
     },
     day4: {
-        navInfo: { date: '9/11', day: '(週三)' },
+        navInfo: { date: '9/11', day: '(週五)' },
         title: "岩手雙溪谷名勝",
-        themeImage: "images/genbikei.webp",
+        themeImage: "https://images.unsplash.com/photo-1701574312297-72e278796334?q=80&w=1974&auto=format&fit=crop",
         highlights: [
             { icon: "fa-place-of-worship", text: "盛岡八幡宮" },
             { icon: "fa-cookie-bite", text: "嚴美溪飛天糰子" },
@@ -69,9 +69,9 @@ const itineraryData = {
         ]
     },
     day5: {
-        navInfo: { date: '9/12', day: '(週四)' },
+        navInfo: { date: '9/12', day: '(週六)' },
         title: "日本三景・松島灣巡禮",
-        themeImage: "images/matsushima.webp",
+        themeImage: "https://images.unsplash.com/photo-1595013565435-18974a74244f?q=80&w=1939&auto=format&fit=crop",
         highlights: [
             { icon: "fa-ship", text: "松島遊船" },
             { icon: "fa-store-alt", text: "仙台市區逛街" }
@@ -83,9 +83,9 @@ const itineraryData = {
         ]
     },
     day6: {
-        navInfo: { date: '9/13', day: '(週五)' },
+        navInfo: { date: '9/13', day: '(週日)' },
         title: "最終祈願・告別東北",
-        themeImage: "images/sendai_airport.webp",
+        themeImage: "https://images.unsplash.com/photo-1549103578-857c615df734?q=80&w=2070&auto=format&fit=crop",
         highlights: [
             { icon: "fa-coins", text: "金蛇水神社" },
             { icon: "fa-plane-departure", text: "搭機返程" }
