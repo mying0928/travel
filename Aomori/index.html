@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青森之秋：探索行程</title>
+    <link rel="icon" href="images/favicon.svg" type="images/svg+xml">
+    <link rel="preload" href="images/hero-background.webp" as="image">
+    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;700&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
+
+    <!-- Dependencies for Calculator -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/calculator.css">
+    
+    <link rel="stylesheet" href="dist/output.css">
+    <style>
+    /* 
+      Calculator Proportional Scaling v3
+      - Final tuning based on direct visual comparison with the user's reference image.
+      - Aggressively reduces button height and surrounding vertical margins to match the compact target layout.
+    */
+    @media (max-width: 576px) {
+        #calculator-modal #display-input {
+            font-size: clamp(1.4rem, 6.0vw, 2.1rem) !important;
+            min-height: 2.8rem !important;
+        }
+        #calculator-modal #display-output {
+            font-size: clamp(2.1rem, 8.0vw, 2.85rem) !important;
+            min-height: 3.3rem !important;
+        }
+        #keypad-container {
+            /* Drastically reduce bottom padding to match image */
+            padding-top: clamp(0.5rem, 2vw, 0.75rem) !important;
+            padding-bottom: clamp(0.75rem, 3vw, 1rem) !important;
+        }
+        #keypad-container .relative > .flex {
+            /* Reduce margin above the main button grid */
+            margin-bottom: clamp(0.5rem, 2vw, 0.75rem) !important;
+        }
+        #keypad-grid {
+            gap: clamp(0.5rem, 2vw, 0.5rem) !important;
+        }
+        #calculator-modal .num-btn {
+            /* Aggressively reduce button height to match image */
+            height: clamp(2.25rem, 7.8vw, 2.75rem);
+            font-size: clamp(1.25rem, 4.16vw, 1.5rem) !important;
+            border-radius: clamp(0.75rem, 3vw, 1rem);
+        }
+        #calculator-modal #btn-tax-free, 
+        #calculator-modal #btn-clear {
+            border-radius: clamp(0.5rem, 2.2vw, 0.75rem);
+        }
+    }
+
+    /* 
+      NEW: Add more aggressive vertical compression for short screens.
+      This ensures the calculator fits without scrolling while preserving bottom padding.
+    */
+    @media (max-height: 740px) and (max-width: 576px) {
+        #calculator-modal .p-6 { /* Display Area Padding */
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.25rem !important;
+        }
+        #calculator-modal .gap-2 { /* Reduce gaps between elements */
+            gap: 0.35rem !important;
+        }
+        #btn-swap { /* Reduce space taken by swap button */
+            margin-top: -0.6rem !important;
+            margin-bottom: -0.6rem !important;
+        }
+        #keypad-container {
+            padding-top: 0.5rem !important;
+            /* Increase bottom padding to create the desired breathing room */
+            padding-bottom: 2rem !important; 
+        }
+        #keypad-container .mb-4 { /* Margin above keypad grid */
+            margin-bottom: 0.5rem !important;
+        }
+        #keypad-grid {
+            gap: 0.4rem !important;
+        }
+        #calculator-modal .num-btn {
+            /* Reduce button height significantly to make space */
+            height: 2.6rem; 
+            font-size: 1.2rem !important;
+            border-radius: 0.9rem;
+        }
+        #btn-tax-free {
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
+        }
+    }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <audio id="background-music" loop>
+        <source src="music/打上花火.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="preloader">
+        <div class="leaf-loader">🍁</div>
+    </div>
+
+    <header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden z-10">
+        <canvas id="interactive-foreground"></canvas>
+        <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+             style="background-image: url('https://static.gltjp.com/glt/data/article/21000/20814/20241018_104128_6af97a50_w1920.webp');">
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-index: 1;"></div>
+        <div class="relative text-center z-10 p-4">
+            <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 12px rgba(0,0,0,0.7);">東北秋色・青森紀行</h1>
+            <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl text-shadow" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.7);">奧入瀨的碧水流光，松島的千島夕照，一場深秋東北的浪漫詩篇。</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl -mt-24 z-20 relative">
+        <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg relative">
+            <button id="nav-arrow-left" class="nav-arrow left-2"><i class="fas fa-chevron-left"></i></button>
+            <div id="nav-container" class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
+
+            </div>
+            <button id="nav-arrow-right" class="nav-arrow right-2"><i class="fas fa-chevron-right"></i></button>
+        </nav>
+
+        <main>
+            <section id="overview" class="content-section">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h2 class="text-2xl font-bold text-green-700 mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-green-600"></i>出發倒數計時</h2>
+                        <div id="countdown" class="text-center grid grid-cols-4 gap-2">
+                            <div><div class="text-4xl font-bold text-slate-700" id="days">00</div><div class="text-xs text-slate-500">天</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="hours">00</div><div class="text-xs text-slate-500">小時</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="minutes">00</div><div class="text-xs text-slate-500">分鐘</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="seconds">00</div><div class="text-xs text-slate-500">秒</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h2 class="text-2xl font-bold text-yellow-600 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-yellow-500"></i>青森天氣速覽</h2>
+                        <div id="aomori-weather-info" class="flex items-center justify-around">
+                            <i id="aomori-weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
+                            <div>
+                                <div id="aomori-weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                                <div id="aomori-weather-desc" class="text-slate-500">讀取中...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h2 class="text-2xl font-bold text-red-700 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-red-600"></i>仙台天氣速覽</h2>
+                        <div id="sendai-weather-info" class="flex items-center justify-around">
+                            <i id="sendai-weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
+                            <div>
+                                <div id="sendai-weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                                <div id="sendai-weather-desc" class="text-slate-500">讀取中...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <!-- Hakkoda Weather (small card) -->
+                    <div class="bg-white p-4 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h3 class="text-xl font-bold text-blue-700 mb-3 flex items-center"><i class="fas fa-mountain mr-2 text-blue-600"></i>八甲田山頂預估</h3>
+                        <div id="hakkoda-weather-info" class="flex items-center justify-around text-center">
+                            <i id="hakkoda-weather-icon" class="fas fa-snowflake text-4xl text-blue-300"></i>
+                            <div>
+                                <div id="hakkoda-weather-temp" class="text-3xl font-bold text-slate-700">約 --°C</div>
+                                <div class="text-xs text-slate-500">比市區低8-10°C</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Aomori Feature Box (spans 2 columns) -->
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover md:col-span-2">
+                        <h2 class="text-2xl font-bold text-red-700 mb-4 flex items-center"><i class="fas fa-apple-alt mr-3 text-red-500"></i>青森特色</h2>
+                        <p class="text-slate-600">青森縣以其清新的空氣、壯麗的自然風光和優質的農產品而聞名。九月是 蘋果豐收的季節，也是在奧入瀨溪流和八甲田山欣賞初秋景色的最佳時機。</p>
+                    </div>
+                </div>
+                
+                                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
+                                    <h2 class="text-2xl sm:text-3xl font-bold text-orange-700 mb-4 flex items-center"><i class="fas fa-images mr-3 text-amber-500"></i>旅遊掠影</h2>
+                                    <p class="mb-6 text-slate-600">這次旅程的精彩瞬間與必訪景點的驚鴻一瞥。</p>
+                                    <div class="gallery-grid">
+                                        <!-- Aomori images will be added here -->
+                                    </div>
+                                </div>
+                
+                                <div class="mt-8">
+                                    <h2 class="text-2xl sm:text-3xl font-bold text-orange-700 mb-8 text-center flex items-center justify-center"><i class="fas fa-toolbox mr-3 text-amber-500"></i>青森探索領航工具包</h2>
+                                    <div class="grid md:grid-cols-3 gap-8">
+                                        <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                                            <h3 class="text-xl font-bold mb-4 flex items-center">
+                                                <i class="fas fa-train-subway mr-3 text-blue-500 text-2xl"></i>
+                                                <span>交通網絡攻略</span>
+                                            </h3>
+                                            <ul class="space-y-3 text-sm">
+                                                <li class="flex items-start"><i class="fas fa-plane-arrival mt-1 mr-3 text-sky-500"></i><strong>青森機場:</strong> 透過巴士進入市區。</li>
+                                                <li class="flex items-start"><i class="fas fa-train mt-1 mr-3 text-green-600"></i><strong>JR 鐵路:</strong> 連接主要城市如青森、弘前、八戶。</li>
+                                                <li class="flex items-start"><i class="fas fa-bus mt-1 mr-3 text-red-500"></i><strong>JR 巴士:</strong> 深入奧入瀨、十和田湖等景區。</li>
+                                            </ul>
+                                        </div>
+                                        <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                                            <h3 class="text-xl font-bold mb-4 flex items-center">
+                                               <i class="fas fa-credit-card mr-3 text-indigo-500 text-2xl"></i>
+                                                <span>必備IC卡</span>
+                                            </h3>
+                                            <ul class="space-y-3 text-sm">
+                                                <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-3 text-green-500"></i><strong>Suica / Pasmo:</strong> 在大部分市區交通、便利商店通用。</li>
+                                                <li class="flex items-start"><i class="fas fa-exclamation-triangle mt-1 mr-3 text-yellow-500"></i><strong>注意:</strong> 部分郊區巴士可能不支援IC卡。</li>
+                                                <li class="flex items-start"><i class="fas fa-bus-alt mt-1 mr-3 text-gray-700"></i><strong>巴士券:</strong> 前往奧入瀨等地區可考慮購買周遊券。</li>
+                                            </ul>
+                                        </div>
+                                        <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                                            <h3 class="text-xl font-bold mb-4 flex items-center">
+                                                <i class="fas fa-apple-alt mr-3 text-red-600 text-2xl"></i>
+                                                <span>季節特色</span>
+                                            </h3>
+                                            <ul class="space-y-3 text-sm">
+                                                <li class="flex items-start"><i class="fas fa-tree mt-1 mr-3 text-green-600"></i><strong>奧入瀨溪流:</strong> 綠意盎然，溪水潺潺。</li>
+                                                <li class="flex items-start"><i class="fas fa-mountain mt-1 mr-3 text-orange-500"></i><strong>八甲田山:</strong> 9月中旬起，山頂開始出現紅葉。</li>
+                                                <li class="flex items-start"><i class="fas fa-shopping-basket mt-1 mr-3 text-red-500"></i><strong>蘋果採摘:</strong> 體驗親手採摘新鮮的青森蘋果。</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-16">
+                                    <h2 class="text-2xl sm:text-3xl font-bold text-green-700 mb-8 text-center flex items-center justify-center"><i class="fas fa-link mr-3 text-green-600"></i>實用外部連結</h2>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <a href="https://japantravel.navitime.com/zh-tw/area/jp/route/" target="_blank" class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover flex items-center gap-4 no-underline">
+                                            <i class="fas fa-route text-3xl text-sky-500"></i>
+                                            <div>
+                                                <h3 class="text-xl font-bold text-slate-800">JapanTravel 路線規劃</h3>
+                                                <p class="text-sm text-slate-600 mt-1">全日本通用的交通轉乘查詢。</p>
+                                            </div>
+                                        </a>
+                                        <a href="https://www.jrbustohoku.co.jp/route/detail.php?r=21&rc=11" target="_blank" class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover flex items-center gap-4 no-underline">
+                                            <i class="fas fa-bus text-3xl text-red-500"></i>
+                                            <div>
+                                                <h3 class="text-xl font-bold text-slate-800">JR巴士東北 時刻表</h3>
+                                                <p class="text-sm text-slate-600 mt-1">查詢往來奧入瀨溪流、十和田湖的巴士資訊。</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </section>
+                
+                            <div id="daily-sections-container"></div>
+                        </main>
+                
+                        <footer class="text-center mt-20 py-8">
+                            <p class="text-slate-500 text-sm">&copy; 2026 青森之秋旅遊. All Rights Reserved.</p>
+                        </footer>
+                    </div>
+                
+                    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+                        <button id="scrollToTopBtn" title="回到頂部" class="w-14 h-14 rounded-full bg-orange-600 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-orange-700 hover:scale-110">
+                            <i class="fas fa-arrow-up text-xl"></i>
+                        </button>
+                        <button id="toggleMusicBtn" title="切換音樂" class="w-14 h-14 rounded-full bg-orange-600 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-orange-700 hover:scale-110 mt-4">
+                            <i class="fas fa-volume-mute text-xl"></i>
+                        </button>
+                        <!-- New Calculator Button -->
+                        <button id="toggleCalculatorBtn" title="匯率計算機" class="w-14 h-14 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-blue-600 hover:scale-110 mt-2">
+                            <i class="fas fa-calculator text-xl"></i>
+                        </button>
+                    </div>
+    <!-- Calculator Modal -->
+    <div id="calculator-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 animate-fade-in calculator-body">
+        <div id="calculator-container" class="relative w-full max-w-md sm:max-w-lg md:max-w-xl">
+            <!-- 主卡片 -->
+            <div class="glass-panel rounded-3xl shadow-2xl border border-white/50 relative z-10 flex flex-col max-h-[95vh] h-auto overflow-hidden">
+                
+                                <!-- Header -->
+                
+                                <div class="bg-orange-600 text-white p-4 flex justify-between items-center shadow-md relative shrink-0">
+                
+                                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"></div>
+                
+                                    
+                
+                                    <div class="flex items-center gap-2 relative z-10">
+                
+                                        <i data-lucide="leaf" class="w-6 h-6"></i>
+                
+                                        <div>
+                
+                                            <h1 class="text-lg font-bold tracking-wide leading-none">青森紀行</h1>
+                
+                                            <div class="text-[10px] opacity-90 font-light flex items-center gap-1 mt-0.5" id="status-container">
+                
+                                                <i data-lucide="wifi" class="w-3 h-3"></i>
+                
+                                                <span id="status-text">初始化...</span>
+                
+                                            </div>
+                
+                                        </div>
+                
+                                    </div>
+                
+                                    
+                
+                                    <div class="flex gap-1 relative z-10">
+                
+                                        <button id="btn-refresh" class="p-2 hover:bg-orange-700 rounded-full transition-colors btn-active">
+                
+                                            <i data-lucide="refresh-cw" class="w-5 h-5" id="icon-refresh"></i>
+                
+                                        </button>
+                
+                                        <button id="btn-settings" class="p-2 hover:bg-orange-700 rounded-full transition-colors btn-active">
+                
+                                            <i data-lucide="settings" class="w-5 h-5"></i>
+                
+                                        </button>
+                
+                                        <button id="btn-close-calculator" class="p-2 hover:bg-orange-700 rounded-full transition-colors btn-active">
+                
+                                            <i data-lucide="x" class="w-5 h-5"></i>
+                
+                                        </button>
+                
+                                    </div>
+                
+                                </div>
+                
+                    
+                
+                                <!-- 內容區 (只包含顯示螢幕，並讓其可滾動) -->
+                
+                                <div class="flex-1 flex flex-col no-scrollbar">
+                
+                                    
+                
+                                    <!-- 顯示螢幕區 -->
+                
+                                    <div class="flex flex-col px-6 pt-2 pb-2 gap-2 shrink-0">
+                
+                                        
+                
+                                        <div class="flex items-center justify-center">
+                
+                                            <div class="bg-slate-100 rounded-full px-2 py-0.5 text-xs font-bold text-slate-600 flex items-center gap-2 shadow-inner" id="mode-indicator"></div>
+                
+                                        </div>
+                
+                    
+                
+                                        <div class="flex flex-col items-end gap-1 bg-white/50 p-2 rounded-2xl border border-slate-100 transition-all">
+                
+                                            <div class="w-full flex justify-between items-center">
+                
+                                                <span class="text-orange-700 text-xs font-bold bg-orange-50 px-2 py-0.5 rounded">輸入 (Input)</span>
+                
+                                                <span class="text-slate-500 text-sm font-bold flex items-center gap-1" id="label-input-currency"></span>
+                
+                                            </div>
+                
+                                            <div id="display-input" class="text-4xl font-bold text-slate-800 break-all display-font w-full text-right min-h-[3rem] flex items-end justify-end">0</div>
+                
+                                        </div>
+                
+                    
+                
+                                        <div class="relative h-6 w-full flex items-center justify-center z-10 -my-3">
+                
+                                            <button id="btn-swap" class="bg-white border-2 border-orange-100 p-2 rounded-full shadow-md text-orange-600 hover:bg-orange-600 hover:text-white transition-all btn-active duration-200 group">
+                
+                                                <i data-lucide="arrow-up-down" class="w-5 h-5 transition-transform group-hover:rotate-180"></i>
+                
+                                            </button>
+                
+                                        </div>
+                
+                    
+                
+                                        <div class="flex flex-col items-end gap-1 bg-orange-50/50 p-2 rounded-2xl border border-orange-100/50 pt-4 transition-all">
+                
+                                            <div class="w-full flex justify-between items-center">
+                
+                                                <span class="text-slate-400 text-xs font-bold bg-slate-100 px-2 py-0.5 rounded">換 算 (Result)</span>
+                
+                                                <span class="text-slate-500 text-sm font-bold" id="label-output-currency"></span>
+                
+                                            </div>
+                
+                                            <div id="display-output" class="text-5xl font-extrabold text-orange-700 break-all display-font min-h-[3.5rem] flex items-end justify-end">0</div>
+                
+                                        </div>
+                
+                    
+                
+                                        <div class="text-center">
+                
+                                            <span class="inline-block py-0.5 text-xs text-slate-400" id="rate-info"></span>
+                
+                                        </div>
+                
+                                    </div>
+                
+                                </div>
+                
+                    
+                
+                                <!-- 數字按鈕區 (移到可滾動區外面，固定在計算機底部) -->
+                
+                                <div id="keypad-container" class="bg-white p-4 pb-8 rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)] border-t border-slate-100 shrink-0 relative">
+                
+                                        <div class="absolute bottom-0 left-0 right-0 pointer-events-none opacity-20 z-0 overflow-hidden rounded-t-3xl h-full">
+                
+                                            <svg viewBox="0 0 1440 320" class="absolute bottom-0 w-full h-auto text-slate-800 fill-current">
+                
+                                                <path d="M900,180 L920,280 L940,280 L940,120 L945,120 L945,100 L955,100 L955,120 L960,120 L960,280 L980,280 L1000,180 L900,180 Z M0,320 L1440,320 L1440,250 L0,250 Z" />
+                
+                                                <path d="M400,320 L450,150 L500,320 Z" />
+                
+                                            </svg>
+                
+                                        </div>
+                
+                    
+                
+                                        <div class="relative z-10">
+                
+                                            <div class="flex gap-3 mb-4">
+                
+                                                <button id="btn-tax-free" class="flex-1 py-3 rounded-xl text-sm font-bold transition-all shadow-sm border bg-white text-slate-600 border-slate-200"></button>
+                
+                                                <button id="btn-clear" class="w-16 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors btn-active">
+                
+                                                    <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                
+                                                </button>
+                
+                                            </div>
+                
+                    
+                
+                                            <div id="keypad-grid" class="grid grid-cols-3 gap-2">
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="1">1</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="2">2</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="3">3</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="4">4</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="5">5</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="6">6</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="7">7</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="8">8</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="9">9</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all pb-2" data-value=".">.</button>
+                
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="0">0</button>
+                
+                                                <button id="btn-backspace" class="num-btn h-14 rounded-2xl bg-orange-100 text-orange-600 shadow-sm border-b-2 border-orange-200 active:border-b-0 active:bg-orange-200 transition-all flex items-center justify-center">⌫</button>
+                
+                                            </div>
+                
+                                        </div>
+                
+                                </div>
+                
+                            </div>
+                
+                    
+                
+                            <!-- 設定彈窗 -->
+                
+                            <div id="modal-settings" class="hidden absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-fade-in">
+                
+                                <div class="bg-white w-full max-w-xs rounded-2xl p-6 shadow-2xl animate-scale-in">
+                
+                                    <div class="flex justify-between items-center mb-6">
+                
+                                        <h3 class="text-xl font-bold text-slate-800">匯率設定</h3>
+                
+                                        <button id="btn-close-settings" class="text-slate-400 hover:text-slate-600">
+                
+                                            <i data-lucide="x" class="w-6 h-6"></i>
+                
+                                        </button>
+                
+                                    </div>
+                
+                                    <div class="mb-6">
+                
+                                        <label class="block text-sm text-slate-500 mb-2">1 日圓 (JPY) = ? 台幣</label>
+                
+                                        <div class="relative">
+                
+                                            <input type="number" id="input-rate" class="w-full text-2xl font-bold border-b-2 border-orange-200 focus:border-orange-500 outline-none py-2 px-1 text-slate-700 bg-transparent placeholder-slate-300" placeholder="0.22" step="0.001">
+                
+                                            <span class="absolute right-0 bottom-3 text-slate-400 font-medium">TWD</span>
+                
+                                        </div>
+                
+                                    </div>
+                
+                                    <div class="flex flex-col gap-2">
+                
+                                        <button id="btn-save-settings" class="w-full bg-orange-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-orange-200 hover:bg-orange-700 btn-active transition-all">儲存設定</button>
+                
+                                        <button id="btn-reset-api" class="w-full bg-white text-slate-500 py-3 rounded-xl font-medium border border-slate-200 hover:bg-slate-50 btn-active transition-all flex items-center justify-center gap-2">
+                
+                                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                
+                                            重設為即時匯率
+                
+                                        </button>
+                
+                                    </div>
+                
+                                </div>
+                
+                            </div>
+                
+                        </div>
+                
+                    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
+    <script src="data.js" defer></script>
+    <script src="js/main.js" defer></script>
+
+    <!-- Calculator and Modal Control Logic -->
+    <script>
+        // --- Calculator Logic ---
+        let state = {
+            amount: '0',
+            rate: 0.215,
+            isJpyToTwd: true,
+            isTaxFree: false,
+            isLoading: false,
+            lastUpdated: null,
+            apiError: false
+        };
+
+        const els = {
+            displayInput: document.getElementById('display-input'),
+            displayOutput: document.getElementById('display-output'),
+            labelInputCurrency: document.getElementById('label-input-currency'),
+            labelOutputCurrency: document.getElementById('label-output-currency'),
+            modeIndicator: document.getElementById('mode-indicator'),
+            rateInfo: document.getElementById('rate-info'),
+            statusText: document.getElementById('status-text'),
+            statusContainer: document.getElementById('status-container'),
+            btnTaxFree: document.getElementById('btn-tax-free'),
+            btnSwap: document.getElementById('btn-swap'),
+            iconRefresh: document.getElementById('icon-refresh'),
+            modalSettings: document.getElementById('modal-settings'),
+            inputRate: document.getElementById('input-rate')
+        };
+        
+        // --- Audio Feedback ---
+        let audioCtx;
+
+        function playClickSound() {
+            if (!audioCtx) {
+                try {
+                    // Using || for broader browser support
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.error("Web Audio API is not supported in this browser.");
+                    return; // Fail silently
+                }
+            }
+
+            if (!audioCtx) return;
+
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            // Sound parameters for a short, modern "tick"
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime); // Start at a reasonable volume
+
+            // Ramp down gain and frequency quickly to create a click/tick sound
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+            oscillator.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function initCalculator() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                console.error("Lucide icons library failed to load.");
+            }
+            // createSakura(); // Sakura effect removed for Aomori theme
+            updateUI();
+            fetchRate();
+            bindEvents();
+        }
+
+        function bindEvents() {
+            document.querySelectorAll('.num-btn[data-value]').forEach(btn => {
+                btn.addEventListener('click', () => handleNumInput(btn.dataset.value));
+            });
+            document.getElementById('btn-backspace').addEventListener('click', handleBackspace);
+            document.getElementById('btn-clear').addEventListener('click', handleClear);
+            document.getElementById('btn-swap').addEventListener('click', handleSwap);
+            document.getElementById('btn-tax-free').addEventListener('click', handleTaxFree);
+            document.getElementById('btn-refresh').addEventListener('click', fetchRate);
+            document.getElementById('btn-settings').addEventListener('click', openSettings);
+            document.getElementById('btn-close-settings').addEventListener('click', closeSettings);
+            document.getElementById('btn-save-settings').addEventListener('click', saveSettings);
+            document.getElementById('btn-reset-api').addEventListener('click', () => {
+                fetchRate();
+                closeSettings();
+            });
+            document.getElementById('btn-close-calculator').addEventListener('click', closeCalculator);
+        }
+
+        function handleNumInput(val) {
+            playClickSound();
+            if (state.amount === '0' && val !== '.') {
+                state.amount = val;
+            } else {
+                if (val === '.' && state.amount.includes('.')) return;
+                if (state.amount.length > 9) return;
+                state.amount += val;
+            }
+            updateUI();
+        }
+
+        function handleBackspace() {
+            playClickSound();
+            if (state.amount.length === 1) {
+                state.amount = '0';
+            } else {
+                state.amount = state.amount.slice(0, -1);
+            }
+            updateUI();
+        }
+
+        function handleClear() {
+            playClickSound();
+            state.amount = '0';
+            updateUI();
+        }
+
+        function handleSwap() {
+            playClickSound();
+            state.isJpyToTwd = !state.isJpyToTwd;
+            if (!state.isJpyToTwd) { }
+            updateUI();
+        }
+
+        function handleTaxFree() {
+            playClickSound();
+            if (state.isJpyToTwd) {
+                state.isTaxFree = !state.isTaxFree;
+                updateUI();
+            }
+        }
+
+        function openSettings() {
+            playClickSound();
+            els.inputRate.value = state.rate;
+            els.modalSettings.classList.remove('hidden');
+        }
+
+        function closeSettings() {
+            playClickSound();
+            els.modalSettings.classList.add('hidden');
+        }
+        
+        function closeCalculator() {
+            playClickSound();
+            const calculatorModal = document.getElementById('calculator-modal');
+            calculatorModal.classList.add('hidden');
+            calculatorModal.classList.remove('flex');
+        }
+
+        function saveSettings() {
+            playClickSound();
+            const newRate = parseFloat(els.inputRate.value);
+            if (newRate > 0) {
+                state.rate = newRate;
+                state.apiError = true;
+                updateUI();
+                closeSettings();
+            }
+        }
+
+        async function fetchRate() {
+            playClickSound();
+            state.isLoading = true;
+            state.apiError = false;
+            updateUI();
+
+            try {
+                const response = await fetch('https://open.er-api.com/v6/latest/JPY');
+                const data = await response.json();
+                
+                if (data && data.rates && data.rates.TWD) {
+                    state.rate = data.rates.TWD;
+                    const now = new Date();
+                    state.lastUpdated = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+                } else {
+                    throw new Error('Invalid data');
+                }
+            } catch (error) {
+                console.error("Fetch error:", error);
+                state.apiError = true;
+            } finally {
+                state.isLoading = false;
+                updateUI();
+            }
+        }
+
+        function updateUI() {
+            let inputVal = parseFloat(state.amount);
+            if (isNaN(inputVal)) inputVal = 0;
+
+            if (state.isTaxFree && state.isJpyToTwd) {
+                const taxFreeVal = inputVal / 1.1;
+                els.displayInput.innerHTML = `
+                    <div class="flex flex-col items-end">
+                        <span class="text-xs text-rose-500 line-through decoration-rose-500/50 mr-1">
+                            ¥${inputVal.toLocaleString()}
+                        </span>
+                        <span class="text-2xl font-bold text-rose-600">
+                            ¥${Math.floor(taxFreeVal).toLocaleString()}
+                            <span class="text-xs ml-1 font-normal bg-rose-100 px-1 rounded">免稅</span>
+                        </span>
+                    </div>
+                `;
+            } else {
+                els.displayInput.textContent = inputVal.toLocaleString();
+            }
+
+            let calcInput = inputVal;
+            if (state.isTaxFree && state.isJpyToTwd) {
+                calcInput = calcInput / 1.1;
+            }
+
+            let result = 0;
+            if (state.isJpyToTwd) {
+                result = calcInput * state.rate;
+            } else {
+                result = calcInput / state.rate;
+            }
+            
+            const prefix = state.isJpyToTwd ? '' : '¥';
+            const suffix = state.isJpyToTwd ? ' 元' : '';
+            els.displayOutput.textContent = `${prefix}${result.toLocaleString('zh-TW', { maximumFractionDigits: 1 })}${suffix}`;
+
+            if (state.isJpyToTwd) {
+                els.labelInputCurrency.textContent = '🇯🇵 JPY 日圓';
+                els.labelOutputCurrency.textContent = '🇹🇼 TWD 台幣';
+                els.modeIndicator.innerHTML = `🇯🇵 日幣 <i data-lucide="arrow-right" class="w-3 h-3 ml-1 mr-1"></i> 🇹🇼 台幣`;
+            } else {
+                els.labelInputCurrency.textContent = '🇹🇼 TWD 台幣';
+                els.labelOutputCurrency.textContent = '🇯🇵 JPY 日圓';
+                els.modeIndicator.innerHTML = `🇹🇼 台幣 <i data-lucide="arrow-right" class="w-3 h-3 ml-1 mr-1"></i> 🇯🇵 日幣`;
+            }
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons({ root: els.modeIndicator }); 
+            }
+
+            if (!state.isJpyToTwd) {
+                els.btnTaxFree.disabled = true;
+                els.btnTaxFree.textContent = '免稅 (僅限日幣)';
+                els.btnTaxFree.className = 'flex-1 py-3 rounded-xl text-sm font-bold transition-all shadow-sm border bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed';
+            } else {
+                els.btnTaxFree.disabled = false;
+                if (state.isTaxFree) {
+                    els.btnTaxFree.textContent = '已扣除消費稅 10%';
+                    els.btnTaxFree.className = 'flex-1 py-3 rounded-xl text-sm font-bold transition-all shadow-sm border bg-rose-500 text-white border-rose-600 shadow-rose-200';
+                } else {
+                    els.btnTaxFree.textContent = '免稅計算 10%';
+                    els.btnTaxFree.className = 'flex-1 py-3 rounded-xl text-sm font-bold transition-all shadow-sm border bg-white text-slate-600 border-slate-200 hover:bg-slate-50';
+                }
+            }
+
+            els.rateInfo.textContent = `目前匯率: 1 JPY ≈ ${state.rate.toFixed(3)} TWD`;
+            
+            if (state.isLoading) {
+                els.iconRefresh.classList.add('spin-animate');
+                updateStatusIcon('refresh-cw', 'spin-animate');
+                els.statusText.textContent = '更新中...';
+            } else {
+                els.iconRefresh.classList.remove('spin-animate');
+                if (state.apiError) {
+                    updateStatusIcon('wifi-off');
+                    els.statusText.textContent = state.lastUpdated ? `手動/離線` : '離線模式';
+                }
+                else {
+                    updateStatusIcon('wifi');
+                    els.statusText.textContent = `即時匯率 ${state.lastUpdated || ''}`;
+                }
+            }
+        }
+
+        function updateStatusIcon(iconName, extraClass = '') {
+            els.statusContainer.innerHTML = `<i data-lucide="${iconName}" class="w-3 h-3 ${extraClass}"></i>`;
+            const span = document.createElement('span');
+            span.id = 'status-text'; 
+            els.statusContainer.appendChild(span);
+            els.statusText = span; 
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons({ root: els.statusContainer });
+            }
+        }
+
+        function createSakura() {
+            const container = document.getElementById('sakura-container');
+            if (container && !container.childElementCount) {
+                for (let i = 0; i < 12; i++) {
+                    const petal = document.createElement('div');
+                    petal.className = 'sakura-petal';
+                    petal.style.left = `${Math.random() * 100}%`;
+                    petal.style.width = `${Math.random() * 10 + 10}px`;
+                    petal.style.height = `${Math.random() * 10 + 10}px`;
+                    petal.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                    petal.style.animationDelay = `${Math.random() * 5}s`;
+                    container.appendChild(petal);
+                }
+            }
+        }
+
+        // --- Modal Control Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const calculatorModal = document.getElementById('calculator-modal');
+            const toggleCalculatorBtn = document.getElementById('toggleCalculatorBtn');
+            let isCalculatorInitialized = false;
+
+            toggleCalculatorBtn.addEventListener('click', () => {
+                const isHidden = calculatorModal.classList.contains('hidden');
+                if (isHidden) {
+                    calculatorModal.classList.remove('hidden');
+                    calculatorModal.classList.add('flex');
+                    if (!isCalculatorInitialized) {
+                        initCalculator();
+                        isCalculatorInitialized = true;
+                    }
+                } else {
+                    calculatorModal.classList.add('hidden');
+                    calculatorModal.classList.remove('flex');
+                }
+            });
+
+            calculatorModal.addEventListener('click', (event) => {
+                if (event.target === calculatorModal) {
+                    calculatorModal.classList.add('hidden');
+                    calculatorModal.classList.remove('flex');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
