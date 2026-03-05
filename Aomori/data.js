@@ -2,9 +2,8 @@ const itineraryData = {
     day1: {
         navInfo: { date: '9/8', day: '(週二)' },
         title: "青森初見・港町與睡魔之夜",
-        themeImage: "https://static.gltjp.com/glt/data/directory/13000/12553/20220112_100953_0cf27000_w1920.webp",
+        themeImage: "images/睡魔祭.webp",
         highlights: [
-            { icon: "fa-plane-arrival", text: "抵達青森" },
             { icon: "fa-apple-alt", text: "A-Factory" },
             { icon: "fa-drum", text: "睡魔之家" },
             { icon: "fa-guitar", text: "三味線居酒屋" }
@@ -22,11 +21,11 @@ const itineraryData = {
     day2: {
         navInfo: { date: '9/9', day: '(週三)' },
         title: "自然巡禮・市場、蘋果與紅葉前線",
-        themeImage: "https://images.unsplash.com/photo-1622276522354-29759c1b3243?q=80&w=2070&auto=format&fit=crop",
+        themeImage: "images/城倉大橋.jpg",
         highlights: [
-            { icon: "fa-fish", text: "古川市場" },
-            { icon: "fa-tree", text: "弘前蘋果公園" },
-            { icon: "fa-mountain", text: "八甲田山" }
+            { icon: "fa-fish", text: "古川市場海鮮丼" },
+            { icon: "fa-apple-alt", text: "弘前蘋果公園" },
+            { icon: "fa-cable-car", text: "八甲田山纜車" }
         ],
         items: [
             { time: "08:00 - 09:30", title: "青森魚菜中心 (古川市場)", icon: "fa-concierge-bell", content: { description: "早餐來一頓自製的豪華海鮮丼！先在案內所購買餐券，換一碗白飯，然後到各攤位用剩下的餐券換取喜歡的新鮮海鮮，組合出獨一無二的美味。"} },
@@ -39,11 +38,11 @@ const itineraryData = {
     day3: {
         navInfo: { date: '9/10', day: '(週四)' },
         title: "奧入瀨溪流與十和田湖",
-        themeImage: "https://images.unsplash.com/photo-1506143825237-c69c35b89429?q=80&w=2070&auto=format&fit=crop",
+        themeImage: "images/阿修羅之流.jpeg",
         highlights: [
-            { icon: "fa-water", text: "奧入瀨溪流" },
-            { icon: "fa-ship", text: "十和田湖" },
-            { icon: "fa-shopping-cart", text: "八食中心" }
+            { icon: "fa-person-hiking", text: "奧入瀨溪流散策" },
+            { icon: "fa-sailboat", text: "十和田湖遊船" },
+            { icon: "fa-utensils", text: "八食中心炭烤" }
         ],
         items: [
             { time: "上午", title: "奧入瀨溪流散策", icon: "fa-person-hiking", content: { description: "沿著溪流悠閒散步，欣賞被青苔覆蓋的岩石、清澈的流水與數個風格各異的瀑布。空氣清新，綠意盎然，是日本最美的溪流景觀之一。" } },
@@ -55,11 +54,10 @@ const itineraryData = {
     day4: {
         navInfo: { date: '9/11', day: '(週五)' },
         title: "岩手雙溪谷名勝",
-        themeImage: "https://images.unsplash.com/photo-1701574312297-72e278796334?q=80&w=1974&auto=format&fit=crop",
+        themeImage: "images/猊鼻溪遊船.jpg",
         highlights: [
-            { icon: "fa-place-of-worship", text: "盛岡八幡宮" },
             { icon: "fa-cookie-bite", text: "嚴美溪飛天糰子" },
-            { icon: "fa-anchor", text: "猊鼻溪遊船" }
+            { icon: "fa-water", text: "猊鼻溪遊船" }
         ],
         items: [
             { time: "上午", title: "盛岡八幡宮", icon: "fa-torii-gate", content: { description: "離開八戶後，首先前往盛岡市，參拜當地最重要的信仰中心「盛岡八幡宮」。" } },
@@ -71,10 +69,10 @@ const itineraryData = {
     day5: {
         navInfo: { date: '9/12', day: '(週六)' },
         title: "日本三景・松島灣巡禮",
-        themeImage: "https://images.unsplash.com/photo-1595013565435-18974a74244f?q=80&w=1939&auto=format&fit=crop",
+        themeImage: "images/松島遊船.webp",
         highlights: [
-            { icon: "fa-ship", text: "松島遊船" },
-            { icon: "fa-store-alt", text: "仙台市區逛街" }
+            { icon: "fa-sailboat", text: "松島灣遊船" },
+            { icon: "fa-shopping-bag", text: "仙台市區購物" }
         ],
         items: [
             { time: "上午", title: "搭乘火車前往松島", icon: "fa-train", content: { description: "從仙台站搭乘 JR 仙石線前往松島海岸站，準備探訪名列「日本三景」之一的松島。" } },
@@ -85,10 +83,10 @@ const itineraryData = {
     day6: {
         navInfo: { date: '9/13', day: '(週日)' },
         title: "最終祈願・告別東北",
-        themeImage: "https://images.unsplash.com/photo-1549103578-857c615df734?q=80&w=2070&auto=format&fit=crop",
+        themeImage: "images/金蛇水神社.webp",
         highlights: [
             { icon: "fa-coins", text: "金蛇水神社" },
-            { icon: "fa-plane-departure", text: "搭機返程" }
+            { icon: "fa-utensils", text: "機場午餐" }
         ],
         items: [
             { time: "上午", title: "金蛇水神社", icon: "fa-fan", content: { description: "在前往機場前，參拜以祈求財運、事業運聞名的金蛇水神社。這裡有獨特的蛇紋石，據說撫摸後可以帶來好運。" } },
