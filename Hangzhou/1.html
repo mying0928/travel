@@ -3,490 +3,1077 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>杭州行程 9/8-9/13</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Noto Sans TC', sans-serif;
-  background: #f7f5f0;
-  color: #2c2c2c;
-  line-height: 1.7;
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-h1 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 28px;
-  font-weight: 700;
-  text-align: center;
-  margin: 30px 0 8px;
-  color: #1a1a1a;
-}
-.subtitle {
-  text-align: center;
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 36px;
-  letter-spacing: 2px;
-}
-.day-card {
-  background: #fff;
-  border-radius: 14px;
-  margin-bottom: 24px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-.day-header {
-  padding: 18px 24px;
-  color: #fff;
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-}
-.day-date {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 22px;
-  font-weight: 700;
-}
-.day-theme {
-  font-size: 14px;
-  font-weight: 300;
-  opacity: 0.9;
-  letter-spacing: 1px;
-}
-.d1 .day-header { background: linear-gradient(135deg, #5b7a5e, #7d9e80); }
-.d2 .day-header { background: linear-gradient(135deg, #3d6b8e, #5a93b5); }
-.d3 .day-header { background: linear-gradient(135deg, #8b6b3d, #b8934a); }
-.d4 .day-header { background: linear-gradient(135deg, #6b5b8a, #8e7aad); }
-.d5 .day-header { background: linear-gradient(135deg, #8a5b5b, #b07a7a); }
-.d6 .day-header { background: linear-gradient(135deg, #5b5b5b, #888); }
+<title>水光瀲灩：西湖六日行</title>
 
-.timeline {
-  padding: 20px 24px 24px;
-}
-.time-block {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 6px;
-  position: relative;
-}
-.time-block:last-child { margin-bottom: 0; }
-.time-col {
-  width: 64px;
-  min-width: 64px;
-  text-align: right;
-  font-size: 13px;
-  font-weight: 500;
-  color: #999;
-  padding-top: 12px;
-}
-.dot-line {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 20px;
-  min-width: 20px;
-  padding-top: 16px;
-}
-.dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #bbb;
-  flex-shrink: 0;
-}
-.dot.highlight { background: #e8a838; width: 10px; height: 10px; }
-.line {
-  width: 1.5px;
-  flex: 1;
-  background: #e0e0e0;
-  margin-top: 4px;
-}
-.time-block:last-child .line { display: none; }
-.content-col {
-  flex: 1;
-  padding: 8px 0 16px;
-}
-.spot-name {
-  font-weight: 700;
-  font-size: 15px;
-  color: #1a1a1a;
-  margin-bottom: 3px;
-}
-.spot-desc {
-  font-size: 13px;
-  color: #777;
-  line-height: 1.6;
-}
-.transport-tag {
-  display: inline-block;
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 10px;
-  background: #f0efe8;
-  color: #888;
-  margin-top: 4px;
-}
-.tip-box {
-  background: #fffbf0;
-  border-left: 3px solid #e8a838;
-  padding: 12px 16px;
-  margin: 8px 0 12px;
-  border-radius: 0 8px 8px 0;
-  font-size: 13px;
-  color: #6b5a2e;
-  line-height: 1.6;
-}
-.flex-note {
-  background: #f0f5ff;
-  border-left: 3px solid #5a93b5;
-  padding: 12px 16px;
-  margin: 8px 0 12px;
-  border-radius: 0 8px 8px 0;
-  font-size: 13px;
-  color: #2e4a6b;
-  line-height: 1.6;
-}
-.section-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #aaa;
-  letter-spacing: 3px;
-  margin: 12px 24px 0;
-  padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
-}
-.footer {
-  text-align: center;
-  font-size: 12px;
-  color: #bbb;
-  margin: 40px 0 30px;
-  letter-spacing: 1px;
-}
+<!-- External Libraries -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<!-- Fonts and Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+    :root {
+        --brand-jade: #3d7a5e;
+        --brand-dark-jade: #2a5a44;
+        --brand-light-jade: #e8f3ec;
+    }
+    body {
+        font-family: 'Noto Sans TC', sans-serif;
+        background-color: #f7f5f0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0,10 C20,-2 60,22 80,10' stroke='%233d7a5e' stroke-opacity='0.07' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Cpath d='M0,30 C20,42 60,18 80,30' stroke='%233d7a5e' stroke-opacity='0.07' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 240px 120px;
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+    }
+    body.loaded { opacity: 1; }
+    h1, h2, h3 { font-family: 'Noto Serif TC', serif; }
+
+    /* Pre-loader (曲院風荷・蓮花) */
+    .preloader {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: #f7f5f0; display: flex; justify-content: center;
+        align-items: center; z-index: 10000;
+        transition: opacity 0.75s ease, visibility 0.75s ease;
+    }
+    .preloader.hidden { opacity: 0; visibility: hidden; }
+    .lotus-loader { width: 80px; height: 80px; position: relative; animation: lotus-spin 2s linear infinite; }
+    .lotus-loader .petal {
+        position: absolute; width: 40px; height: 40px; background: var(--brand-jade);
+        border-radius: 0 40px; transform-origin: bottom left;
+    }
+    .petal:nth-child(1){transform:rotate(0deg)}.petal:nth-child(2){transform:rotate(45deg)}.petal:nth-child(3){transform:rotate(90deg)}.petal:nth-child(4){transform:rotate(135deg)}.petal:nth-child(5){transform:rotate(180deg)}.petal:nth-child(6){transform:rotate(225deg)}.petal:nth-child(7){transform:rotate(270deg)}.petal:nth-child(8){transform:rotate(315deg)}
+    @keyframes lotus-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+
+    /* Hero Header */
+    .hero-header { height: 100vh; min-height: 600px; max-height: 800px; }
+    #hero-title .char { display: inline-block; will-change: transform, opacity; }
+
+    /* Card hover effects */
+    .card-hover { transition: transform 0.4s ease, box-shadow 0.4s ease; will-change: transform; }
+    .card-hover:hover {
+        transform: translateY(-8px) perspective(1000px) rotateX(2deg) rotateY(-2deg);
+        box-shadow: 0 20px 40px -10px rgba(42, 90, 68, 0.3);
+    }
+
+    /* Timeline styles */
+    .timeline-item .icon {
+        position: absolute; left: -38px; top: 5px; width: 36px; height: 36px;
+        border-radius: 50%; background-color: var(--brand-jade); color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        border: 3px solid var(--brand-light-jade); font-size: 1.1rem; z-index: 10;
+        transition: transform 0.3s ease;
+    }
+    .timeline-item:hover .icon { transform: scale(1.2); }
+    .timeline-item.highlight .icon { background-color: #e8a838; border-color: #fef3c7; }
+    .timeline-line {
+        position: absolute; left: -21px; top: 20px; bottom: -20px; width: 4px;
+        background-color: #f3f4f6; border-radius: 2px;
+    }
+    .timeline-line-progress {
+        position: absolute; left: -21px; top: 20px; width: 4px;
+        background-color: var(--brand-jade); border-radius: 2px;
+        height: 0;
+    }
+
+    /* Animated SVG Icons */
+    .animated-svg { width: 2.5rem; height: 2.5rem; margin-right: 0.75rem; color: var(--brand-dark-jade); }
+    #traffic-light-svg .light { transition: fill 0.3s; }
+    #traffic-light-svg .red { animation: light-cycle 4s 0s infinite; }
+    #traffic-light-svg .yellow { animation: light-cycle 4s 1.5s infinite; }
+    #traffic-light-svg .green { animation: light-cycle 4s 3s infinite; }
+    @keyframes light-cycle { 0%, 25%, 100% { fill: #4b5563; } 12.5% { fill: currentColor; } }
+    #ticket-svg { animation: ticket-shake 3s ease-in-out infinite; transform-origin: center; }
+    @keyframes ticket-shake { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-5deg)} 40%{transform:rotate(5deg)} 60%{transform:rotate(-2deg)} 80%{transform:rotate(2deg)} }
+    #temple-svg .glow { animation: temple-glow 2.5s ease-in-out infinite; }
+    @keyframes temple-glow { 0%,100%{opacity:0} 50%{opacity:1} }
+
+    /* Daily Theme Card */
+    .daily-theme-card { background-size: cover; background-position: center; transition: transform 0.5s ease; }
+    .daily-theme-card:hover { transform: scale(1.03); }
+
+    /* 工具包光影效果 */
+    .tool-card { position: relative; overflow: hidden; }
+    .tool-card::before {
+        content: ''; position: absolute; top: var(--y, 0); left: var(--x, 0);
+        width: 300px; height: 300px;
+        background: radial-gradient(circle at center, rgba(61, 122, 94, 0.25) 0%, transparent 50%);
+        transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+    }
+    .tool-card:hover::before { opacity: 1; }
+
+    /* 杭州原有：提示框 / 彈性提醒 */
+    .tip-box {
+        background: #fffbf0; border-left: 3px solid #e8a838; padding: 12px 16px;
+        margin: 10px 0 0; border-radius: 0 8px 8px 0; font-size: 13px; color: #6b5a2e; line-height: 1.6;
+    }
+    .flex-note {
+        background: #f0f5ff; border-left: 3px solid #5a93b5; padding: 12px 16px;
+        border-radius: 0 8px 8px 0; font-size: 13px; color: #2e4a6b; line-height: 1.6;
+    }
+    .transport-tag {
+        display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 10px;
+        background: var(--brand-light-jade); color: var(--brand-dark-jade); margin-top: 8px; font-weight: 500;
+    }
+    .section-label-timeline {
+        font-size: 12px; font-weight: 600; color: #9ca3af; letter-spacing: 3px;
+        margin: 4px 0 24px; padding-top: 16px; border-top: 1px solid #e5e7eb;
+    }
+
+    /* Utility */
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ---- 匯率計算機（改自 Tokyo 版，JPY→CNY，玫瑰色→翡翠色）---- */
+    .calculator-body { font-family: 'Noto Sans TC', 'Inter', system-ui, sans-serif; }
+    .display-font { font-family: 'Inter', system-ui, sans-serif; }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .spin-animate { animation: spin-slow 1s linear infinite; }
+    .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes scale-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .animate-scale-in { animation: scale-in 0.2s ease-out forwards; }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    .animate-fade-in { animation: fade-in 0.2s ease-out forwards; }
+    .btn-active:active { transform: scale(0.95); }
+    .num-btn { user-select: none; -webkit-user-select: none; }
+    .num-btn:active { border-bottom-width: 0px; transform: translateY(2px); }
+    @media (max-width: 640px) {
+        #calculator-modal { padding: 8px; align-items: center; justify-content: center; }
+        #calculator-container { max-width: 85%; max-height: 75vh; margin: auto; display: flex; flex-direction: column; }
+        .glass-panel { border-radius: 1rem; }
+    }
+    @media (max-width: 576px) {
+        #calculator-modal #display-input { font-size: clamp(1.4rem, 6.0vw, 2.1rem) !important; min-height: 2.8rem !important; }
+        #calculator-modal #display-output { font-size: clamp(2.1rem, 8.0vw, 2.85rem) !important; min-height: 3.3rem !important; }
+        #calculator-modal .num-btn { height: clamp(2.25rem, 7.8vw, 2.75rem); font-size: clamp(1.25rem, 4.16vw, 1.5rem) !important; border-radius: clamp(0.75rem, 3vw, 1rem); }
+    }
 </style>
 </head>
-<body>
+<body class="text-slate-700">
 
-<h1>杭州 · 六日行程</h1>
-<p class="subtitle">2026.9.8 — 9.13 ｜ 西湖大道 · 湧金公園住宿區</p>
-
-<!-- DAY 1 -->
-<div class="day-card d1">
-  <div class="day-header">
-    <span class="day-date">9/8 週二</span>
-    <span class="day-theme">到達日 · 輕鬆探索 + 夜景</span>
-  </div>
-  <div class="timeline">
-    <div class="time-block">
-      <div class="time-col">下午</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">湧金公園</div>
-        <div class="spot-desc">放好行李，出門沿湖散步，感受西湖第一眼</div>
-        <span class="transport-tag">🚶 步行出門即到</span>
-      </div>
+<div class="preloader">
+    <div class="lotus-loader">
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
     </div>
-    <div class="time-block">
-      <div class="time-col">17:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">南宋御街 + 河坊街</div>
-        <div class="spot-desc">逛老街、吃小吃當晚餐（蔥包檜、片兒川、貓耳朵）</div>
-        <span class="transport-tag">🚶 從湧金公園步行 10 分鐘</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">19:00</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">西湖音樂噴泉</div>
-        <div class="spot-desc">湖濱三公園，19:30 開始播放約 15 分鐘。提前到卡位</div>
-        <span class="transport-tag">🚶 從南宋御街步行 10 分鐘</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">20:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">武林夜市</div>
-        <div class="spot-desc">逛攤位、吃宵夜，感受杭州夜生活</div>
-        <span class="transport-tag">🚇 龍翔橋站搭地鐵 1 號線 → 武林廣場站（1 站）</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">21:30</div>
-      <div class="dot-line"><div class="dot highlight"></div></div>
-      <div class="content-col">
-        <div class="spot-name">Hi City 城市之巔</div>
-        <div class="spot-desc">高空酒吧看杭州夜景，放鬆收尾</div>
-        <div class="tip-box">💡 先在美團/大眾點評搜「Hi City城市之巔」購買雙人夜景小酌套餐，約 ¥138-198，比現場單點划算很多</div>
-      </div>
-    </div>
-  </div>
 </div>
 
-<!-- DAY 2 -->
-<div class="day-card d2">
-  <div class="day-header">
-    <span class="day-date">9/9 週三</span>
-    <span class="day-theme">西湖環湖日 · 租電動車</span>
-  </div>
-  <div class="flex-note" style="margin: 16px 24px 0;">⚡ 彈性安排：如果 9/8 到達後對交通已上手，可在環湖前先跑仙橋洞（見下方）。如果不熟，仙橋洞推到 9/12</div>
-  <div class="timeline">
-    <div class="time-block">
-      <div class="time-col">06:30</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">柳浪聞鶯 · 清晨拍照</div>
-        <div class="spot-desc">從酒店沿湖往南走 15 分鐘，拍晨霧石燈籠。6:30 前到，太陽升高霧就散</div>
-        <span class="transport-tag">🚶 沿湖步行 15 分鐘</span>
-      </div>
+<header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden">
+    <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+         style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/de/Leifeng_Pagoda_DJI_0593_%282%29.jpg'); z-index: 0;">
     </div>
-    <div class="time-block">
-      <div class="time-col">08:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">（選配）仙橋洞拍空景</div>
-        <div class="spot-desc">8:30 開門進去拍無人溶洞，10:00 出來回市區。不去的話直接租車環湖</div>
-        <span class="transport-tag">🚕 打車約 30 分鐘到雙浦鎮靈山景區</span>
-      </div>
+    <div class="absolute top-0 left-0 w-full h-full" style="z-index: 1; background: linear-gradient(180deg, rgba(20,40,32,0.45) 0%, rgba(20,40,32,0.25) 45%, rgba(20,40,32,0.55) 100%);"></div>
+    <canvas id="lotus-petals" class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 2;"></canvas>
+    <div class="relative text-center z-10 p-4">
+        <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 14px rgba(0,0,0,0.8);">水光瀲灩・西湖六日</h1>
+        <p id="hero-poem" class="mt-5 text-lg sm:text-xl tracking-widest" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.8); font-family: 'Noto Serif TC', serif;">欲把西湖比西子，淡妝濃抹總相宜</p>
+        <p id="hero-subtitle" class="mt-3 text-sm sm:text-base text-white/90" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.8);">2026.9.8 — 9.13 ｜ 西湖大道 · 湧金公園住宿區</p>
     </div>
-    <div class="time-block">
-      <div class="time-col">10:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">租電動車 → 九溪煙樹</div>
-        <div class="spot-desc">湧金公園附近租車（美團搜「電瓶車租賃」約 ¥59-88/10h），先往南騎到最遠的九溪。車停入口，走進去踩水拍照 1.5 小時</div>
-        <span class="transport-tag">🛵 騎電動車約 25 分鐘</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">12:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">龍井村 → 茅家埠</div>
-        <div class="spot-desc">九溪出來騎龍井路往北，龍井村停下喝杯茶。繼續北上到茅家埠，安靜的湖區茶園</div>
-        <span class="transport-tag">🛵 沿龍井路往北騎約 20 分鐘</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">14:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">曲院風荷 → 蘇堤</div>
-        <div class="spot-desc">繼續往北到曲院風荷（9 月可看殘荷），騎蘇堤穿越湖面</div>
-        <span class="transport-tag">🛵 繼續往北騎</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">15:30</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">韓美林藝術館 · 佛頭拍照</div>
-        <div class="spot-desc">在杭州植物園內（門票 ¥10），電動車停外面走進去約 500 米。如遇桂花季可順便賞桂</div>
-        <span class="transport-tag">🛵 從曲院風荷往北騎 10 分鐘</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">17:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">沿北山路回湧金公園還車</div>
-        <div class="spot-desc">環湖完成，回酒店休息洗澡</div>
-        <span class="transport-tag">🛵 沿北山路往東騎回，約 20 分鐘</span>
-      </div>
-    </div>
-    <div class="section-label">晚間行程</div>
-    <div class="time-block">
-      <div class="time-col">20:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">杭州城市陽台 · 錢塘江燈光秀</div>
-        <div class="spot-desc">20:15 錢江新城音樂噴泉 → 20:30 錢塘江兩岸燈光秀。跟西湖風格完全不同的現代夜景</div>
-        <span class="transport-tag">🚇 龍翔橋站 → 地鐵 1 號線轉 4 號線 → 市民中心站（約 20 分鐘）</span>
-      </div>
-    </div>
-  </div>
+</header>
+
+<div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl -mt-24 z-20 relative">
+    <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg">
+        <div class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
+            <button data-target="overview" class="nav-btn bg-[#3d7a5e] text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
+            <button data-target="day1" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/8<br><span class="text-xs font-medium">(週二)</span></button>
+            <button data-target="day2" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/9<br><span class="text-xs font-medium">(週三)</span></button>
+            <button data-target="day3" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/10<br><span class="text-xs font-medium">(週四)</span></button>
+            <button data-target="day4" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/11<br><span class="text-xs font-medium">(週五)</span></button>
+            <button data-target="day5" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/12<br><span class="text-xs font-medium">(週六)</span></button>
+            <button data-target="day6" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/13<br><span class="text-xs font-medium">(週日)</span></button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="overview" class="content-section">
+            <!-- Countdown & Weather -->
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                    <h2 class="text-2xl font-bold text-[#2a5a44] mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-[#3d7a5e]"></i>出發倒數計時</h2>
+                    <div id="countdown" class="text-center grid grid-cols-4 gap-2">
+                        <div><div class="text-4xl font-bold text-slate-700" id="days">00</div><div class="text-xs text-slate-500">天</div></div>
+                        <div><div class="text-4xl font-bold text-slate-700" id="hours">00</div><div class="text-xs text-slate-500">小時</div></div>
+                        <div><div class="text-4xl font-bold text-slate-700" id="minutes">00</div><div class="text-xs text-slate-500">分鐘</div></div>
+                        <div><div class="text-4xl font-bold text-slate-700" id="seconds">00</div><div class="text-xs text-slate-500">秒</div></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                    <h2 class="text-2xl font-bold text-[#2a5a44] mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-[#3d7a5e]"></i>杭州天氣速覽</h2>
+                    <div id="weather-info" class="flex items-center justify-around">
+                        <i id="weather-icon" class="fas fa-spinner fa-spin text-6xl text-yellow-400"></i>
+                        <div>
+                            <div id="weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                            <div id="weather-desc" class="text-slate-500">讀取中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toolkit -->
+            <div class="mt-8">
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#2a5a44] mb-8 text-center flex items-center justify-center"><i class="fas fa-toolbox mr-3 text-[#3d7a5e]"></i>杭州探索領航工具包</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h3 class="text-xl font-bold text-[#2a5a44] mb-4 flex items-center">
+                            <svg id="traffic-light-svg" class="animated-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 4C8 2.34315 9.34315 1 11 1H13C14.6569 1 16 2.34315 16 4V20C16 21.6569 14.6569 23 13 23H11C9.34315 23 8 21.6569 8 20V4Z" fill="#27272a"/><circle class="light red" cx="12" cy="6" r="2.5" fill="currentColor"/><circle class="light yellow" cx="12" cy="12" r="2.5" fill="currentColor"/><circle class="light green" cx="12" cy="18" r="2.5" fill="currentColor"/></svg>
+                            <span>城市脈動：交通攻略</span>
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start"><i class="fas fa-train-subway mt-1 mr-3 text-sky-500"></i><strong>地鐵:</strong> 1、4、5、16 號線覆蓋主要景點，支付寶掃碼最方便。</li>
+                            <li class="flex items-start"><i class="fas fa-motorcycle mt-1 mr-3 text-green-500"></i><strong>電動車:</strong> 環湖最推薦，湧金公園周邊美團搜「電瓶車租賃」。</li>
+                            <li class="flex items-start"><i class="fas fa-taxi mt-1 mr-3 text-yellow-500"></i><strong>打車/滴滴:</strong> 前往仙橋洞、青山湖等郊區景點的最佳選擇。</li>
+                            <li class="flex items-start"><i class="fas fa-bus mt-1 mr-3 text-blue-500"></i><strong>長途巴士:</strong> 千島湖一日遊需在杭州汽車西站搭車，約 2 小時。</li>
+                        </ul>
+                    </div>
+                    <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h3 class="text-xl font-bold text-[#2a5a44] mb-4 flex items-center">
+                            <svg id="ticket-svg" class="animated-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 16C9.55228 16 10 15.5523 10 15C10 14.4477 9.55228 14 9 14C8.44772 14 8 14.4477 8 15C8 15.5523 8.44772 16 9 16Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2 9C2 7.34315 3.34315 6 5 6H19C20.6569 6 22 7.34315 22 9V11C20.8954 11 20 11.8954 20 13C20 14.1046 20.8954 15 22 15V17C22 18.6569 20.6569 20 19 20H5C3.34315 20 2 18.6569 2 17V15C3.10457 15 4 14.1046 4 13C4 11.8954 3.10457 11 2 11V9ZM12 11V15H18V11H12Z" fill="currentColor"/></svg>
+                            <span>智慧旅人：訂票訣竅</span>
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start"><i class="fas fa-utensils mt-1 mr-3 text-red-500"></i><strong>美團/大眾點評:</strong> 訂夜景酒吧套餐最划算，Hi City 套餐約 ¥138-198。</li>
+                            <li class="flex items-start"><i class="fas fa-mobile-screen mt-1 mr-3 text-purple-500"></i><strong>官方小程序:</strong> 千島湖船票、宋城《千古情》門票需提前線上購買。</li>
+                            <li class="flex items-start"><i class="fas fa-ticket mt-1 mr-3 text-gray-500"></i><strong>景區門票:</strong> 韓美林 ¥10、西溪濕地 ¥80、仙橋洞 ¥39-57、宋城 ¥320 起。</li>
+                        </ul>
+                    </div>
+                    <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h3 class="text-xl font-bold text-[#2a5a44] mb-4 flex items-center">
+                            <svg id="temple-svg" class="animated-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 8.5V11H4V22H10V16C10 14.8954 10.8954 14 12 14C13.1046 14 14 14.8954 14 16V22H20V11H22V8.5L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path class="glow" d="M12 4L4 9.5V11H20V9.5L12 4Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span>入境隨俗：西湖禮儀</span>
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start"><i class="fas fa-leaf mt-1 mr-3 text-emerald-500"></i><strong>花草:</strong> 曲院風荷等景區內，請勿摘採荷花蓮蓬。</li>
+                            <li class="flex items-start"><i class="fas fa-shoe-prints mt-1 mr-3 text-indigo-500"></i><strong>溶洞防滑:</strong> 仙橋洞等溶洞內濕滑，建議穿防滑鞋。</li>
+                            <li class="flex items-start"><i class="fas fa-volume-xmark mt-1 mr-3 text-pink-500"></i><strong>演出禮儀:</strong> 《宋城千古情》請勿使用閃光燈、保持安靜。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="daily-sections-container"></div>
+    </main>
+
+    <footer class="text-center mt-20 py-8">
+        <p class="text-slate-500 text-sm">杭州六日行程 ── 祝旅途愉快 🍃</p>
+    </footer>
 </div>
 
-<!-- DAY 3 -->
-<div class="day-card d3">
-  <div class="day-header">
-    <span class="day-date">9/10 週四</span>
-    <span class="day-theme">千島湖 + 宋城 · 遠征日</span>
-  </div>
-  <div class="timeline">
-    <div class="time-block">
-      <div class="time-col">07:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">出發前往千島湖</div>
-        <div class="spot-desc">杭州汽車西站搭巴士（¥60，每半小時一班）或參加一日團。車程約 2 小時</div>
-        <span class="transport-tag">🚌 長途巴士約 2 小時</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">09:30</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">千島湖風景區</div>
-        <div class="spot-desc">坐遊船遊湖、登島。選中心湖區或東南湖區（提前在官方小程序買船票）</div>
-        <span class="transport-tag">🚢 景區內搭遊船</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">15:30</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">回程 → 之江方向</div>
-        <div class="spot-desc">搭車返回杭州，宋城在之江路上，回程順路</div>
-        <span class="transport-tag">🚌 回程約 1.5-2 小時</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">18:00</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">宋城</div>
-        <div class="spot-desc">逛園區古街、吃晚餐 → 19:30 看《宋城千古情》演出（約 60 分鐘，門票 ¥320 起，提前在官方小程序買）</div>
-        <span class="transport-tag">📍 浙江省杭州市西湖區之江路 148 號</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">21:00</div>
-      <div class="dot-line"><div class="dot"></div></div>
-      <div class="content-col">
-        <div class="spot-name">回酒店休息</div>
-        <div class="spot-desc">打車或搭公交回西湖大道</div>
-        <span class="transport-tag">🚕 打車約 25 分鐘</span>
-      </div>
-    </div>
-  </div>
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <button id="scrollToTopBtn" title="回到頂部" class="w-14 h-14 rounded-full bg-[#3d7a5e] text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-[#2a5a44] hover:scale-110">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+    <button id="toggleCalculatorBtn" title="匯率計算機" class="w-14 h-14 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-blue-600 hover:scale-110 mt-4">
+        <i class="fas fa-calculator text-xl"></i>
+    </button>
 </div>
 
-<!-- DAY 4 -->
-<div class="day-card d4">
-  <div class="day-header">
-    <span class="day-date">9/11 週五</span>
-    <span class="day-theme">青山湖 + 西溪濕地 + 運河夜逛</span>
-  </div>
-  <div class="timeline">
-    <div class="time-block">
-      <div class="time-col">08:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">出發前往青山湖</div>
-        <div class="spot-desc">搭地鐵 16 號線直達青山湖站，出站有接駁車（¥1）</div>
-        <span class="transport-tag">🚇 地鐵 1→3→16 號線，約 1 小時</span>
-      </div>
+<!-- Calculator Modal -->
+<div id="calculator-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 animate-fade-in calculator-body">
+    <div id="calculator-container" class="relative w-full max-w-md sm:max-w-lg md:max-w-xl">
+        <div class="glass-panel rounded-3xl shadow-2xl border border-white/50 relative z-10 flex flex-col max-h-[95vh] h-auto overflow-hidden">
+
+            <div class="bg-[#3d7a5e] text-white p-4 flex justify-between items-center shadow-md relative shrink-0">
+                <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"></div>
+                <div class="flex items-center gap-2 relative z-10">
+                    <i data-lucide="flower-2" class="w-6 h-6"></i>
+                    <div>
+                        <h1 class="text-lg font-bold tracking-wide leading-none">西湖匯率通</h1>
+                        <div class="text-[10px] opacity-90 font-light flex items-center gap-1 mt-0.5" id="status-container">
+                            <i data-lucide="wifi" class="w-3 h-3"></i>
+                            <span id="status-text">初始化...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-1 relative z-10">
+                    <button id="btn-refresh" class="p-2 hover:bg-[#2a5a44] rounded-full transition-colors btn-active">
+                        <i data-lucide="refresh-cw" class="w-5 h-5" id="icon-refresh"></i>
+                    </button>
+                    <button id="btn-settings" class="p-2 hover:bg-[#2a5a44] rounded-full transition-colors btn-active">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                    </button>
+                    <button id="btn-close-calculator" class="p-2 hover:bg-[#2a5a44] rounded-full transition-colors btn-active">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col no-scrollbar">
+                <div class="flex flex-col px-6 pt-2 pb-2 gap-2 shrink-0">
+                    <div class="flex items-center justify-center">
+                        <div class="bg-slate-100 rounded-full px-2 py-0.5 text-xs font-bold text-slate-600 flex items-center gap-2 shadow-inner" id="mode-indicator"></div>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 bg-white/50 p-2 rounded-2xl border border-slate-100 transition-all">
+                        <div class="w-full flex justify-between items-center">
+                            <span class="text-[#2a5a44] text-xs font-bold bg-[#e8f3ec] px-2 py-0.5 rounded">輸入 (Input)</span>
+                            <span class="text-slate-500 text-sm font-bold flex items-center gap-1" id="label-input-currency"></span>
+                        </div>
+                        <div id="display-input" class="text-4xl font-bold text-slate-800 break-all display-font w-full text-right min-h-[3rem] flex items-end justify-end">0</div>
+                    </div>
+                    <div class="relative h-6 w-full flex items-center justify-center z-10 -my-3">
+                        <button id="btn-swap" class="bg-white border-2 border-[#e8f3ec] p-2 rounded-full shadow-md text-[#3d7a5e] hover:bg-[#3d7a5e] hover:text-white transition-all btn-active duration-200 group">
+                            <i data-lucide="arrow-up-down" class="w-5 h-5 transition-transform group-hover:rotate-180"></i>
+                        </button>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 bg-[#e8f3ec]/50 p-2 rounded-2xl border border-[#e8f3ec] pt-4 transition-all">
+                        <div class="w-full flex justify-between items-center">
+                            <span class="text-slate-400 text-xs font-bold bg-slate-100 px-2 py-0.5 rounded">換算 (Result)</span>
+                            <span class="text-slate-500 text-sm font-bold" id="label-output-currency"></span>
+                        </div>
+                        <div id="display-output" class="text-5xl font-extrabold text-[#2a5a44] break-all display-font min-h-[3.5rem] flex items-end justify-end">0</div>
+                    </div>
+                    <div class="text-center">
+                        <span class="inline-block py-0.5 text-xs text-slate-400" id="rate-info"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="keypad-container" class="bg-white p-4 pb-8 rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)] border-t border-slate-100 shrink-0 relative">
+                <div class="relative z-10">
+                    <div class="flex gap-3 mb-4">
+                        <button id="btn-clear" class="flex-1 py-3 rounded-xl text-sm font-bold transition-all shadow-sm border bg-white text-slate-600 border-slate-200 hover:bg-slate-50">清除金額</button>
+                        <button id="btn-backspace" class="w-16 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors btn-active">⌫</button>
+                    </div>
+                    <div id="keypad-grid" class="grid grid-cols-3 gap-2">
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="1">1</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="2">2</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="3">3</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="4">4</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="5">5</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="6">6</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="7">7</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="8">8</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="9">9</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all pb-2" data-value=".">.</button>
+                        <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-[#e8f3ec] transition-all" data-value="0">0</button>
+                        <button id="btn-clear-all" class="num-btn h-14 rounded-2xl bg-red-50 text-red-500 shadow-sm border-b-2 border-red-100 active:border-b-0 active:bg-red-100 transition-all flex items-center justify-center">
+                            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-settings" class="hidden absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-fade-in">
+            <div class="bg-white w-full max-w-xs rounded-2xl p-6 shadow-2xl animate-scale-in">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-slate-800">匯率設定</h3>
+                    <button id="btn-close-settings" class="text-slate-400 hover:text-slate-600">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm text-slate-500 mb-2">1 人民幣 (CNY) = ? 新台幣</label>
+                    <div class="relative">
+                        <input type="number" id="input-rate" class="w-full text-2xl font-bold border-b-2 border-[#e8f3ec] focus:border-[#3d7a5e] outline-none py-2 px-1 text-slate-700 bg-transparent placeholder-slate-300" placeholder="4.35" step="0.001">
+                        <span class="absolute right-0 bottom-3 text-slate-400 font-medium">TWD</span>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button id="btn-save-settings" class="w-full bg-[#3d7a5e] text-white py-3 rounded-xl font-bold shadow-lg shadow-[#e8f3ec] hover:bg-[#2a5a44] btn-active transition-all">儲存設定</button>
+                    <button id="btn-reset-api" class="w-full bg-white text-slate-500 py-3 rounded-xl font-medium border border-slate-200 hover:bg-slate-50 btn-active transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        重設為即時匯率
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="time-block">
-      <div class="time-col">09:30</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">青山湖水上森林</div>
-        <div class="spot-desc">抹茶綠色的水杉林立在水中，仙氣感很強。最佳拍照光線 9:00-10:00</div>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">12:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">回程 → 西溪濕地</div>
-        <div class="spot-desc">搭地鐵回市區方向，在西溪濕地洪園下</div>
-        <span class="transport-tag">🚇 地鐵 16 號線回轉，約 40 分鐘到西溪一帶</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">14:00</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">西溪濕地洪園 · 鲍贝書屋</div>
-        <div class="spot-desc">200 年徽派古建築改造的最美書店，喝茶看書拍照。濕地門票 ¥80</div>
-        <span class="transport-tag">📍 西溪濕地洪園「荊源訪古」景區內</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">17:30</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">小河直街 · 運河夜逛</div>
-        <div class="spot-desc">京杭大運河旁的歷史街區，白牆黑瓦石板路，咖啡店和創意小店林立。逛街吃晚餐拍夜景</div>
-        <span class="transport-tag">🚇 地鐵 5 號線信義坊站</span>
-      </div>
-    </div>
-  </div>
 </div>
 
-<!-- DAY 5 -->
-<div class="day-card d5">
-  <div class="day-header">
-    <span class="day-date">9/12 週六</span>
-    <span class="day-theme">仙橋洞 + 購物日</span>
-  </div>
-  <div class="flex-note" style="margin: 16px 24px 0;">⚡ 如果 9/9 已去過仙橋洞，今天直接從 Outlet 開始，睡到自然醒</div>
-  <div class="timeline">
-    <div class="time-block">
-      <div class="time-col">08:30</div>
-      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">仙橋洞</div>
-        <div class="spot-desc">溶洞奇景 + 丁達爾光效（11:30-15:00 出現）。開學後週六人不會太多。門票 ¥39-57</div>
-        <span class="transport-tag">🚇 6 號線科海路站 B1 口 → 轉 539 路公交 → 靈山洞站</span>
-        <div class="tip-box">🕐 想拍無人空景：8:30 一開門就進。想拍丁達爾光：10:00 到，先逛溶洞，11:30 出來等光</div>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">13:00</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">砂之船奧特萊斯（Outlet）</div>
-        <div class="spot-desc">折扣品牌購物，NIKE、ECCO、New Balance 等。營業到晚上，不趕</div>
-        <span class="transport-tag">🚇 地鐵 4 號線市民中心站 L 口（解放東路 8 號）</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">15:30</div>
-      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
-      <div class="content-col">
-        <div class="spot-name">絲綢城 / 四季青（隨意）</div>
-        <div class="spot-desc">絲綢城：鳳起路，買絲綢伴手禮（17:00 關門）。四季青：老意法、九天國際逛精品服飾（觀音塘站，15:00 後店家漸收）</div>
-        <span class="transport-tag">🚇 絲綢城：中河北路站 ｜ 四季青：觀音塘站</span>
-      </div>
-    </div>
-    <div class="time-block">
-      <div class="time-col">傍晚</div>
-      <div class="dot-line"><div class="dot"></div></div>
-      <div class="content-col">
-        <div class="spot-name">湖濱銀泰 in77 / 南山路酒吧</div>
-        <div class="spot-desc">回到西湖邊，最後一晚逛逛吃晚餐，或去南山路酒吧坐坐，告別杭州夜</div>
-        <span class="transport-tag">🚶 回酒店附近，步行即到</span>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-<!-- DAY 6 -->
-<div class="day-card d6">
-  <div class="day-header">
-    <span class="day-date">9/13 週日</span>
-    <span class="day-theme">退房 · 隨意散步</span>
-  </div>
-  <div class="timeline">
-    <div class="time-block">
-      <div class="time-col">早上</div>
-      <div class="dot-line"><div class="dot"></div></div>
-      <div class="content-col">
-        <div class="spot-name">湖邊散步 → 退房</div>
-        <div class="spot-desc">如有時間，去斷橋或白堤走走當告別，或在湖邊咖啡廳坐坐。然後退房出發</div>
-        <span class="transport-tag">🚶 步行</span>
-      </div>
-    </div>
-  </div>
-</div>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const dailySectionsContainer = document.getElementById('daily-sections-container');
+        let currentActiveSectionId = 'overview';
 
-<div class="footer">杭州六日行程 ── 祝旅途愉快 🍃</div>
+        // --- DATA (完整保留原「杭州 · 六日行程」內容) ---
+        const itineraryData = {
+            day1: {
+                navDate: "9/8", navDay: "(週二)", subtheme: "到達日 · 輕鬆探索 + 夜景",
+                title: "第一日：湖畔序曲・輕裝抵達與夜色初上",
+                color: "91,122,94",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Hefang_Street_20240729.jpg",
+                items: [
+                    { time: "下午", title: "湧金公園", icon: "fa-suitcase-rolling", details: "<p>放好行李，出門沿湖散步，感受西湖第一眼。</p><span class='transport-tag'>🚶 步行出門即到</span>" },
+                    { time: "17:00", title: "南宋御街 + 河坊街", icon: "fa-utensils", details: "<p>逛老街、吃小吃當晚餐（蔥包檜、片兒川、貓耳朵）。</p><span class='transport-tag'>🚶 從湧金公園步行 10 分鐘</span>" },
+                    { time: "19:00", title: "西湖音樂噴泉", icon: "fa-water", highlight: true, details: "<p>湖濱三公園，19:30 開始播放約 15 分鐘。提前到卡位。</p><span class='transport-tag'>🚶 從南宋御街步行 10 分鐘</span>" },
+                    { time: "20:00", title: "武林夜市", icon: "fa-store", details: "<p>逛攤位、吃宵夜，感受杭州夜生活。</p><span class='transport-tag'>🚇 龍翔橋站搭地鐵 1 號線 → 武林廣場站（1 站）</span>" },
+                    { time: "21:30", title: "Hi City 城市之巔", icon: "fa-city", highlight: true, details: "<p>高空酒吧看杭州夜景，放鬆收尾。</p><div class='tip-box'>💡 先在美團/大眾點評搜「Hi City城市之巔」購買雙人夜景小酌套餐，約 ¥138-198，比現場單點划算很多。</div>" }
+                ]
+            },
+            day2: {
+                navDate: "9/9", navDay: "(週三)", subtheme: "西湖環湖日 · 租電動車",
+                title: "第二日：西湖環湖日・馭風騎行探幽境",
+                color: "61,107,142",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/d/da/Hangzhou_China_West_Lake.jpg",
+                flexNote: "⚡ 彈性安排：如果 9/8 到達後對交通已上手，可在環湖前先跑仙橋洞（見下方）。如果不熟，仙橋洞推到 9/12。",
+                items: [
+                    { time: "06:30", title: "柳浪聞鶯・清晨拍照", icon: "fa-camera", highlight: true, details: "<p>從酒店沿湖往南走 15 分鐘，拍晨霧石燈籠。6:30 前到，太陽升高霧就散。</p><span class='transport-tag'>🚶 沿湖步行 15 分鐘</span>" },
+                    { time: "08:00", title: "（選配）仙橋洞拍空景", icon: "fa-gem", details: "<p>8:30 開門進去拍無人溶洞，10:00 出來回市區。不去的話直接租車環湖。</p><span class='transport-tag'>🚕 打車約 30 分鐘到雙浦鎮靈山景區</span>" },
+                    { time: "10:00", title: "租電動車 → 九溪煙樹", icon: "fa-motorcycle", details: "<p>湧金公園附近租車（美團搜「電瓶車租賃」約 ¥59-88/10h），先往南騎到最遠的九溪。車停入口，走進去踩水拍照 1.5 小時。</p><span class='transport-tag'>🛵 騎電動車約 25 分鐘</span>" },
+                    { time: "12:00", title: "龍井村 → 茅家埠", icon: "fa-mug-hot", details: "<p>九溪出來騎龍井路往北，龍井村停下喝杯茶。繼續北上到茅家埠，安靜的湖區茶園。</p><span class='transport-tag'>🛵 沿龍井路往北騎約 20 分鐘</span>" },
+                    { time: "14:00", title: "曲院風荷 → 蘇堤", icon: "fa-water", details: "<p>繼續往北到曲院風荷（9 月可看殘荷），騎蘇堤穿越湖面。</p><span class='transport-tag'>🛵 繼續往北騎</span>" },
+                    { time: "15:30", title: "韓美林藝術館・佛頭拍照", icon: "fa-om", highlight: true, details: "<p>在杭州植物園內（門票 ¥10），電動車停外面走進去約 500 米。如遇桂花季可順便賞桂。</p><span class='transport-tag'>🛵 從曲院風荷往北騎 10 分鐘</span>" },
+                    { time: "17:00", title: "沿北山路回湧金公園還車", icon: "fa-route", details: "<p>環湖完成，回酒店休息洗澡。</p><span class='transport-tag'>🛵 沿北山路往東騎回，約 20 分鐘</span>" },
+                    { sectionLabel: "晚間行程" },
+                    { time: "20:00", title: "杭州城市陽台・錢塘江燈光秀", icon: "fa-city", details: "<p>20:15 錢江新城音樂噴泉 → 20:30 錢塘江兩岸燈光秀。跟西湖風格完全不同的現代夜景。</p><span class='transport-tag'>🚇 龍翔橋站 → 地鐵 1 號線轉 4 號線 → 市民中心站（約 20 分鐘）</span>" }
+                ]
+            },
+            day3: {
+                navDate: "9/10", navDay: "(週四)", subtheme: "千島湖 + 宋城 · 遠征日",
+                title: "第三日：千島覓境・宋城尋夢遠征日",
+                color: "139,107,61",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Qiandao_Lake_%28near_Hangzhou%29.jpg",
+                items: [
+                    { time: "07:00", title: "出發前往千島湖", icon: "fa-bus", details: "<p>杭州汽車西站搭巴士（¥60，每半小時一班）或參加一日團。車程約 2 小時。</p><span class='transport-tag'>🚌 長途巴士約 2 小時</span>" },
+                    { time: "09:30", title: "千島湖風景區", icon: "fa-ship", highlight: true, details: "<p>坐遊船遊湖、登島。選中心湖區或東南湖區（提前在官方小程序買船票）。</p><span class='transport-tag'>🚢 景區內搭遊船</span>" },
+                    { time: "15:30", title: "回程 → 之江方向", icon: "fa-route", details: "<p>搭車返回杭州，宋城在之江路上，回程順路。</p><span class='transport-tag'>🚌 回程約 1.5-2 小時</span>" },
+                    { time: "18:00", title: "宋城", icon: "fa-masks-theater", highlight: true, details: "<p>逛園區古街、吃晚餐 → 19:30 看《宋城千古情》演出（約 60 分鐘，門票 ¥320 起，提前在官方小程序買）。</p><span class='transport-tag'>📍 浙江省杭州市西湖區之江路 148 號</span>" },
+                    { time: "21:00", title: "回酒店休息", icon: "fa-bed", details: "<p>打車或搭公交回西湖大道。</p><span class='transport-tag'>🚕 打車約 25 分鐘</span>" }
+                ]
+            },
+            day4: {
+                navDate: "9/11", navDay: "(週五)", subtheme: "青山湖 + 西溪濕地 + 運河夜逛",
+                title: "第四日：森林秘境・青山西溪運河夜",
+                color: "107,91,138",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/2/20/Xixi_Wetland_Park%2C_Hangzhou%2C_China.jpg",
+                items: [
+                    { time: "08:00", title: "出發前往青山湖", icon: "fa-train-subway", details: "<p>搭地鐵 16 號線直達青山湖站，出站有接駁車（¥1）。</p><span class='transport-tag'>🚇 地鐵 1→3→16 號線，約 1 小時</span>" },
+                    { time: "09:30", title: "青山湖水上森林", icon: "fa-tree", highlight: true, details: "<p>抹茶綠色的水杉林立在水中，仙氣感很強。最佳拍照光線 9:00-10:00。</p>" },
+                    { time: "12:00", title: "回程 → 西溪濕地", icon: "fa-train-subway", details: "<p>搭地鐵回市區方向，在西溪濕地洪園下。</p><span class='transport-tag'>🚇 地鐵 16 號線回轉，約 40 分鐘到西溪一帶</span>" },
+                    { time: "14:00", title: "西溪濕地洪園・鲍贝書屋", icon: "fa-book", highlight: true, details: "<p>200 年徽派古建築改造的最美書店，喝茶看書拍照。濕地門票 ¥80。</p><span class='transport-tag'>📍 西溪濕地洪園「荊源訪古」景區內</span>" },
+                    { time: "17:30", title: "小河直街・運河夜逛", icon: "fa-store", details: "<p>京杭大運河旁的歷史街區，白牆黑瓦石板路，咖啡店和創意小店林立。逛街吃晚餐拍夜景。</p><span class='transport-tag'>🚇 地鐵 5 號線信義坊站</span>" }
+                ]
+            },
+            day5: {
+                navDate: "9/12", navDay: "(週六)", subtheme: "仙橋洞 + 購物日",
+                title: "第五日：溶洞奇光・購物尋寶告別日",
+                color: "138,91,91",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/7/7f/20250418_COSME%2C_Hangzhou_Hubin_Yintai_in77.jpg",
+                flexNote: "⚡ 如果 9/9 已去過仙橋洞，今天直接從 Outlet 開始，睡到自然醒。",
+                items: [
+                    { time: "08:30", title: "仙橋洞", icon: "fa-gem", highlight: true, details: "<p>溶洞奇景 + 丁達爾光效（11:30-15:00 出現）。開學後週六人不會太多。門票 ¥39-57。</p><span class='transport-tag'>🚇 6 號線科海路站 B1 口 → 轉 539 路公交 → 靈山洞站</span><div class='tip-box'>🕐 想拍無人空景：8:30 一開門就進。想拍丁達爾光：10:00 到，先逛溶洞，11:30 出來等光。</div>" },
+                    { time: "13:00", title: "砂之船奧特萊斯（Outlet）", icon: "fa-bag-shopping", details: "<p>折扣品牌購物，NIKE、ECCO、New Balance 等。營業到晚上，不趕。</p><span class='transport-tag'>🚇 地鐵 4 號線市民中心站 L 口（解放東路 8 號）</span>" },
+                    { time: "15:30", title: "絲綢城 / 四季青（隨意）", icon: "fa-shirt", details: "<p>絲綢城：鳳起路，買絲綢伴手禮（17:00 關門）。四季青：老意法、九天國際逛精品服飾（觀音塘站，15:00 後店家漸收）。</p><span class='transport-tag'>🚇 絲綢城：中河北路站 ｜ 四季青：觀音塘站</span>" },
+                    { time: "傍晚", title: "湖濱銀泰 in77 / 南山路酒吧", icon: "fa-martini-glass-citrus", details: "<p>回到西湖邊，最後一晚逛逛吃晚餐，或去南山路酒吧坐坐，告別杭州夜。</p><span class='transport-tag'>🚶 回酒店附近，步行即到</span>" }
+                ]
+            },
+            day6: {
+                navDate: "9/13", navDay: "(週日)", subtheme: "退房 · 隨意散步",
+                title: "第六日：湖畔告別・滿載而歸",
+                color: "91,91,91",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Huanglong_%26_Broken_Bridge_-_Hangzhou_City_%26_West_Lake_near_Broken_Bridge.jpg",
+                items: [
+                    { time: "早上", title: "湖邊散步 → 退房", icon: "fa-door-open", details: "<p>如有時間，去斷橋或白堤走走當告別，或在湖邊咖啡廳坐坐。然後退房出發。</p><span class='transport-tag'>🚶 步行</span>" }
+                ]
+            }
+        };
 
+        // --- INITIALIZATION ---
+        setupAnimations();
+        setupLotusPetals();
+        setupCountdown();
+        setupWeather();
+        generateDailySections();
+        setupTabSwitching();
+        setupScrollToTop();
+        setupToolkitCardHover();
+        setupCalculatorToggle();
+
+        // --- SETUP FUNCTIONS ---
+
+        function setupWeather() {
+            const weatherIconMap = {
+                "Sunny": "fa-sun", "Partly cloudy": "fa-cloud-sun", "Cloudy": "fa-cloud",
+                "Overcast": "fa-smog", "Mist": "fa-smog", "Patchy rain possible": "fa-cloud-showers-heavy",
+                "Thundery outbreaks possible": "fa-bolt", "Fog": "fa-smog",
+                "Patchy light rain": "fa-cloud-rain", "Light rain": "fa-cloud-rain",
+                "Moderate rain at times": "fa-cloud-showers-heavy", "Moderate rain": "fa-cloud-showers-heavy",
+                "Heavy rain at times": "fa-cloud-showers-heavy", "Heavy rain": "fa-cloud-showers-heavy",
+                "Light rain shower": "fa-cloud-rain", "Moderate or heavy rain shower": "fa-cloud-showers-heavy",
+                "Torrential rain shower": "fa-cloud-showers-heavy", "Clear": "fa-sun",
+                "Patchy light rain with thunder": "fa-bolt", "Moderate or heavy rain with thunder": "fa-bolt"
+            };
+            const weatherDescTranslations = {
+                "Sunny": "晴朗", "Partly cloudy": "多雲時晴", "Cloudy": "多雲", "Overcast": "陰天", "Mist": "有霧",
+                "Patchy rain possible": "可能有零星降雨", "Thundery outbreaks possible": "可能有雷暴", "Fog": "有霧",
+                "Patchy light rain": "有零星小雨", "Light rain": "小雨", "Moderate rain at times": "偶有中雨",
+                "Moderate rain": "中雨", "Heavy rain at times": "偶有大雨", "Heavy rain": "大雨",
+                "Light rain shower": "陣雨", "Moderate or heavy rain shower": "中或大陣雨",
+                "Torrential rain shower": "暴雨", "Clear": "晴朗",
+                "Patchy light rain with thunder": "零星雷陣雨", "Moderate or heavy rain with thunder": "中或大雷陣雨"
+            };
+
+            fetch('https://wttr.in/Hangzhou?format=j1')
+                .then(response => response.json())
+                .then(data => {
+                    const condition = data.current_condition[0];
+                    const temp = condition.temp_C;
+                    const weatherDesc = condition.weatherDesc[0].value;
+                    const iconClass = weatherIconMap[weatherDesc] || 'fa-question-circle';
+                    const translatedDesc = weatherDescTranslations[weatherDesc] || weatherDesc;
+
+                    const weatherIconEl = document.getElementById('weather-icon');
+                    const weatherTempEl = document.getElementById('weather-temp');
+                    const weatherDescEl = document.getElementById('weather-desc');
+
+                    if (weatherIconEl && weatherTempEl && weatherDescEl) {
+                        weatherIconEl.className = `fas ${iconClass} text-6xl text-yellow-400`;
+                        weatherTempEl.textContent = `${temp}°C`;
+                        weatherDescEl.textContent = translatedDesc;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching weather:', error);
+                    const weatherInfoEl = document.getElementById('weather-info');
+                    if (weatherInfoEl) {
+                        weatherInfoEl.innerHTML = '<div class="text-sm text-slate-500">無法載入天氣資訊</div>';
+                    }
+                });
+        }
+
+        function setupAnimations() {
+            const heroTitle = document.getElementById('hero-title');
+            const text = heroTitle.innerText;
+            heroTitle.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.innerText = char === ' ' ? ' ' : char;
+                heroTitle.appendChild(span);
+            });
+
+            gsap.from(heroTitle.querySelectorAll('.char'), {
+                duration: 1.2, y: 100, autoAlpha: 0, stagger: 0.05, ease: "back.out(1.7)",
+            });
+
+            gsap.from("#hero-poem", { duration: 1, y: 30, opacity: 0, ease: "power3.out", delay: 1 });
+            gsap.from("#hero-subtitle", { duration: 1, y: 20, opacity: 0, ease: "power3.out", delay: 1.3 });
+
+            gsap.utils.toArray('.card-hover, .tool-card').forEach(card => {
+                gsap.from(card, {
+                    scrollTrigger: { trigger: card, start: "top 92%", toggleActions: "play none none none" },
+                    opacity: 0, y: 25, duration: 0.4, ease: "power2.out"
+                });
+            });
+        }
+
+        function setupLotusPetals() {
+            const canvas = document.getElementById('lotus-petals');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const heroHeader = document.querySelector('.hero-header');
+            let petals = [];
+            let running = true;
+
+            function resizeCanvas() {
+                canvas.width = heroHeader.offsetWidth;
+                canvas.height = heroHeader.offsetHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const petalColors = ['rgba(255,255,255,0.85)', 'rgba(252,228,236,0.85)', 'rgba(247,199,214,0.85)'];
+
+            class Petal {
+                constructor() { this.reset(true); }
+                reset(initial) {
+                    this.x = Math.random() * canvas.width;
+                    this.y = initial ? Math.random() * canvas.height : -20;
+                    this.size = Math.random() * 8 + 6;
+                    this.speedY = Math.random() * 0.5 + 0.4;
+                    this.swayAmp = Math.random() * 30 + 10;
+                    this.swaySpeed = Math.random() * 0.01 + 0.005;
+                    this.swayOffset = Math.random() * Math.PI * 2;
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+                    this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+                    this.baseX = this.x;
+                }
+                update(t) {
+                    this.y += this.speedY;
+                    this.x = this.baseX + Math.sin(t * this.swaySpeed + this.swayOffset) * this.swayAmp;
+                    this.rotation += this.rotationSpeed;
+                    if (this.y > canvas.height + 20) {
+                        this.baseX = Math.random() * canvas.width;
+                        this.reset(false);
+                        this.baseX = this.x;
+                    }
+                }
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.size, this.size * 0.55, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            function initPetals() {
+                const count = window.innerWidth < 640 ? 14 : 24;
+                for (let i = 0; i < count; i++) petals.push(new Petal());
+            }
+
+            function animate(t) {
+                if (!running) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                petals.forEach(p => { p.update(t); p.draw(); });
+                requestAnimationFrame(animate);
+            }
+
+            initPetals();
+            requestAnimationFrame(animate);
+        }
+
+        function setupCountdown() {
+            const targetDate = new Date('2026-09-08T00:00:00').getTime();
+            const countdownElement = document.getElementById('countdown');
+            if (!countdownElement) return;
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = "<div class='col-span-4 text-2xl font-bold text-[#2a5a44]'>旅程已開始！</div>";
+                    return;
+                }
+
+                document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        function generateDailySections() {
+            let allSectionsHtml = '';
+            for (const dayId in itineraryData) {
+                const dayData = itineraryData[dayId];
+                let timelineHtml = '';
+                if (dayData.items) {
+                    timelineHtml = dayData.items.map(item => {
+                        if (item.sectionLabel) {
+                            return `<div class="section-label-timeline">${item.sectionLabel}</div>`;
+                        }
+                        return `
+                            <div class="timeline-item relative mb-8${item.highlight ? ' highlight' : ''}">
+                                <div class="icon"><i class="fas ${item.icon}"></i></div>
+                                <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                                    <div class="p-4">
+                                        <h3 class="text-base sm:text-lg font-bold text-[#2a5a44]">${item.time} ｜ ${item.title}</h3>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 border-t border-gray-100 text-slate-600 text-sm leading-relaxed">${item.details}</div>
+                                </div>
+                            </div>`;
+                    }).join('');
+                }
+
+                allSectionsHtml += `
+                    <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
+                        <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(180deg, rgba(${dayData.color},0.18) 0%, rgba(${dayData.color},0.12) 45%, rgba(${dayData.color},0.4) 100%), url('${dayData.themeImage}')">
+                            <p class="text-sm sm:text-base font-medium opacity-90 mb-2 tracking-widest" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.85);">${dayData.navDate} ${dayData.navDay} ｜ ${dayData.subtheme}</p>
+                            <h2 class="text-3xl sm:text-4xl font-black mb-4" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.85);">${dayData.title}</h2>
+                            <button class="view-timeline-btn mt-4 bg-[#3d7a5e] text-white py-2 px-6 rounded-full shadow-lg hover:bg-[#2a5a44] transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
+                        </div>
+                        <div class="timeline-container hidden relative pl-10 sm:pl-12">
+                            <div class="timeline-line"></div>
+                            <div class="timeline-line-progress"></div>
+                            ${dayData.flexNote ? `<div class="flex-note mb-6">${dayData.flexNote}</div>` : ''}
+                            ${timelineHtml}
+                        </div>
+                    </section>
+                `;
+            }
+            dailySectionsContainer.innerHTML = allSectionsHtml;
+
+            document.querySelectorAll('.view-timeline-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const button = e.currentTarget;
+                    const section = button.closest('.content-section');
+                    const timeline = section.querySelector('.timeline-container');
+                    if (!timeline) return;
+
+                    if (timeline.classList.contains('hidden')) {
+                        timeline.classList.remove('hidden');
+                        button.innerHTML = '隱藏詳細行程 <i class="fas fa-chevron-up ml-2"></i>';
+
+                        setTimeout(() => {
+                            ScrollTrigger.refresh();
+                            gsap.from(timeline.querySelectorAll('.timeline-item'), {
+                                opacity: 0, x: -30, stagger: 0.05, duration: 0.4, ease: "power2.out"
+                            });
+                            gsap.to(timeline.querySelector('.timeline-line-progress'), {
+                                scrollTrigger: { trigger: timeline, start: "top center", end: "bottom bottom", scrub: true, container: window },
+                                height: "100%"
+                            });
+                            gsap.to(window, { duration: 0.45, ease: 'power2.out', scrollTo: { y: timeline, offsetY: 100 } });
+                        }, 10);
+
+                    } else {
+                        gsap.to(window, {
+                            duration: 0.35, ease: 'power2.out',
+                            scrollTo: { y: section.querySelector('.daily-theme-card'), offsetY: 100 },
+                            onComplete: () => {
+                                gsap.to(timeline, {
+                                    duration: 0.25, opacity: 0, ease: 'power2.in',
+                                    onComplete: () => {
+                                        timeline.classList.add('hidden');
+                                        timeline.style.opacity = 1;
+                                        button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        function setupTabSwitching() {
+            let isAnimating = false;
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+                    if (!isAnimating && targetId !== currentActiveSectionId) {
+                        isAnimating = true;
+                        switchTab(targetId, true, () => { isAnimating = false; });
+                    }
+                });
+            });
+        }
+
+        function switchTab(targetId, shouldScroll = true, onCompleteCallback = () => {}) {
+            const oldSection = currentActiveSectionId ? document.getElementById(currentActiveSectionId) : null;
+            const newSection = document.getElementById(targetId);
+            if (!newSection) return;
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    currentActiveSectionId = targetId;
+                    ScrollTrigger.refresh();
+                    onCompleteCallback();
+                }
+            });
+
+            if (oldSection) {
+                tl.to(oldSection, {
+                    duration: 0.18, opacity: 0, ease: 'power2.in',
+                    onComplete: () => { oldSection.style.display = 'none'; }
+                });
+            }
+
+            tl.add(() => {
+                navButtons.forEach(btn => {
+                    const isTarget = btn.dataset.target === targetId;
+                    btn.classList.toggle('bg-[#3d7a5e]', isTarget);
+                    btn.classList.toggle('text-white', isTarget);
+                    btn.classList.toggle('bg-[#e8f3ec]', !isTarget);
+                    btn.classList.toggle('text-[#2a5a44]', !isTarget);
+                });
+            });
+
+            tl.set(newSection, { display: 'block', opacity: 0 })
+              .to(newSection, {
+                duration: 0.25, opacity: 1, ease: 'power2.out',
+                onStart: () => {
+                    gsap.from(newSection.querySelectorAll('.daily-theme-card'), {
+                        opacity: 0, y: 30, duration: 0.45, ease: 'power2.out', stagger: 0.06
+                    });
+                }
+            });
+
+            if (shouldScroll) {
+                tl.to(window, {
+                    duration: 0.5, ease: 'power2.out',
+                    scrollTo: { y: newSection, offsetY: document.querySelector('nav').offsetHeight + 32 }
+                }, "-=0.15");
+            }
+        }
+
+        function setupScrollToTop() {
+            const btn = document.getElementById('scrollToTopBtn');
+            if (btn) {
+                window.addEventListener('scroll', () => {
+                    const isVisible = window.scrollY > 300;
+                    btn.classList.toggle('opacity-0', !isVisible);
+                    btn.classList.toggle('invisible', !isVisible);
+                });
+                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+        }
+
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) preloader.classList.add('hidden');
+            document.body.classList.add('loaded');
+        });
+
+        function setupToolkitCardHover() {
+            const toolCards = document.querySelectorAll('.tool-card');
+            toolCards.forEach(card => {
+                const svg = card.querySelector('.animated-svg');
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--x', `${x}px`);
+                    card.style.setProperty('--y', `${y}px`);
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+
+                    gsap.to(svg, { duration: 0.4, rotationX: rotateX, rotationY: rotateY, scale: 1.15, transformPerspective: 600, ease: 'power1.out' });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(svg, { duration: 0.8, rotationX: 0, rotationY: 0, scale: 1, ease: 'elastic.out(1, 0.75)' });
+                });
+            });
+        }
+
+        function setupCalculatorToggle() {
+            const calculatorModal = document.getElementById('calculator-modal');
+            const toggleCalculatorBtn = document.getElementById('toggleCalculatorBtn');
+            let isCalculatorInitialized = false;
+
+            toggleCalculatorBtn.addEventListener('click', () => {
+                const isHidden = calculatorModal.classList.contains('hidden');
+                if (isHidden) {
+                    calculatorModal.classList.remove('hidden');
+                    calculatorModal.classList.add('flex');
+                    if (!isCalculatorInitialized) {
+                        initCalculator();
+                        isCalculatorInitialized = true;
+                    }
+                } else {
+                    calculatorModal.classList.add('hidden');
+                    calculatorModal.classList.remove('flex');
+                }
+            });
+
+            calculatorModal.addEventListener('click', (event) => {
+                if (event.target === calculatorModal) {
+                    calculatorModal.classList.add('hidden');
+                    calculatorModal.classList.remove('flex');
+                }
+            });
+        }
+    });
+
+    // --- 匯率計算機邏輯（CNY ⇄ TWD，改自 Tokyo 版 JPY⇄TWD） ---
+    let calcState = {
+        amount: '0',
+        rate: 4.35,
+        isCnyToTwd: true,
+        isLoading: false,
+        lastUpdated: null,
+        apiError: false
+    };
+
+    const calcEls = {};
+
+    let audioCtx;
+    function playClickSound() {
+        if (!audioCtx) {
+            try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+            catch (e) { return; }
+        }
+        if (!audioCtx) return;
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(1200, audioCtx.currentTime);
+        gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+        oscillator.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function initCalculator() {
+        calcEls.displayInput = document.getElementById('display-input');
+        calcEls.displayOutput = document.getElementById('display-output');
+        calcEls.labelInputCurrency = document.getElementById('label-input-currency');
+        calcEls.labelOutputCurrency = document.getElementById('label-output-currency');
+        calcEls.modeIndicator = document.getElementById('mode-indicator');
+        calcEls.rateInfo = document.getElementById('rate-info');
+        calcEls.statusText = document.getElementById('status-text');
+        calcEls.statusContainer = document.getElementById('status-container');
+        calcEls.btnSwap = document.getElementById('btn-swap');
+        calcEls.iconRefresh = document.getElementById('icon-refresh');
+        calcEls.modalSettings = document.getElementById('modal-settings');
+        calcEls.inputRate = document.getElementById('input-rate');
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        updateCalcUI();
+        fetchRate();
+        bindCalcEvents();
+    }
+
+    function bindCalcEvents() {
+        document.querySelectorAll('.num-btn[data-value]').forEach(btn => {
+            btn.addEventListener('click', () => handleNumInput(btn.dataset.value));
+        });
+        document.getElementById('btn-backspace').addEventListener('click', handleBackspace);
+        document.getElementById('btn-clear').addEventListener('click', handleClear);
+        document.getElementById('btn-clear-all').addEventListener('click', handleClear);
+        document.getElementById('btn-swap').addEventListener('click', handleSwap);
+        document.getElementById('btn-refresh').addEventListener('click', fetchRate);
+        document.getElementById('btn-settings').addEventListener('click', openSettings);
+        document.getElementById('btn-close-settings').addEventListener('click', closeSettings);
+        document.getElementById('btn-save-settings').addEventListener('click', saveSettings);
+        document.getElementById('btn-reset-api').addEventListener('click', () => { fetchRate(); closeSettings(); });
+        document.getElementById('btn-close-calculator').addEventListener('click', closeCalculator);
+    }
+
+    function handleNumInput(val) {
+        playClickSound();
+        if (calcState.amount === '0' && val !== '.') {
+            calcState.amount = val;
+        } else {
+            if (val === '.' && calcState.amount.includes('.')) return;
+            if (calcState.amount.length > 9) return;
+            calcState.amount += val;
+        }
+        updateCalcUI();
+    }
+
+    function handleBackspace() {
+        playClickSound();
+        calcState.amount = calcState.amount.length === 1 ? '0' : calcState.amount.slice(0, -1);
+        updateCalcUI();
+    }
+
+    function handleClear() {
+        playClickSound();
+        calcState.amount = '0';
+        updateCalcUI();
+    }
+
+    function handleSwap() {
+        playClickSound();
+        calcState.isCnyToTwd = !calcState.isCnyToTwd;
+        updateCalcUI();
+    }
+
+    function openSettings() {
+        playClickSound();
+        calcEls.inputRate.value = calcState.rate;
+        calcEls.modalSettings.classList.remove('hidden');
+    }
+
+    function closeSettings() {
+        playClickSound();
+        calcEls.modalSettings.classList.add('hidden');
+    }
+
+    function closeCalculator() {
+        playClickSound();
+        const calculatorModal = document.getElementById('calculator-modal');
+        calculatorModal.classList.add('hidden');
+        calculatorModal.classList.remove('flex');
+    }
+
+    function saveSettings() {
+        playClickSound();
+        const newRate = parseFloat(calcEls.inputRate.value);
+        if (newRate > 0) {
+            calcState.rate = newRate;
+            calcState.apiError = true;
+            updateCalcUI();
+            closeSettings();
+        }
+    }
+
+    async function fetchRate() {
+        playClickSound();
+        calcState.isLoading = true;
+        calcState.apiError = false;
+        updateCalcUI();
+
+        try {
+            const response = await fetch('https://open.er-api.com/v6/latest/CNY');
+            const data = await response.json();
+            if (data && data.rates && data.rates.TWD) {
+                calcState.rate = data.rates.TWD;
+                calcState.lastUpdated = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+            } else {
+                throw new Error('Invalid data');
+            }
+        } catch (error) {
+            console.error("Fetch error:", error);
+            calcState.apiError = true;
+        } finally {
+            calcState.isLoading = false;
+            updateCalcUI();
+        }
+    }
+
+    function updateCalcUI() {
+        let inputVal = parseFloat(calcState.amount);
+        if (isNaN(inputVal)) inputVal = 0;
+        calcEls.displayInput.textContent = inputVal.toLocaleString();
+
+        let result = calcState.isCnyToTwd ? inputVal * calcState.rate : inputVal / calcState.rate;
+        const suffix = calcState.isCnyToTwd ? ' 元' : ' 元';
+        calcEls.displayOutput.textContent = `${result.toLocaleString('zh-TW', { maximumFractionDigits: 1 })}${suffix}`;
+
+        if (calcState.isCnyToTwd) {
+            calcEls.labelInputCurrency.textContent = '🇨🇳 CNY 人民幣';
+            calcEls.labelOutputCurrency.textContent = '🇹🇼 TWD 台幣';
+            calcEls.modeIndicator.innerHTML = `🇨🇳 人民幣 <i data-lucide="arrow-right" class="w-3 h-3 ml-1 mr-1"></i> 🇹🇼 台幣`;
+        } else {
+            calcEls.labelInputCurrency.textContent = '🇹🇼 TWD 台幣';
+            calcEls.labelOutputCurrency.textContent = '🇨🇳 CNY 人民幣';
+            calcEls.modeIndicator.innerHTML = `🇹🇼 台幣 <i data-lucide="arrow-right" class="w-3 h-3 ml-1 mr-1"></i> 🇨🇳 人民幣`;
+        }
+        if (typeof lucide !== 'undefined') lucide.createIcons({ root: calcEls.modeIndicator });
+
+        calcEls.rateInfo.textContent = `目前匯率: 1 CNY ≈ ${calcState.rate.toFixed(3)} TWD`;
+
+        if (calcState.isLoading) {
+            calcEls.iconRefresh.classList.add('spin-animate');
+            updateCalcStatusIcon('refresh-cw', 'spin-animate');
+            calcEls.statusText.textContent = '更新中...';
+        } else {
+            calcEls.iconRefresh.classList.remove('spin-animate');
+            if (calcState.apiError) {
+                updateCalcStatusIcon('wifi-off');
+                calcEls.statusText.textContent = calcState.lastUpdated ? `手動/離線` : '離線模式';
+            } else {
+                updateCalcStatusIcon('wifi');
+                calcEls.statusText.textContent = `即時匯率 ${calcState.lastUpdated || ''}`;
+            }
+        }
+    }
+
+    function updateCalcStatusIcon(iconName, extraClass) {
+        calcEls.statusContainer.innerHTML = `<i data-lucide="${iconName}" class="w-3 h-3 ${extraClass || ''}"></i>`;
+        const span = document.createElement('span');
+        span.id = 'status-text';
+        calcEls.statusContainer.appendChild(span);
+        calcEls.statusText = span;
+        if (typeof lucide !== 'undefined') lucide.createIcons({ root: calcEls.statusContainer });
+    }
+</script>
 </body>
 </html>
