@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杭州行程 9/8-9/13</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: #f7f5f0;
+  color: #2c2c2c;
+  line-height: 1.7;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin: 30px 0 8px;
+  color: #1a1a1a;
+}
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 36px;
+  letter-spacing: 2px;
+}
+.day-card {
+  background: #fff;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.day-header {
+  padding: 18px 24px;
+  color: #fff;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.day-date {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+.day-theme {
+  font-size: 14px;
+  font-weight: 300;
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+.d1 .day-header { background: linear-gradient(135deg, #5b7a5e, #7d9e80); }
+.d2 .day-header { background: linear-gradient(135deg, #3d6b8e, #5a93b5); }
+.d3 .day-header { background: linear-gradient(135deg, #8b6b3d, #b8934a); }
+.d4 .day-header { background: linear-gradient(135deg, #6b5b8a, #8e7aad); }
+.d5 .day-header { background: linear-gradient(135deg, #8a5b5b, #b07a7a); }
+.d6 .day-header { background: linear-gradient(135deg, #5b5b5b, #888); }
+
+.timeline {
+  padding: 20px 24px 24px;
+}
+.time-block {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 6px;
+  position: relative;
+}
+.time-block:last-child { margin-bottom: 0; }
+.time-col {
+  width: 64px;
+  min-width: 64px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 500;
+  color: #999;
+  padding-top: 12px;
+}
+.dot-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  min-width: 20px;
+  padding-top: 16px;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #bbb;
+  flex-shrink: 0;
+}
+.dot.highlight { background: #e8a838; width: 10px; height: 10px; }
+.line {
+  width: 1.5px;
+  flex: 1;
+  background: #e0e0e0;
+  margin-top: 4px;
+}
+.time-block:last-child .line { display: none; }
+.content-col {
+  flex: 1;
+  padding: 8px 0 16px;
+}
+.spot-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+}
+.spot-desc {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.6;
+}
+.transport-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #f0efe8;
+  color: #888;
+  margin-top: 4px;
+}
+.tip-box {
+  background: #fffbf0;
+  border-left: 3px solid #e8a838;
+  padding: 12px 16px;
+  margin: 8px 0 12px;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  color: #6b5a2e;
+  line-height: 1.6;
+}
+.flex-note {
+  background: #f0f5ff;
+  border-left: 3px solid #5a93b5;
+  padding: 12px 16px;
+  margin: 8px 0 12px;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  color: #2e4a6b;
+  line-height: 1.6;
+}
+.section-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: 3px;
+  margin: 12px 24px 0;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #bbb;
+  margin: 40px 0 30px;
+  letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+<h1>杭州 · 六日行程</h1>
+<p class="subtitle">2026.9.8 — 9.13 ｜ 西湖大道 · 湧金公園住宿區</p>
+
+<!-- DAY 1 -->
+<div class="day-card d1">
+  <div class="day-header">
+    <span class="day-date">9/8 週二</span>
+    <span class="day-theme">到達日 · 輕鬆探索 + 夜景</span>
+  </div>
+  <div class="timeline">
+    <div class="time-block">
+      <div class="time-col">下午</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">湧金公園</div>
+        <div class="spot-desc">放好行李，出門沿湖散步，感受西湖第一眼</div>
+        <span class="transport-tag">🚶 步行出門即到</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">17:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">南宋御街 + 河坊街</div>
+        <div class="spot-desc">逛老街、吃小吃當晚餐（蔥包檜、片兒川、貓耳朵）</div>
+        <span class="transport-tag">🚶 從湧金公園步行 10 分鐘</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">19:00</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">西湖音樂噴泉</div>
+        <div class="spot-desc">湖濱三公園，19:30 開始播放約 15 分鐘。提前到卡位</div>
+        <span class="transport-tag">🚶 從南宋御街步行 10 分鐘</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">20:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">武林夜市</div>
+        <div class="spot-desc">逛攤位、吃宵夜，感受杭州夜生活</div>
+        <span class="transport-tag">🚇 龍翔橋站搭地鐵 1 號線 → 武林廣場站（1 站）</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">21:30</div>
+      <div class="dot-line"><div class="dot highlight"></div></div>
+      <div class="content-col">
+        <div class="spot-name">Hi City 城市之巔</div>
+        <div class="spot-desc">高空酒吧看杭州夜景，放鬆收尾</div>
+        <div class="tip-box">💡 先在美團/大眾點評搜「Hi City城市之巔」購買雙人夜景小酌套餐，約 ¥138-198，比現場單點划算很多</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 2 -->
+<div class="day-card d2">
+  <div class="day-header">
+    <span class="day-date">9/9 週三</span>
+    <span class="day-theme">西湖環湖日 · 租電動車</span>
+  </div>
+  <div class="flex-note" style="margin: 16px 24px 0;">⚡ 彈性安排：如果 9/8 到達後對交通已上手，可在環湖前先跑仙橋洞（見下方）。如果不熟，仙橋洞推到 9/12</div>
+  <div class="timeline">
+    <div class="time-block">
+      <div class="time-col">06:30</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">柳浪聞鶯 · 清晨拍照</div>
+        <div class="spot-desc">從酒店沿湖往南走 15 分鐘，拍晨霧石燈籠。6:30 前到，太陽升高霧就散</div>
+        <span class="transport-tag">🚶 沿湖步行 15 分鐘</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">08:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">（選配）仙橋洞拍空景</div>
+        <div class="spot-desc">8:30 開門進去拍無人溶洞，10:00 出來回市區。不去的話直接租車環湖</div>
+        <span class="transport-tag">🚕 打車約 30 分鐘到雙浦鎮靈山景區</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">10:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">租電動車 → 九溪煙樹</div>
+        <div class="spot-desc">湧金公園附近租車（美團搜「電瓶車租賃」約 ¥59-88/10h），先往南騎到最遠的九溪。車停入口，走進去踩水拍照 1.5 小時</div>
+        <span class="transport-tag">🛵 騎電動車約 25 分鐘</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">12:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">龍井村 → 茅家埠</div>
+        <div class="spot-desc">九溪出來騎龍井路往北，龍井村停下喝杯茶。繼續北上到茅家埠，安靜的湖區茶園</div>
+        <span class="transport-tag">🛵 沿龍井路往北騎約 20 分鐘</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">14:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">曲院風荷 → 蘇堤</div>
+        <div class="spot-desc">繼續往北到曲院風荷（9 月可看殘荷），騎蘇堤穿越湖面</div>
+        <span class="transport-tag">🛵 繼續往北騎</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">15:30</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">韓美林藝術館 · 佛頭拍照</div>
+        <div class="spot-desc">在杭州植物園內（門票 ¥10），電動車停外面走進去約 500 米。如遇桂花季可順便賞桂</div>
+        <span class="transport-tag">🛵 從曲院風荷往北騎 10 分鐘</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">17:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">沿北山路回湧金公園還車</div>
+        <div class="spot-desc">環湖完成，回酒店休息洗澡</div>
+        <span class="transport-tag">🛵 沿北山路往東騎回，約 20 分鐘</span>
+      </div>
+    </div>
+    <div class="section-label">晚間行程</div>
+    <div class="time-block">
+      <div class="time-col">20:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">杭州城市陽台 · 錢塘江燈光秀</div>
+        <div class="spot-desc">20:15 錢江新城音樂噴泉 → 20:30 錢塘江兩岸燈光秀。跟西湖風格完全不同的現代夜景</div>
+        <span class="transport-tag">🚇 龍翔橋站 → 地鐵 1 號線轉 4 號線 → 市民中心站（約 20 分鐘）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 3 -->
+<div class="day-card d3">
+  <div class="day-header">
+    <span class="day-date">9/10 週四</span>
+    <span class="day-theme">千島湖 + 宋城 · 遠征日</span>
+  </div>
+  <div class="timeline">
+    <div class="time-block">
+      <div class="time-col">07:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">出發前往千島湖</div>
+        <div class="spot-desc">杭州汽車西站搭巴士（¥60，每半小時一班）或參加一日團。車程約 2 小時</div>
+        <span class="transport-tag">🚌 長途巴士約 2 小時</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">09:30</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">千島湖風景區</div>
+        <div class="spot-desc">坐遊船遊湖、登島。選中心湖區或東南湖區（提前在官方小程序買船票）</div>
+        <span class="transport-tag">🚢 景區內搭遊船</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">15:30</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">回程 → 之江方向</div>
+        <div class="spot-desc">搭車返回杭州，宋城在之江路上，回程順路</div>
+        <span class="transport-tag">🚌 回程約 1.5-2 小時</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">18:00</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">宋城</div>
+        <div class="spot-desc">逛園區古街、吃晚餐 → 19:30 看《宋城千古情》演出（約 60 分鐘，門票 ¥320 起，提前在官方小程序買）</div>
+        <span class="transport-tag">📍 浙江省杭州市西湖區之江路 148 號</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">21:00</div>
+      <div class="dot-line"><div class="dot"></div></div>
+      <div class="content-col">
+        <div class="spot-name">回酒店休息</div>
+        <div class="spot-desc">打車或搭公交回西湖大道</div>
+        <span class="transport-tag">🚕 打車約 25 分鐘</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 4 -->
+<div class="day-card d4">
+  <div class="day-header">
+    <span class="day-date">9/11 週五</span>
+    <span class="day-theme">青山湖 + 西溪濕地 + 運河夜逛</span>
+  </div>
+  <div class="timeline">
+    <div class="time-block">
+      <div class="time-col">08:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">出發前往青山湖</div>
+        <div class="spot-desc">搭地鐵 16 號線直達青山湖站，出站有接駁車（¥1）</div>
+        <span class="transport-tag">🚇 地鐵 1→3→16 號線，約 1 小時</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">09:30</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">青山湖水上森林</div>
+        <div class="spot-desc">抹茶綠色的水杉林立在水中，仙氣感很強。最佳拍照光線 9:00-10:00</div>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">12:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">回程 → 西溪濕地</div>
+        <div class="spot-desc">搭地鐵回市區方向，在西溪濕地洪園下</div>
+        <span class="transport-tag">🚇 地鐵 16 號線回轉，約 40 分鐘到西溪一帶</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">14:00</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">西溪濕地洪園 · 鲍贝書屋</div>
+        <div class="spot-desc">200 年徽派古建築改造的最美書店，喝茶看書拍照。濕地門票 ¥80</div>
+        <span class="transport-tag">📍 西溪濕地洪園「荊源訪古」景區內</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">17:30</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">小河直街 · 運河夜逛</div>
+        <div class="spot-desc">京杭大運河旁的歷史街區，白牆黑瓦石板路，咖啡店和創意小店林立。逛街吃晚餐拍夜景</div>
+        <span class="transport-tag">🚇 地鐵 5 號線信義坊站</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 5 -->
+<div class="day-card d5">
+  <div class="day-header">
+    <span class="day-date">9/12 週六</span>
+    <span class="day-theme">仙橋洞 + 購物日</span>
+  </div>
+  <div class="flex-note" style="margin: 16px 24px 0;">⚡ 如果 9/9 已去過仙橋洞，今天直接從 Outlet 開始，睡到自然醒</div>
+  <div class="timeline">
+    <div class="time-block">
+      <div class="time-col">08:30</div>
+      <div class="dot-line"><div class="dot highlight"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">仙橋洞</div>
+        <div class="spot-desc">溶洞奇景 + 丁達爾光效（11:30-15:00 出現）。開學後週六人不會太多。門票 ¥39-57</div>
+        <span class="transport-tag">🚇 6 號線科海路站 B1 口 → 轉 539 路公交 → 靈山洞站</span>
+        <div class="tip-box">🕐 想拍無人空景：8:30 一開門就進。想拍丁達爾光：10:00 到，先逛溶洞，11:30 出來等光</div>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">13:00</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">砂之船奧特萊斯（Outlet）</div>
+        <div class="spot-desc">折扣品牌購物，NIKE、ECCO、New Balance 等。營業到晚上，不趕</div>
+        <span class="transport-tag">🚇 地鐵 4 號線市民中心站 L 口（解放東路 8 號）</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">15:30</div>
+      <div class="dot-line"><div class="dot"></div><div class="line"></div></div>
+      <div class="content-col">
+        <div class="spot-name">絲綢城 / 四季青（隨意）</div>
+        <div class="spot-desc">絲綢城：鳳起路，買絲綢伴手禮（17:00 關門）。四季青：老意法、九天國際逛精品服飾（觀音塘站，15:00 後店家漸收）</div>
+        <span class="transport-tag">🚇 絲綢城：中河北路站 ｜ 四季青：觀音塘站</span>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="time-col">傍晚</div>
+      <div class="dot-line"><div class="dot"></div></div>
+      <div class="content-col">
+        <div class="spot-name">湖濱銀泰 in77 / 南山路酒吧</div>
+        <div class="spot-desc">回到西湖邊，最後一晚逛逛吃晚餐，或去南山路酒吧坐坐，告別杭州夜</div>
+        <span class="transport-tag">🚶 回酒店附近，步行即到</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DAY 6 -->
+<div class="day-card d6">
+  <div class="day-header">
+    <span class="day-date">9/13 週日</span>
+    <span class="day-theme">退房 · 隨意散步</span>
+  </div>
+  <div class="timeline">
+    <div class="time-block">
+      <div class="time-col">早上</div>
+      <div class="dot-line"><div class="dot"></div></div>
+      <div class="content-col">
+        <div class="spot-name">湖邊散步 → 退房</div>
+        <div class="spot-desc">如有時間，去斷橋或白堤走走當告別，或在湖邊咖啡廳坐坐。然後退房出發</div>
+        <span class="transport-tag">🚶 步行</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">杭州六日行程 ── 祝旅途愉快 🍃</div>
+
+</body>
+</html>
