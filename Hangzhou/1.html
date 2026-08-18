@@ -513,35 +513,25 @@
         // --- SETUP FUNCTIONS ---
 
         function setupWeather() {
-            const weatherIconMap = {
-                "Sunny": "fa-sun", "Partly cloudy": "fa-cloud-sun", "Cloudy": "fa-cloud",
-                "Overcast": "fa-smog", "Mist": "fa-smog", "Patchy rain possible": "fa-cloud-showers-heavy",
-                "Thundery outbreaks possible": "fa-bolt", "Fog": "fa-smog",
-                "Patchy light rain": "fa-cloud-rain", "Light rain": "fa-cloud-rain",
-                "Moderate rain at times": "fa-cloud-showers-heavy", "Moderate rain": "fa-cloud-showers-heavy",
-                "Heavy rain at times": "fa-cloud-showers-heavy", "Heavy rain": "fa-cloud-showers-heavy",
-                "Light rain shower": "fa-cloud-rain", "Moderate or heavy rain shower": "fa-cloud-showers-heavy",
-                "Torrential rain shower": "fa-cloud-showers-heavy", "Clear": "fa-sun",
-                "Patchy light rain with thunder": "fa-bolt", "Moderate or heavy rain with thunder": "fa-bolt"
-            };
-            const weatherDescTranslations = {
-                "Sunny": "晴朗", "Partly cloudy": "多雲時晴", "Cloudy": "多雲", "Overcast": "陰天", "Mist": "有霧",
-                "Patchy rain possible": "可能有零星降雨", "Thundery outbreaks possible": "可能有雷暴", "Fog": "有霧",
-                "Patchy light rain": "有零星小雨", "Light rain": "小雨", "Moderate rain at times": "偶有中雨",
-                "Moderate rain": "中雨", "Heavy rain at times": "偶有大雨", "Heavy rain": "大雨",
-                "Light rain shower": "陣雨", "Moderate or heavy rain shower": "中或大陣雨",
-                "Torrential rain shower": "暴雨", "Clear": "晴朗",
-                "Patchy light rain with thunder": "零星雷陣雨", "Moderate or heavy rain with thunder": "中或大雷陣雨"
+            const weatherCodeMap = {
+                0: ["晴朗", "fa-sun"], 1: ["大致晴朗", "fa-sun"], 2: ["多雲時晴", "fa-cloud-sun"], 3: ["陰天", "fa-cloud"],
+                45: ["有霧", "fa-smog"], 48: ["有霧", "fa-smog"],
+                51: ["毛毛雨", "fa-cloud-rain"], 53: ["毛毛雨", "fa-cloud-rain"], 55: ["毛毛雨", "fa-cloud-rain"],
+                56: ["凍雨", "fa-icicles"], 57: ["凍雨", "fa-icicles"],
+                61: ["小雨", "fa-cloud-rain"], 63: ["中雨", "fa-cloud-showers-heavy"], 65: ["大雨", "fa-cloud-showers-heavy"],
+                66: ["凍雨", "fa-icicles"], 67: ["凍雨", "fa-icicles"],
+                71: ["小雪", "fa-snowflake"], 73: ["中雪", "fa-snowflake"], 75: ["大雪", "fa-snowflake"], 77: ["陣雪粒", "fa-snowflake"],
+                80: ["陣雨", "fa-cloud-rain"], 81: ["中陣雨", "fa-cloud-showers-heavy"], 82: ["強陣雨", "fa-cloud-showers-heavy"],
+                85: ["陣雪", "fa-snowflake"], 86: ["強陣雪", "fa-snowflake"],
+                95: ["雷雨", "fa-bolt"], 96: ["雷雨冰雹", "fa-bolt"], 99: ["雷雨冰雹", "fa-bolt"]
             };
 
-            fetch('https://wttr.in/Hangzhou?format=j1')
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=30.2741&longitude=120.1551&current=temperature_2m,weather_code&timezone=Asia%2FShanghai')
                 .then(response => response.json())
                 .then(data => {
-                    const condition = data.current_condition[0];
-                    const temp = condition.temp_C;
-                    const weatherDesc = condition.weatherDesc[0].value;
-                    const iconClass = weatherIconMap[weatherDesc] || 'fa-question-circle';
-                    const translatedDesc = weatherDescTranslations[weatherDesc] || weatherDesc;
+                    const current = data.current;
+                    const temp = Math.round(current.temperature_2m);
+                    const [desc, iconClass] = weatherCodeMap[current.weather_code] || ["未知", "fa-question-circle"];
 
                     const weatherIconEl = document.getElementById('weather-icon');
                     const weatherTempEl = document.getElementById('weather-temp');
@@ -550,7 +540,7 @@
                     if (weatherIconEl && weatherTempEl && weatherDescEl) {
                         weatherIconEl.className = `fas ${iconClass} text-6xl text-yellow-400`;
                         weatherTempEl.textContent = `${temp}°C`;
-                        weatherDescEl.textContent = translatedDesc;
+                        weatherDescEl.textContent = desc;
                     }
                 })
                 .catch(error => {
