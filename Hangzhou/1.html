@@ -175,7 +175,7 @@
     <div class="relative text-center z-10 p-4">
         <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 14px rgba(0,0,0,0.8);">水光瀲灩・西湖六日</h1>
         <p id="hero-poem" class="mt-5 text-lg sm:text-xl tracking-widest" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.8); font-family: 'Noto Serif TC', serif;">欲把西湖比西子，淡妝濃抹總相宜</p>
-        <p id="hero-subtitle" class="mt-3 text-sm sm:text-base text-white/90" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.8);">2026.9.8 — 9.13 ｜ 西湖大道 · 湧金公園住宿區</p>
+        <p id="hero-subtitle" class="mt-3 text-sm sm:text-base text-white/90" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.8);">2026.9.8 — 9.13 ｜ 武林廣場 · 寶善橋地鐵站住宿區</p>
     </div>
 </header>
 
@@ -400,67 +400,80 @@
         // --- DATA (完整保留原「杭州 · 六日行程」內容) ---
         const itineraryData = {
             day1: {
-                navDate: "9/8", navDay: "(週二)", subtheme: "到達日 · 輕鬆探索 + 夜景",
+                navDate: "9/8", navDay: "(週二)", subtheme: "到達日 · 機場入住 + 輕鬆探索夜景",
                 title: "第一日：湖畔序曲・輕裝抵達與夜色初上",
                 color: "91,122,94",
-                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Hefang_Street_20240729.jpg/1280px-Hefang_Street_20240729.jpg",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/West_Lake_at_night_in_Hangzhou.jpg/1280px-West_Lake_at_night_in_Hangzhou.jpg",
                 items: [
-                    { time: "下午", title: "湧金公園", icon: "fa-suitcase-rolling", details: "<p>放好行李，出門沿湖散步，感受西湖第一眼。</p><span class='transport-tag'>🚶 步行出門即到</span>" },
-                    { time: "17:00", title: "南宋御街 + 河坊街", icon: "fa-utensils", details: "<p>逛老街、吃小吃當晚餐（蔥包檜、片兒川、貓耳朵）。</p><span class='transport-tag'>🚶 從湧金公園步行 10 分鐘</span>" },
-                    { time: "19:00", title: "西湖音樂噴泉", icon: "fa-water", highlight: true, details: "<p>湖濱三公園，19:30 開始播放約 15 分鐘。提前到卡位。</p><span class='transport-tag'>🚶 從南宋御街步行 10 分鐘</span>" },
-                    { time: "20:00", title: "武林夜市", icon: "fa-store", details: "<p>逛攤位、吃宵夜，感受杭州夜生活。</p><span class='transport-tag'>🚇 龍翔橋站搭地鐵 1 號線 → 武林廣場站（1 站）</span>" },
-                    { time: "21:30", title: "Hi City 城市之巔", icon: "fa-city", highlight: true, details: "<p>高空酒吧看杭州夜景，放鬆收尾。</p><div class='tip-box'>💡 先在美團/大眾點評搜「Hi City城市之巔」購買雙人夜景小酌套餐，約 ¥138-198，比現場單點划算很多。</div>" }
+                    { time: "12:30 - 14:20", title: "CA150 台北 → 杭州", icon: "fa-plane-arrival", highlight: true, details: "<p>桃園國際機場（候機室2）起飛，經濟艙 Airbus A320 Sharklets，飛行時間約 1 小時 50 分鐘，14:20 抵達杭州蕭山國際機場（候機室4）。</p>" },
+                    { time: "14:20 - 15:30", title: "入境提領行李 → 打車前往酒店", icon: "fa-taxi", details: "<p>入境、提領行李，預留約 30-40 分鐘。出機場後打車前往市區飯店。</p><span class='transport-tag'>🚕 蕭山機場打車約 31 公里，車程約 45 分鐘-1 小時，車資約 ¥100（含高速費）</span>" },
+                    { time: "15:30", title: "杭州武林景域庭院酒店 Check-in", icon: "fa-hotel", details: "<p>杭州武林景域庭院酒店（武林廣場寶善橋地鐵站店），放行李、稍作休息。</p><span class='transport-tag'>📍 拱墅區建國北路 658 號海華廣場 20 樓，距寶善橋地鐵站步行約 5 分鐘（290 公尺）</span>" },
+                    { time: "17:00", title: "南宋御街 + 河坊街", icon: "fa-utensils", details: "<p>逛老街、吃小吃當晚餐（蔥包檜、片兒川、貓耳朵）。</p><span class='transport-tag'>🚕 從酒店打車前往，導航可定位「鼓樓堂」（就在河坊街入口旁，比直接導航河坊街更準確）。距離約 4 公里，車程約 15 分鐘（依路況）</span>" },
+                    { time: "19:00", title: "西湖音樂噴泉", icon: "fa-water", highlight: true, details: "<p>湖濱三公園，19:30 開始播放約 15 分鐘。提前到卡位。</p><span class='transport-tag'>🚶 從河坊街走到吳山廣場，約 5-8 分鐘 → 🚕 打車前往西湖風景名勝區（湖濱音樂噴泉），距離約 2 公里，車程約 8-10 分鐘</span>" },
+                    { time: "20:00", title: "武林夜市", icon: "fa-store", details: "<p>逛攤位、吃宵夜，感受杭州夜生活。</p><span class='transport-tag'>🚕 打車前往武林夜市，距離約 3 公里，車程約 12-15 分鐘</span>" },
+                    { time: "21:30", title: "Hi City 城市之巔", icon: "fa-city", highlight: true, details: "<p>高空酒吧看杭州夜景，放鬆收尾。</p><span class='transport-tag'>🚕 打車前往（杭州百貨大樓 35 樓，延安路 546 號），距離約 1 公里，車程約 5 分鐘，也可直接步行</span><div class='tip-box'>💡 先在美團/大眾點評搜「Hi City城市之巔」購買雙人夜景小酌套餐，約 ¥138-198，比現場單點划算很多。</div>" }
                 ]
             },
             day2: {
-                navDate: "9/9", navDay: "(週三)", subtheme: "西湖環湖日 · 租電動車",
-                title: "第二日：西湖環湖日・馭風騎行探幽境",
+                navDate: "9/9", navDay: "(週三)", subtheme: "仙橋洞 + 九溪龍井 · 西湖漫遊日",
+                title: "第二日：溶洞光影・九溪龍井漫遊行",
                 color: "61,107,142",
-                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Hangzhou_China_West_Lake.jpg/1280px-Hangzhou_China_West_Lake.jpg",
-                flexNote: "⚡ 彈性安排：如果 9/8 到達後對交通已上手，可在環湖前先跑仙橋洞（見下方）。如果不熟，仙橋洞推到 9/12。",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Leifeng_Pagoda_and_Willow_Tree_across_West_Lake.jpg/1280px-Leifeng_Pagoda_and_Willow_Tree_across_West_Lake.jpg",
                 items: [
-                    { time: "06:30", title: "柳浪聞鶯・清晨拍照", icon: "fa-camera", highlight: true, details: "<p>從酒店沿湖往南走 15 分鐘，拍晨霧石燈籠。6:30 前到，太陽升高霧就散。</p><span class='transport-tag'>🚶 沿湖步行 15 分鐘</span>" },
-                    { time: "08:00", title: "（選配）仙橋洞拍空景", icon: "fa-gem", details: "<p>8:30 開門進去拍無人溶洞，10:00 出來回市區。不去的話直接租車環湖。</p><span class='transport-tag'>🚕 打車約 30 分鐘到雙浦鎮靈山景區</span>" },
-                    { time: "10:00", title: "租電動車 → 九溪煙樹", icon: "fa-motorcycle", details: "<p>湧金公園附近租車（美團搜「電瓶車租賃」約 ¥59-88/10h），先往南騎到最遠的九溪。車停入口，走進去踩水拍照 1.5 小時。</p><span class='transport-tag'>🛵 騎電動車約 25 分鐘</span>" },
-                    { time: "12:00", title: "龍井村 → 茅家埠", icon: "fa-mug-hot", details: "<p>九溪出來騎龍井路往北，龍井村停下喝杯茶。繼續北上到茅家埠，安靜的湖區茶園。</p><span class='transport-tag'>🛵 沿龍井路往北騎約 20 分鐘</span>" },
-                    { time: "14:00", title: "曲院風荷 → 蘇堤", icon: "fa-water", details: "<p>繼續往北到曲院風荷（9 月可看殘荷），騎蘇堤穿越湖面。</p><span class='transport-tag'>🛵 繼續往北騎</span>" },
-                    { time: "15:30", title: "韓美林藝術館・佛頭拍照", icon: "fa-om", highlight: true, details: "<p>在杭州植物園內（門票 ¥10），電動車停外面走進去約 500 米。如遇桂花季可順便賞桂。</p><span class='transport-tag'>🛵 從曲院風荷往北騎 10 分鐘</span>" },
-                    { time: "17:00", title: "沿北山路回湧金公園還車", icon: "fa-route", details: "<p>環湖完成，回酒店休息洗澡。</p><span class='transport-tag'>🛵 沿北山路往東騎回，約 20 分鐘</span>" },
+                    { time: "07:30", title: "打車前往仙橋洞", icon: "fa-taxi", details: "<p>從酒店打車前往仙橋洞停車場（杭州西湖仙橋洞景區），一早出發避開人潮。</p><span class='transport-tag'>🚕 距離較遠，車程約 40-50 分鐘（依路況）</span>" },
+                    { time: "08:15", title: "仙橋洞", icon: "fa-gem", highlight: true, details: "<p>溶洞奇景 + 丁達爾光效（11:30-15:00 出現）。營業時間 8:30-18:00，最晚上山時間 16:45。門票約 ¥39-57。</p><div class='tip-box'>🕐 想拍無人空景：8:30 一開門就進，人潮較少。</div>" },
+                    { time: "10:30", title: "打車前往九溪", icon: "fa-taxi", details: "<p>仙橋洞拍照玩夠後，打車前往九溪煙樹。</p><span class='transport-tag'>🚕 打車前往</span>" },
+                    { time: "11:00", title: "九溪煙樹", icon: "fa-water", highlight: true, details: "<p>走進溪谷踩水拍照，沿途林蔭茂密、溪水清澈，是西湖十八景之一。</p><div class='mt-2 flex flex-col gap-1'><a href='https://m.hz.bendibao.com/xiuxian/76323.shtm' target='_blank' rel='noopener noreferrer' class='inline-flex items-center gap-1 text-xs text-[#3d7a5e] hover:text-[#2a5a44] underline'><i class='fas fa-link'></i> 景點介紹（本地寶）</a><a href='https://tw.trip.com/moments/detail/hangzhou-14-144873184/' target='_blank' rel='noopener noreferrer' class='inline-flex items-center gap-1 text-xs text-[#3d7a5e] hover:text-[#2a5a44] underline'><i class='fas fa-link'></i> 遊記參考（Trip.com）</a><a href='https://baijiahao.baidu.com/s?id=1837959983865940564&amp;wfr=spider&amp;for=pc' target='_blank' rel='noopener noreferrer' class='inline-flex items-center gap-1 text-xs text-[#3d7a5e] hover:text-[#2a5a44] underline'><i class='fas fa-link'></i> 延伸閱讀（百家號）</a></div>" },
+                    { time: "11:45", title: "沿路走上龍井村", icon: "fa-route", details: "<p>從九溪十八涧沿步道往北走到茶嵐苑花園餐廳（九溪店）方向，一路茶園山景。</p><span class='transport-tag'>🚶 約 19 分鐘，1.4 公里</span>" },
+                    { time: "12:00", title: "龍井村・午餐逛茶葉", icon: "fa-mug-hot", details: "<p>在龍井村找間茶館或餐廳吃午餐，順便逛逛茶葉店，帶點龍井茶當伴手禮。</p>" },
+                    { time: "13:30", title: "走去龍井村牌坊", icon: "fa-route", details: "<p>吃飽後在村子裡散步到龍井村牌坊，準備搭車前往下一站。</p><span class='transport-tag'>🚶 步行</span>" },
+                    { time: "13:45", title: "打車前往韓美林藝術館", icon: "fa-taxi", details: "<p>導航可定位「杭州植物園（東南門）」，比直接搜藝術館更準確。</p><span class='transport-tag'>🚕 打車前往</span>" },
+                    { time: "14:15", title: "韓美林藝術館・佛頭拍照", icon: "fa-om", highlight: true, details: "<p>在杭州植物園內（門票 ¥10）。如遇桂花季可順便賞桂。</p><div class='mt-2'><a href='https://maps.app.goo.gl/9RBDQQjaxDsFs6MM6' target='_blank' rel='noopener noreferrer' class='inline-flex items-center gap-1 text-xs text-[#3d7a5e] hover:text-[#2a5a44] underline'><i class='fas fa-camera'></i> 拍照角度參考（Google 地圖）</a></div>" },
+                    { time: "15:00", title: "曲院風荷", icon: "fa-water", details: "<p>西湖十景之一，9 月可看殘荷風韻，沿湖散步慢慢走。</p><span class='transport-tag'>🚶 沿湖步行</span>" },
+                    { time: "15:30", title: "茅家埠", icon: "fa-leaf", details: "<p>安靜的湖區茶園濕地，遊客較少，適合放慢腳步拍照。</p><span class='transport-tag'>🚶 沿湖步行</span>" },
+                    { time: "16:00", title: "花港觀魚", icon: "fa-fish", details: "<p>西湖十景之一，紅魚池、牡丹園，湖畔散步的經典一站。</p><span class='transport-tag'>🚶 沿湖步行</span>" },
+                    { time: "16:30", title: "雷峰塔景區", icon: "fa-landmark", highlight: true, details: "<p>西湖南岸地標，可登塔俯瞰西湖全景，傍晚時分光線柔和適合拍照。</p><span class='transport-tag'>🚶 沿湖步行</span>" },
+                    { time: "17:15", title: "走到萬松書院停車場 → 打車去晚餐", icon: "fa-taxi", details: "<p>從雷峰塔景區走到杭州西湖風景名勝區萬松書院地面停車場，打車前往晚餐地點。</p><span class='transport-tag'>🚶 步行 → 🚕 打車前往</span>" },
+                    { time: "18:00", title: "晚餐三選一", icon: "fa-utensils", details: "<p>三個地點步行距離都很近，可依當下心情選擇：</p><div class='mt-2'><p class='font-semibold text-slate-800'>① 砂之船奧特萊斯廣場（城市陽台正下方 B1/B2，位置最近）</p><ul class='list-disc list-inside text-sm mt-1 space-y-1'><li><strong>老頭兒油爆蝦</strong>（人均 ¥60-80）：杭州代表性平價家常菜，招牌油爆沼蝦外殼酥脆、蝦肉鮮甜，經典江南濃油赤醬風味。</li><li><strong>小楊生煎／美食街快餐</strong>（人均 ¥25-40）：上海老字號生煎與各式麵食，底部焦脆多汁，適合快速填飽肚子。</li></ul></div><div class='mt-3'><p class='font-semibold text-slate-800'>② 杭州來福士中心（雙子塔地標，步行約 6-8 分鐘）</p><ul class='list-disc list-inside text-sm mt-1 space-y-1'><li><strong>綠茶餐廳</strong>（人均 ¥70-90）：性價比高的新派杭幫菜，招牌綠茶烤雞皮脆肉嫩，麵包誘惑搭配冰淇淋。</li><li><strong>弄堂里</strong>（人均 ¥65-85）：道地老底子弄堂家常風味，招牌滷鴨、燻魚與醬雞爪份量足。</li><li><strong>湊湊火鍋・茶憩</strong>（人均 ¥130-160）：主打台式麻辣鍋與大紅袍珍珠奶茶，適合走一整天後吃點熱鍋放鬆。</li></ul></div><div class='mt-3'><p class='font-semibold text-slate-800'>③ 杭州萬象城（精緻商場，步行約 8-10 分鐘）</p><ul class='list-disc list-inside text-sm mt-1 space-y-1'><li><strong>新榮記</strong>（4 樓，人均 ¥400-800+）：米其林／黑珍珠頂級台州海鮮餐廳，脆皮乳鴿、沙蒜豆麵與野生黃魚水準極高。</li><li><strong>桂滿隴・杭州味道</strong>（人均 ¥90-120）：江南宋韻沉浸式造景人氣杭幫菜，草扎肉、吮指雞爪與改良版西湖醋魚。</li><li><strong>唐宮海鮮舫</strong>（人均 ¥150-220）：老牌精緻粵菜與經典海鮮點心，招牌金獎乳鴿皮脆爆汁，適合多人共享。</li></ul></div>" },
                     { sectionLabel: "晚間行程" },
-                    { time: "20:00", title: "杭州城市陽台・錢塘江燈光秀", icon: "fa-city", details: "<p>20:15 錢江新城音樂噴泉 → 20:30 錢塘江兩岸燈光秀。跟西湖風格完全不同的現代夜景。</p><span class='transport-tag'>🚇 龍翔橋站 → 地鐵 1 號線轉 4 號線 → 市民中心站（約 20 分鐘）</span>" }
+                    { time: "20:00", title: "杭州城市陽台・錢塘江燈光秀", icon: "fa-city", details: "<p>20:15 錢江新城音樂噴泉 → 20:30 錢塘江兩岸燈光秀。晚餐後直接步行過來，跟西湖風格完全不同的現代夜景。</p><div class='mt-2 flex flex-col gap-1'><a href='https://tw.trip.com/moments/detail/hangzhou-14-143221814/?locale=zh-TW&amp;curr=TWD' target='_blank' rel='noopener noreferrer' class='inline-flex items-center gap-1 text-xs text-[#3d7a5e] hover:text-[#2a5a44] underline'><i class='fas fa-link'></i> 遊記參考（Trip.com）</a><a href='https://hz.bendibao.com/xiuxian/2026415/169757.shtm' target='_blank' rel='noopener noreferrer' class='inline-flex items-center gap-1 text-xs text-[#3d7a5e] hover:text-[#2a5a44] underline'><i class='fas fa-link'></i> 景點介紹（本地寶）</a></div>" }
                 ]
             },
             day3: {
-                navDate: "9/10", navDay: "(週四)", subtheme: "千島湖 + 宋城 · 遠征日",
-                title: "第三日：千島覓境・宋城尋夢遠征日",
+                navDate: "9/10", navDay: "(週四)", subtheme: "千島湖 · 高鐵一日遊",
+                title: "第三日：千島覓境・高鐵輕旅行",
                 color: "139,107,61",
                 themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Qiandao_Lake_%28near_Hangzhou%29.jpg/1280px-Qiandao_Lake_%28near_Hangzhou%29.jpg",
                 items: [
-                    { time: "07:00", title: "出發前往千島湖", icon: "fa-bus", details: "<p>杭州汽車西站搭巴士（¥60，每半小時一班）或參加一日團。車程約 2 小時。</p><span class='transport-tag'>🚌 長途巴士約 2 小時</span>" },
+                    { time: "07:30", title: "打車前往杭州東站", icon: "fa-taxi", details: "<p>從酒店打車前往杭州東站，準備搭高鐵前往千島湖。</p><span class='transport-tag'>🚕 距離約 5 公里，車程約 15-20 分鐘，車資約 ¥18-22 元/車</span>" },
+                    { time: "08:15 - 09:00", title: "高鐵前往千島湖站", icon: "fa-train", details: "<p>搭乘杭黃高鐵直達千島湖站，車程約 40-55 分鐘（依車次停靠站多寡而定），比長途巴士快上一倍。</p><span class='transport-tag'>🎫 二等座約 ¥62-72 元/人（4 人約 ¥248-288 元）</span><div class='tip-box'>💡 建議提前約 25 分鐘進站安檢候車。酒店到千島湖站門到門總耗時約 1 小時 30-45 分，4 人合計交通費約 ¥270-310 元。</div>" },
+                    { time: "09:00 - 09:30", title: "轉乘前往景區碼頭", icon: "fa-taxi", details: "<p>千島湖站出站後打車或搭接駁車前往千島湖風景區碼頭。</p><span class='transport-tag'>🚕 車程約 15-20 分鐘</span>" },
                     { time: "09:30", title: "千島湖風景區", icon: "fa-ship", highlight: true, details: "<p>坐遊船遊湖、登島。選中心湖區或東南湖區（提前在官方小程序買船票）。</p><span class='transport-tag'>🚢 景區內搭遊船</span>" },
-                    { time: "15:30", title: "回程 → 之江方向", icon: "fa-route", details: "<p>搭車返回杭州，宋城在之江路上，回程順路。</p><span class='transport-tag'>🚌 回程約 1.5-2 小時</span>" },
-                    { time: "18:00", title: "宋城", icon: "fa-masks-theater", highlight: true, details: "<p>逛園區古街、吃晚餐 → 19:30 看《宋城千古情》演出（約 60 分鐘，門票 ¥320 起，提前在官方小程序買）。</p><span class='transport-tag'>📍 浙江省杭州市西湖區之江路 148 號</span>" },
-                    { time: "21:00", title: "回酒店休息", icon: "fa-bed", details: "<p>打車或搭公交回西湖大道。</p><span class='transport-tag'>🚕 打車約 25 分鐘</span>" }
+                    { time: "15:30", title: "遊船結束 → 返回千島湖站", icon: "fa-route", details: "<p>搭車或打車返回千島湖站，準備搭高鐵回杭州。</p><span class='transport-tag'>🚕 車程約 15-20 分鐘</span>" },
+                    { time: "16:15 - 17:00", title: "高鐵返回杭州東站", icon: "fa-train", details: "<p>搭乘杭黃高鐵返回杭州東站，車程約 45 分鐘。</p>" },
+                    { time: "17:00", title: "打車回酒店", icon: "fa-taxi", highlight: true, details: "<p>從杭州東站打車回酒店休息，結束今天的千島湖輕旅行。</p><span class='transport-tag'>🚕 距離約 5 公里，車程約 15-20 分鐘，車資約 ¥18-22 元/車</span>" }
                 ]
             },
             day4: {
-                navDate: "9/11", navDay: "(週五)", subtheme: "青山湖 + 西溪濕地 + 運河夜逛",
-                title: "第四日：森林秘境・青山西溪運河夜",
+                navDate: "9/11", navDay: "(週五)", subtheme: "青山湖 + 烏鎮西柵 · 江南水鄉日",
+                title: "第四日：水杉秘境・青山烏鎮水鄉行",
                 color: "107,91,138",
-                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Xixi_Wetland_Park%2C_Hangzhou%2C_China.jpg/1280px-Xixi_Wetland_Park%2C_Hangzhou%2C_China.jpg",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/1_wuzhen_aerial_2023.jpg/1280px-1_wuzhen_aerial_2023.jpg",
                 items: [
-                    { time: "08:00", title: "出發前往青山湖", icon: "fa-train-subway", details: "<p>搭地鐵 16 號線直達青山湖站，出站有接駁車（¥1）。</p><span class='transport-tag'>🚇 地鐵 1→3→16 號線，約 1 小時</span>" },
+                    { time: "08:00", title: "打車前往青山湖風景區", icon: "fa-taxi", details: "<p>從酒店直接打車前往青山湖風景區，建議用高德打車（網約車）叫車，比轉乘地鐵+接駁車更省時。</p><span class='transport-tag'>🚕 距離約 47.1 公里，車程約 1 小時 7-15 分，車資約 ¥73-80 元/車（4 人共乘人均約 ¥19 元）</span>" },
                     { time: "09:30", title: "青山湖水上森林", icon: "fa-tree", highlight: true, details: "<p>抹茶綠色的水杉林立在水中，仙氣感很強。最佳拍照光線 9:00-10:00。</p>" },
-                    { time: "12:00", title: "回程 → 西溪濕地", icon: "fa-train-subway", details: "<p>搭地鐵回市區方向，在西溪濕地洪園下。</p><span class='transport-tag'>🚇 地鐵 16 號線回轉，約 40 分鐘到西溪一帶</span>" },
-                    { time: "14:00", title: "西溪濕地洪園・鲍贝書屋", icon: "fa-book", highlight: true, details: "<p>200 年徽派古建築改造的最美書店，喝茶看書拍照。濕地門票 ¥80。</p><span class='transport-tag'>📍 西溪濕地洪園「荊源訪古」景區內</span>" },
-                    { time: "17:30", title: "小河直街・運河夜逛", icon: "fa-store", details: "<p>京杭大運河旁的歷史街區，白牆黑瓦石板路，咖啡店和創意小店林立。逛街吃晚餐拍夜景。</p><span class='transport-tag'>🚇 地鐵 5 號線信義坊站</span>" }
+                    { time: "12:00", title: "青山湖畔午餐", icon: "fa-utensils", details: "<p>在青山湖周邊找間當地餐廳或農家菜，享用悠閒的湖畔午餐，稍作休息。</p>" },
+                    { time: "13:30", title: "打車前往烏鎮西柵", icon: "fa-car", details: "<p>從青山湖打車前往烏鎮西柵景區（1號停車場），建議用高德跨城網約車叫車，路程較長，車上可小睡休息。</p><span class='transport-tag'>🚕 距離約 119.8 公里，車程約 1 小時 40-50 分，經濟型車資約 ¥228-245 元／車（已含高速費，4 人共乘人均約 ¥58 元）</span><div class='tip-box'>💡 若想再省一點，可改叫順風車／共乘獨享，車資約 ¥160 元 + 高速費約 ¥42 元 ≈ ¥202 元。</div>" },
+                    { time: "15:30", title: "烏鎮西柵", icon: "fa-water", highlight: true, details: "<p>江南水鄉古鎮，白牆黑瓦、小橋流水，天色漸暗後燈籠亮起更是迷人。可搭烏篷船遊河、逛老街小店，體驗染坊、木雕等傳統工藝。景區門票另計。</p>" },
+                    { time: "18:00", title: "西柵晚餐", icon: "fa-utensils", details: "<p>在西柵老街河邊找間餐廳，品嚐江南水鄉風味晚餐（醬鴨、白水魚、定勝糕等）。</p>" },
+                    { time: "20:30", title: "賦歸 → 打車回酒店", icon: "fa-taxi", details: "<p>逛完西柵夜景後，打車返回杭州市區酒店，回程距離與去程相近，建議提前預約回程車輛避免久候。</p><span class='transport-tag'>🚕 距離約 120 公里，車程約 1 小時 40-50 分，車資約 ¥228-245 元／車（含高速費，4 人共乘人均約 ¥58 元）</span>" }
                 ]
             },
             day5: {
                 navDate: "9/12", navDay: "(週六)", subtheme: "仙橋洞 + 購物日",
                 title: "第五日：溶洞奇光・購物尋寶告別日",
                 color: "138,91,91",
-                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/20250418_COSME%2C_Hangzhou_Hubin_Yintai_in77.jpg/1280px-20250418_COSME%2C_Hangzhou_Hubin_Yintai_in77.jpg",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/West_Lake_Pavilion_and_Water_Lilies%2C_Hangzhou_120529_1.jpg/1280px-West_Lake_Pavilion_and_Water_Lilies%2C_Hangzhou_120529_1.jpg",
                 flexNote: "⚡ 如果 9/9 已去過仙橋洞，今天直接從 Outlet 開始，睡到自然醒。",
                 items: [
                     { time: "08:30", title: "仙橋洞", icon: "fa-gem", highlight: true, details: "<p>溶洞奇景 + 丁達爾光效（11:30-15:00 出現）。開學後週六人不會太多。門票 ¥39-57。</p><span class='transport-tag'>🚇 6 號線科海路站 B1 口 → 轉 539 路公交 → 靈山洞站</span><div class='tip-box'>🕐 想拍無人空景：8:30 一開門就進。想拍丁達爾光：10:00 到，先逛溶洞，11:30 出來等光。</div>" },
@@ -470,12 +483,15 @@
                 ]
             },
             day6: {
-                navDate: "9/13", navDay: "(週日)", subtheme: "退房 · 隨意散步",
+                navDate: "9/13", navDay: "(週日)", subtheme: "退房 · 搭機返台",
                 title: "第六日：湖畔告別・滿載而歸",
                 color: "91,91,91",
-                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Huanglong_%26_Broken_Bridge_-_Hangzhou_City_%26_West_Lake_near_Broken_Bridge.jpg/1280px-Huanglong_%26_Broken_Bridge_-_Hangzhou_City_%26_West_Lake_near_Broken_Bridge.jpg",
+                themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Westlake_seen_from_City_God_Pavilion%2C_Hangzhou.jpg/1280px-Westlake_seen_from_City_God_Pavilion%2C_Hangzhou.jpg",
                 items: [
-                    { time: "早上", title: "湖邊散步 → 退房", icon: "fa-door-open", details: "<p>如有時間，去斷橋或白堤走走當告別，或在湖邊咖啡廳坐坐。然後退房出發。</p><span class='transport-tag'>🚶 步行</span>" }
+                    { time: "06:00", title: "酒店退房", icon: "fa-door-open", details: "<p>杭州武林景域庭院酒店退房，結束六日西湖之旅。班機是早班機，建議前一晚先收拾好行李。</p>" },
+                    { time: "06:15", title: "打車前往蕭山國際機場", icon: "fa-taxi", details: "<p>從酒店打車前往機場，建議提前預留充裕時間避免早高峰塞車。</p><span class='transport-tag'>🚕 打車約 31 公里，車程約 45 分鐘-1 小時，車資約 ¥100（含高速費）</span>" },
+                    { time: "07:30", title: "機場報到 · 候機", icon: "fa-suitcase-rolling", details: "<p>辦理登機手續與行李托運，候機室4。</p><div class='tip-box'>💡 國際航班建議提前 2 小時抵達機場，預留安檢與通關時間。</div>" },
+                    { time: "09:30 - 11:20", title: "CA149 杭州 → 台北", icon: "fa-plane-departure", highlight: true, details: "<p>杭州蕭山國際機場（候機室4）起飛，經濟艙 Airbus A320 Sharklets，飛行時間約 1 小時 50 分鐘，11:20 抵達台北桃園國際機場（候機室2）。祝旅途愉快，期待下次再訪杭州！</p>" }
                 ]
             }
         };
