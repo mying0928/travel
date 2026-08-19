@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水光瀲灩：西湖六日行</title>
 
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3d7a5e">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="西湖六日">
+
 <!-- External Libraries -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -130,6 +139,28 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* 全站捲軸配色，跟品牌色一致 */
+    html { scrollbar-width: thin; scrollbar-color: var(--brand-jade) var(--brand-light-jade); }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: var(--brand-light-jade); }
+    ::-webkit-scrollbar-thumb { background: var(--brand-jade); border-radius: 10px; border: 2px solid var(--brand-light-jade); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--brand-dark-jade); }
+
+    /* Nav 左右箭頭（手機版超出範圍時可快速跳到最前/最後） */
+    .nav-arrow {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        background: rgba(255,255,255,0.95); border: 1px solid rgba(0,0,0,0.06);
+        border-radius: 50%; width: 2rem; height: 2rem; font-size: 0.8rem;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--brand-jade); cursor: pointer; transition: all 0.2s ease-in-out;
+        z-index: 25; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .nav-arrow.left { left: 0; }
+    .nav-arrow.right { right: 0; }
+    .nav-arrow:hover:not(:disabled) { background: #fff; transform: translateY(-50%) scale(1.12); }
+    .nav-arrow:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+    .daily-theme-card { cursor: pointer; }
+
     /* ---- 匯率計算機（改自 Tokyo 版，JPY→CNY，玫瑰色→翡翠色）---- */
     .calculator-body { font-family: 'Noto Sans TC', 'Inter', system-ui, sans-serif; }
     .display-font { font-family: 'Inter', system-ui, sans-serif; }
@@ -181,14 +212,18 @@
 
 <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl -mt-24 z-20 relative">
     <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg">
-        <div class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
-            <button data-target="overview" class="nav-btn bg-[#3d7a5e] text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
-            <button data-target="day1" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/8<br><span class="text-xs font-medium">(週二)</span></button>
-            <button data-target="day2" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/9<br><span class="text-xs font-medium">(週三)</span></button>
-            <button data-target="day3" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/10<br><span class="text-xs font-medium">(週四)</span></button>
-            <button data-target="day4" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/11<br><span class="text-xs font-medium">(週五)</span></button>
-            <button data-target="day5" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/12<br><span class="text-xs font-medium">(週六)</span></button>
-            <button data-target="day6" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/13<br><span class="text-xs font-medium">(週日)</span></button>
+        <div class="relative">
+            <button id="navArrowLeft" class="nav-arrow left hidden" aria-label="回到旅程總覽"><i class="fas fa-chevron-left"></i></button>
+            <div id="navScroll" class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar scroll-smooth px-8 md:px-0">
+                <button data-target="overview" class="nav-btn bg-[#3d7a5e] text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
+                <button data-target="day1" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/8<br><span class="text-xs font-medium">(週二)</span></button>
+                <button data-target="day2" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/9<br><span class="text-xs font-medium">(週三)</span></button>
+                <button data-target="day3" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/10<br><span class="text-xs font-medium">(週四)</span></button>
+                <button data-target="day4" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/11<br><span class="text-xs font-medium">(週五)</span></button>
+                <button data-target="day5" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/12<br><span class="text-xs font-medium">(週六)</span></button>
+                <button data-target="day6" class="nav-btn bg-[#e8f3ec] text-[#2a5a44] py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">9/13<br><span class="text-xs font-medium">(週日)</span></button>
+            </div>
+            <button id="navArrowRight" class="nav-arrow right hidden" aria-label="跳到 9/13"><i class="fas fa-chevron-right"></i></button>
         </div>
     </nav>
 
@@ -227,10 +262,10 @@
                             <span>城市脈動：交通攻略</span>
                         </h3>
                         <ul class="space-y-3 text-sm">
-                            <li class="flex items-start"><i class="fas fa-train-subway mt-1 mr-3 text-sky-500"></i><strong>地鐵:</strong> 1、4、5、16 號線覆蓋主要景點，支付寶掃碼最方便。</li>
-                            <li class="flex items-start"><i class="fas fa-motorcycle mt-1 mr-3 text-green-500"></i><strong>電動車:</strong> 環湖最推薦，湧金公園周邊美團搜「電瓶車租賃」。</li>
-                            <li class="flex items-start"><i class="fas fa-taxi mt-1 mr-3 text-yellow-500"></i><strong>打車/滴滴:</strong> 前往仙橋洞、青山湖等郊區景點的最佳選擇。</li>
-                            <li class="flex items-start"><i class="fas fa-bus mt-1 mr-3 text-blue-500"></i><strong>長途巴士:</strong> 千島湖一日遊需在杭州汽車西站搭車，約 2 小時。</li>
+                            <li class="flex items-start"><i class="fas fa-train-subway mt-1 mr-3 text-sky-500"></i><span><strong class="whitespace-nowrap">地鐵：</strong>1、4、5、16 號線覆蓋主要景點，支付寶掃碼最方便。</span></li>
+                            <li class="flex items-start"><i class="fas fa-motorcycle mt-1 mr-3 text-green-500"></i><span><strong class="whitespace-nowrap">電動車：</strong>環湖最推薦，湧金公園周邊美團搜「電瓶車租賃」。</span></li>
+                            <li class="flex items-start"><i class="fas fa-taxi mt-1 mr-3 text-yellow-500"></i><span><strong class="whitespace-nowrap">打車/滴滴：</strong>前往仙橋洞、青山湖等郊區景點的最佳選擇。</span></li>
+                            <li class="flex items-start"><i class="fas fa-bus mt-1 mr-3 text-blue-500"></i><span><strong class="whitespace-nowrap">長途巴士：</strong>千島湖一日遊需在杭州汽車西站搭車，約 2 小時。</span></li>
                         </ul>
                     </div>
                     <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
@@ -239,9 +274,9 @@
                             <span>智慧旅人：訂票訣竅</span>
                         </h3>
                         <ul class="space-y-3 text-sm">
-                            <li class="flex items-start"><i class="fas fa-utensils mt-1 mr-3 text-red-500"></i><strong>美團/大眾點評:</strong> 訂夜景酒吧套餐最划算，Hi City 套餐約 ¥138-198。</li>
-                            <li class="flex items-start"><i class="fas fa-mobile-screen mt-1 mr-3 text-purple-500"></i><strong>官方小程序:</strong> 千島湖船票、宋城《千古情》門票需提前線上購買。</li>
-                            <li class="flex items-start"><i class="fas fa-ticket mt-1 mr-3 text-gray-500"></i><strong>景區門票:</strong> 韓美林 ¥10、西溪濕地 ¥80、仙橋洞 ¥39-57、宋城 ¥320 起。</li>
+                            <li class="flex items-start"><i class="fas fa-utensils mt-1 mr-3 text-red-500"></i><span><strong class="whitespace-nowrap">美團/大眾點評：</strong>訂夜景酒吧套餐最划算，Hi City 套餐約 ¥138-198。</span></li>
+                            <li class="flex items-start"><i class="fas fa-mobile-screen mt-1 mr-3 text-purple-500"></i><span><strong class="whitespace-nowrap">官方小程序：</strong>千島湖船票、宋城《千古情》門票需提前線上購買。</span></li>
+                            <li class="flex items-start"><i class="fas fa-ticket mt-1 mr-3 text-gray-500"></i><span><strong class="whitespace-nowrap">景區門票：</strong>韓美林 ¥10、西溪濕地 ¥80、仙橋洞 ¥39-57、宋城 ¥320 起。</span></li>
                         </ul>
                     </div>
                     <div class="tool-card bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
@@ -250,9 +285,9 @@
                             <span>入境隨俗：西湖禮儀</span>
                         </h3>
                         <ul class="space-y-3 text-sm">
-                            <li class="flex items-start"><i class="fas fa-leaf mt-1 mr-3 text-emerald-500"></i><strong>花草:</strong> 曲院風荷等景區內，請勿摘採荷花蓮蓬。</li>
-                            <li class="flex items-start"><i class="fas fa-shoe-prints mt-1 mr-3 text-indigo-500"></i><strong>溶洞防滑:</strong> 仙橋洞等溶洞內濕滑，建議穿防滑鞋。</li>
-                            <li class="flex items-start"><i class="fas fa-volume-xmark mt-1 mr-3 text-pink-500"></i><strong>演出禮儀:</strong> 《宋城千古情》請勿使用閃光燈、保持安靜。</li>
+                            <li class="flex items-start"><i class="fas fa-leaf mt-1 mr-3 text-emerald-500"></i><span><strong class="whitespace-nowrap">花草：</strong>曲院風荷等景區內，請勿摘採荷花蓮蓬。</span></li>
+                            <li class="flex items-start"><i class="fas fa-shoe-prints mt-1 mr-3 text-indigo-500"></i><span><strong class="whitespace-nowrap">溶洞防滑：</strong>仙橋洞等溶洞內濕滑，建議穿防滑鞋。</span></li>
+                            <li class="flex items-start"><i class="fas fa-volume-xmark mt-1 mr-3 text-pink-500"></i><span><strong class="whitespace-nowrap">演出禮儀：</strong>《宋城千古情》請勿使用閃光燈、保持安靜。</span></li>
                         </ul>
                     </div>
                 </div>
@@ -274,6 +309,12 @@
     <button id="toggleCalculatorBtn" title="匯率計算機" class="w-14 h-14 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-blue-600 hover:scale-110 mt-4">
         <i class="fas fa-calculator text-xl"></i>
     </button>
+    <button id="shareBtn" title="複製連結分享" class="w-14 h-14 rounded-full bg-[#8a5b5b] text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-[#6f4747] hover:scale-110 mt-4">
+        <i class="fas fa-share-nodes text-xl"></i>
+    </button>
+</div>
+<div id="shareToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#2a5a44] text-white text-sm px-5 py-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 translate-y-2">
+    <i class="fas fa-circle-check mr-2"></i>連結已複製！
 </div>
 
 <!-- Calculator Modal -->
@@ -507,8 +548,11 @@
         generateDailySections();
         setupTabSwitching();
         setupScrollToTop();
+        setupNavArrows();
         setupToolkitCardHover();
         setupCalculatorToggle();
+        setupShareButton();
+        setupTodayHighlight();
 
         // --- SETUP FUNCTIONS ---
 
@@ -695,7 +739,7 @@
 
                 allSectionsHtml += `
                     <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
-                        <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(180deg, rgba(${dayData.color},0.18) 0%, rgba(${dayData.color},0.12) 45%, rgba(${dayData.color},0.4) 100%), url('${dayData.themeImage}')">
+                        <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-color: rgb(${dayData.color})" data-bg="linear-gradient(180deg, rgba(${dayData.color},0.18) 0%, rgba(${dayData.color},0.12) 45%, rgba(${dayData.color},0.4) 100%), url('${dayData.themeImage}')">
                             <p class="text-sm sm:text-base font-medium opacity-90 mb-2 tracking-widest" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.85);">${dayData.navDate} ${dayData.navDay} ｜ ${dayData.subtheme}</p>
                             <h2 class="text-3xl sm:text-4xl font-black mb-4" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.85);">${dayData.title}</h2>
                             <button class="view-timeline-btn mt-4 bg-[#3d7a5e] text-white py-2 px-6 rounded-full shadow-lg hover:bg-[#2a5a44] transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
@@ -711,12 +755,12 @@
             }
             dailySectionsContainer.innerHTML = allSectionsHtml;
 
-            document.querySelectorAll('.view-timeline-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const button = e.currentTarget;
-                    const section = button.closest('.content-section');
+            document.querySelectorAll('.daily-theme-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const button = card.querySelector('.view-timeline-btn');
+                    const section = card.closest('.content-section');
                     const timeline = section.querySelector('.timeline-container');
-                    if (!timeline) return;
+                    if (!timeline || !button) return;
 
                     if (timeline.classList.contains('hidden')) {
                         timeline.classList.remove('hidden');
@@ -767,10 +811,19 @@
             });
         }
 
+        function loadThemeImage(section) {
+            const card = section && section.querySelector('.daily-theme-card[data-bg]');
+            if (!card) return;
+            card.style.backgroundImage = card.dataset.bg;
+            card.removeAttribute('data-bg');
+        }
+
         function switchTab(targetId, shouldScroll = true, onCompleteCallback = () => {}) {
             const oldSection = currentActiveSectionId ? document.getElementById(currentActiveSectionId) : null;
             const newSection = document.getElementById(targetId);
             if (!newSection) return;
+
+            loadThemeImage(newSection);
 
             const tl = gsap.timeline({
                 onComplete: () => {
@@ -783,7 +836,16 @@
             if (oldSection) {
                 tl.to(oldSection, {
                     duration: 0.18, opacity: 0, ease: 'power2.in',
-                    onComplete: () => { oldSection.style.display = 'none'; }
+                    onComplete: () => {
+                        oldSection.style.display = 'none';
+                        const oldTimeline = oldSection.querySelector('.timeline-container');
+                        const oldButton = oldSection.querySelector('.view-timeline-btn');
+                        if (oldTimeline && !oldTimeline.classList.contains('hidden')) {
+                            oldTimeline.classList.add('hidden');
+                            oldTimeline.style.opacity = 1;
+                            if (oldButton) oldButton.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                        }
+                    }
                 });
             }
 
@@ -827,10 +889,88 @@
             }
         }
 
+        function setupNavArrows() {
+            const scrollEl = document.getElementById('navScroll');
+            const leftBtn = document.getElementById('navArrowLeft');
+            const rightBtn = document.getElementById('navArrowRight');
+            if (!scrollEl || !leftBtn || !rightBtn) return;
+
+            function updateArrows() {
+                const hasOverflow = scrollEl.scrollWidth > scrollEl.clientWidth + 2;
+                leftBtn.classList.toggle('hidden', !hasOverflow);
+                rightBtn.classList.toggle('hidden', !hasOverflow);
+                if (!hasOverflow) return;
+                leftBtn.disabled = scrollEl.scrollLeft <= 2;
+                rightBtn.disabled = scrollEl.scrollLeft >= scrollEl.scrollWidth - scrollEl.clientWidth - 2;
+            }
+
+            leftBtn.addEventListener('click', () => scrollEl.scrollTo({ left: 0, behavior: 'smooth' }));
+            rightBtn.addEventListener('click', () => scrollEl.scrollTo({ left: scrollEl.scrollWidth, behavior: 'smooth' }));
+            scrollEl.addEventListener('scroll', updateArrows);
+            window.addEventListener('resize', updateArrows);
+            updateArrows();
+        }
+
+        function setupShareButton() {
+            const btn = document.getElementById('shareBtn');
+            const toast = document.getElementById('shareToast');
+            if (!btn || !toast) return;
+            let toastTimer;
+
+            btn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(window.location.href);
+                } catch (e) {
+                    const input = document.createElement('input');
+                    input.value = window.location.href;
+                    input.style.position = 'fixed';
+                    input.style.opacity = '0';
+                    document.body.appendChild(input);
+                    input.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(input);
+                }
+                toast.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    toast.classList.add('opacity-0', 'invisible', 'translate-y-2');
+                }, 2000);
+            });
+        }
+
+        function setupTodayHighlight() {
+            const today = new Date();
+            const todayKey = `2026-${today.getMonth() + 1}-${today.getDate()}`;
+            let matchedDayId = null;
+
+            for (const dayId in itineraryData) {
+                const [month, day] = itineraryData[dayId].navDate.split('/').map(Number);
+                if (`2026-${month}-${day}` === todayKey) {
+                    matchedDayId = dayId;
+                    break;
+                }
+            }
+            if (!matchedDayId) return;
+
+            const btn = document.querySelector(`.nav-btn[data-target="${matchedDayId}"]`);
+            if (btn) {
+                btn.style.position = 'relative';
+                const badge = document.createElement('span');
+                badge.textContent = '今天';
+                badge.className = 'absolute -top-2 -right-2 bg-[#e8a838] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow whitespace-nowrap';
+                btn.appendChild(badge);
+            }
+            switchTab(matchedDayId, false);
+        }
+
         window.addEventListener('load', () => {
             const preloader = document.querySelector('.preloader');
             if (preloader) preloader.classList.add('hidden');
             document.body.classList.add('loaded');
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').catch((err) => console.error('SW registration failed:', err));
+            }
         });
 
         function setupToolkitCardHover() {

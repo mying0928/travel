@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a8a6c"/>
+      <stop offset="100%" stop-color="#2a5a44"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- water ripple lines -->
+  <path d="M0,360 C60,340 100,380 160,360 C220,340 260,380 320,360 C380,340 420,380 480,360 L512,356 L512,512 L0,512 Z" fill="#ffffff" opacity="0.08"/>
+  <path d="M0,400 C60,382 100,418 160,400 C220,382 260,418 320,400 C380,382 420,418 480,400 L512,397 L512,512 L0,512 Z" fill="#ffffff" opacity="0.10"/>
+  <!-- pagoda silhouette, centered in safe zone -->
+  <g fill="#f5efe0">
+    <!-- spire -->
+    <rect x="252" y="96" width="8" height="34" />
+    <circle cx="256" cy="94" r="7"/>
+    <!-- 5 roof tiers -->
+    <g>
+      <path d="M256 118 L300 150 L212 150 Z"/>
+      <rect x="230" y="150" width="52" height="14"/>
+
+      <path d="M256 168 L316 206 L196 206 Z"/>
+      <rect x="222" y="206" width="68" height="14"/>
+
+      <path d="M256 224 L332 268 L180 268 Z"/>
+      <rect x="212" y="268" width="88" height="14"/>
+
+      <path d="M256 286 L348 336 L164 336 Z"/>
+      <rect x="200" y="336" width="112" height="15"/>
+
+      <path d="M256 355 L366 410 L146 410 Z"/>
+      <rect x="188" y="410" width="136" height="16"/>
+    </g>
+    <!-- base -->
+    <rect x="176" y="426" width="160" height="18" rx="2"/>
+  </g>
+</svg>
