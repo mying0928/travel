@@ -2,7 +2,7 @@
   "name": "水光瀲灩：西湖六日行",
   "short_name": "西湖六日",
   "description": "杭州西湖六日旅遊行程",
-  "start_url": "./1.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
