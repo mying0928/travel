@@ -126,10 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
     setupTabSwitching();
     setupDragAndDrop();
     setupScrollToTop();
-    setupToolkitCardHover();
     setupMusicPlayer();
     setupNavArrows();
-    setupThreeJSSakuraBackground();
 
     // --- SETUP FUNCTIONS ---
 
@@ -550,7 +548,7 @@ document.addEventListener('DOMContentLoaded', function () {
             delay: 1
         });
         
-        gsap.utils.toArray('.card-hover, .tool-card').forEach(card => {
+        gsap.utils.toArray('.card-hover').forEach(card => {
             gsap.from(card, {
                 scrollTrigger: {
                     trigger: card,
@@ -772,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         `).join('');
     
                 return `
-                            <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" data-bg-src="${planData.themeImage}" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));">
+                            <div class="daily-theme-card cursor-pointer relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" data-bg-src="${planData.themeImage}" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));">
                                 <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${planData.title}</h2>
                                 ${highlightsHtml}
                                 <button class="view-timeline-btn mt-6 bg-orange-600 text-white py-2 px-6 rounded-full shadow-lg hover:bg-orange-700 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
@@ -801,10 +799,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             dailySectionsContainer.innerHTML = allSectionsHtml;
     
-            document.querySelectorAll('.view-timeline-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const button = e.currentTarget;
-                    const timeline = button.closest('.daily-theme-card').nextElementSibling;
+            document.querySelectorAll('.daily-theme-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const button = card.querySelector('.view-timeline-btn');
+                    const timeline = card.nextElementSibling;
                     if (!timeline || !timeline.classList.contains('timeline-container')) return;
     
                     const isOpening = timeline.classList.contains('hidden');
@@ -854,7 +852,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             duration: 0.5,
                             ease: 'power3.inOut',
                             scrollTo: {
-                                y: button.closest('.daily-theme-card'),
+                                y: card,
                                 offsetY: 100
                             },
                             onComplete: () => {
@@ -975,16 +973,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function setupToolkitCardHover() {
-        document.querySelectorAll('.tool-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--y', `${e.clientY - rect.top}px`)
-            })
-        });
-    }
-
     function setupDragAndDrop() {
         const dayButtons = document.querySelectorAll('.nav-btn:not([data-target="overview"])');
         dayButtons.forEach(button => {
@@ -1046,250 +1034,3 @@ document.addEventListener('DOMContentLoaded', function () {
         switchTab('overview', false);
     });
 });
-
-// ✨ NEW/MODIFIED: 3D Sakura Background Script
-function setupThreeJSSakuraBackground() {
-    const canvas = document.getElementById('sakura-background-canvas');
-    if (!canvas) return;
-
-    const scene = new THREE.Scene();
-    scene.background = null; // Transparent background
-
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 8);
-
-    const renderer = new THREE.WebGLRenderer({ 
-        canvas: canvas,
-        antialias: true, 
-        alpha: true // Enable transparency
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffe6eb, 0.7);
-    scene.add(ambientLight);
-    const sunLight = new THREE.DirectionalLight(0xffd1dc, 1.5);
-    sunLight.position.set(5, 10, 7);
-    scene.add(sunLight);
-    const rimLight = new THREE.SpotLight(0xff69b4, 2.5);
-    rimLight.position.set(-5, 8, -5);
-    rimLight.lookAt(0, 0, 0);
-    scene.add(rimLight);
-    const bounceLight = new THREE.PointLight(0xffc2d1, 1, 20);
-    bounceLight.position.set(0, -5, 2);
-    scene.add(bounceLight);
-
-    function createRealPetalGeometry() {
-        const shape = new THREE.Shape();
-        shape.moveTo(0, 0); 
-        shape.bezierCurveTo(0.3, 0.1, 0.5, 0.6, 0.4, 1.0);
-        shape.lineTo(0.1, 0.88);
-        shape.lineTo(-0.1, 0.88);
-        shape.bezierCurveTo(-0.4, 1.0, -0.5, 0.6, 0, 0);
-        const geometry = new THREE.ShapeGeometry(shape, 10);
-        const posAttribute = geometry.attributes.position;
-        const vertexCount = posAttribute.count;
-        const colors = [];
-        const centerColor = new THREE.Color(0xff5e8e); 
-        const edgeColor = new THREE.Color(0xffcdda);   
-        for (let i = 0; i < vertexCount; i++) {
-            const x = posAttribute.getX(i);
-            const y = posAttribute.getY(i);
-            const z = posAttribute.getZ(i);
-            const newZ = z + (x * x * 0.8) + (Math.sin(y * 2.0) * 0.15);
-            posAttribute.setZ(i, newZ);
-            const alpha = Math.max(0, Math.min(1, y / 1.05));
-            const mixFactor = alpha * alpha; 
-            const mixedColor = centerColor.clone().lerp(edgeColor, mixFactor);
-            colors.push(mixedColor.r, mixedColor.g, mixedColor.b);
-        }
-        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-        geometry.computeVertexNormals();
-        geometry.translate(0, -0.1, 0);
-        return geometry;
-    }
-
-    const petalGeometry = createRealPetalGeometry();
-
-    const petalMaterial = new THREE.MeshPhysicalMaterial({
-        vertexColors: true,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.98,
-        roughness: 0.35,
-        metalness: 0.0,
-        clearcoat: 0.3,
-        clearcoatRoughness: 0.2,
-        transmission: 0.15,
-        thickness: 0.2,
-        emissive: 0x330011, 
-        emissiveIntensity: 0.2
-    });
-
-    // --- ✨ Re-added: Main Flower ---
-    const sakuraGroup = new THREE.Group();
-    for (let i = 0; i < 5; i++) {
-        const petal = new THREE.Mesh(petalGeometry, petalMaterial);
-        petal.castShadow = true;
-        petal.receiveShadow = true;
-        const angle = (i / 5) * Math.PI * 2;
-        const wrapper = new THREE.Group();
-        wrapper.rotation.z = angle;
-        petal.position.set(0, 0.25, 0); 
-        petal.rotation.x = 0.35; 
-        wrapper.add(petal);
-        sakuraGroup.add(wrapper);
-    }
-
-    function createStamens() {
-        const stamenGroup = new THREE.Group();
-        const filamentMat = new THREE.LineBasicMaterial({ color: 0xff6b88 }); 
-        const antherGeom = new THREE.SphereGeometry(0.035, 8, 8);
-        const antherMat = new THREE.MeshStandardMaterial({ color: 0xffd000, roughness: 0.5 });
-        for(let i=0; i<18; i++) {
-            const height = 0.25 + Math.random() * 0.15;
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 0.08 + Math.random() * 0.06;
-            const points = [];
-            points.push(new THREE.Vector3(radius * Math.cos(angle) * 0.5, radius * Math.sin(angle) * 0.5, 0.05));
-            points.push(new THREE.Vector3((radius + 0.1) * Math.cos(angle), (radius + 0.1) * Math.sin(angle), height));
-            const lineGeom = new THREE.BufferGeometry().setFromPoints(points);
-            const filament = new THREE.Line(lineGeom, filamentMat);
-            stamenGroup.add(filament);
-            const anther = new THREE.Mesh(antherGeom, antherMat);
-            anther.position.set((radius + 0.1) * Math.cos(angle), (radius + 0.1) * Math.sin(angle), height);
-            stamenGroup.add(anther);
-        }
-        stamenGroup.position.z = 0.05;
-        return stamenGroup;
-    }
-    const stamens = createStamens();
-    sakuraGroup.add(stamens);
-    sakuraGroup.rotation.x = 0.5;
-    sakuraGroup.scale.set(0, 0, 0);
-    scene.add(sakuraGroup);
-
-
-    // --- Sakura Rain ---
-    const PARTICLE_COUNT = 350;
-    const instancedPetals = new THREE.InstancedMesh(petalGeometry, petalMaterial, PARTICLE_COUNT);
-    
-    const dummy = new THREE.Object3D();
-    const particlesData = [];
-    const rangeX = 30;
-    const rangeY = 25;
-    const rangeZ = 15;
-
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const x = (Math.random() - 0.5) * rangeX;
-        const y = (Math.random() - 0.5) * rangeY;
-        const z = (Math.random() - 0.5) * rangeZ;
-
-        dummy.position.set(x, y, z);
-        dummy.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-        const scale = 0.4 + Math.random() * 0.5;
-        dummy.scale.set(scale, scale, scale);
-        dummy.updateMatrix();
-        instancedPetals.setMatrixAt(i, dummy.matrix);
-
-        particlesData.push({
-            position: new THREE.Vector3(x, y, z),
-            rotation: new THREE.Euler(Math.random(), Math.random(), Math.random()),
-            tumbleSpeed: { x: Math.random() * 0.03 + 0.01, y: Math.random() * 0.03 + 0.01, z: Math.random() * 0.01 },
-            fallSpeed: 0.015 + Math.random() * 0.025,
-            swayAmplitude: 0.02 + Math.random() * 0.03,
-            swayFrequency: 0.8 + Math.random() * 1.5,
-            timeOffset: Math.random() * 100
-        });
-    }
-    instancedPetals.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-    scene.add(instancedPetals);
-
-    // --- Interaction & Animation ---
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    });
-
-    // ✨ Re-added: GSAP animation for the main flower on load
-    const tl = gsap.timeline({ delay: 1 }); // Delay to let page load
-    tl.to(sakuraGroup.scale, { x: 1.8, y: 1.8, z: 1.8, duration: 2.2, ease: "elastic.out(1, 0.75)" })
-      .to(sakuraGroup.rotation, { y: -0.4, duration: 2.5, ease: "power2.out" }, "<");
-
-    const clock = new THREE.Clock();
-
-    function animate() {
-        requestAnimationFrame(animate);
-        const time = clock.getElapsedTime();
-
-        // ✨ Re-added: Main flower dynamics
-        sakuraGroup.rotation.z += 0.0008; 
-        const targetRotateY = mouseX * 0.25;
-        const targetRotateX = mouseY * 0.15;
-        sakuraGroup.rotation.y += (targetRotateY - sakuraGroup.rotation.y - 0.4) * 0.04;
-        sakuraGroup.rotation.x += (targetRotateX - sakuraGroup.rotation.x + 0.5) * 0.04;
-
-        // Sakura Rain Dynamics
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
-            const data = particlesData[i];
-            data.position.y -= data.fallSpeed;
-            
-            const noise = Math.sin(data.timeOffset + time) * 0.01;
-            const wind = Math.sin(time * 0.4 + data.position.y * 0.08) * 0.015 + (mouseX * 0.04) + noise;
-            
-            data.position.x += wind + Math.sin(time * data.swayFrequency + data.timeOffset) * data.swayAmplitude;
-            data.position.z += Math.cos(time * 0.2 + data.timeOffset) * 0.005;
-
-            data.rotation.x += data.tumbleSpeed.x;
-            data.rotation.y += data.tumbleSpeed.y;
-            data.rotation.z += data.tumbleSpeed.z;
-
-            if (data.position.y < -12) {
-                data.position.y = 15;
-                data.position.x = (Math.random() - 0.5) * rangeX;
-                data.position.z = (Math.random() - 0.5) * rangeZ; 
-            }
-            if (data.position.x > 18) data.position.x = -18;
-            if (data.position.x < -18) data.position.x = 18;
-
-            dummy.position.copy(data.position);
-            dummy.rotation.copy(data.rotation);
-            dummy.updateMatrix();
-            instancedPetals.setMatrixAt(i, dummy.matrix);
-        }
-        instancedPetals.instanceMatrix.needsUpdate = true;
-        renderer.render(scene, camera);
-    }
-
-    animate();
-
-    function handleResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // ✨ Re-added: Responsive positioning for the main flower
-        if (window.innerWidth < 768) {
-            sakuraGroup.position.set(0, 1.5, 0);
-            // Use the current animated scale, or reset if needed
-            const currentScale = sakuraGroup.scale.x;
-            if (currentScale > 0) { // Only adjust if already animated
-                gsap.to(sakuraGroup.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.5 });
-            }
-        } else {
-            sakuraGroup.position.set(2.5, 0, 0);
-            const currentScale = sakuraGroup.scale.x;
-            if (currentScale > 0) {
-                gsap.to(sakuraGroup.scale, { x: 1.8, y: 1.8, z: 1.8, duration: 0.5 });
-            }
-        }
-    }
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial call
-}

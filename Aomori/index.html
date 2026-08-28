@@ -672,7 +672,6 @@
             } else {
                 console.error("Lucide icons library failed to load.");
             }
-            // createSakura(); // Sakura effect removed for Aomori theme
             updateUI();
             fetchRate();
             bindEvents();
@@ -889,22 +888,6 @@
             
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons({ root: els.statusContainer });
-            }
-        }
-
-        function createSakura() {
-            const container = document.getElementById('sakura-container');
-            if (container && !container.childElementCount) {
-                for (let i = 0; i < 12; i++) {
-                    const petal = document.createElement('div');
-                    petal.className = 'sakura-petal';
-                    petal.style.left = `${Math.random() * 100}%`;
-                    petal.style.width = `${Math.random() * 10 + 10}px`;
-                    petal.style.height = `${Math.random() * 10 + 10}px`;
-                    petal.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                    petal.style.animationDelay = `${Math.random() * 5}s`;
-                    container.appendChild(petal);
-                }
             }
         }
 
