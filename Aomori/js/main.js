@@ -448,15 +448,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             const reliabilityBadge = d.reliability ? `<div class="text-[9px] sm:text-[10px] text-slate-300 mt-1">可信度 ${d.reliability}</div>` : '';
             const sourceBadge = d.source === 'short'
-                ? `<span class="absolute top-1 right-1 text-[8px] sm:text-[9px] leading-none px-1 py-0.5 rounded bg-emerald-100 text-emerald-600">短期</span>`
-                : `<span class="absolute top-1 right-1 text-[8px] sm:text-[9px] leading-none px-1 py-0.5 rounded bg-amber-100 text-amber-600">週間</span>`;
+                ? `<span class="text-[8px] sm:text-[9px] leading-none px-1 py-0.5 rounded bg-emerald-100 text-emerald-600">短期</span>`
+                : `<span class="text-[8px] sm:text-[9px] leading-none px-1 py-0.5 rounded bg-amber-100 text-amber-600">週間</span>`;
             return `
-            <div class="weather-day-box relative rounded-xl border border-blue-100 bg-blue-50/50 p-1.5 sm:p-3 text-center">
-                ${sourceBadge}
-                <div class="text-[10px] sm:text-xs font-bold text-slate-600">${formatWeatherDateLabel(d.date)}</div>
+            <div class="weather-day-box rounded-xl border border-blue-100 bg-blue-50/50 p-1.5 sm:p-3 text-center">
+                <div class="flex flex-col items-center gap-0.5">
+                    <span class="text-[10px] sm:text-xs font-bold text-slate-600">${formatWeatherDateLabel(d.date)}</span>
+                    ${sourceBadge}
+                </div>
                 <i class="fas ${d.iconClass} text-lg sm:text-2xl text-blue-400 my-1.5 sm:my-2"></i>
                 <div class="text-[9px] sm:text-[11px] text-slate-500 leading-tight mb-1 sm:mb-1.5 min-h-[2.2em] flex items-center justify-center">${d.label}</div>
-                <div class="text-xs sm:text-sm font-bold whitespace-nowrap">
+                <div class="text-xs sm:text-sm font-bold">
                     ${d.tempMax !== '' ? `<span class="text-red-500">${d.tempMax}°</span>` : ''}${d.tempMin !== '' ? `<span class="text-blue-500"> / ${d.tempMin}°</span>` : ''}
                 </div>
                 ${d.pop !== '' ? `<div class="text-[9px] sm:text-[11px] text-sky-500 mt-1"><i class="fas fa-tint mr-0.5"></i>${d.pop}%</div>` : ''}
@@ -466,19 +468,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return `
         <div class="weather-loc-card border border-slate-100 rounded-xl overflow-hidden">
-            <button type="button" class="weather-loc-toggle w-full flex items-center justify-between gap-3 p-3 sm:p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left">
-                <span class="flex items-center gap-2 sm:gap-3">
-                    <i class="fas ${location.icon} text-blue-500 w-5 text-center"></i>
-                    <span class="font-bold text-slate-700 text-sm sm:text-base">${location.name}</span>
+            <button type="button" class="weather-loc-toggle w-full flex items-center justify-between gap-2 sm:gap-3 p-3 sm:p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left">
+                <span class="flex items-center gap-2 sm:gap-3 min-w-0">
+                    <i class="fas ${location.icon} text-blue-500 w-5 text-center shrink-0"></i>
+                    <span class="font-bold text-slate-700 text-sm sm:text-base truncate">${location.name}</span>
                 </span>
-                <span class="flex items-center gap-2 sm:gap-3">
-                    <span class="text-xs text-slate-400">${summary}</span>
+                <span class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <span class="hidden sm:inline text-xs text-slate-400">${summary}</span>
                     <i class="fas fa-chevron-down text-slate-400 transition-transform weather-loc-chevron text-xs"></i>
                 </span>
             </button>
             <div class="weather-loc-body hidden px-3 sm:px-4 pb-3 sm:pb-4 pt-3">
                 ${location.note ? `<p class="text-[11px] text-slate-400 mb-2">${location.note}</p>` : ''}
-                <div class="grid grid-cols-7 gap-1.5 sm:gap-3">${boxes}</div>
+                <div class="grid grid-cols-2 sm:grid-cols-7 gap-1.5 sm:gap-3">${boxes}</div>
             </div>
         </div>`;
     }
