@@ -129,6 +129,17 @@ body.loaded {
     box-shadow: 0 14px 22px -8px rgba(59, 130, 246, 0.45); /* Blue glow toward the bottom */
 }
 
+@keyframes countdown-pulse {
+    0% { transform: scale(1); color: inherit; }
+    35% { transform: scale(1.22); color: var(--brand-primary); }
+    100% { transform: scale(1); color: inherit; }
+}
+
+.countdown-tick {
+    display: inline-block;
+    animation: countdown-pulse .5s ease-out;
+}
+
 .timeline-item {
     cursor: pointer;
 }

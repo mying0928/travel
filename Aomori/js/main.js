@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const navContainer = document.getElementById('nav-container');
         if (!navContainer) return;
 
+        const todayStr = formatIsoDate(new Date());
         let buttonsHtml = '';
 
         // Add the Overview button first, and ensure it's active by default
@@ -144,8 +145,15 @@ document.addEventListener('DOMContentLoaded', function () {
         for (const dayId in itineraryData) {
             const dayData = itineraryData[dayId];
             if (dayData.navInfo) {
+                const [m, d] = dayData.navInfo.date.split('/').map(Number);
+                const dayDateStr = `2026-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const isToday = dayDateStr === todayStr;
+                const todayBadge = isToday
+                    ? `<span class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] leading-none px-1.5 py-0.5 rounded-full shadow">今天</span>`
+                    : '';
                 buttonsHtml += `
-                    <button data-target="${dayId}" class="nav-btn bg-orange-100 text-orange-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">
+                    <button data-target="${dayId}" class="nav-btn relative ${isToday ? 'ring-2 ring-red-400 ring-offset-2' : ''} bg-orange-100 text-orange-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">
+                        ${todayBadge}
                         ${dayData.navInfo.date}<br><span class="text-xs font-medium">${dayData.navInfo.day}</span>
                     </button>
                 `;
@@ -645,20 +653,44 @@ document.addEventListener('DOMContentLoaded', function () {
         const countdownElement = document.getElementById('countdown');
         if (!countdownElement) return;
 
+        const digitEls = {
+            days: document.getElementById('days'),
+            hours: document.getElementById('hours'),
+            minutes: document.getElementById('minutes'),
+            seconds: document.getElementById('seconds')
+        };
+        const prevValues = { days: null, hours: null, minutes: null, seconds: null };
+
+        function pulse(el) {
+            el.classList.remove('countdown-tick');
+            void el.offsetWidth; // restart the CSS animation
+            el.classList.add('countdown-tick');
+        }
+
         const interval = setInterval(() => {
             const now = new Date().getTime();
             const distance = targetDate - now;
 
             if (distance < 0) {
                 clearInterval(interval);
-                countdownElement.innerHTML = "<div class='col-span-4 text-2xl font-bold text-pink-600'>旅程已開始！</div>";
+                countdownElement.innerHTML = "<div class='col-span-4 text-2xl font-bold text-orange-600'>旅程已開始！</div>";
                 return;
             }
-            
-            document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-            document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-            document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+            const nextValues = {
+                days: Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0'),
+                hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0'),
+                minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0'),
+                seconds: Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0')
+            };
+
+            Object.keys(nextValues).forEach(key => {
+                if (nextValues[key] !== prevValues[key]) {
+                    digitEls[key].innerText = nextValues[key];
+                    pulse(digitEls[key]);
+                    prevValues[key] = nextValues[key];
+                }
+            });
         }, 1000);
     }
     
