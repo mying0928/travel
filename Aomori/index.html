@@ -194,7 +194,92 @@
                         </ul>
                     </div>
                 </div>
-                
+
+                                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1">
+                                        <h2 class="text-2xl sm:text-3xl font-bold text-blue-700 flex items-center"><i class="fas fa-calendar-week mr-3 text-blue-600"></i>行程週天氣預報</h2>
+                                        <span class="text-xs text-slate-400">
+                                            資料來源：<a href="https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=020000" target="_blank" rel="noopener" class="underline hover:text-blue-600">日本氣象廳 JMA</a>
+                                        </span>
+                                    </div>
+                                    <p class="mb-6 text-slate-600 text-sm">點一下地名可以展開看該地整週的天氣與氣溫。氣象廳僅公布「未來 7 天」的預報，出發前會逐日自動延伸涵蓋此次行程日期，資料是每次開啟本頁時即時向氣象廳抓取，尚未公布的日期會顯示「尚未公布」，等預報公布後重新整理本頁即可自動看到，不需要手動更新。</p>
+                                    <div id="weather-locations" class="space-y-3"></div>
+                                    <div class="mt-6 pt-6 border-t border-slate-100">
+                                        <h3 class="text-sm font-bold text-slate-500 mb-3 flex items-center"><i class="fas fa-link mr-2"></i>想看 2 週趨勢／颱風動態？（需手動查看，非自動抓取）</h3>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs">
+                                            <div class="flex items-center justify-between gap-2 py-1 border-b border-slate-50">
+                                                <span class="font-bold text-slate-600 w-16 shrink-0">青森市</span>
+                                                <div class="flex gap-1.5">
+                                                    <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0220100" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA</a>
+                                                    <a href="https://tenki.jp/forecast/2/5/3110/2201/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp</a>
+                                                    <a href="https://weathernews.jp/onebox/tenki/aomori/02201/" target="_blank" rel="noopener" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors">WN</a>
+                                                    <a href="https://weather.yahoo.co.jp/weather/jp/2/3110/2201.html" target="_blank" rel="noopener" class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded hover:bg-purple-100 transition-colors">Yahoo</a>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-2 py-1 border-b border-slate-50">
+                                                <span class="font-bold text-slate-600 w-16 shrink-0">弘前市</span>
+                                                <div class="flex gap-1.5">
+                                                    <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0220200" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA</a>
+                                                    <a href="https://tenki.jp/forecast/2/5/3110/2202/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp</a>
+                                                    <a href="https://weathernews.jp/onebox/tenki/aomori/02202/" target="_blank" rel="noopener" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors">WN</a>
+                                                    <a href="https://weather.yahoo.co.jp/weather/jp/2/3110/2202.html" target="_blank" rel="noopener" class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded hover:bg-purple-100 transition-colors">Yahoo</a>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-2 py-1 border-b border-slate-50">
+                                                <span class="font-bold text-slate-600 w-16 shrink-0">十和田市</span>
+                                                <div class="flex gap-1.5">
+                                                    <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0220700" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA</a>
+                                                    <a href="https://tenki.jp/forecast/2/5/3130/2206/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp</a>
+                                                    <a href="https://weathernews.jp/onebox/tenki/aomori/02206/" target="_blank" rel="noopener" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors">WN</a>
+                                                    <a href="https://weather.yahoo.co.jp/weather/jp/2/3130/2206.html" target="_blank" rel="noopener" class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded hover:bg-purple-100 transition-colors">Yahoo</a>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-2 py-1 border-b border-slate-50">
+                                                <span class="font-bold text-slate-600 w-16 shrink-0">八戶市</span>
+                                                <div class="flex gap-1.5">
+                                                    <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0220300" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA</a>
+                                                    <a href="https://tenki.jp/forecast/2/5/3130/2203/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp</a>
+                                                    <a href="https://weathernews.jp/onebox/tenki/aomori/02203/" target="_blank" rel="noopener" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors">WN</a>
+                                                    <a href="https://weather.yahoo.co.jp/weather/jp/2/3130/2203.html" target="_blank" rel="noopener" class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded hover:bg-purple-100 transition-colors">Yahoo</a>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-2 py-1 border-b border-slate-50">
+                                                <span class="font-bold text-slate-600 w-16 shrink-0">盛岡市</span>
+                                                <div class="flex gap-1.5">
+                                                    <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0320100" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA</a>
+                                                    <a href="https://tenki.jp/forecast/2/6/3310/3201/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp</a>
+                                                    <a href="https://weathernews.jp/onebox/tenki/iwate/03201/" target="_blank" rel="noopener" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors">WN</a>
+                                                    <a href="https://weather.yahoo.co.jp/weather/jp/3/3310/3201.html" target="_blank" rel="noopener" class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded hover:bg-purple-100 transition-colors">Yahoo</a>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-2 py-1 border-b border-slate-50">
+                                                <span class="font-bold text-slate-600 w-16 shrink-0">一関市</span>
+                                                <div class="flex gap-1.5">
+                                                    <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0320900" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA</a>
+                                                    <a href="https://tenki.jp/forecast/2/6/3310/3209/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp</a>
+                                                    <a href="https://weathernews.jp/onebox/tenki/iwate/03209/" target="_blank" rel="noopener" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors">WN</a>
+                                                    <a href="https://weather.yahoo.co.jp/weather/jp/3/3310/3209.html" target="_blank" rel="noopener" class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded hover:bg-purple-100 transition-colors">Yahoo</a>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-2 py-1 border-b border-slate-50">
+                                                <span class="font-bold text-slate-600 w-16 shrink-0">仙台市</span>
+                                                <div class="flex gap-1.5">
+                                                    <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0410001" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA</a>
+                                                    <a href="https://tenki.jp/forecast/2/7/3410/4100/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp</a>
+                                                    <a href="https://weathernews.jp/onebox/tenki/miyagi/04101/" target="_blank" rel="noopener" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded hover:bg-blue-100 transition-colors">WN</a>
+                                                    <a href="https://weather.yahoo.co.jp/weather/jp/4/3410/4100.html" target="_blank" rel="noopener" class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded hover:bg-purple-100 transition-colors">Yahoo</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 text-[11px] text-slate-400 flex flex-wrap items-center gap-1.5">
+                                            <i class="fas fa-mountain mr-0.5"></i>八甲田山無獨立測站，山區天氣可參考：
+                                            <a href="https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=0220100" target="_blank" rel="noopener" class="bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors">JMA 青森市</a>
+                                            <a href="https://tenki.jp/leisure/2/5/15/44200/10days.html" target="_blank" rel="noopener" class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded hover:bg-emerald-100 transition-colors">tenki.jp 纜車站</a>
+                                        </p>
+                                        <a href="https://www.windy.com" target="_blank" rel="noopener" class="inline-block mt-3 bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full hover:bg-slate-200 transition-colors text-xs">Windy・風場/颱風動態</a>
+                                    </div>
+                                </div>
+
                                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
                                     <h2 class="text-2xl sm:text-3xl font-bold text-orange-700 mb-4 flex items-center"><i class="fas fa-images mr-3 text-amber-500"></i>旅遊掠影</h2>
                                     <p class="mb-6 text-slate-600">這次旅程的精彩瞬間與必訪景點的驚鴻一瞥。</p>

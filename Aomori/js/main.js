@@ -1,6 +1,62 @@
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+// --- JMA (日本氣象廳) 天氣預報：地點資料表 ---
+// 每個代表城市對應「氣象廳 週間預報(7天)」與「短期預報(3天)」的地域代碼。
+// 氣象廳只公布未來 7 天的資料，出發前會逐日往後延伸；
+// 這裡每次開頁都會即時抓取最新 JSON，等日期進入 7 天內就會自動顯示，點地名可展開看整週。
+const WEATHER_LOCATIONS = [
+    { id: 'aomori', name: '青森市', icon: 'fa-city', prefCode: '020000', weeklyArea: '020010', shortArea: '020010', tempCity: '31312' },
+    { id: 'hirosaki', name: '弘前市', icon: 'fa-apple-alt', prefCode: '020000', weeklyArea: '020010', shortArea: '020010', tempCity: '31461' },
+    { id: 'hakkoda', name: '八甲田山（估計）', icon: 'fa-mountain', prefCode: '020000', weeklyArea: '020010', shortArea: '020010', tempCity: '31312', tempOffset: -8, note: '氣象廳無八甲田山頂測站，氣溫以青森市區資料估算（約低 8-10°C），僅供參考。' },
+    { id: 'towada-hachinohe', name: '十和田・八戶', icon: 'fa-water', prefCode: '020000', weeklyArea: '020200', shortArea: '020030', tempCity: '31602' },
+    { id: 'morioka-ichinoseki', name: '盛岡・一関', icon: 'fa-torii-gate', prefCode: '030000', weeklyArea: '030010', shortArea: '030010', tempCity: '33431' },
+    { id: 'sendai', name: '仙台市', icon: 'fa-city', prefCode: '040000', weeklyArea: '040010', shortArea: '040010', tempCity: '34392' }
+];
+
+const JMA_CODE_MAP = {
+    '100': ['fa-sun', '晴'], '101': ['fa-cloud-sun', '晴時多雲'], '102': ['fa-cloud-sun-rain', '晴短暫雨'],
+    '103': ['fa-cloud-sun-rain', '晴短暫雨'], '104': ['fa-cloud-sun', '晴短暫雪'], '105': ['fa-cloud-sun', '晴短暫雪'],
+    '106': ['fa-cloud-sun-rain', '晴短暫雨雪'], '107': ['fa-cloud-sun-rain', '晴短暫雨雪'], '108': ['fa-bolt', '晴短暫雷雨'],
+    '110': ['fa-cloud-sun', '晴後多雲'], '111': ['fa-cloud', '晴後陰'], '112': ['fa-cloud-sun-rain', '晴後短暫雨'],
+    '113': ['fa-cloud-sun-rain', '晴後短暫雨'], '114': ['fa-cloud-rain', '晴後雨'], '115': ['fa-cloud-sun', '晴後短暫雪'],
+    '117': ['fa-snowflake', '晴後大雪'], '119': ['fa-bolt', '晴後雷雨'], '120': ['fa-cloud-sun-rain', '晴晨雨後晴'],
+    '121': ['fa-cloud-sun-rain', '晴晨雨後晴'], '122': ['fa-cloud-sun-rain', '晴傍晚有雨'], '123': ['fa-bolt', '晴山區雷雨'],
+    '125': ['fa-bolt', '晴午後雷雨'], '126': ['fa-cloud-sun-rain', '晴午後有雨'], '128': ['fa-cloud-sun-rain', '晴晚間有雨'],
+    '130': ['fa-smog', '晴有霧'], '131': ['fa-smog', '晴有霧'], '132': ['fa-cloud-sun', '晴局部多雲'],
+    '140': ['fa-bolt', '晴局部雷雨'], '160': ['fa-cloud-sun', '晴局部有雪'], '170': ['fa-cloud-sun-rain', '晴局部雨雪'],
+    '181': ['fa-cloud-sun', '晴局部下雪雨'],
+    '200': ['fa-cloud', '多雲'], '201': ['fa-cloud-sun', '多雲時晴'], '202': ['fa-cloud-rain', '多雲短暫雨'],
+    '203': ['fa-cloud-rain', '多雲短暫雨'], '204': ['fa-cloud', '多雲短暫雪'], '205': ['fa-cloud', '多雲短暫雪'],
+    '206': ['fa-cloud-rain', '多雲短暫雨雪'], '208': ['fa-bolt', '多雲短暫雷雨'], '209': ['fa-smog', '有霧'],
+    '210': ['fa-cloud-sun', '多雲後晴'], '211': ['fa-cloud-sun', '多雲後晴'], '212': ['fa-cloud-rain', '多雲後短暫雨'],
+    '213': ['fa-cloud-rain', '多雲後短暫雨'], '214': ['fa-cloud-rain', '多雲後雨'], '215': ['fa-cloud', '多雲後短暫雪'],
+    '216': ['fa-snowflake', '多雲後雪'], '218': ['fa-snowflake', '多雲後大雪'], '219': ['fa-bolt', '多雲後雷雨'],
+    '220': ['fa-cloud-rain', '多雲晨雨後陰'], '221': ['fa-cloud', '多雲晨雪後陰'], '222': ['fa-cloud-rain', '多雲傍晚有雨'],
+    '223': ['fa-cloud-rain', '多雲有陣雨'], '224': ['fa-cloud', '多雲傍晚有雪'], '225': ['fa-cloud-rain', '多雲晚間有雨'],
+    '226': ['fa-cloud', '多雲晚間有雪'], '228': ['fa-cloud', '多雲晚間有雪'], '229': ['fa-cloud', '多雲局部有雪'],
+    '230': ['fa-cloud-rain', '多雲局部有雨'], '231': ['fa-smog', '多雲海上有霧'], '240': ['fa-bolt', '多雲局部雷雨'],
+    '250': ['fa-snowflake', '多雲局部大雪'], '260': ['fa-cloud', '多雲局部雨雪'], '270': ['fa-cloud', '多雲局部雨雪'],
+    '281': ['fa-cloud', '多雲局部雨雪'],
+    '300': ['fa-cloud-rain', '雨'], '301': ['fa-cloud-sun-rain', '雨時晴'], '302': ['fa-cloud-rain', '雨時停'],
+    '303': ['fa-cloud-rain', '雨後雪'], '304': ['fa-cloud-rain', '雨或雪'], '306': ['fa-cloud-showers-heavy', '大雨'],
+    '308': ['fa-wind', '暴風雨'], '309': ['fa-cloud-rain', '雨後雪'], '311': ['fa-cloud-sun-rain', '雨後晴'],
+    '313': ['fa-cloud-rain', '雨後陰'], '314': ['fa-cloud-rain', '雨後雪'], '315': ['fa-cloud-rain', '雨後雪'],
+    '316': ['fa-cloud-sun', '雨或雪後晴'], '317': ['fa-cloud', '雨或雪後陰'], '320': ['fa-cloud-rain', '雪轉雨'],
+    '321': ['fa-cloud-rain', '雪轉雨'], '322': ['fa-cloud-rain', '雨局部有雪'], '323': ['fa-cloud-sun-rain', '雨傍晚放晴'],
+    '324': ['fa-cloud-sun-rain', '雨夜間放晴'], '325': ['fa-cloud-rain', '雨夜間下雪'], '326': ['fa-cloud-rain', '雨傍晚下雪'],
+    '327': ['fa-cloud-rain', '雨晚間下雪'], '328': ['fa-cloud-showers-heavy', '雨局部強陣雨'], '329': ['fa-cloud-rain', '雨局部有雪'],
+    '340': ['fa-snowflake', '雪或雨'], '350': ['fa-bolt', '雷雨'], '361': ['fa-cloud-sun', '雪或雨後放晴'],
+    '371': ['fa-cloud', '雪或雨後陰'],
+    '400': ['fa-snowflake', '雪'], '401': ['fa-cloud-sun', '雪時晴'], '402': ['fa-snowflake', '雪時停'],
+    '403': ['fa-cloud-rain', '雪後雨'], '405': ['fa-snowflake', '大雪'], '406': ['fa-wind', '暴風雪'],
+    '407': ['fa-wind', '大暴風雪'], '409': ['fa-cloud-rain', '雪後雨'], '411': ['fa-cloud-sun', '雪後晴'],
+    '413': ['fa-cloud', '雪後陰'], '414': ['fa-cloud-rain', '雪後雨'], '420': ['fa-cloud-rain', '雨轉雪'],
+    '421': ['fa-cloud-rain', '雨轉雪'], '422': ['fa-cloud-rain', '雪傍晚下雨'], '423': ['fa-snowflake', '雪局部強陣雪'],
+    '425': ['fa-cloud-rain', '雪局部下雨'], '426': ['fa-cloud-sun', '雪傍晚放晴'], '427': ['fa-cloud-sun', '雪晚間放晴'],
+    '430': ['fa-cloud-rain', '雪轉雨'], '450': ['fa-snowflake', '大雪']
+};
+
 // --- MUSIC PLAYER ---
 function setupMusicPlayer() {
     const music = document.getElementById('background-music');
@@ -64,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setupWeatherWidget('aomori-weather-info', 'Aomori', false);
     setupWeatherWidget('sendai-weather-info', 'Sendai', false);
     setupWeatherWidget('hakkoda-weather-info', 'Aomori', true);
+    setupWeatherLocations();
     generateDailySections();
     setupLazyBackgroundImages(); // Call the new lazy loading function
     setupTabSwitching();
@@ -239,6 +296,231 @@ document.addEventListener('DOMContentLoaded', function () {
                     }, { once: true });
                 }
             });
+    }
+
+    function getJmaIconAndLabel(code) {
+        if (JMA_CODE_MAP[code]) return JMA_CODE_MAP[code];
+        const first = String(code).charAt(0);
+        if (first === '1') return ['fa-sun', '晴'];
+        if (first === '2') return ['fa-cloud', '多雲'];
+        if (first === '3') return ['fa-cloud-rain', '雨'];
+        if (first === '4') return ['fa-snowflake', '雪'];
+        return ['fa-cloud-sun', '天氣多變'];
+    }
+
+    function formatIsoDate(dateObj) {
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    function formatWeatherDateLabel(dateStr) {
+        const [y, m, d] = dateStr.split('-').map(Number);
+        const dt = new Date(y, m - 1, d);
+        const week = ['日', '一', '二', '三', '四', '五', '六'][dt.getDay()];
+        return `${m}/${d} (${week})`;
+    }
+
+    // 把單一地點的 JMA 原始資料整理成 7 天的 [{date, label, iconClass, tempMax, tempMin, pop, reliability}] 陣列
+    function buildWeeklyForecast(location, blocks) {
+        if (!blocks || !blocks[1]) return [];
+
+        const weeklyBlock = blocks[1];
+        const weeklySeries = (weeklyBlock.timeSeries || []).find(ts => ts.areas.some(a => a.weatherCodes));
+        const tempSeries = (weeklyBlock.timeSeries || []).find(ts => ts.areas.some(a => a.tempsMax));
+        if (!weeklySeries) return [];
+
+        const areaWeather = weeklySeries.areas.find(a => a.area.code === location.weeklyArea);
+        if (!areaWeather) return [];
+        const areaTemp = tempSeries ? tempSeries.areas.find(a => a.area.code === location.tempCity) : null;
+
+        // 短期預報 (block 0) 有較貼近實況的文字描述，日期重疊時優先使用；
+        // 週間預報的第一天（明天）氣溫/降雨機率經常是空的，改從短期預報回填。
+        const shortTextByDate = {};
+        const shortTempByDate = {};
+        const shortPopByDate = {};
+        const shortDates = new Set(); // 短期預報（今日・明日・明後日）實際涵蓋到的日期
+        const shortBlock = blocks[0];
+        if (shortBlock) {
+            const reportDate = (shortBlock.reportDatetime || '').slice(0, 10);
+
+            const codeSeries = (shortBlock.timeSeries || []).find(ts => ts.areas.some(a => a.weatherCodes));
+            if (codeSeries) {
+                const areaData = codeSeries.areas.find(a => a.area.code === location.shortArea);
+                if (areaData && areaData.weathers) {
+                    codeSeries.timeDefines.forEach((t, i) => {
+                        const d = t.slice(0, 10);
+                        if (areaData.weathers[i]) {
+                            shortTextByDate[d] = areaData.weathers[i].replace(/\s+/g, '');
+                            shortDates.add(d);
+                        }
+                    });
+                }
+            }
+
+            // temps 陣列固定只涵蓋「今天／明天」，00 時=當天最低、09 時=當天最高
+            const tempSeriesShort = (shortBlock.timeSeries || []).find(ts => ts.areas.some(a => a.temps));
+            if (tempSeriesShort) {
+                const areaT = tempSeriesShort.areas.find(a => a.area.code === location.tempCity);
+                if (areaT && areaT.temps) {
+                    tempSeriesShort.timeDefines.forEach((t, i) => {
+                        const date = t.slice(0, 10);
+                        const val = areaT.temps[i];
+                        if (date === reportDate || !val) return;
+                        if (!shortTempByDate[date]) shortTempByDate[date] = {};
+                        if (t.slice(11, 13) === '00') shortTempByDate[date].min = val;
+                        else shortTempByDate[date].max = val;
+                    });
+                }
+            }
+
+            // pops 是每 6 小時一筆，同一天取最大值當作當天代表降雨機率
+            const popSeriesShort = (shortBlock.timeSeries || []).find(ts => ts.areas.some(a => a.pops) && ts !== codeSeries);
+            if (popSeriesShort) {
+                const areaP = popSeriesShort.areas.find(a => a.area.code === location.shortArea);
+                if (areaP && areaP.pops) {
+                    popSeriesShort.timeDefines.forEach((t, i) => {
+                        const date = t.slice(0, 10);
+                        const val = areaP.pops[i];
+                        if (date === reportDate || val === '' || val == null) return;
+                        const num = Number(val);
+                        if (shortPopByDate[date] === undefined || num > shortPopByDate[date]) shortPopByDate[date] = num;
+                    });
+                }
+            }
+        }
+
+        const todayStr = formatIsoDate(new Date());
+
+        return weeklySeries.timeDefines.map((t, idx) => {
+            const date = t.slice(0, 10);
+            const isPast = date < todayStr;
+            const source = shortDates.has(date) ? 'short' : 'weekly';
+            const code = areaWeather.weatherCodes[idx];
+            const hasCode = code && code !== '';
+            const [iconClass, codeLabel] = hasCode ? getJmaIconAndLabel(code) : [null, null];
+            const label = shortTextByDate[date] || codeLabel;
+
+            let pop = areaWeather.pops ? (areaWeather.pops[idx] || '') : '';
+            if (pop === '' && shortPopByDate[date] !== undefined) pop = String(shortPopByDate[date]);
+
+            let reliability = areaWeather.reliabilities ? (areaWeather.reliabilities[idx] || '') : '';
+
+            let tempMax = '', tempMin = '';
+            if (areaTemp) {
+                tempMax = areaTemp.tempsMax[idx] || '';
+                tempMin = areaTemp.tempsMin[idx] || '';
+            }
+            if ((tempMax === '' || tempMin === '') && shortTempByDate[date]) {
+                if (tempMax === '' && shortTempByDate[date].max) tempMax = shortTempByDate[date].max;
+                if (tempMin === '' && shortTempByDate[date].min) tempMin = shortTempByDate[date].min;
+            }
+            if (location.tempOffset) {
+                if (tempMax !== '') tempMax = String(Math.round(Number(tempMax) + location.tempOffset));
+                if (tempMin !== '') tempMin = String(Math.round(Number(tempMin) + location.tempOffset));
+            }
+
+            return { date, label, iconClass, tempMax, tempMin, pop, reliability, available: hasCode, isPast, source };
+        });
+    }
+
+    function renderWeatherLocationCard(location, days) {
+        const firstAvailable = days.find(d => d.available && !d.isPast);
+        const summary = firstAvailable
+            ? `${firstAvailable.label}　${firstAvailable.tempMax !== '' ? firstAvailable.tempMax + '°/' + firstAvailable.tempMin + '°' : ''}`
+            : '預報尚未公布';
+
+        const boxes = days.map(d => {
+            if (d.isPast) {
+                return `
+                <div class="weather-day-box rounded-xl border border-slate-100 bg-slate-100 p-1.5 sm:p-3 text-center opacity-50">
+                    <div class="text-[10px] sm:text-xs font-bold text-slate-400">${formatWeatherDateLabel(d.date)}</div>
+                    <i class="fas fa-clock text-base sm:text-xl text-slate-300 my-1.5 sm:my-2"></i>
+                    <div class="text-[9px] sm:text-[10px] text-slate-400 leading-tight">已過</div>
+                </div>`;
+            }
+            if (!d.available) {
+                return `
+                <div class="weather-day-box rounded-xl border border-slate-100 bg-slate-50 p-1.5 sm:p-3 text-center">
+                    <div class="text-[10px] sm:text-xs font-bold text-slate-400">${formatWeatherDateLabel(d.date)}</div>
+                    <i class="fas fa-hourglass-half text-base sm:text-xl text-slate-300 my-1.5 sm:my-2"></i>
+                    <div class="text-[9px] sm:text-[10px] text-slate-300 leading-tight">尚未公布</div>
+                </div>`;
+            }
+            const reliabilityBadge = d.reliability ? `<div class="text-[9px] sm:text-[10px] text-slate-300 mt-1">可信度 ${d.reliability}</div>` : '';
+            const sourceBadge = d.source === 'short'
+                ? `<span class="absolute top-1 right-1 text-[8px] sm:text-[9px] leading-none px-1 py-0.5 rounded bg-emerald-100 text-emerald-600">短期</span>`
+                : `<span class="absolute top-1 right-1 text-[8px] sm:text-[9px] leading-none px-1 py-0.5 rounded bg-amber-100 text-amber-600">週間</span>`;
+            return `
+            <div class="weather-day-box relative rounded-xl border border-blue-100 bg-blue-50/50 p-1.5 sm:p-3 text-center">
+                ${sourceBadge}
+                <div class="text-[10px] sm:text-xs font-bold text-slate-600">${formatWeatherDateLabel(d.date)}</div>
+                <i class="fas ${d.iconClass} text-lg sm:text-2xl text-blue-400 my-1.5 sm:my-2"></i>
+                <div class="text-[9px] sm:text-[11px] text-slate-500 leading-tight mb-1 sm:mb-1.5 min-h-[2.2em] flex items-center justify-center">${d.label}</div>
+                <div class="text-xs sm:text-sm font-bold whitespace-nowrap">
+                    ${d.tempMax !== '' ? `<span class="text-red-500">${d.tempMax}°</span>` : ''}${d.tempMin !== '' ? `<span class="text-blue-500"> / ${d.tempMin}°</span>` : ''}
+                </div>
+                ${d.pop !== '' ? `<div class="text-[9px] sm:text-[11px] text-sky-500 mt-1"><i class="fas fa-tint mr-0.5"></i>${d.pop}%</div>` : ''}
+                ${reliabilityBadge}
+            </div>`;
+        }).join('');
+
+        return `
+        <div class="weather-loc-card border border-slate-100 rounded-xl overflow-hidden">
+            <button type="button" class="weather-loc-toggle w-full flex items-center justify-between gap-3 p-3 sm:p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left">
+                <span class="flex items-center gap-2 sm:gap-3">
+                    <i class="fas ${location.icon} text-blue-500 w-5 text-center"></i>
+                    <span class="font-bold text-slate-700 text-sm sm:text-base">${location.name}</span>
+                </span>
+                <span class="flex items-center gap-2 sm:gap-3">
+                    <span class="text-xs text-slate-400">${summary}</span>
+                    <i class="fas fa-chevron-down text-slate-400 transition-transform weather-loc-chevron text-xs"></i>
+                </span>
+            </button>
+            <div class="weather-loc-body hidden px-3 sm:px-4 pb-3 sm:pb-4 pt-3">
+                ${location.note ? `<p class="text-[11px] text-slate-400 mb-2">${location.note}</p>` : ''}
+                <div class="grid grid-cols-7 gap-1.5 sm:gap-3">${boxes}</div>
+            </div>
+        </div>`;
+    }
+
+    function setupWeatherLocations() {
+        const container = document.getElementById('weather-locations');
+        if (!container) return;
+
+        container.innerHTML = WEATHER_LOCATIONS.map(loc => `
+            <div class="border border-slate-100 rounded-xl p-4 flex items-center gap-3">
+                <i class="fas fa-spinner fa-spin text-slate-300"></i>
+                <span class="text-sm text-slate-500">${loc.name} 讀取中...</span>
+            </div>`).join('');
+
+        const prefCodes = [...new Set(WEATHER_LOCATIONS.map(l => l.prefCode))];
+        const fetches = prefCodes.map(code =>
+            fetch(`https://www.jma.go.jp/bosai/forecast/data/forecast/${code}.json`)
+                .then(r => { if (!r.ok) throw new Error('JMA fetch failed'); return r.json(); })
+                .then(data => ({ code, data }))
+                .catch(() => ({ code, data: null }))
+        );
+
+        Promise.all(fetches).then(results => {
+            const byPref = {};
+            results.forEach(r => { byPref[r.code] = r.data; });
+
+            container.innerHTML = WEATHER_LOCATIONS.map(loc => {
+                const days = buildWeeklyForecast(loc, byPref[loc.prefCode]);
+                return renderWeatherLocationCard(loc, days);
+            }).join('');
+
+            container.querySelectorAll('.weather-loc-toggle').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const body = btn.nextElementSibling;
+                    const chevron = btn.querySelector('.weather-loc-chevron');
+                    body.classList.toggle('hidden');
+                    chevron.classList.toggle('rotate-180');
+                });
+            });
+        });
     }
 
     function setupAnimations() {

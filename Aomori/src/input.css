@@ -122,6 +122,17 @@ body.loaded {
     box-shadow: 0 20px 40px -10px rgba(234, 88, 12, 0.2); /* Orangey Shadow */
 }
 
+.weather-day-box {
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.weather-day-box:hover {
+    position: relative;
+    z-index: 10;
+    transform: scale(1.08);
+    box-shadow: 0 14px 22px -8px rgba(59, 130, 246, 0.45); /* Blue glow toward the bottom */
+}
+
 .timeline-item {
     cursor: pointer;
 }
