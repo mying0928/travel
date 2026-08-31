@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的旅遊足跡 - 入口網站</title>
-    <meta name="description" content="我的旅遊足跡：日本青森、東京、泰國曼谷、台灣金門、中國杭州，每一段旅程的詳細行程紀錄。">
+    <meta name="description" content="我的旅遊足跡：泰國曼谷、日本東京、中國杭州、日本青森，每一段旅程的詳細行程紀錄。">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -98,7 +98,6 @@
         .scrap-card:nth-child(2) { --rot: 2.5deg;  animation-delay: .15s; margin-top: 26px; }
         .scrap-card:nth-child(3) { --rot: -2deg;   animation-delay: .25s; margin-top: 0px; }
         .scrap-card:nth-child(4) { --rot: 3deg;    animation-delay: .35s; margin-top: 14px; }
-        .scrap-card:nth-child(5) { --rot: -1.5deg; animation-delay: .45s; margin-top: 30px; }
 
         .polaroid {
             background: #fffdf8;
@@ -183,33 +182,12 @@
             <div class="mt-6 flex items-center justify-center gap-3 text-2xl">
                 <span title="日本">🇯🇵</span>
                 <span title="泰國">🇹🇭</span>
-                <span title="台灣">🇹🇼</span>
                 <span title="中國">🇨🇳</span>
             </div>
         </header>
 
         <main>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
-
-                <a href="./Aomori/index.html" class="group scrap-card">
-                    <span class="washi-tape tape-amber"></span>
-                    <div class="polaroid">
-                        <div class="polaroid-photo">
-                            <img src="https://static.gltjp.com/glt/data/article/21000/20814/20241018_104128_6af97a50_w1920.webp"
-                                 alt="日本青森奧入瀨溪流"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="image-placeholder w-full h-full hidden">日本青森</div>
-                        </div>
-                        <p class="polaroid-caption">🇯🇵 東北秋色・青森紀行</p>
-                    </div>
-                    <div class="scrap-desc">
-                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">奧入瀨的碧水流光，松島的千島夕照，一場深秋東北的浪漫詩篇。</p>
-                        <span class="inline-flex items-center gap-1.5 text-orange-600 dark:text-orange-400 font-semibold text-sm">
-                            查看行程
-                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </span>
-                    </div>
-                </a>
 
                 <a href="./Bangkok/index.html" class="group scrap-card">
                     <span class="washi-tape tape-sky"></span>
@@ -225,26 +203,6 @@
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">體驗微笑國度的熱情，參訪金碧輝煌的廟宇，享受道地的街頭美食與水上市場。</p>
                         <span class="inline-flex items-center gap-1.5 text-sky-600 dark:text-sky-400 font-semibold text-sm">
-                            查看行程
-                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </span>
-                    </div>
-                </a>
-
-                <a href="./GoldenGate/index.html" class="group scrap-card">
-                    <span class="washi-tape tape-rose"></span>
-                    <div class="polaroid">
-                        <div class="polaroid-photo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/%E5%89%8D%E6%B0%B4%E9%A0%AD%E9%BB%83%E8%BC%9D%E7%85%8C%E6%B4%8B%E6%A8%93%E5%8F%8A%E5%BE%97%E6%9C%88%E6%A8%93.jpg"
-                                 alt="台灣金門山后民俗文化村"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="image-placeholder w-full h-full hidden">台灣金門</div>
-                        </div>
-                        <p class="polaroid-caption">🇹🇼 台灣金門之旅</p>
-                    </div>
-                    <div class="scrap-desc">
-                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">走進一座活的歷史博物館，探索戰地史蹟、傳統閩南聚落與獨特的自然生態。</p>
-                        <span class="inline-flex items-center gap-1.5 text-rose-600 dark:text-rose-400 font-semibold text-sm">
                             查看行程
                             <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
@@ -285,6 +243,26 @@
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">漫步西湖畔，遊覽靈隱寺與雷峰塔，感受人間天堂的詩意風光。</p>
                         <span class="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
+                            查看行程
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="./Aomori/index.html" class="group scrap-card">
+                    <span class="washi-tape tape-amber"></span>
+                    <div class="polaroid">
+                        <div class="polaroid-photo">
+                            <img src="https://static.gltjp.com/glt/data/article/21000/20814/20241018_104128_6af97a50_w1920.webp"
+                                 alt="日本青森奧入瀨溪流"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder w-full h-full hidden">日本青森</div>
+                        </div>
+                        <p class="polaroid-caption">🇯🇵 東北秋色・青森紀行</p>
+                    </div>
+                    <div class="scrap-desc">
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">奧入瀨的碧水流光，松島的千島夕照，一場深秋東北的浪漫詩篇。</p>
+                        <span class="inline-flex items-center gap-1.5 text-orange-600 dark:text-orange-400 font-semibold text-sm">
                             查看行程
                             <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
