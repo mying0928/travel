@@ -4,115 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的旅遊足跡 - 入口網站</title>
+    <meta name="description" content="我的旅遊足跡：日本青森、東京、泰國曼谷、台灣金門、中國杭州，每一段旅程的詳細行程紀錄。">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* 使用 Noto Sans TC 作為主要字體，英文則使用 Inter */
+        :root { color-scheme: light dark; }
+
+        @font-face {
+            font-family: 'ChenYuluoyan';
+            src: url('fonts/ChenYuluoyan-2.0-Thin.woff2') format('woff2'),
+                 url('fonts/ChenYuluoyan-2.0-Thin.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .handwritten-cn {
+            font-family: 'ChenYuluoyan', 'Noto Sans TC', sans-serif;
+        }
+
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            background-color: #fffaf1;
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23fb923c' stroke-opacity='0.22' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M20,225 Q100,55 235,105' stroke-dasharray='1 11'/%3E%3Ccircle cx='20' cy='225' r='4' fill='%23fb923c' fill-opacity='0.3' stroke='none'/%3E%3Ccircle cx='235' cy='105' r='4' fill='%23fb923c' fill-opacity='0.3' stroke='none'/%3E%3C/g%3E%3Cg transform='translate(150,78) rotate(-24)' fill='%23f97316' fill-opacity='0.24'%3E%3Cpath d='M0,0 L22,7 L9,11 L0,15 L4,8 Z'/%3E%3C/g%3E%3Cg fill='none' stroke='%2338bdf8' stroke-opacity='0.16' stroke-width='2'%3E%3Ccircle cx='60' cy='40' r='16'/%3E%3C/g%3E%3C/svg%3E"),
+                radial-gradient(circle at 10% 6%, rgba(253,186,116,0.35), transparent 42%),
+                radial-gradient(circle at 90% 4%, rgba(125,211,252,0.30), transparent 46%),
+                radial-gradient(circle at 25% 95%, rgba(252,165,165,0.28), transparent 42%),
+                radial-gradient(circle at 85% 90%, rgba(134,239,172,0.25), transparent 42%);
+            background-attachment: fixed;
         }
-        /* 當圖片加載失敗時的樣式 */
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #171016;
+                background-image:
+                    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%23fdba74' stroke-opacity='0.14' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M20,225 Q100,55 235,105' stroke-dasharray='1 11'/%3E%3Ccircle cx='20' cy='225' r='4' fill='%23fdba74' fill-opacity='0.18' stroke='none'/%3E%3Ccircle cx='235' cy='105' r='4' fill='%23fdba74' fill-opacity='0.18' stroke='none'/%3E%3C/g%3E%3Cg transform='translate(150,78) rotate(-24)' fill='%23fdba74' fill-opacity='0.16'%3E%3Cpath d='M0,0 L22,7 L9,11 L0,15 L4,8 Z'/%3E%3C/g%3E%3Cg fill='none' stroke='%2338bdf8' stroke-opacity='0.1' stroke-width='2'%3E%3Ccircle cx='60' cy='40' r='16'/%3E%3C/g%3E%3C/svg%3E"),
+                    radial-gradient(circle at 10% 6%, rgba(251,146,60,0.16), transparent 42%),
+                    radial-gradient(circle at 90% 4%, rgba(56,189,248,0.14), transparent 46%),
+                    radial-gradient(circle at 25% 95%, rgba(244,114,182,0.12), transparent 42%),
+                    radial-gradient(circle at 85% 90%, rgba(52,211,153,0.10), transparent 42%);
+            }
+        }
+
         .image-placeholder {
-            background-color: #e2e8f0; /* gray-200 */
+            background-color: #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #4a5568; /* gray-600 */
+            color: #4a5568;
             font-weight: 500;
+        }
+
+        /* Card entrance + hover */
+        .trip-card {
+            opacity: 0;
+            animation: fadeInUp .7s cubic-bezier(.22,.8,.24,1) forwards;
+            transition: transform .45s cubic-bezier(.22,.8,.24,1), box-shadow .45s ease;
+            will-change: transform;
+        }
+        .trip-card:nth-child(1) { animation-delay: .05s; }
+        .trip-card:nth-child(2) { animation-delay: .15s; }
+        .trip-card:nth-child(3) { animation-delay: .25s; }
+        .trip-card:nth-child(4) { animation-delay: .35s; }
+        .trip-card:nth-child(5) { animation-delay: .45s; }
+
+        .trip-card:hover {
+            transform: translateY(-10px) scale(1.015);
+            box-shadow: 0 25px 45px -15px rgba(249,115,22,.35), 0 10px 20px -10px rgba(56,189,248,.25);
+        }
+        @media (prefers-color-scheme: dark) {
+            .trip-card:hover {
+                box-shadow: 0 25px 45px -15px rgba(0,0,0,.55), 0 10px 20px -10px rgba(0,0,0,.4);
+            }
+        }
+
+        .kicker {
+            font-family: 'Caveat', 'Noto Sans TC', cursive;
+            display: inline-block;
+            transform: rotate(-3deg);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .trip-card { animation: none; opacity: 1; }
+            .trip-card, .trip-card img, .trip-card .arrow-icon { transition: none !important; }
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+<body class="text-gray-800 dark:text-gray-200">
 
     <div class="container mx-auto px-4 py-8 md:py-16">
 
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400">我的旅遊足跡</h1>
-            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">探索世界的每個角落，記錄下每一段難忘的旅程。</p>
+        <header class="text-center mb-14">
+            <span class="kicker text-2xl md:text-3xl font-semibold text-sky-600 dark:text-sky-400">✈ my travel diary</span>
+            <h1 class="handwritten-cn mt-1 text-5xl md:text-7xl font-normal relative inline-block">
+                <span class="bg-gradient-to-r from-orange-500 via-pink-500 to-sky-500 dark:from-orange-400 dark:via-pink-400 dark:to-sky-400 bg-clip-text text-transparent">我的旅遊足跡</span>
+                <svg class="absolute left-1/2 -translate-x-1/2 -bottom-3 w-[85%] h-4" viewBox="0 0 300 20" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3,12 Q40,2 78,11 T153,10 T228,11 T297,9" stroke="#fb923c" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+            </h1>
+            <p class="handwritten-cn mt-6 text-xl md:text-2xl text-gray-600 dark:text-gray-400">探索世界的每個角落，記錄下每一段難忘的旅程。</p>
+            <div class="mt-6 flex items-center justify-center gap-3 text-2xl">
+                <span title="日本">🇯🇵</span>
+                <span title="泰國">🇹🇭</span>
+                <span title="台灣">🇹🇼</span>
+                <span title="中國">🇨🇳</span>
+            </div>
         </header>
 
         <main>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
 
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
-                    <img class="w-full h-56 object-cover object-center"
-                         src="https://static.gltjp.com/glt/data/article/21000/20814/20241018_104128_6af97a50_w1920.webp"
-                         alt="日本青森奧入瀨溪流"
-                         onerror="this.onerror=null; this.parentElement.innerHTML = '<div class=\'w-full h-56 image-placeholder\'>日本青森</div>';">
-
+                <a href="./Aomori/index.html" class="group trip-card block bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <span class="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-full bg-white/75 dark:bg-black/50 backdrop-blur-md px-3 py-1 text-xs font-semibold shadow">🇯🇵 日本・青森</span>
+                        <img class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                             src="https://static.gltjp.com/glt/data/article/21000/20814/20241018_104128_6af97a50_w1920.webp"
+                             alt="日本青森奧入瀨溪流"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder w-full h-full hidden">日本青森</div>
+                    </div>
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">東北秋色・青森紀行</h2>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">奧入瀨的碧水流光，松島的千島夕照，一場深秋東北的浪漫詩篇。</p>
-                        <a href="./Aomori/index.html" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300">
+                        <span class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold">
                             查看行程
-                        </a>
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
                     </div>
-                </div>
+                </a>
 
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
-                    <img class="w-full h-56 object-cover object-center"
-                         src="https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=2070&auto=format&fit=crop"
-                         alt="泰國曼谷黎明寺"
-                         onerror="this.onerror=null; this.parentElement.innerHTML = '<div class=\'w-full h-56 image-placeholder\'>泰國曼谷</div>';">
-
+                <a href="./Bangkok/index.html" class="group trip-card block bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <span class="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-full bg-white/75 dark:bg-black/50 backdrop-blur-md px-3 py-1 text-xs font-semibold shadow">🇹🇭 泰國・曼谷</span>
+                        <img class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                             src="https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=2070&auto=format&fit=crop"
+                             alt="泰國曼谷黎明寺"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder w-full h-full hidden">泰國曼谷</div>
+                    </div>
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">泰國曼谷之旅</h2>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">體驗微笑國度的熱情，參訪金碧輝煌的廟宇，享受道地的街頭美食與水上市場。</p>
-                        <a href="./Bangkok/index.html" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300">
+                        <span class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold">
                             查看行程
-                        </a>
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
                     </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
-                    <img class="w-full h-56 object-cover object-center"
-                         src="https://upload.wikimedia.org/wikipedia/commons/b/b4/%E5%89%8D%E6%B0%B4%E9%A0%AD%E9%BB%83%E8%BC%9D%E7%85%8C%E6%B4%8B%E6%A8%93%E5%8F%8A%E5%BE%97%E6%9C%88%E6%A8%93.jpg"
-                         alt="台灣金門山后民俗文化村"
-                         onerror="this.onerror=null; this.parentElement.innerHTML = '<div class=\'w-full h-56 image-placeholder\'>台灣金門</div>';">
+                </a>
 
+                <a href="./GoldenGate/index.html" class="group trip-card block bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <span class="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-full bg-white/75 dark:bg-black/50 backdrop-blur-md px-3 py-1 text-xs font-semibold shadow">🇹🇼 台灣・金門</span>
+                        <img class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                             src="https://upload.wikimedia.org/wikipedia/commons/b/b4/%E5%89%8D%E6%B0%B4%E9%A0%AD%E9%BB%83%E8%BC%9D%E7%85%8C%E6%B4%8B%E6%A8%93%E5%8F%8A%E5%BE%97%E6%9C%88%E6%A8%93.jpg"
+                             alt="台灣金門山后民俗文化村"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder w-full h-full hidden">台灣金門</div>
+                    </div>
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">台灣金門之旅</h2>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">走進一座活的歷史博物館，探索戰地史蹟、傳統閩南聚落與獨特的自然生態。</p>
-                        <a href="./GoldenGate/index.html" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300">
+                        <span class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold">
                             查看行程
-                        </a>
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
                     </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
-                    <img class="w-full h-56 object-cover object-center"
-                         src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070&auto=format&fit=crop"
-                         alt="日本東京淺草寺"
-                         onerror="this.onerror=null; this.parentElement.innerHTML = '<div class=\'w-full h-56 image-placeholder\'>日本東京</div>';">
+                </a>
 
+                <a href="./Tokyo/index.html" class="group trip-card block bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <span class="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-full bg-white/75 dark:bg-black/50 backdrop-blur-md px-3 py-1 text-xs font-semibold shadow">🇯🇵 日本・東京</span>
+                        <img class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                             src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070&auto=format&fit=crop"
+                             alt="日本東京淺草寺"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder w-full h-full hidden">日本東京</div>
+                    </div>
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">日本東京之旅</h2>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">探索現代與傳統交織的魅力，從繁華的都會區到靜謐的古老寺廟，感受東京的無限活力。</p>
-                        <a href="./Tokyo/index.html" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300">
+                        <span class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold">
                             查看行程
-                        </a>
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
                     </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out">
-                    <img class="w-full h-56 object-cover object-center"
-                         src="https://upload.wikimedia.org/wikipedia/commons/0/07/20090524_Hangzhou_West_Lake_7531.jpg"
-                         alt="中國杭州西湖"
-                         onerror="this.onerror=null; this.parentElement.innerHTML = '<div class=\'w-full h-56 image-placeholder\'>中國杭州</div>';">
+                </a>
 
+                <a href="./Hangzhou/index.html" class="group trip-card block bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative h-56 overflow-hidden">
+                        <span class="absolute top-3 left-3 z-10 inline-flex items-center gap-1 rounded-full bg-white/75 dark:bg-black/50 backdrop-blur-md px-3 py-1 text-xs font-semibold shadow">🇨🇳 中國・杭州</span>
+                        <img class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Leifeng_Pagoda_DJI_0593_%282%29.jpg/1920px-Leifeng_Pagoda_DJI_0593_%282%29.jpg"
+                             alt="杭州西湖雷峰塔空拍"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder w-full h-full hidden">中國杭州</div>
+                    </div>
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">中國杭州之旅</h2>
                         <p class="text-gray-600 dark:text-gray-400 mb-4">漫步西湖畔，遊覽靈隱寺與雷峰塔，感受人間天堂的詩意風光。</p>
-                        <a href="./Hangzhou/index.html" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300">
+                        <span class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold">
                             查看行程
-                        </a>
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
                     </div>
-                </div>
-                </div>
+                </a>
+
+            </div>
         </main>
 
         <footer class="text-center mt-16">
