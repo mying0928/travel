@@ -44,8 +44,15 @@
         --brand-dark-jade: #2a5a44;
         --brand-light-jade: #e8f3ec;
     }
+    @font-face {
+        font-family: 'HuiwenFangsong';
+        src: url('fonts/HuiwenFangsong-titles.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
     body {
-        font-family: 'Noto Sans JP', 'Noto Sans TC', sans-serif;
+        font-family: 'Noto Sans TC', sans-serif;
         background-color: #f7f5f0;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0,10 C20,-2 60,22 80,10' stroke='%233d7a5e' stroke-opacity='0.07' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Cpath d='M0,30 C20,42 60,18 80,30' stroke='%233d7a5e' stroke-opacity='0.07' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
         background-size: 240px 120px;
@@ -53,7 +60,7 @@
         transition: opacity 0.5s ease-in;
     }
     body.loaded { opacity: 1; }
-    h1, h2, h3 { font-family: 'Kaisei Tokumin', serif; }
+    #hero-title, .daily-theme-card h2 { font-family: 'HuiwenFangsong', 'Noto Serif TC', serif; }
 
     /* Pre-loader (曲院風荷・蓮花) */
     .preloader {
@@ -226,9 +233,8 @@
     <div class="absolute top-0 left-0 w-full h-full" style="z-index: 1; background: linear-gradient(180deg, rgba(20,40,32,0.45) 0%, rgba(20,40,32,0.25) 45%, rgba(20,40,32,0.55) 100%);"></div>
     <canvas id="lotus-petals" class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 2;"></canvas>
     <div class="relative text-center z-10 p-4">
-        <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 14px rgba(0,0,0,0.8);">水光瀲灩・西湖六日</h1>
-        <p id="hero-poem" class="mt-5 text-lg sm:text-xl tracking-widest" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.8);">欲把西湖比西子，淡妝濃抹總相宜</p>
-        <p id="hero-subtitle" class="mt-3 text-sm sm:text-base text-white/90" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.8);">2026.9.8 — 9.13 ｜ 武林廣場 · 寶善橋地鐵站住宿區</p>
+        <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 14px rgba(0,0,0,0.8);">煙雨入江南・杭州紀行</h1>
+        <p id="hero-poem" class="mt-5 text-lg sm:text-xl tracking-widest leading-relaxed" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.8);">一城煙雨，半卷西湖。<br>行過長街深巷，走進詩詞裡的江南，<br>只為在湖光山色間，與一場舊夢相逢。</p>
     </div>
 </header>
 
@@ -465,6 +471,11 @@
             day1: {
                 navDate: "9/8", navDay: "(週二)", subtheme: "到達日 · 機場入住 + 輕鬆探索夜景",
                 title: "第一日：湖畔序曲・輕裝抵達與夜色初上",
+                highlights: [
+                    { icon: "fa-plane-arrival", text: "CA150 抵達杭州" },
+                    { icon: "fa-utensils", text: "南宋御街・河坊街" },
+                    { icon: "fa-music", text: "西湖音樂噴泉" }
+                ],
                 color: "91,122,94",
                 themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/West_Lake_at_night_in_Hangzhou.jpg/1280px-West_Lake_at_night_in_Hangzhou.jpg",
                 items: [
@@ -480,6 +491,12 @@
             day2: {
                 navDate: "9/9", navDay: "(週三)", subtheme: "仙橋洞 + 九溪龍井 · 西湖漫遊日",
                 title: "第二日：溶洞光影・九溪龍井漫遊行",
+                highlights: [
+                    { icon: "fa-gem", text: "仙橋洞" },
+                    { icon: "fa-water", text: "九溪煙樹" },
+                    { icon: "fa-mug-hot", text: "龍井村" },
+                    { icon: "fa-landmark", text: "雷峰塔" }
+                ],
                 color: "61,107,142",
                 themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Leifeng_Pagoda_and_Willow_Tree_across_West_Lake.jpg/1280px-Leifeng_Pagoda_and_Willow_Tree_across_West_Lake.jpg",
                 items: [
@@ -510,6 +527,10 @@
             day3: {
                 navDate: "9/10", navDay: "(週四)", subtheme: "青山湖 + 烏鎮西柵 · 江南水鄉日",
                 title: "第三日：水杉秘境・青山烏鎮水鄉行",
+                highlights: [
+                    { icon: "fa-tree", text: "青山湖水上森林" },
+                    { icon: "fa-water", text: "烏鎮西柵" }
+                ],
                 color: "107,91,138",
                 themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/1_wuzhen_aerial_2023.jpg/1280px-1_wuzhen_aerial_2023.jpg",
                 items: [
@@ -525,6 +546,10 @@
             day4: {
                 navDate: "9/11", navDay: "(週五)", subtheme: "千島湖 · 高鐵一日遊",
                 title: "第四日：千島覓境・高鐵輕旅行",
+                highlights: [
+                    { icon: "fa-train", text: "高鐵前往千島湖" },
+                    { icon: "fa-mountain", text: "梅峰島全景" }
+                ],
                 color: "139,107,61",
                 themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Qiandao_Lake_%28near_Hangzhou%29.jpg/1280px-Qiandao_Lake_%28near_Hangzhou%29.jpg",
                 items: [
@@ -543,6 +568,11 @@
             day5: {
                 navDate: "9/12", navDay: "(週六)", subtheme: "商場三選一＋九溪觀潮＋in77 · 購物血拚日",
                 title: "第五日：購物血拚・九溪觀潮伴手禮日",
+                highlights: [
+                    { icon: "fa-bag-shopping", text: "商場任選一逛" },
+                    { icon: "fa-water", text: "九溪觀潮" },
+                    { icon: "fa-gift", text: "湖濱 in77 伴手禮" }
+                ],
                 color: "138,91,91",
                 themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/West_Lake_Pavilion_and_Water_Lilies%2C_Hangzhou_120529_1.jpg/1280px-West_Lake_Pavilion_and_Water_Lilies%2C_Hangzhou_120529_1.jpg",
                 items: [
@@ -560,6 +590,10 @@
             day6: {
                 navDate: "9/13", navDay: "(週日)", subtheme: "退房 · 搭機返台",
                 title: "第六日：湖畔告別・滿載而歸",
+                highlights: [
+                    { icon: "fa-suitcase-rolling", text: "酒店退房" },
+                    { icon: "fa-plane-departure", text: "CA149 返台" }
+                ],
                 color: "91,91,91",
                 themeImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Westlake_seen_from_City_God_Pavilion%2C_Hangzhou.jpg/1280px-Westlake_seen_from_City_God_Pavilion%2C_Hangzhou.jpg",
                 items: [
@@ -643,7 +677,6 @@
             });
 
             gsap.from("#hero-poem", { duration: 1, y: 30, opacity: 0, ease: "power3.out", delay: 1 });
-            gsap.from("#hero-subtitle", { duration: 1, y: 20, opacity: 0, ease: "power3.out", delay: 1.3 });
 
             gsap.utils.toArray('.card-hover, .tool-card').forEach(card => {
                 gsap.from(card, {
@@ -792,12 +825,20 @@
                     }).join('');
                 }
 
+                const highlightsHtml = dayData.highlights ? `
+                    <div class="mt-4 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-white/90" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
+                        ${dayData.highlights.map(h => `
+                            <span class="flex items-center"><i class="fas ${h.icon} mr-2"></i>${h.text}</span>
+                        `).join('')}
+                    </div>
+                ` : '';
+
                 allSectionsHtml += `
                     <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
                         <div class="daily-theme-card relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-color: rgb(${dayData.color})" data-bg="linear-gradient(180deg, rgba(${dayData.color},0.18) 0%, rgba(${dayData.color},0.12) 45%, rgba(${dayData.color},0.4) 100%), url('${dayData.themeImage}')">
-                            <p class="text-sm sm:text-base font-medium opacity-90 mb-2 tracking-widest" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.85);">${dayData.navDate} ${dayData.navDay} ｜ ${dayData.subtheme}</p>
-                            <h2 class="text-3xl sm:text-4xl font-black mb-4" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.85);">${dayData.title}</h2>
-                            <button class="view-timeline-btn mt-4 bg-[#3d7a5e] text-white py-2 px-6 rounded-full shadow-lg hover:bg-[#2a5a44] transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
+                            <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.85);">${dayData.title}</h2>
+                            ${highlightsHtml}
+                            <button class="view-timeline-btn mt-6 bg-[#3d7a5e] text-white py-2 px-6 rounded-full shadow-lg hover:bg-[#2a5a44] transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
                         </div>
                         <div class="timeline-container hidden relative pl-10 sm:pl-12">
                             <div class="timeline-line"></div>
