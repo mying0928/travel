@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的旅遊足跡 - 入口網站</title>
-    <meta name="description" content="我的旅遊足跡：泰國曼谷、日本東京、中國杭州、日本青森，每一段旅程的詳細行程紀錄。">
+    <meta name="description" content="我的旅遊足跡：泰國曼谷、日本東京、中國杭州、日本青森、冰島環島，每一段旅程的詳細行程紀錄。">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -98,6 +98,7 @@
         .scrap-card:nth-child(2) { --rot: 2.5deg;  animation-delay: .15s; margin-top: 26px; }
         .scrap-card:nth-child(3) { --rot: -2deg;   animation-delay: .25s; margin-top: 0px; }
         .scrap-card:nth-child(4) { --rot: 3deg;    animation-delay: .35s; margin-top: 14px; }
+        .scrap-card:nth-child(5) { --rot: -2.5deg; animation-delay: .45s; margin-top: 20px; }
 
         .polaroid {
             background: #fffdf8;
@@ -183,6 +184,7 @@
                 <span title="日本">🇯🇵</span>
                 <span title="泰國">🇹🇭</span>
                 <span title="中國">🇨🇳</span>
+                <span title="冰島">🇮🇸</span>
             </div>
         </header>
 
@@ -263,6 +265,26 @@
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">奧入瀨的碧水流光，松島的千島夕照，一場深秋東北的浪漫詩篇。</p>
                         <span class="inline-flex items-center gap-1.5 text-orange-600 dark:text-orange-400 font-semibold text-sm">
+                            查看行程
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="./Iceland/index.html" class="group scrap-card">
+                    <span class="washi-tape tape-rose"></span>
+                    <div class="polaroid">
+                        <div class="polaroid-photo">
+                            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6kuls%C3%A1rl%C3%B3n-Aurora.jpg"
+                                 alt="冰島 Jökulsárlón 冰河湖極光"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder w-full h-full hidden">冰島環島</div>
+                        </div>
+                        <p class="polaroid-caption">🇮🇸 極光環島・冰島紀行</p>
+                    </div>
+                    <div class="scrap-desc">
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">極光下的環島公路，冰河湖與地熱瀑布交織成的六人自煮團公路詩篇。</p>
+                        <span class="inline-flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400 font-semibold text-sm">
                             查看行程
                             <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
