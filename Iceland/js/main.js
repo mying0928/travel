@@ -46,7 +46,7 @@ function formatWeatherDateLabel(dateStr) {
 
 document.addEventListener('DOMContentLoaded', function () {
     const dailySectionsContainer = document.getElementById('daily-sections-container');
-    let currentActiveSectionId = null;
+    let currentActiveSectionId = 'overview';
     let draggedButton = null;
 
     generateNavButtons();
