@@ -71,6 +71,17 @@
         box-shadow: 0 20px 40px -10px rgba(42, 90, 68, 0.3);
     }
 
+    /* Countdown digit pulse */
+    @keyframes countdown-pulse {
+        0% { transform: scale(1); color: inherit; }
+        35% { transform: scale(1.22); color: var(--brand-jade); }
+        100% { transform: scale(1); color: inherit; }
+    }
+    .countdown-tick {
+        display: inline-block;
+        animation: countdown-pulse .5s ease-out;
+    }
+
     /* Timeline styles */
     .timeline-item .icon {
         position: absolute; left: -38px; top: 5px; width: 36px; height: 36px;
@@ -707,6 +718,20 @@
             const countdownElement = document.getElementById('countdown');
             if (!countdownElement) return;
 
+            const digitEls = {
+                days: document.getElementById('days'),
+                hours: document.getElementById('hours'),
+                minutes: document.getElementById('minutes'),
+                seconds: document.getElementById('seconds')
+            };
+            const prevValues = { days: null, hours: null, minutes: null, seconds: null };
+
+            function pulse(el) {
+                el.classList.remove('countdown-tick');
+                void el.offsetWidth; // restart the CSS animation
+                el.classList.add('countdown-tick');
+            }
+
             const interval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = targetDate - now;
@@ -717,10 +742,20 @@
                     return;
                 }
 
-                document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+                const nextValues = {
+                    days: Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0'),
+                    hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0'),
+                    minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0'),
+                    seconds: Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0')
+                };
+
+                Object.keys(nextValues).forEach(key => {
+                    if (nextValues[key] !== prevValues[key]) {
+                        digitEls[key].innerText = nextValues[key];
+                        pulse(digitEls[key]);
+                        prevValues[key] = nextValues[key];
+                    }
+                });
             }, 1000);
         }
 
