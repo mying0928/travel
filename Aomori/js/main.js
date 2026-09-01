@@ -341,9 +341,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!areaWeather) return [];
         const areaTemp = tempSeries ? tempSeries.areas.find(a => a.area.code === location.tempCity) : null;
 
-        // 短期預報 (block 0) 有較貼近實況的文字描述，日期重疊時優先使用；
+        // 短期預報 (block 0) 的天氣代碼較貼近實況，日期重疊時優先使用；
         // 週間預報的第一天（明天）氣溫/降雨機率經常是空的，改從短期預報回填。
-        const shortTextByDate = {};
+        // 註：JMA 原始 weathers[] 是日文長句（例如「くもり時々雨所により昼過ぎから雷を伴い激しく降る」），
+        // 這裡改用同一筆資料裡的 weatherCodes[] 對照 JMA_CODE_MAP，統一顯示簡潔的中文描述。
+        const shortCodeByDate = {};
         const shortTempByDate = {};
         const shortPopByDate = {};
         const shortDates = new Set(); // 短期預報（今日・明日・明後日）實際涵蓋到的日期
@@ -354,11 +356,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const codeSeries = (shortBlock.timeSeries || []).find(ts => ts.areas.some(a => a.weatherCodes));
             if (codeSeries) {
                 const areaData = codeSeries.areas.find(a => a.area.code === location.shortArea);
-                if (areaData && areaData.weathers) {
+                if (areaData && areaData.weatherCodes) {
                     codeSeries.timeDefines.forEach((t, i) => {
                         const d = t.slice(0, 10);
-                        if (areaData.weathers[i]) {
-                            shortTextByDate[d] = areaData.weathers[i].replace(/\s+/g, '');
+                        if (areaData.weatherCodes[i]) {
+                            shortCodeByDate[d] = areaData.weatherCodes[i];
                             shortDates.add(d);
                         }
                     });
@@ -403,10 +405,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const date = t.slice(0, 10);
             const isPast = date < todayStr;
             const source = shortDates.has(date) ? 'short' : 'weekly';
-            const code = areaWeather.weatherCodes[idx];
+            const code = shortCodeByDate[date] || areaWeather.weatherCodes[idx];
             const hasCode = code && code !== '';
             const [iconClass, codeLabel] = hasCode ? getJmaIconAndLabel(code) : [null, null];
-            const label = shortTextByDate[date] || codeLabel;
+            const label = codeLabel;
 
             let pop = areaWeather.pops ? (areaWeather.pops[idx] || '') : '';
             if (pop === '' && shortPopByDate[date] !== undefined) pop = String(shortPopByDate[date]);
@@ -434,8 +436,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderWeatherLocationCard(location, days) {
         const firstAvailable = days.find(d => d.available && !d.isPast);
         const summary = firstAvailable
-            ? `${firstAvailable.label}　${firstAvailable.tempMax !== '' ? firstAvailable.tempMax + '°/' + firstAvailable.tempMin + '°' : ''}`
+            ? `${formatWeatherDateLabel(firstAvailable.date)}　${firstAvailable.label}　${firstAvailable.tempMax !== '' ? firstAvailable.tempMax + '°/' + firstAvailable.tempMin + '°' : ''}`
             : '預報尚未公布';
+        const jmaLink = `https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=${location.prefCode}`;
 
         const boxes = days.map(d => {
             if (d.isPast) {
@@ -476,16 +479,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return `
         <div class="weather-loc-card border border-slate-100 rounded-xl overflow-hidden">
-            <button type="button" class="weather-loc-toggle w-full flex items-center justify-between gap-2 sm:gap-3 p-3 sm:p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left">
+            <div role="button" tabindex="0" class="weather-loc-toggle w-full flex flex-wrap items-center justify-between gap-x-2 sm:gap-x-3 gap-y-1 p-3 sm:p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left cursor-pointer">
                 <span class="flex items-center gap-2 sm:gap-3 min-w-0">
                     <i class="fas ${location.icon} text-blue-500 w-5 text-center shrink-0"></i>
                     <span class="font-bold text-slate-700 text-sm sm:text-base truncate">${location.name}</span>
                 </span>
                 <span class="flex items-center gap-2 sm:gap-3 shrink-0">
-                    <span class="hidden sm:inline text-xs text-slate-400">${summary}</span>
+                    <span class="text-xs text-slate-400">${summary}</span>
+                    <a href="${jmaLink}" target="_blank" rel="noopener" title="資料來源：日本氣象廳 JMA" class="weather-jma-badge shrink-0 inline-flex items-center gap-1 text-[10px] leading-none px-1.5 py-1 rounded-full border border-sky-200 bg-sky-50 text-sky-600 hover:bg-sky-100 hover:border-sky-300 hover:text-sky-700 transition-colors" onclick="event.stopPropagation()">
+                        <i class="fas fa-circle-info"></i><span class="hidden sm:inline">JMA</span>
+                    </a>
                     <i class="fas fa-chevron-down text-slate-400 transition-transform weather-loc-chevron text-xs"></i>
                 </span>
-            </button>
+            </div>
             <div class="weather-loc-body hidden px-3 sm:px-4 pb-3 sm:pb-4 pt-3">
                 ${location.note ? `<p class="text-[11px] text-slate-400 mb-2">${location.note}</p>` : ''}
                 <div class="grid grid-cols-2 sm:grid-cols-7 gap-1.5 sm:gap-3">${boxes}</div>
@@ -521,11 +527,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }).join('');
 
             container.querySelectorAll('.weather-loc-toggle').forEach(btn => {
-                btn.addEventListener('click', () => {
+                const toggle = () => {
                     const body = btn.nextElementSibling;
                     const chevron = btn.querySelector('.weather-loc-chevron');
                     body.classList.toggle('hidden');
                     chevron.classList.toggle('rotate-180');
+                };
+                btn.addEventListener('click', toggle);
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
                 });
             });
         });
