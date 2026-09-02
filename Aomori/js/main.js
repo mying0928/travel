@@ -330,15 +330,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 把單一地點的 JMA 原始資料整理成 7 天的 [{date, label, iconClass, tempMax, tempMin, pop, reliability}] 陣列
     function buildWeeklyForecast(location, blocks) {
-        if (!blocks || !blocks[1]) return [];
+        const empty = { today: { available: false }, days: [] };
+        if (!blocks || !blocks[1]) return empty;
 
         const weeklyBlock = blocks[1];
         const weeklySeries = (weeklyBlock.timeSeries || []).find(ts => ts.areas.some(a => a.weatherCodes));
         const tempSeries = (weeklyBlock.timeSeries || []).find(ts => ts.areas.some(a => a.tempsMax));
-        if (!weeklySeries) return [];
+        if (!weeklySeries) return empty;
 
         const areaWeather = weeklySeries.areas.find(a => a.area.code === location.weeklyArea);
-        if (!areaWeather) return [];
+        if (!areaWeather) return empty;
         const areaTemp = tempSeries ? tempSeries.areas.find(a => a.area.code === location.tempCity) : null;
 
         // 短期預報 (block 0) 的天氣代碼較貼近實況，日期重疊時優先使用；
@@ -348,10 +349,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const shortCodeByDate = {};
         const shortTempByDate = {};
         const shortPopByDate = {};
+        const todayTempByDate = {}; // 今天（reportDate）本身的氣溫，跟 shortTempByDate 分開存，因為下面會刻意排除 reportDate
         const shortDates = new Set(); // 短期預報（今日・明日・明後日）實際涵蓋到的日期
         const shortBlock = blocks[0];
+        let reportDate = '';
         if (shortBlock) {
-            const reportDate = (shortBlock.reportDatetime || '').slice(0, 10);
+            reportDate = (shortBlock.reportDatetime || '').slice(0, 10);
 
             const codeSeries = (shortBlock.timeSeries || []).find(ts => ts.areas.some(a => a.weatherCodes));
             if (codeSeries) {
@@ -375,7 +378,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     tempSeriesShort.timeDefines.forEach((t, i) => {
                         const date = t.slice(0, 10);
                         const val = areaT.temps[i];
-                        if (date === reportDate || !val) return;
+                        if (!val) return;
+                        if (date === reportDate) {
+                            // 這裡才是今天自己的氣溫，不併入 shortTempByDate（那個是留給週間預報「明天」補值用的）
+                            if (!todayTempByDate[date]) todayTempByDate[date] = {};
+                            if (t.slice(11, 13) === '00') todayTempByDate[date].min = val;
+                            else todayTempByDate[date].max = val;
+                            return;
+                        }
                         if (!shortTempByDate[date]) shortTempByDate[date] = {};
                         if (t.slice(11, 13) === '00') shortTempByDate[date].min = val;
                         else shortTempByDate[date].max = val;
@@ -401,7 +411,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const todayStr = formatIsoDate(new Date());
 
-        return weeklySeries.timeDefines.map((t, idx) => {
+        // 今天自己的天氣快照（給摘要列用），資料來源是短期預報，日期用 reportDate（JMA 認定的「今天」）
+        const todayCode = shortCodeByDate[reportDate] || '';
+        const todayHasCode = todayCode !== '';
+        const [todayIconClass, todayCodeLabel] = todayHasCode ? getJmaIconAndLabel(todayCode) : [null, null];
+        let todayTempMax = todayTempByDate[reportDate] ? (todayTempByDate[reportDate].max || '') : '';
+        let todayTempMin = todayTempByDate[reportDate] ? (todayTempByDate[reportDate].min || '') : '';
+        if (location.tempOffset) {
+            if (todayTempMax !== '') todayTempMax = String(Math.round(Number(todayTempMax) + location.tempOffset));
+            if (todayTempMin !== '') todayTempMin = String(Math.round(Number(todayTempMin) + location.tempOffset));
+        }
+        const todayInfo = {
+            date: reportDate || todayStr,
+            label: todayCodeLabel,
+            iconClass: todayIconClass,
+            tempMax: todayTempMax,
+            tempMin: todayTempMin,
+            available: todayHasCode
+        };
+
+        const days = weeklySeries.timeDefines.map((t, idx) => {
             const date = t.slice(0, 10);
             const isPast = date < todayStr;
             const source = shortDates.has(date) ? 'short' : 'weekly';
@@ -431,10 +460,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             return { date, label, iconClass, tempMax, tempMin, pop, reliability, available: hasCode, isPast, source };
         });
+
+        return { today: todayInfo, days };
     }
 
-    function renderWeatherLocationCard(location, days) {
-        const firstAvailable = days.find(d => d.available && !d.isPast);
+    function renderWeatherLocationCard(location, today, days) {
+        // 摘要列固定顯示「今天」，跟下面展開後從明天開始的 7 天預報分開
+        const firstAvailable = (today && today.available) ? today : days.find(d => d.available && !d.isPast);
         const summary = firstAvailable
             ? `${formatWeatherDateLabel(firstAvailable.date)}　${firstAvailable.label}　${firstAvailable.tempMax !== '' ? firstAvailable.tempMax + '°/' + firstAvailable.tempMin + '°' : ''}`
             : '預報尚未公布';
@@ -522,8 +554,8 @@ document.addEventListener('DOMContentLoaded', function () {
             results.forEach(r => { byPref[r.code] = r.data; });
 
             container.innerHTML = WEATHER_LOCATIONS.map(loc => {
-                const days = buildWeeklyForecast(loc, byPref[loc.prefCode]);
-                return renderWeatherLocationCard(loc, days);
+                const { today, days } = buildWeeklyForecast(loc, byPref[loc.prefCode]);
+                return renderWeatherLocationCard(loc, today, days);
             }).join('');
 
             container.querySelectorAll('.weather-loc-toggle').forEach(btn => {
