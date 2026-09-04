@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的旅遊足跡 - 入口網站</title>
-    <meta name="description" content="我的旅遊足跡：泰國曼谷、日本東京、中國杭州、日本青森、冰島環島，每一段旅程的詳細行程紀錄。">
+    <meta name="description" content="我的旅遊足跡：泰國曼谷、日本（東京、青森、沖繩、九州）、中國杭州、冰島環島，每一段旅程的詳細行程紀錄。">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -99,6 +99,8 @@
         .scrap-card:nth-child(3) { --rot: -2deg;   animation-delay: .25s; margin-top: 0px; }
         .scrap-card:nth-child(4) { --rot: 3deg;    animation-delay: .35s; margin-top: 14px; }
         .scrap-card:nth-child(5) { --rot: -2.5deg; animation-delay: .45s; margin-top: 20px; }
+        .scrap-card:nth-child(6) { --rot: 2deg;    animation-delay: .55s; margin-top: 8px; }
+        .scrap-card:nth-child(7) { --rot: -3.5deg; animation-delay: .65s; margin-top: 24px; }
 
         .polaroid {
             background: #fffdf8;
@@ -150,6 +152,8 @@
         .tape-rose    { background: repeating-linear-gradient(45deg, rgba(251,113,133,.8), rgba(251,113,133,.8) 6px, rgba(253,164,175,.8) 6px, rgba(253,164,175,.8) 12px); }
         .tape-violet  { background: repeating-linear-gradient(45deg, rgba(167,139,250,.8), rgba(167,139,250,.8) 6px, rgba(196,181,253,.8) 6px, rgba(196,181,253,.8) 12px); }
         .tape-emerald { background: repeating-linear-gradient(45deg, rgba(52,211,153,.8), rgba(52,211,153,.8) 6px, rgba(134,239,172,.8) 6px, rgba(134,239,172,.8) 12px); }
+        .tape-red     { background: repeating-linear-gradient(45deg, rgba(239,68,68,.8), rgba(239,68,68,.8) 6px, rgba(252,165,165,.8) 6px, rgba(252,165,165,.8) 12px); }
+        .tape-teal    { background: repeating-linear-gradient(45deg, rgba(20,184,166,.8), rgba(20,184,166,.8) 6px, rgba(94,234,212,.8) 6px, rgba(94,234,212,.8) 12px); }
 
         .scrap-desc {
             padding: 18px 8px 0;
@@ -200,7 +204,7 @@
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="image-placeholder w-full h-full hidden">泰國曼谷</div>
                         </div>
-                        <p class="polaroid-caption">🇹🇭 泰國曼谷之旅</p>
+                        <p class="polaroid-caption">🇹🇭 熱帶浮光．曼谷夜色記</p>
                     </div>
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">體驗微笑國度的熱情，參訪金碧輝煌的廟宇，享受道地的街頭美食與水上市場。</p>
@@ -220,7 +224,7 @@
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="image-placeholder w-full h-full hidden">日本東京</div>
                         </div>
-                        <p class="polaroid-caption">🇯🇵 日本東京之旅</p>
+                        <p class="polaroid-caption">🇯🇵 落櫻若夢．東京剪影</p>
                     </div>
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">探索現代與傳統交織的魅力，從繁華的都會區到靜謐的古老寺廟，感受東京的無限活力。</p>
@@ -240,7 +244,7 @@
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="image-placeholder w-full h-full hidden">中國杭州</div>
                         </div>
-                        <p class="polaroid-caption">🇨🇳 中國杭州之旅</p>
+                        <p class="polaroid-caption">🇨🇳 煙雨入江南．杭州慢記</p>
                     </div>
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">漫步西湖畔，遊覽靈隱寺與雷峰塔，感受人間天堂的詩意風光。</p>
@@ -260,7 +264,7 @@
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="image-placeholder w-full h-full hidden">日本青森</div>
                         </div>
-                        <p class="polaroid-caption">🇯🇵 東北秋色・青森紀行</p>
+                        <p class="polaroid-caption">🇯🇵 東北秋色．青森物語</p>
                     </div>
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">奧入瀨的碧水流光，松島的千島夕照，一場深秋東北的浪漫詩篇。</p>
@@ -271,16 +275,56 @@
                     </div>
                 </a>
 
-                <a href="./Iceland/index.html" class="group scrap-card">
+                <a href="./Okinawa/index.html" class="group scrap-card">
+                    <span class="washi-tape tape-teal"></span>
+                    <div class="polaroid">
+                        <div class="polaroid-photo">
+                            <img src="./Okinawa/images/hero-background.jpg"
+                                 alt="沖繩古宇利大橋"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder w-full h-full hidden">沖繩重機環島</div>
+                        </div>
+                        <p class="polaroid-caption">🇯🇵 御風向海・沖繩騎旅</p>
+                    </div>
+                    <div class="scrap-desc">
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">海中道路的湛藍狂奔，古宇利大橋的絕景長風，一趟不瘋狂趕路的左駕環島騎旅。</p>
+                        <span class="inline-flex items-center gap-1.5 text-teal-600 dark:text-teal-400 font-semibold text-sm">
+                            查看行程
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="./Kyushu/index.html" class="group scrap-card">
+                    <span class="washi-tape tape-red"></span>
+                    <div class="polaroid">
+                        <div class="polaroid-photo">
+                            <img src="./Kyushu/images/豪斯登堡經典全景.jpg"
+                                 alt="日本九州豪斯登堡夜景"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder w-full h-full hidden">日本九州</div>
+                        </div>
+                        <p class="polaroid-caption">🇯🇵 朱紅落葉・九州慢旅</p>
+                    </div>
+                    <div class="scrap-desc">
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">佐賀的朱紅鳥居，豪斯登堡的璀璨花火，一場深秋九州的斑斕詩篇。</p>
+                        <span class="inline-flex items-center gap-1.5 text-red-600 dark:text-red-400 font-semibold text-sm">
+                            查看行程
+                            <svg class="arrow-icon w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="./Iceland/index.html" class="group scrap-card lg:col-start-2">
                     <span class="washi-tape tape-rose"></span>
                     <div class="polaroid">
                         <div class="polaroid-photo">
-                            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6kuls%C3%A1rl%C3%B3n-Aurora.jpg"
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/J%C3%B6kuls%C3%A1rl%C3%B3n-Aurora.jpg/1920px-J%C3%B6kuls%C3%A1rl%C3%B3n-Aurora.jpg"
                                  alt="冰島 Jökulsárlón 冰河湖極光"
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="image-placeholder w-full h-full hidden">冰島環島</div>
                         </div>
-                        <p class="polaroid-caption">🇮🇸 極光環島・冰島紀行</p>
+                        <p class="polaroid-caption">🇮🇸 在極光抵達以前．冰島詩篇</p>
                     </div>
                     <div class="scrap-desc">
                         <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">追光而行，讓極光、冰河與瀑布，寫下一封獻給冰島的長信。</p>

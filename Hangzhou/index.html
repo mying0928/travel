@@ -233,7 +233,7 @@
     <div class="absolute top-0 left-0 w-full h-full" style="z-index: 1; background: linear-gradient(180deg, rgba(20,40,32,0.45) 0%, rgba(20,40,32,0.25) 45%, rgba(20,40,32,0.55) 100%);"></div>
     <canvas id="lotus-petals" class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 2;"></canvas>
     <div class="relative text-center z-10 p-4">
-        <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 14px rgba(0,0,0,0.8);">煙雨入江南・杭州紀行</h1>
+        <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 14px rgba(0,0,0,0.8);">煙雨入江南・杭州慢記</h1>
         <p id="hero-poem" class="mt-5 text-lg sm:text-xl tracking-widest leading-relaxed" style="text-shadow: 1px 1px 8px rgba(0,0,0,0.8);">一城煙雨，半卷西湖。<br>行過長街深巷，走進詩詞裡的江南，<br>只為在湖光山色間，與一場舊夢相逢。</p>
     </div>
 </header>
@@ -258,7 +258,7 @@
     <main>
         <section id="overview" class="content-section">
             <!-- Countdown & Weather -->
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
                 <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
                     <h2 class="text-2xl font-bold text-[#2a5a44] mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-[#3d7a5e]"></i>出發倒數計時</h2>
                     <div id="countdown" class="text-center grid grid-cols-4 gap-2">
@@ -277,7 +277,22 @@
                             <div id="weather-desc" class="text-slate-500">讀取中...</div>
                         </div>
                     </div>
+                    <div class="grid grid-cols-4 gap-2 text-center border-t border-gray-100 mt-4 pt-4">
+                        <div><div id="weather-feels" class="text-base font-semibold text-slate-700">--°C</div><div class="text-[11px] text-slate-400 mt-0.5">體感溫度</div></div>
+                        <div><div id="weather-humidity" class="text-base font-semibold text-slate-700">--%</div><div class="text-[11px] text-slate-400 mt-0.5">濕度</div></div>
+                        <div><div id="weather-wind" class="text-base font-semibold text-slate-700">-- m/s</div><div class="text-[11px] text-slate-400 mt-0.5">風速</div></div>
+                        <div><div id="weather-uv" class="text-base font-semibold text-slate-700">--</div><div class="text-[11px] text-slate-400 mt-0.5">紫外線</div></div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- 6天行程天氣總覽（依每天實際地點分別標記） -->
+            <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover mb-12">
+                <h2 class="text-2xl font-bold text-[#2a5a44] mb-4 flex items-center"><i class="fas fa-calendar-week mr-3 text-[#3d7a5e]"></i>行程天氣總覽 9/8-9/13</h2>
+                <div id="weather-week-list" class="space-y-1">
+                    <div class="text-center text-slate-400 text-sm py-4"><i class="fas fa-spinner fa-spin mr-2"></i>讀取中...</div>
+                </div>
+                <p class="text-xs text-slate-400 mt-3">資料來源：Open-Meteo，依各天實際地點分別查詢（杭州市區／青山湖／烏鎮／千島湖），僅供參考，出發前建議再次確認。</p>
             </div>
 
             <!-- Toolkit -->
@@ -613,6 +628,7 @@
         setupLotusPetals();
         setupCountdown();
         setupWeather();
+        setupWeeklyWeather();
         generateDailySections();
         setupTabSwitching();
         setupScrollToTop();
@@ -624,35 +640,54 @@
 
         // --- SETUP FUNCTIONS ---
 
-        function setupWeather() {
-            const weatherCodeMap = {
-                0: ["晴朗", "fa-sun"], 1: ["大致晴朗", "fa-sun"], 2: ["多雲時晴", "fa-cloud-sun"], 3: ["陰天", "fa-cloud"],
-                45: ["有霧", "fa-smog"], 48: ["有霧", "fa-smog"],
-                51: ["毛毛雨", "fa-cloud-rain"], 53: ["毛毛雨", "fa-cloud-rain"], 55: ["毛毛雨", "fa-cloud-rain"],
-                56: ["凍雨", "fa-icicles"], 57: ["凍雨", "fa-icicles"],
-                61: ["小雨", "fa-cloud-rain"], 63: ["中雨", "fa-cloud-showers-heavy"], 65: ["大雨", "fa-cloud-showers-heavy"],
-                66: ["凍雨", "fa-icicles"], 67: ["凍雨", "fa-icicles"],
-                71: ["小雪", "fa-snowflake"], 73: ["中雪", "fa-snowflake"], 75: ["大雪", "fa-snowflake"], 77: ["陣雪粒", "fa-snowflake"],
-                80: ["陣雨", "fa-cloud-rain"], 81: ["中陣雨", "fa-cloud-showers-heavy"], 82: ["強陣雨", "fa-cloud-showers-heavy"],
-                85: ["陣雪", "fa-snowflake"], 86: ["強陣雪", "fa-snowflake"],
-                95: ["雷雨", "fa-bolt"], 96: ["雷雨冰雹", "fa-bolt"], 99: ["雷雨冰雹", "fa-bolt"]
-            };
+        const weatherCodeMap = {
+            0: ["晴朗", "fa-sun"], 1: ["大致晴朗", "fa-sun"], 2: ["多雲時晴", "fa-cloud-sun"], 3: ["陰天", "fa-cloud"],
+            45: ["有霧", "fa-smog"], 48: ["有霧", "fa-smog"],
+            51: ["毛毛雨", "fa-cloud-rain"], 53: ["毛毛雨", "fa-cloud-rain"], 55: ["毛毛雨", "fa-cloud-rain"],
+            56: ["凍雨", "fa-icicles"], 57: ["凍雨", "fa-icicles"],
+            61: ["小雨", "fa-cloud-rain"], 63: ["中雨", "fa-cloud-showers-heavy"], 65: ["大雨", "fa-cloud-showers-heavy"],
+            66: ["凍雨", "fa-icicles"], 67: ["凍雨", "fa-icicles"],
+            71: ["小雪", "fa-snowflake"], 73: ["中雪", "fa-snowflake"], 75: ["大雪", "fa-snowflake"], 77: ["陣雪粒", "fa-snowflake"],
+            80: ["陣雨", "fa-cloud-rain"], 81: ["中陣雨", "fa-cloud-showers-heavy"], 82: ["強陣雨", "fa-cloud-showers-heavy"],
+            85: ["陣雪", "fa-snowflake"], 86: ["強陣雪", "fa-snowflake"],
+            95: ["雷雨", "fa-bolt"], 96: ["雷雨冰雹", "fa-bolt"], 99: ["雷雨冰雹", "fa-bolt"]
+        };
 
-            fetch('https://api.open-meteo.com/v1/forecast?latitude=30.2741&longitude=120.1551&current=temperature_2m,weather_code&timezone=Asia%2FShanghai')
+        function setupWeather() {
+            // 抓當天即時天氣（杭州市區・武林廣場），順便帶體感溫度／濕度／風速／紫外線一起顯示
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=30.2842&longitude=120.1622&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code,uv_index&timezone=Asia%2FShanghai')
                 .then(response => response.json())
                 .then(data => {
                     const current = data.current;
                     const temp = Math.round(current.temperature_2m);
+                    const feels = Math.round(current.apparent_temperature);
+                    const humidity = Math.round(current.relative_humidity_2m);
+                    const wind = current.wind_speed_10m.toFixed(1);
+                    const uv = current.uv_index;
                     const [desc, iconClass] = weatherCodeMap[current.weather_code] || ["未知", "fa-question-circle"];
 
                     const weatherIconEl = document.getElementById('weather-icon');
                     const weatherTempEl = document.getElementById('weather-temp');
                     const weatherDescEl = document.getElementById('weather-desc');
+                    const weatherFeelsEl = document.getElementById('weather-feels');
+                    const weatherHumidityEl = document.getElementById('weather-humidity');
+                    const weatherWindEl = document.getElementById('weather-wind');
+                    const weatherUvEl = document.getElementById('weather-uv');
 
                     if (weatherIconEl && weatherTempEl && weatherDescEl) {
                         weatherIconEl.className = `fas ${iconClass} text-6xl text-yellow-400`;
                         weatherTempEl.textContent = `${temp}°C`;
                         weatherDescEl.textContent = desc;
+                    }
+                    if (weatherFeelsEl) weatherFeelsEl.textContent = `${feels}°C`;
+                    if (weatherHumidityEl) weatherHumidityEl.textContent = `${humidity}%`;
+                    if (weatherWindEl) weatherWindEl.textContent = `${wind} m/s`;
+                    if (weatherUvEl) {
+                        weatherUvEl.textContent = uv.toFixed(1);
+                        // WHO 標準：6 以上算「高」，用顯眼顏色提醒防曬
+                        weatherUvEl.className = uv >= 6
+                            ? 'text-base font-bold text-orange-600'
+                            : 'text-base font-semibold text-slate-700';
                     }
                 })
                 .catch(error => {
@@ -662,6 +697,107 @@
                         weatherInfoEl.innerHTML = '<div class="text-sm text-slate-500">無法載入天氣資訊</div>';
                     }
                 });
+        }
+
+        function setupWeeklyWeather() {
+            // 行程沿途各地點座標：住宿地杭州市區・武林廣場（每天都會回到這裡過夜）、青山湖＋烏鎮（Day3 白天）、千島湖（Day4 白天）
+            const WEATHER_STOPS = {
+                hangzhou: { label: "杭州市區（武林廣場）", lat: 30.2842, lon: 120.1622 },
+                qingshanhu: { label: "青山湖", lat: 30.2909, lon: 119.7208 },
+                wuzhen: { label: "烏鎮", lat: 30.7423, lon: 120.4870 },
+                qiandaohu: { label: "千島湖", lat: 29.6053, lon: 119.0416 }
+            };
+            // 每天可能對應一個或多個地點；因為每天晚上都會回杭州住宿，即使當天去千島湖／烏鎮／青山湖，也一併標記杭州當天的天氣
+            const DAY_STOP_MAP = {
+                "09-08": [{ key: "hangzhou" }],
+                "09-09": [{ key: "hangzhou" }],
+                "09-10": [{ key: "qingshanhu", time: "上午" }, { key: "wuzhen", time: "下午" }, { key: "hangzhou", time: "晚上" }],
+                "09-11": [{ key: "qiandaohu", time: "白天" }, { key: "hangzhou", time: "晚上" }],
+                "09-12": [{ key: "hangzhou" }],
+                "09-13": [{ key: "hangzhou" }]
+            };
+            const WEATHER_START_DATE = "2026-09-08";
+            const WEATHER_END_DATE = "2026-09-13";
+            // WMO 天氣代碼中屬於「會下雨」的代碼，杭州當天若命中，用醒目樣式提醒帶傘
+            const RAIN_CODES = new Set([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99]);
+
+            const fetches = Object.entries(WEATHER_STOPS).map(([key, stop]) =>
+                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${stop.lat}&longitude=${stop.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max&timezone=Asia%2FShanghai&start_date=${WEATHER_START_DATE}&end_date=${WEATHER_END_DATE}`)
+                    .then(r => { if (!r.ok) throw new Error('Weather fetch failed'); return r.json(); })
+                    .then(data => ({ key, data }))
+                    .catch(() => ({ key, data: null }))
+            );
+
+            Promise.all(fetches).then(results => {
+                const byStop = {};
+                results.forEach(r => { byStop[r.key] = r.data; });
+
+                const weatherWeekEl = document.getElementById('weather-week-list');
+                if (!weatherWeekEl) return;
+
+                const dates = Object.keys(DAY_STOP_MAP);
+                weatherWeekEl.innerHTML = dates.map((mmdd, idx) => {
+                    const [month, day] = mmdd.split('-').map(Number);
+                    const weekday = ['日', '一', '二', '三', '四', '五', '六'][new Date(2026, month - 1, day).getDay()];
+                    const stopsToday = DAY_STOP_MAP[mmdd];
+
+                    const rowsHtml = stopsToday.map((entry, subIdx) => {
+                        const stop = WEATHER_STOPS[entry.key];
+                        const data = byStop[entry.key];
+                        const dateLabel = subIdx === 0
+                            ? `<span class="font-semibold text-slate-700">${month}/${day}</span> <span class="text-slate-400">(${weekday})</span>`
+                            : `<span class="text-slate-300 pl-1">↳</span>`;
+                        const timeTag = entry.time ? `<span class="text-[10px] text-slate-400 mr-1">${entry.time}</span>` : '';
+
+                        if (!data || !data.daily || data.daily.time[idx] === undefined) {
+                            return `<div class="flex items-center justify-between py-2">
+                                <div class="text-sm">${dateLabel} ${timeTag}<span class="text-xs text-[#3d7a5e] ml-1">📍${stop.label}</span></div>
+                                <div class="text-sm text-slate-400">無法載入</div>
+                            </div>`;
+                        }
+
+                        const code = data.daily.weather_code[idx];
+                        const [desc, iconClass] = weatherCodeMap[code] || ["未知", "fa-question-circle"];
+                        const tMax = Math.round(data.daily.temperature_2m_max[idx]);
+                        const tMin = Math.round(data.daily.temperature_2m_min[idx]);
+                        const pop = data.daily.precipitation_probability_max[idx];
+                        const uvMax = data.daily.uv_index_max ? data.daily.uv_index_max[idx] : null;
+
+                        // 杭州（住宿地）當天若會下雨，用醒目樣式提醒——因為每天晚上都會回這裡
+                        const isHangzhouRain = entry.key === 'hangzhou' && RAIN_CODES.has(code);
+                        // 紫外線 WHO 標準 6 以上算「高」，不限地點，當天在外活動的地方都提醒防曬
+                        const isHighUv = uvMax !== null && uvMax >= 6;
+                        const rowClass = isHangzhouRain
+                            ? 'flex flex-wrap items-center justify-between gap-y-1 py-2 px-2 -mx-2 rounded-lg bg-amber-50 border border-amber-200'
+                            : 'flex flex-wrap items-center justify-between gap-y-1 py-2';
+                        const umbrellaTag = isHangzhouRain
+                            ? `<span class="text-[10px] font-semibold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded ml-1 whitespace-nowrap">☔ 記得帶傘</span>`
+                            : '';
+                        const uvTag = isHighUv
+                            ? `<span class="text-[10px] font-semibold text-orange-700 bg-orange-100 px-1.5 py-0.5 rounded ml-1 whitespace-nowrap">☀️ 紫外線強・防曬</span>`
+                            : '';
+
+                        return `<div class="${rowClass}">
+                            <div class="text-sm flex flex-wrap items-center gap-y-1">${dateLabel} ${timeTag}<span class="text-xs text-[#3d7a5e] ml-1">📍${stop.label}</span>${umbrellaTag}${uvTag}</div>
+                            <div class="flex items-center gap-3 flex-shrink-0">
+                                <i class="fas ${iconClass} text-lg ${isHangzhouRain ? 'text-amber-500' : 'text-yellow-500'} w-5 text-center"></i>
+                                <span class="text-xs text-slate-600 w-16 text-center hidden sm:inline">${desc}</span>
+                                <span class="text-sm font-semibold ${isHangzhouRain ? 'text-amber-700' : 'text-slate-700'} w-16 text-right">${tMax}° / ${tMin}°</span>
+                                <span class="text-xs text-sky-600 w-10 text-right"><i class="fas fa-droplet mr-0.5"></i>${pop}%</span>
+                            </div>
+                        </div>`;
+                    }).join('');
+
+                    // 每個日期一個獨立區塊，用明顯的分隔線＋間距把「天」跟「天」隔開，同一天內的多地點只用細線區分
+                    return `<div class="${idx > 0 ? 'mt-3 pt-3 border-t-2 border-[#e8f3ec]' : ''} divide-y divide-gray-100">${rowsHtml}</div>`;
+                }).join('');
+            }).catch(error => {
+                console.error('Error fetching weekly weather:', error);
+                const weatherWeekEl = document.getElementById('weather-week-list');
+                if (weatherWeekEl) {
+                    weatherWeekEl.innerHTML = '<div class="text-sm text-slate-500 text-center py-4">無法載入天氣資訊</div>';
+                }
+            });
         }
 
         function setupAnimations() {
