@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let buttonsHtml = '';
 
         // Add the Overview button first, and ensure it's active by default
-        buttonsHtml += `<button data-target="overview" class="nav-btn bg-orange-500 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>`;
+        buttonsHtml += `<button data-target="overview" class="nav-btn bg-yellow-500 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>`;
 
         // Loop through itinerary data to create a button for each day
         for (const dayId in itineraryData) {
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     ? `<span class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] leading-none px-1.5 py-0.5 rounded-full shadow">今天</span>`
                     : '';
                 buttonsHtml += `
-                    <button data-target="${dayId}" class="nav-btn relative ${isToday ? 'ring-2 ring-red-400 ring-offset-2' : ''} bg-orange-100 text-orange-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">
+                    <button data-target="${dayId}" class="nav-btn relative ${isToday ? 'ring-2 ring-red-400 ring-offset-2' : ''} bg-yellow-100 text-yellow-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">
                         ${todayBadge}
                         ${dayData.navInfo.date}<br><span class="text-xs font-medium">${dayData.navInfo.day}</span>
                     </button>
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 weatherInfo.innerHTML = `
                     <div class="text-center w-full">
                         ${errorMessage}
-                        <button id="${retryButtonId}" class="bg-orange-500 text-white py-1 px-4 rounded-full hover:bg-orange-600 transition-colors text-sm">重試</button>
+                        <button id="${retryButtonId}" class="bg-yellow-500 text-white py-1 px-4 rounded-full hover:bg-yellow-600 transition-colors text-sm">重試</button>
                     </div>`;
                 
                 const retryButton = document.getElementById(retryButtonId);
@@ -628,13 +628,11 @@ document.addEventListener('DOMContentLoaded', function () {
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Autumn color palette for the leaves (red, orange, yellow, brown-orange)
-        const autumnColors = [
-            'rgba(217, 83, 79,',  // Red
-            'rgba(240, 173, 78,', // Orange
-            'rgba(255, 204, 0,',  // Yellow
-            'rgba(188, 70, 1,',   // Brownish Orange
-        ];
+        // Early-autumn leaf mix (still-green to just-turning gold — no peak-maple red).
+        // NOTE: canvas fillText() renders color-emoji glyphs using the font's own built-in
+        // colors, ignoring ctx.fillStyle entirely — so the leaf color must come from picking
+        // different emoji, not from trying to tint a single emoji via fillStyle.
+        const leafEmojis = ['🍃', '🌿', '🍂', '🌾'];
 
         class Particle {
             constructor() {
@@ -646,7 +644,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.opacity = Math.random() * 0.6 + 0.4;
                 this.angle = Math.random() * Math.PI * 2;
                 this.spin = (Math.random() > 0.5 ? 0.01 : -0.01) * 0.7; // Slower spin
-                this.color = autumnColors[Math.floor(Math.random() * autumnColors.length)];
+                this.emoji = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
             }
             update() {
                 this.y += this.speedY;
@@ -664,9 +662,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle);
+                ctx.globalAlpha = this.opacity;
                 ctx.font = `${this.size}px Arial`;
-                ctx.fillStyle = `${this.color} ${this.opacity})`;
-                ctx.fillText('🍁', 0, 0); // Changed to maple leaf emoji
+                ctx.fillText(this.emoji, 0, 0);
                 ctx.restore();
             }
         }
@@ -715,7 +713,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (distance < 0) {
                 clearInterval(interval);
-                countdownElement.innerHTML = "<div class='col-span-4 text-2xl font-bold text-orange-600'>旅程已開始！</div>";
+                countdownElement.innerHTML = "<div class='col-span-4 text-2xl font-bold text-yellow-600'>旅程已開始！</div>";
                 return;
             }
 
@@ -777,7 +775,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
         if (content.special) {
-            html += `<details class='mt-2 text-sm'><summary class='font-semibold'>${content.special.summary}</summary>${content.special.content}</details>`;
+            const specials = Array.isArray(content.special) ? content.special : [content.special];
+            specials.forEach(sp => {
+                html += `<details class='mt-2 text-sm'><summary class='font-semibold cursor-pointer text-yellow-700'>${sp.summary}</summary><div class='mt-2 space-y-3'>${sp.content}</div></details>`;
+            });
         }
 
         return html;
@@ -838,7 +839,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="icon"><i class="fas ${item.icon}"></i></div>
                                 <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
                                     <div class="p-4">
-                                        <h3 class="text-base sm:text-lg font-bold text-orange-700">${item.time} | ${item.title}</h3>
+                                        <h3 class="text-base sm:text-lg font-bold text-yellow-700">${item.time} | ${item.title}</h3>
                                     </div>
                                     <div class="p-4 bg-gray-50 border-t border-gray-100 text-slate-600">${buildContentHtml(item.content)}</div>
                                 </div>
@@ -849,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="daily-theme-card cursor-pointer relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" data-bg-src="${planData.themeImage}" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));">
                                 <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${planData.title}</h2>
                                 ${highlightsHtml}
-                                <button class="view-timeline-btn mt-6 bg-orange-600 text-white py-2 px-6 rounded-full shadow-lg hover:bg-orange-700 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
+                                <button class="view-timeline-btn mt-6 bg-yellow-600 text-white py-2 px-6 rounded-full shadow-lg hover:bg-yellow-700 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
                             </div>
                             <div class="timeline-container hidden relative pl-10 sm:pl-12">
                                 <div class="timeline-line"></div>
@@ -1003,10 +1004,10 @@ document.addEventListener('DOMContentLoaded', function () {
          tl.add(() => {
              navButtons.forEach(btn => {
                  const isTarget = btn.dataset.target === targetId;
-                 btn.classList.toggle('bg-orange-500', isTarget);
+                 btn.classList.toggle('bg-yellow-500', isTarget);
                  btn.classList.toggle('text-white', isTarget);
-                 btn.classList.toggle('bg-orange-100', !isTarget);
-                 btn.classList.toggle('text-orange-800', !isTarget);
+                 btn.classList.toggle('bg-yellow-100', !isTarget);
+                 btn.classList.toggle('text-yellow-800', !isTarget);
                  if (isTarget) {
                     btn.setAttribute('aria-current', 'page');
                  } else {

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>戲水南洋・芭達雅浪遊</title>
+    <meta property="og:title" content="戲水南洋・芭達雅浪遊">
+    <meta name="twitter:title" content="戲水南洋・芭達雅浪遊">
+
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-gold: #0ea5e9; /* Vivid Cyan/Aqua */
+            --brand-dark-gold: #0284c7;
+            --brand-light-gold: #e0f2fe;
+        }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f9ff;
+            background-image: url('images/background-pattern.svg');
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        body.loaded { opacity: 1; }
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #f0f9ff; display: flex; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.75s ease, visibility 0.75s ease; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        .loader-wave { display: flex; align-items: flex-end; height: 50px; }
+        .loader-wave div { width: 8px; height: 10px; margin: 0 3px; background-color: var(--brand-gold); border-radius: 4px; animation: wave-anim 1.2s infinite ease-in-out; }
+        .loader-wave div:nth-child(1) { animation-delay: 0s; } .loader-wave div:nth-child(2) { animation-delay: 0.1s; } .loader-wave div:nth-child(3) { animation-delay: 0.2s; } .loader-wave div:nth-child(4) { animation-delay: 0.3s; } .loader-wave div:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes wave-anim { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(3); } }
+        .hero-header { height: 100vh; min-height: 600px; max-height: 800px; }
+        #hero-title .char { display: inline-block; will-change: transform, opacity; }
+        .card-hover { transition: transform 0.4s ease, box-shadow 0.4s ease; will-change: transform; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(2, 132, 199, 0.3); }
+        .timeline-item .icon { position: absolute; left: -38px; top: 5px; width: 36px; height: 36px; border-radius: 50%; background-color: var(--brand-gold); color: #fff; display: flex; align-items: center; justify-content: center; border: 3px solid var(--brand-light-gold); font-size: 1.1rem; z-index: 10; transition: transform 0.3s ease; }
+        .timeline-item:hover .icon { transform: scale(1.2); }
+        .timeline-line { position: absolute; left: -21px; top: 20px; bottom: -20px; width: 4px; background-color: #f3f4f6; border-radius: 2px; }
+        .timeline-line-progress { position: absolute; left: -21px; top: 20px; width: 4px; background-color: var(--brand-gold); border-radius: 2px; height: 0; }
+        .daily-theme-card { background-size: cover; background-position: center; transition: transform 0.5s ease; }
+        .daily-theme-card:hover { transform: scale(1.03); }
+        #map { height: 450px; border-radius: 1rem; z-index: 1; }
+        .leaflet-popup-content-wrapper { border-radius: 0.5rem; }
+        .leaflet-popup-content { font-family: 'Noto Sans TC', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="preloader">
+        <div class="loader-wave"><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden">
+        <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+             style="background-image: url('images/hero-真理寺.jpg'); z-index: 0;">
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-index: 1;"></div>
+        <div class="relative text-center z-10 p-4">
+            <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 12px rgba(0,0,0,0.7);">戲水南洋・芭達雅浪遊</h1>
+            <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl text-shadow" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.7);">潑水節狂歡、海島秘境與金輝聖殿的六日詩篇</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl -mt-24 z-20 relative">
+        <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg">
+            <div class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
+                <button data-target="overview" class="nav-btn bg-sky-500 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
+                <button data-target="day1" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/12<br><span class="text-xs font-medium">(週一)</span></button>
+                <button data-target="day2" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/13<br><span class="text-xs font-medium">(週二)</span></button>
+                <button data-target="day3" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/14<br><span class="text-xs font-medium">(週三)</span></button>
+                <button data-target="day4" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/15<br><span class="text-xs font-medium">(週四)</span></button>
+                <button data-target="day5" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/16<br><span class="text-xs font-medium">(週五)</span></button>
+                <button data-target="day6" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/17<br><span class="text-xs font-medium">(週六)</span></button>
+            </div>
+        </nav>
+
+        <main>
+            <section id="overview" class="content-section">
+                <!-- Countdown & Weather -->
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h2 class="text-2xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-sky-500"></i>出發倒數計時</h2>
+                        <div id="countdown" class="text-center grid grid-cols-4 gap-2">
+                            <div><div class="text-4xl font-bold text-slate-700" id="days">00</div><div class="text-xs text-slate-500">天</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="hours">00</div><div class="text-xs text-slate-500">小時</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="minutes">00</div><div class="text-xs text-slate-500">分鐘</div></div>
+                            <div><div class="text-4xl font-bold text-slate-700" id="seconds">00</div><div class="text-xs text-slate-500">秒</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
+                        <h2 class="text-2xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-sky-500"></i>芭達雅天氣速覽</h2>
+                        <div id="weather-info" class="flex items-center justify-around">
+                            <i id="weather-icon" class="fas fa-spinner fa-spin text-6xl text-sky-400"></i>
+                            <div>
+                                <div id="weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
+                                <div id="weather-desc" class="text-slate-500">讀取中...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Section -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-map-marked-alt mr-3 text-sky-500"></i>互動行程地圖</h2>
+                    <p class="mb-6 text-slate-600">點擊每日行程，即可在地圖上看到當天所有景點！</p>
+                    <div id="map"></div>
+                </div>
+
+                <!-- Budget Chart -->
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-chart-pie mr-3 text-sky-500"></i>預估人均支出 (THB)</h2>
+                    <p class="mb-6 text-slate-600">此圖表為您呈現每日預估的人均支出，主要涵蓋交通、景點門票與餐飲，不含住宿與購物，為旅程開銷提供參考。</p>
+                    <div class="chart-container relative w-full h-80 sm:h-96 max-w-3xl mx-auto">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <div id="daily-sections-container"></div>
+        </main>
+
+        <footer class="text-center mt-20 py-8">
+            <p class="text-slate-500 text-sm">&copy; 2027 戲水南洋・芭達雅浪遊. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <button id="scrollToTopBtn" title="回到頂部" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-sky-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-sky-600 hover:scale-110">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- DOM Elements ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const dailySectionsContainer = document.getElementById('daily-sections-container');
+            let currentActiveSectionId = null;
+            let isAnimating = false;
+
+            // --- DATA ---
+            const itineraryData = {
+                day1: {
+                    title: "抵達・水戰前夜的寧靜",
+                    themeImage: "images/芭達雅海灣.jpg",
+                    highlights: [
+                        { icon: "fa-shopping-bag", text: "Terminal 21 備戰採買" },
+                        { icon: "fa-utensils", text: "Pier 21 美食街" }
+                    ],
+                    locations: {
+                        "芭達雅海灘路": { lat: 12.928, lon: 100.883 },
+                        "Terminal 21 Pattaya": { lat: 12.935, lon: 100.889 }
+                    },
+                    items: [
+                        { time: "下午", title: "專車直達・入住濱海飯店", icon: "fa-car", details: "<p>從曼谷機場入境後，搭乘預約的專車直奔熱情的芭達雅，車程約1.5-2小時。選擇入住海灘路（Beach Road）周邊的飯店，方便體驗這座城市的活力。</p><p><strong>推薦住宿：</strong>芭達雅希爾頓酒店 或 芭達雅硬石酒店。</p>" },
+                        { time: "傍晚", title: "備戰採買・決戰裝備購置", icon: "fa-shopping-cart", details: "<p>前往芭達雅最醒目的地標之一 <strong>Terminal 21 Pattaya</strong> 商場。我們的首要任務是為明日的潑水節大戰採購完美裝備！</p><ul class='list-disc list-inside mt-2 text-sm'><li><i class='fas fa-shield-alt mr-2 text-sky-500'></i>專業手機防水袋</li><li><i class='fas fa-glasses mr-2 text-sky-500'></i>護目鏡（保護眼睛不受強力水柱攻擊）</li><li><i class='fas fa-crosshairs mr-2 text-sky-500'></i>強力水槍</li><li><i class='fas fa-tshirt mr-2 text-sky-500'></i>一件色彩鮮豔的泰式花襯衫</li></ul>" },
+                        { time: "晚上", title: "美食饗宴・海風中的悠閒", icon: "fa-utensils", details: "<p>在商場內的 <strong>Pier 21 美食街</strong> 享用平價又道地的泰式小吃，儲備明日戰鬥的能量。晚餐後，沿著海灘路散步，感受南國夜晚的涼爽海風，為充滿活力的一天畫下句點。</p>" }
+                    ]
+                },
+                day2: {
+                    title: "潑水節・終極水戰狂歡日",
+                    themeImage: "images/潑水節.jpg",
+                    highlights: [
+                        { icon: "fa-faucet-drip", text: "海灘路終極水戰" },
+                        { icon: "fa-crab", text: "戰後海鮮盛宴" }
+                    ],
+                    locations: {
+                        "芭達雅海灘路戰區": { lat: 12.930, lon: 100.885 }
+                    },
+                    items: [
+                        { time: "上午", title: "自然醒・戰前整備", icon: "fa-sun", details: "<p>睡到自然醒，為身體充滿電。出門前務必塗好高係數的防水防曬乳，並將所有貴重物品（護照、錢包、無防水的手機）鎖在飯店保險箱。</p>" },
+                        { time: "下午", title: "全面開戰・濕身大作戰", icon: "fa-faucet-drip", details: "<p>直奔海灘路一級戰區！跟著路邊的消防車、臨時補水站和泡沫派對，與來自世界各地的遊客一同陷入瘋狂的水戰。感受重低音響徹雲霄，享受無差別攻擊的濕身快感！</p><div class='mt-4 p-3 bg-yellow-100 border-l-4 border-yellow-400 text-yellow-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-exclamation-triangle mr-2'></i>重要提示：</strong>水戰當天隨身重要物品（少量現金、護照影本）請務必裝入專業防水袋，盡量勿帶未具防水功能的相機。</p></div>" },
+                        { time: "晚上", title: "戰後休整・海鮮盛宴", icon: "fa-crab", details: "<p>返回飯店洗個舒服的熱水澡，換上乾爽的衣服。前往海濱的海鮮餐廳，大啖美味的海鮮料理，伴隨著溫柔的海浪聲與音樂，享受戰後和平的寧靜夜晚。</p>" }
+                    ]
+                },
+                day3: {
+                    title: "海島晨光・聖殿夕照",
+                    themeImage: "images/真理寺.jpg",
+                    highlights: [
+                        { icon: "fa-ship", text: "格蘭島跳島" },
+                        { icon: "fa-gopuram", text: "真理寺木雕聖殿" },
+                        { icon: "fa-moon", text: "中天海灘晚餐" }
+                    ],
+                    locations: {
+                        "峇里海碼頭": { lat: 12.920, lon: 100.867 },
+                        "格蘭島 (Tien Beach)": { lat: 12.909, lon: 100.781 },
+                        "真理寺": { lat: 12.972, lon: 100.889 },
+                        "中天海灘": { lat: 12.885, lon: 100.883 }
+                    },
+                    items: [
+                        { time: "上午", title: "跳島之旅・格蘭島的呼喚", icon: "fa-ship", details: "<p>從<strong>峇里海碼頭（Bali Hai Pier）</strong>搭乘快艇，僅需15分鐘即可抵達被譽為「珊瑚島」的格蘭島。上午的海水最為清澈，推薦在 <strong>Tien Beach</strong> 或 <strong>Tawaen Beach</strong> 的躺椅上放空、喝冰涼的椰子水，或體驗刺激的水上活動。</p>" },
+                        { time: "下午", title: "返航・為朝聖做準備", icon: "fa-person-walking-luggage", details: "<p>約13:30搭船返回芭達雅市區。回飯店徹底沖洗，換上合乎寺廟禮儀的乾爽服裝（過膝褲/裙、不露肩膀的上衣），準備前往下一個神聖的目的地。</p>" },
+                        { time: "傍晚", title: "真理寺・黃昏下的木雕神話", icon: "fa-gopuram", details: "<p>前往<strong>真理寺（The Sanctuary of Truth）</strong>，這座全球最大的純木雕聖殿將讓你嘆為觀止。欣賞工匠們精湛的手雕工藝，並靜待傍晚時分，夕陽斜射在木造廊柱上，形成壯麗而神聖的光影。</p><div class='mt-4 p-3 bg-blue-100 border-l-4 border-blue-400 text-blue-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-tshirt mr-2'></i>服儀提醒：</strong>真理寺嚴格禁止穿著無袖背心、短裙及高於膝蓋的短褲，請務必更換合規服裝。</p></div>" },
+                        { time: "晚上", title: "中天海灘・寧靜的晚餐", icon: "fa-moon", details: "<p>遠離芭達雅市中心的喧囂，前往相對寧靜的<strong>中天海灘（Jomtien Beach）</strong>。在這裡的景觀餐廳或在地夜市享用晚餐，享受更為悠閒的夜晚。</p>" }
+                    ]
+                },
+                day4: {
+                    title: "近郊巡禮・回歸曼谷",
+                    themeImage: "images/七珍佛山.jpg",
+                    highlights: [
+                        { icon: "fa-mountain", text: "七珍佛山金身巨佛" },
+                        { icon: "fa-tree", text: "東芭樂園天空步道" },
+                        { icon: "fa-utensils", text: "Jodd Fairs 夜市" }
+                    ],
+                    locations: {
+                        "七珍佛山": { lat: 12.766, lon: 100.957 },
+                        "東芭樂園": { lat: 12.768, lon: 100.932 },
+                        "Jodd Fairs 夜市": { lat: 13.810, lon: 100.562 }
+                    },
+                    items: [
+                        { time: "上午", title: "包車出發・仰望金色巨佛", icon: "fa-car-side", details: "<p>辦理退房後，搭乘預定的包車開始近郊之旅。第一站來到<strong>七珍佛山（Khao Chi Chan）</strong>，仰望在130公尺高的峭壁上，以18K金箔雷射雕刻而成的宏偉釋迦牟尼佛像。園區環境清幽，且免門票即可參觀。</p>" },
+                        { time: "下午", title: "東芭樂園・漫步奇幻花園", icon: "fa-tree", details: "<p>前往旁大的<strong>東芭樂園（Nong Nooch Tropical Garden）</strong>。漫步在天空步道上，俯瞰精心設計的法式幾何花園、奇特的仙人掌園，以及栩栩如生的恐龍谷，彷彿進入一個奇幻世界。</p>" },
+                        { time: "傍晚", title: "啟程・返回曼谷", icon: "fa-road", details: "<p>約16:00從東芭樂園出發，包車返回曼谷市區，車程約2小時。入住市區飯店，為接下來的城市探索做準備。</p><div class='mt-4 p-3 bg-red-100 border-l-4 border-red-400 text-red-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-traffic-light mr-2'></i>交通提示：</strong>為避開下班尖峰時段的嚴重塞車，建議預留充裕的交通時間返回曼谷。</p></div>" },
+                        { time: "晚上", title: "Jodd Fairs・火山排骨的召喚", icon: "fa-utensils", details: "<p>抵達曼谷後，直奔人氣爆棚的 <strong>Jodd Fairs 喬德夜市</strong>。在這裡，你將能大啖網路名物「火山排骨」、新鮮的生醃海鮮、清涼的水果冰沙與各式泰式串燒，享受曼谷的夜生活。</p>" }
+                    ]
+                },
+                day5: {
+                    title: "曼谷心臟・購物與療癒之旅",
+                    themeImage: "images/昭披耶河夜景.jpg",
+                    highlights: [
+                        { icon: "fa-shopping-bag", text: "Siam・Central World" },
+                        { icon: "fa-spa", text: "泰式按摩 SPA" },
+                        { icon: "fa-water", text: "ICONSIAM 水舞秀" }
+                    ],
+                    locations: {
+                        "Siam Paragon": { lat: 13.746, lon: 100.534 },
+                        "Central World": { lat: 13.746, lon: 100.539 },
+                        "Big C Supercenter": { lat: 13.747, lon: 100.542 },
+                        "ICONSIAM": { lat: 13.726, lon: 100.510 }
+                    },
+                    items: [
+                        { time: "白天", title: "BTS暢遊・心臟商圈巡禮", icon: "fa-shopping-bag", details: "<p>搭乘BTS空鐵，輕鬆暢遊曼谷最核心的商圈。從 <strong>Siam Paragon</strong> 的國際精品到 <strong>Central World</strong> 的潮流品牌，以及泰國本地特色的設計與香氛，滿足你的所有購物慾望。</p>" },
+                        { time: "下午", title: "伴手禮採買 & SPA放鬆", icon: "fa-gifts", details: "<p>前往 <strong>Big C Supercenter (Rajdamri)</strong> 進行最後的伴手禮大採買，將泰國的美味零食打包回家。隨後，安排一場約2小時的泰式傳統按摩或精油SPA，徹底舒緩旅途中的疲勞。</p>" },
+                        { time: "晚上", title: "昭披耶河畔的璀璨", icon: "fa-water", details: "<p>晚餐有兩種絕佳選擇：</p><ul class='list-disc list-inside mt-2 text-sm'><li>前往位於昭披耶河畔的頂級商場 <strong>ICONSIAM</strong>，欣賞壯觀的戶外水舞秀，並逛逛充滿特色的室內水上市場。</li><li>挑選一間能俯瞰曼谷夜景的高空酒吧，在百萬夜景的陪伴下，享受一個微醺的浪漫夜晚。</li></ul>" }
+                    ]
+                },
+                day6: {
+                    title: "告別曼谷・滿載而歸",
+                    themeImage: "images/蘇凡納布機場.jpg",
+                    highlights: [
+                        { icon: "fa-coffee", text: "悠閒早午餐" },
+                        { icon: "fa-plane-departure", text: "機場專車返台" }
+                    ],
+                    locations: {},
+                    items: [
+                        { time: "上午", title: "悠閒早午餐・最後巡禮", icon: "fa-coffee", details: "<p>在飯店享用豐盛的早餐，或是尋找一間有質感的文青咖啡廳，品嚐一杯手沖咖啡，為這趟旅程寫下悠閒的註腳。整理行李並辦理退房。</p>" },
+                        { time: "下午", title: "機場專車・返台", icon: "fa-plane-departure", details: "<p>為確保有充裕的時間辦理登機與退稅手續，請<strong>務必提前3.5小時</strong>搭乘預約的專車前往蘇凡納布（BKK）或廊曼（DMK）機場。</p><div class='mt-4 p-3 bg-red-100 border-l-4 border-red-400 text-red-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-traffic-light mr-2'></i>交通提示：</strong>前往機場的交通狀況難以預測，強烈建議預留充裕的交通時間以避開可能的塞車。</p></div>" }
+                    ]
+                }
+            };
+
+            // --- INITIALIZATION ---
+            let map;
+            let markers = [];
+
+            function setupPage() {
+                setupAnimations();
+                setupCountdown();
+                setupWeather();
+                setupMap();
+                generateDailySections();
+                setupTabSwitching();
+                setupScrollToTop();
+                setupChart();
+                
+                window.addEventListener('load', () => {
+                    document.querySelector('.preloader')?.classList.add('hidden');
+                    document.body.classList.add('loaded');
+                    isAnimating = true;
+                    switchTab('overview', false, () => { isAnimating = false; });
+                });
+            }
+            
+            setupPage();
+
+            // --- SETUP FUNCTIONS ---
+
+            function setupWeather() {
+                const weatherIconMap = { "Sunny": "fa-sun", "Clear": "fa-moon", "Partly cloudy": "fa-cloud-sun", "Cloudy": "fa-cloud", "Overcast": "fa-smog", "Mist": "fa-smog", "Patchy rain possible": "fa-cloud-showers-heavy", "Thundery outbreaks possible": "fa-bolt", "Light rain": "fa-cloud-rain", "Moderate rain": "fa-cloud-showers-heavy", "Heavy rain": "fa-cloud-showers-heavy", "Light rain shower": "fa-cloud-rain" };
+                const weatherDescTranslations = { "Sunny": "晴朗", "Clear": "晴朗", "Partly cloudy": "多雲時晴", "Cloudy": "多雲", "Overcast": "陰天", "Mist": "有霧", "Patchy rain possible": "可能有零星降雨", "Thundery outbreaks possible": "可能有雷暴", "Light rain": "小雨", "Moderate rain": "中雨", "Heavy rain": "大雨", "Light rain shower": "陣雨" };
+
+                fetch('https://wttr.in/Pattaya?format=j1')
+                    .then(response => response.json())
+                    .then(data => {
+                        const condition = data.current_condition[0];
+                        const temp = condition.temp_C;
+                        const weatherDesc = condition.weatherDesc[0].value;
+                        const iconClass = weatherIconMap[weatherDesc] || 'fa-question-circle';
+                        const translatedDesc = weatherDescTranslations[weatherDesc] || weatherDesc;
+
+                        document.getElementById('weather-icon').className = `fas ${iconClass} text-6xl text-sky-400`;
+                        document.getElementById('weather-temp').textContent = `${temp}°C`;
+                        document.getElementById('weather-desc').textContent = translatedDesc;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching weather:', error);
+                        document.getElementById('weather-info').innerHTML = '<div class="text-sm text-slate-500">無法載入天氣資訊</div>';
+                    });
+            }
+            
+            function setupAnimations() {
+                const heroTitle = document.getElementById('hero-title');
+                const text = heroTitle.innerText;
+                heroTitle.innerHTML = text.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+                gsap.from(heroTitle.querySelectorAll('.char'), { duration: 1.2, y: 100, autoAlpha: 0, stagger: 0.05, ease: "back.out(1.7)" });
+                gsap.from("#hero-subtitle", { duration: 1, y: 30, opacity: 0, ease: "power3.out", delay: 1 });
+            }
+            
+            function setupCountdown() {
+                const targetDate = new Date('2027-04-12T00:00:00').getTime();
+                const interval = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = targetDate - now;
+                    if (distance < 0) {
+                        clearInterval(interval);
+                        document.getElementById('countdown').innerHTML = "<div class='col-span-4 text-2xl font-bold text-sky-600'>旅程已開始！</div>";
+                        return;
+                    }
+                    document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                    document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                    document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                    document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+                }, 1000);
+            }
+
+            function setupMap() {
+                map = L.map('map').setView([12.9236, 100.8825], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 19
+                }).addTo(map);
+            }
+
+            function generateDailySections() {
+                let allSectionsHtml = Object.keys(itineraryData).map(dayId => {
+                    const dayData = itineraryData[dayId];
+                    const highlightsHtml = dayData.highlights ? `
+                        <div class="mt-4 flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-white/90" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
+                            ${dayData.highlights.map(h => `<span class="flex items-center"><i class="fas ${h.icon} mr-2"></i>${h.text}</span>`).join('')}
+                        </div>
+                    ` : '';
+                    const timelineHtml = dayData.items.map(item => `
+                        <div class="timeline-item relative mb-8">
+                            <div class="icon"><i class="fas ${item.icon}"></i></div>
+                            <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                                <div class="p-4">
+                                    <h3 class="text-base sm:text-lg font-bold text-sky-700">${item.time} | ${item.title}</h3>
+                                </div>
+                                <div class="p-4 bg-gray-50 border-t border-gray-100 text-slate-600">${item.details}</div>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    return `
+                        <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
+                            <div class="daily-theme-card cursor-pointer relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${dayData.themeImage}'); background-size: cover; background-position: center;">
+                                <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${dayData.title}</h2>
+                                ${highlightsHtml}
+                                <button class="view-timeline-btn mt-6 bg-sky-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-sky-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
+                            </div>
+                            <div class="timeline-container hidden relative pl-10 sm:pl-12">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-line-progress"></div>
+                                ${timelineHtml}
+                            </div>
+                        </section>`;
+                }).join('');
+                dailySectionsContainer.innerHTML = allSectionsHtml;
+
+                document.querySelectorAll('.daily-theme-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const button = card.querySelector('.view-timeline-btn');
+                        const timeline = card.nextElementSibling;
+                        if (!timeline || !timeline.classList.contains('timeline-container')) return;
+
+                        const isOpening = timeline.classList.contains('hidden');
+
+                        document.querySelectorAll('.timeline-container:not(.hidden)').forEach(openTimeline => {
+                            if (openTimeline !== timeline) {
+                                openTimeline.classList.add('hidden');
+                                const openButton = openTimeline.previousElementSibling.querySelector('.view-timeline-btn');
+                                if (openButton) openButton.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                            }
+                        });
+
+                        if (isOpening) {
+                            timeline.classList.remove('hidden');
+                            button.innerHTML = '隱藏詳細行程 <i class="fas fa-chevron-up ml-2"></i>';
+                            setTimeout(() => {
+                                ScrollTrigger.refresh();
+                                gsap.from(timeline.querySelectorAll('.timeline-item'), { opacity: 0, x: -50, stagger: 0.15, duration: 0.7, ease: "power3.out" });
+                                gsap.to(timeline.querySelector('.timeline-line-progress'), {
+                                    scrollTrigger: { trigger: timeline, start: "top center", end: "bottom bottom", scrub: true },
+                                    height: "100%"
+                                });
+                                gsap.to(window, { duration: 0.8, ease: 'power3.inOut', scrollTo: { y: timeline, offsetY: document.querySelector('nav').offsetHeight + 32 } });
+                            }, 10);
+                        } else {
+                            gsap.to(window, {
+                                duration: 0.5, ease: 'power3.inOut',
+                                scrollTo: { y: card, offsetY: document.querySelector('nav').offsetHeight + 32 },
+                                onComplete: () => {
+                                    gsap.to(timeline, {
+                                        duration: 0.4, opacity: 0, ease: 'power2.in',
+                                        onComplete: () => {
+                                            timeline.classList.add('hidden');
+                                            timeline.style.opacity = 1;
+                                            button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+
+            function setupTabSwitching() {
+                navButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetId = button.dataset.target;
+                        if (!isAnimating && targetId !== currentActiveSectionId) {
+                            isAnimating = true;
+                            switchTab(targetId, true, () => { isAnimating = false; });
+                        }
+                    });
+                });
+            }
+
+            function switchTab(targetId, shouldScroll = true, onCompleteCallback = () => {}) {
+                const oldSection = currentActiveSectionId ? document.getElementById(currentActiveSectionId) : null;
+                const newSection = document.getElementById(targetId);
+                if (!newSection) return;
+
+                const tl = gsap.timeline({ onComplete: () => { currentActiveSectionId = targetId; ScrollTrigger.refresh(); onCompleteCallback(); } });
+                if (oldSection) {
+                    tl.to(oldSection, { duration: 0.3, opacity: 0, ease: 'power2.in', onComplete: () => { oldSection.style.display = 'none'; } });
+                }
+                
+                tl.add(() => {
+                    navButtons.forEach(btn => {
+                        const isTarget = btn.dataset.target === targetId;
+                        btn.classList.toggle('bg-sky-500', isTarget);
+                        btn.classList.toggle('text-white', isTarget);
+                        btn.classList.toggle('bg-sky-100', !isTarget);
+                        btn.classList.toggle('text-sky-800', !isTarget);
+                    });
+                });
+
+                tl.set(newSection, { display: 'block', opacity: 0 })
+                  .to(newSection, {
+                    duration: 0.4,
+                    opacity: 1,
+                    ease: 'power2.out',
+                    onStart: () => {
+                        updateMapForDay(targetId);
+                        gsap.from(newSection.querySelectorAll('.daily-theme-card'), { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out', stagger: 0.1 });
+                    }
+                });
+
+                if (shouldScroll) {
+                    tl.to(window, { duration: 0.8, ease: 'power2.inOut', scrollTo: { y: newSection, offsetY: document.querySelector('nav').offsetHeight + 32 } }, "-=0.2");
+                }
+            }
+
+            function updateMapForDay(dayId) {
+                markers.forEach(marker => map.removeLayer(marker));
+                markers = [];
+
+                const dayData = itineraryData[dayId];
+                if (!dayData || !dayData.locations || Object.keys(dayData.locations).length === 0) {
+                    map.setView([12.9236, 100.8825], 12);
+                    return;
+                }
+
+                const locations = dayData.locations;
+                const bounds = L.latLngBounds();
+
+                for (const name in locations) {
+                    const loc = locations[name];
+                    const marker = L.marker([loc.lat, loc.lon]).addTo(map).bindPopup(`<b>${name}</b>`);
+                    markers.push(marker);
+                    bounds.extend([loc.lat, loc.lon]);
+                }
+                if (bounds.isValid()) { map.fitBounds(bounds, { padding: [50, 50] }); }
+            }
+
+            function setupScrollToTop() {
+                const btn = document.getElementById('scrollToTopBtn');
+                window.addEventListener('scroll', () => {
+                    const isVisible = window.scrollY > 300;
+                    btn.classList.toggle('opacity-0', !isVisible);
+                    btn.classList.toggle('invisible', !isVisible);
+                });
+                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            function setupChart() {
+                const ctx = document.getElementById('budgetChart').getContext('2d');
+                const budgetChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['4/12 (一)', '4/13 (二)', '4/14 (三)', '4/15 (四)', '4/16 (五)', '4/17 (六)'],
+                        datasets: [{
+                            label: '預估人均支出 (THB)',
+                            data: [1200, 1000, 1800, 2500, 3500, 800],
+                            backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                            borderColor: 'rgba(14, 165, 233, 1)',
+                            borderWidth: 1, borderRadius: 5,
+                            hoverBackgroundColor: 'rgba(2, 132, 199, 0.8)'
+                        }]
+                    },
+                    options: {
+                        animation: false, responsive: true, maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: true }, x: { grid: { display: false } } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+                ScrollTrigger.create({
+                    trigger: "#budgetChart", start: "top 80%",
+                    onEnter: () => { budgetChart.options.animation = { duration: 1500, easing: 'easeOutBounce' }; budgetChart.update(); },
+                    once: true
+                });
+            }
+        });
+    </script>
+</body>
+</html>

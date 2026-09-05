@@ -15,10 +15,10 @@ h3 {
 }
 
 :root {
-    --brand-primary: #EA580C;    /* Orange-600 */
+    --brand-primary: #CA8A04;    /* Yellow-600 (golden apple-harvest tone, not peak-maple red) */
     --brand-secondary: #F59E0B;   /* Amber-500 */
     --brand-light: #FFFBEB;     /* Amber-50 */
-    --brand-dark: #78350F;       /* Amber-900 */
+    --brand-dark: #713F12;       /* Yellow-900 */
 }
 
 body {

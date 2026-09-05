@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>青森之秋：探索行程</title>
-    <meta name="description" content="2026/9/8-9/13 東北秋色．青森物語：青森、弘前、十和田、八戶、盛岡、仙台六天五夜賞楓行程表，含每日詳細行程、即時天氣預報與日圓匯率計算機。">
+    <meta name="description" content="2026/9/8-9/13 東北秋色．青森物語：青森、弘前、十和田、八戶、盛岡、仙台六天五夜初秋行程表，含每日詳細行程、即時天氣預報與日圓匯率計算機。">
     <meta property="og:type" content="website">
     <meta property="og:title" content="東北秋色．青森物語">
-    <meta property="og:description" content="2026/9/8-9/13 青森、弘前、十和田、八戶、盛岡、仙台六天五夜賞楓行程表">
-    <meta property="og:image" content="https://mying0928.github.io/travel/Aomori/images/hero-background.webp">
+    <meta property="og:description" content="2026/9/8-9/13 青森、弘前、十和田、八戶、盛岡、仙台六天五夜初秋行程表">
+    <meta property="og:image" content="https://mying0928.github.io/travel/Aomori/images/hero-background.jpg">
     <meta property="og:url" content="https://mying0928.github.io/travel/Aomori/">
     <meta property="og:locale" content="zh_TW">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="東北秋色．青森物語">
-    <meta name="twitter:description" content="2026/9/8-9/13 青森、弘前、十和田、八戶、盛岡、仙台六天五夜賞楓行程表">
-    <meta name="twitter:image" content="https://mying0928.github.io/travel/Aomori/images/hero-background.webp">
+    <meta name="twitter:description" content="2026/9/8-9/13 青森、弘前、十和田、八戶、盛岡、仙台六天五夜初秋行程表">
+    <meta name="twitter:image" content="https://mying0928.github.io/travel/Aomori/images/hero-background.jpg">
     <link rel="icon" href="images/favicon.svg" type="images/svg+xml">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="preload" href="images/hero-background.webp" as="image">
+    <link rel="preload" href="images/hero-background.jpg" as="image">
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -125,12 +125,12 @@
     <header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden z-10">
         <canvas id="interactive-foreground"></canvas>
         <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
-             style="background-image: url('https://static.gltjp.com/glt/data/article/21000/20814/20241018_104128_6af97a50_w1920.webp');">
+             style="background-image: url('images/hero-background.jpg');">
         </div>
         <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-index: 1;"></div>
         <div class="relative text-center z-10 p-4">
             <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 12px rgba(0,0,0,0.7);">東北秋色・青森物語</h1>
-            <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl text-shadow" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.7);">奧入瀨的碧水流光，松島的千島夕照，一場深秋東北的浪漫詩篇。</p>
+            <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl text-shadow" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.7);">奧入瀨的碧水流光，松島的千島夕照，一場初秋東北的浪漫詩篇。</p>
         </div>
     </header>
 
@@ -147,7 +147,7 @@
             <section id="overview" class="content-section">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                     <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
-                        <h2 class="text-2xl font-bold text-orange-700 mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-orange-600"></i>出發倒數計時</h2>
+                        <h2 class="text-2xl font-bold text-yellow-700 mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-yellow-600"></i>出發倒數計時</h2>
                         <div id="countdown" class="text-center grid grid-cols-4 gap-2">
                             <div><div class="text-4xl font-bold text-slate-700" id="days">00</div><div class="text-xs text-slate-500">天</div></div>
                             <div><div class="text-4xl font-bold text-slate-700" id="hours">00</div><div class="text-xs text-slate-500">小時</div></div>
@@ -166,7 +166,7 @@
                         </div>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
-                        <h2 class="text-2xl font-bold text-orange-700 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-orange-600"></i>仙台天氣速覽</h2>
+                        <h2 class="text-2xl font-bold text-yellow-700 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-yellow-600"></i>仙台天氣速覽</h2>
                         <div id="sendai-weather-info" class="flex items-center justify-around">
                             <i id="sendai-weather-icon" class="fas fa-spinner fa-spin text-6xl text-blue-300"></i>
                             <div>
@@ -190,7 +190,7 @@
                     </div>
                     <!-- Aomori Feature Card -->
                     <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
-                        <h2 class="text-2xl font-bold text-orange-700 mb-4 flex items-center"><i class="fas fa-apple-alt mr-3 text-orange-600"></i>青森特色</h2>
+                        <h2 class="text-2xl font-bold text-yellow-700 mb-4 flex items-center"><i class="fas fa-apple-alt mr-3 text-yellow-600"></i>青森特色</h2>
                         <p class="text-slate-600">青森縣以其清新的空氣、壯麗的自然風光和優質的農產品而聞名。九月是 蘋果豐收的季節，也是在奧入瀨溪流和八甲田山欣賞初秋景色的最佳時機。</p>
                     </div>
                     <!-- Seasonal Features Card (Moved) -->
@@ -201,7 +201,7 @@
                         </h3>
                         <ul class="space-y-3 text-sm">
                             <li class="flex items-start"><i class="fas fa-tree mt-1 mr-3 text-green-600"></i><strong>奧入瀨溪流:</strong> 綠意盎然，溪水潺潺。</li>
-                            <li class="flex items-start"><i class="fas fa-mountain mt-1 mr-3 text-orange-500"></i><strong>八甲田山:</strong> 9月中旬起，山頂開始出現紅葉。</li>
+                            <li class="flex items-start"><i class="fas fa-mountain mt-1 mr-3 text-yellow-500"></i><strong>八甲田山:</strong> 9月中旬起，山頂偶有機會見到初現的草紅葉。</li>
                             <li class="flex items-start"><i class="fas fa-shopping-basket mt-1 mr-3 text-red-500"></i><strong>蘋果採摘:</strong> 體驗親手採摘新鮮的青森蘋果。</li>
                         </ul>
                     </div>
@@ -299,71 +299,71 @@
                                 </div>
 
                                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
-                                    <h2 class="text-2xl sm:text-3xl font-bold text-orange-700 mb-2 flex items-center"><i class="fas fa-video mr-3 text-amber-500"></i>沿途即時影像</h2>
-                                    <p class="mb-6 text-slate-600 text-sm">出發前想抓天氣感覺、抵達後想確認現場狀況，都可以點連結看即時畫面。資料來源：<a href="https://weathernews.jp/onebox/livecam/" target="_blank" rel="noopener" class="underline hover:text-orange-600">Weathernews Live Camera</a>，需手動查看，非自動抓取。</p>
+                                    <h2 class="text-2xl sm:text-3xl font-bold text-yellow-700 mb-2 flex items-center"><i class="fas fa-video mr-3 text-amber-500"></i>沿途即時影像</h2>
+                                    <p class="mb-6 text-slate-600 text-sm">出發前想抓天氣感覺、抵達後想確認現場狀況，都可以點連結看即時畫面。資料來源：<a href="https://weathernews.jp/onebox/livecam/" target="_blank" rel="noopener" class="underline hover:text-yellow-600">Weathernews Live Camera</a>，需手動查看，非自動抓取。</p>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         <div class="border border-slate-100 rounded-xl p-3">
                                             <div class="flex items-center gap-2 mb-2 flex-wrap">
-                                                <span class="text-xs font-bold text-white bg-orange-500 px-2 py-0.5 rounded shrink-0">9/8（二）</span>
+                                                <span class="text-xs font-bold text-white bg-yellow-500 px-2 py-0.5 rounded shrink-0">9/8（二）</span>
                                                 <span class="text-xs text-slate-500">青森市・A-Factory・睡魔之家</span>
                                             </div>
                                             <div class="flex flex-wrap gap-1.5">
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/7CDDE908B67A/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>青森市</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/7CDDE908B67A/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>青森市</a>
                                             </div>
                                         </div>
                                         <div class="border border-slate-100 rounded-xl p-3">
                                             <div class="flex items-center gap-2 mb-2 flex-wrap">
-                                                <span class="text-xs font-bold text-white bg-orange-500 px-2 py-0.5 rounded shrink-0">9/9（三）</span>
+                                                <span class="text-xs font-bold text-white bg-yellow-500 px-2 py-0.5 rounded shrink-0">9/9（三）</span>
                                                 <span class="text-xs text-slate-500">弘前蘋果公園・八甲田山纜車・城倉大橋</span>
                                             </div>
                                             <div class="flex flex-wrap gap-1.5">
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/7CDDE907B80B/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>弘前市</a>
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/410000921/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>八甲田山①</a>
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/410003103/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>八甲田山②</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/7CDDE907B80B/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>弘前市</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/410000921/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>八甲田山①</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/410003103/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>八甲田山②</a>
                                                 <a href="https://www.youtube.com/watch?v=U93rGuyL6IU" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors"><i class="fab fa-youtube"></i>八甲田山風景直播</a>
                                             </div>
                                         </div>
                                         <div class="border border-slate-100 rounded-xl p-3">
                                             <div class="flex items-center gap-2 mb-2 flex-wrap">
-                                                <span class="text-xs font-bold text-white bg-orange-500 px-2 py-0.5 rounded shrink-0">9/10（四）</span>
+                                                <span class="text-xs font-bold text-white bg-yellow-500 px-2 py-0.5 rounded shrink-0">9/10（四）</span>
                                                 <span class="text-xs text-slate-500">奧入瀨溪流・十和田湖・八食中心</span>
                                             </div>
                                             <div class="flex flex-wrap gap-1.5">
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/410003103/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>十和田・八甲田山</a>
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/7CDDE906B71F/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>八戶市鮫町（近八食中心）</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/410003103/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>十和田・八甲田山</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/aomori/7CDDE906B71F/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>八戶市鮫町（近八食中心）</a>
                                                 <a href="https://www.youtube.com/watch?v=trSGa-eTSrk" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors"><i class="fab fa-youtube"></i>十和田湖風景直播</a>
                                             </div>
                                         </div>
                                         <div class="border border-slate-100 rounded-xl p-3">
                                             <div class="flex items-center gap-2 mb-2 flex-wrap">
-                                                <span class="text-xs font-bold text-white bg-orange-500 px-2 py-0.5 rounded shrink-0">9/11（五）</span>
+                                                <span class="text-xs font-bold text-white bg-yellow-500 px-2 py-0.5 rounded shrink-0">9/11（五）</span>
                                                 <span class="text-xs text-slate-500">盛岡八幡宮・嚴美溪・猊鼻溪</span>
                                             </div>
                                             <div class="flex flex-wrap gap-1.5">
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/iwate/7CDDE907E1AB/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>盛岡市內丸</a>
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/iwate/7CDDE907B884/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>一関市厳美町（嚴美溪）</a>
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/iwate/7CDDE908679E/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>一関市東山町（猊鼻溪）</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/iwate/7CDDE907E1AB/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>盛岡市內丸</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/iwate/7CDDE907B884/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>一関市厳美町（嚴美溪）</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/iwate/7CDDE908679E/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>一関市東山町（猊鼻溪）</a>
                                             </div>
                                         </div>
                                         <div class="border border-slate-100 rounded-xl p-3">
                                             <div class="flex items-center gap-2 mb-2 flex-wrap">
-                                                <span class="text-xs font-bold text-white bg-orange-500 px-2 py-0.5 rounded shrink-0">9/12（六）</span>
+                                                <span class="text-xs font-bold text-white bg-yellow-500 px-2 py-0.5 rounded shrink-0">9/12（六）</span>
                                                 <span class="text-xs text-slate-500">松島灣遊船・仙台市區</span>
                                             </div>
                                             <div class="flex flex-wrap gap-1.5">
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/miyagi/7CDDE908D662/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>松島町</a>
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/miyagi/7CDDE905CF17/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>仙台市宮城野區</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/miyagi/7CDDE908D662/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>松島町</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/miyagi/7CDDE905CF17/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>仙台市宮城野區</a>
                                                 <a href="https://www.youtube.com/watch?v=-t_6V7iJjGA" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors"><i class="fab fa-youtube"></i>松島風景直播</a>
                                             </div>
                                         </div>
                                         <div class="border border-slate-100 rounded-xl p-3">
                                             <div class="flex items-center gap-2 mb-2 flex-wrap">
-                                                <span class="text-xs font-bold text-white bg-orange-500 px-2 py-0.5 rounded shrink-0">9/13（日）</span>
+                                                <span class="text-xs font-bold text-white bg-yellow-500 px-2 py-0.5 rounded shrink-0">9/13（日）</span>
                                                 <span class="text-xs text-slate-500">金蛇水神社・仙台機場</span>
                                             </div>
                                             <div class="flex flex-wrap gap-1.5">
-                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/miyagi/7CDDE907C492/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-video"></i>仙台市若林區（近岩沼）</a>
-                                                <a href="https://weathernews.jp/onebox/tenki/airport/4/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-orange-50 text-orange-700 px-2 py-0.5 rounded hover:bg-orange-100 transition-colors"><i class="fas fa-plane"></i>仙台機場天氣</a>
+                                                <a href="https://weathernews.jp/onebox/livecam/tohoku/miyagi/7CDDE907C492/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-video"></i>仙台市若林區（近岩沼）</a>
+                                                <a href="https://weathernews.jp/onebox/tenki/airport/4/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded hover:bg-yellow-100 transition-colors"><i class="fas fa-plane"></i>仙台機場天氣</a>
                                                 <a href="https://www.youtube.com/watch?v=prhi5doir6U" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded hover:bg-red-100 transition-colors"><i class="fab fa-youtube"></i>仙台空港直播</a>
                                             </div>
                                         </div>
@@ -371,7 +371,7 @@
                                 </div>
 
                                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
-                                    <h2 class="text-2xl sm:text-3xl font-bold text-orange-700 mb-4 flex items-center"><i class="fas fa-images mr-3 text-amber-500"></i>旅遊掠影</h2>
+                                    <h2 class="text-2xl sm:text-3xl font-bold text-yellow-700 mb-4 flex items-center"><i class="fas fa-images mr-3 text-amber-500"></i>旅遊掠影</h2>
                                     <p class="mb-6 text-slate-600">這次旅程的精彩瞬間與必訪景點的驚鴻一瞥。</p>
                                     <div class="gallery-grid">
                                         <div class="gallery-item">
@@ -412,10 +412,10 @@
                     </div>
                 
                     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-                        <button id="scrollToTopBtn" title="回到頂部" class="w-14 h-14 rounded-full bg-orange-600 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-orange-700 hover:scale-110">
+                        <button id="scrollToTopBtn" title="回到頂部" class="w-14 h-14 rounded-full bg-yellow-600 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out opacity-0 invisible translate-y-2 hover:bg-yellow-700 hover:scale-110">
                             <i class="fas fa-arrow-up text-xl"></i>
                         </button>
-                        <button id="toggleMusicBtn" title="切換音樂" class="w-14 h-14 rounded-full bg-orange-600 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-orange-700 hover:scale-110 mt-4">
+                        <button id="toggleMusicBtn" title="切換音樂" class="w-14 h-14 rounded-full bg-yellow-600 text-white flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out hover:bg-yellow-700 hover:scale-110 mt-4">
                             <i class="fas fa-volume-mute text-xl"></i>
                         </button>
                         <!-- New Calculator Button -->
@@ -431,7 +431,7 @@
                 
                                 <!-- Header -->
                 
-                                <div class="bg-orange-600 text-white p-4 flex justify-between items-center shadow-md relative shrink-0">
+                                <div class="bg-yellow-600 text-white p-4 flex justify-between items-center shadow-md relative shrink-0">
                 
                                     <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"></div>
                 
@@ -461,19 +461,19 @@
                 
                                     <div class="flex gap-1 relative z-10">
                 
-                                        <button id="btn-refresh" class="p-2 hover:bg-orange-700 rounded-full transition-colors btn-active">
+                                        <button id="btn-refresh" class="p-2 hover:bg-yellow-700 rounded-full transition-colors btn-active">
                 
                                             <i data-lucide="refresh-cw" class="w-5 h-5" id="icon-refresh"></i>
                 
                                         </button>
                 
-                                        <button id="btn-settings" class="p-2 hover:bg-orange-700 rounded-full transition-colors btn-active">
+                                        <button id="btn-settings" class="p-2 hover:bg-yellow-700 rounded-full transition-colors btn-active">
                 
                                             <i data-lucide="settings" class="w-5 h-5"></i>
                 
                                         </button>
                 
-                                        <button id="btn-close-calculator" class="p-2 hover:bg-orange-700 rounded-full transition-colors btn-active">
+                                        <button id="btn-close-calculator" class="p-2 hover:bg-yellow-700 rounded-full transition-colors btn-active">
                 
                                             <i data-lucide="x" class="w-5 h-5"></i>
                 
@@ -509,7 +509,7 @@
                 
                                             <div class="w-full flex justify-between items-center">
                 
-                                                <span class="text-orange-700 text-xs font-bold bg-orange-50 px-2 py-0.5 rounded">輸入 (Input)</span>
+                                                <span class="text-yellow-700 text-xs font-bold bg-yellow-50 px-2 py-0.5 rounded">輸入 (Input)</span>
                 
                                                 <span class="text-slate-500 text-sm font-bold flex items-center gap-1" id="label-input-currency"></span>
                 
@@ -523,7 +523,7 @@
                 
                                         <div class="relative h-6 w-full flex items-center justify-center z-10 -my-3">
                 
-                                            <button id="btn-swap" class="bg-white border-2 border-orange-100 p-2 rounded-full shadow-md text-orange-600 hover:bg-orange-600 hover:text-white transition-all btn-active duration-200 group">
+                                            <button id="btn-swap" class="bg-white border-2 border-yellow-100 p-2 rounded-full shadow-md text-yellow-600 hover:bg-yellow-600 hover:text-white transition-all btn-active duration-200 group">
                 
                                                 <i data-lucide="arrow-up-down" class="w-5 h-5 transition-transform group-hover:rotate-180"></i>
                 
@@ -533,7 +533,7 @@
                 
                     
                 
-                                        <div class="flex flex-col items-end gap-1 bg-orange-50/50 p-2 rounded-2xl border border-orange-100/50 pt-4 transition-all">
+                                        <div class="flex flex-col items-end gap-1 bg-yellow-50/50 p-2 rounded-2xl border border-yellow-100/50 pt-4 transition-all">
                 
                                             <div class="w-full flex justify-between items-center">
                 
@@ -543,7 +543,7 @@
                 
                                             </div>
                 
-                                            <div id="display-output" class="text-5xl font-extrabold text-orange-700 break-all display-font min-h-[3.5rem] flex items-end justify-end">0</div>
+                                            <div id="display-output" class="text-5xl font-extrabold text-yellow-700 break-all display-font min-h-[3.5rem] flex items-end justify-end">0</div>
                 
                                         </div>
                 
@@ -597,29 +597,29 @@
                 
                                             <div id="keypad-grid" class="grid grid-cols-3 gap-2">
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="1">1</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="1">1</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="2">2</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="2">2</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="3">3</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="3">3</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="4">4</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="4">4</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="5">5</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="5">5</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="6">6</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="6">6</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="7">7</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="7">7</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="8">8</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="8">8</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="9">9</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="9">9</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all pb-2" data-value=".">.</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all pb-2" data-value=".">.</button>
                 
-                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-orange-50 transition-all" data-value="0">0</button>
+                                                <button class="num-btn h-14 rounded-2xl bg-slate-50 text-2xl font-medium text-slate-700 shadow-sm border-b-2 border-slate-200 active:bg-yellow-50 transition-all" data-value="0">0</button>
                 
-                                                <button id="btn-backspace" class="num-btn h-14 rounded-2xl bg-orange-100 text-orange-600 shadow-sm border-b-2 border-orange-200 active:border-b-0 active:bg-orange-200 transition-all flex items-center justify-center">⌫</button>
+                                                <button id="btn-backspace" class="num-btn h-14 rounded-2xl bg-yellow-100 text-yellow-600 shadow-sm border-b-2 border-yellow-200 active:border-b-0 active:bg-yellow-200 transition-all flex items-center justify-center">⌫</button>
                 
                                             </div>
                 
@@ -655,7 +655,7 @@
                 
                                         <div class="relative">
                 
-                                            <input type="number" id="input-rate" class="w-full text-2xl font-bold border-b-2 border-orange-200 focus:border-orange-500 outline-none py-2 px-1 text-slate-700 bg-transparent placeholder-slate-300" placeholder="0.22" step="0.001">
+                                            <input type="number" id="input-rate" class="w-full text-2xl font-bold border-b-2 border-yellow-200 focus:border-yellow-500 outline-none py-2 px-1 text-slate-700 bg-transparent placeholder-slate-300" placeholder="0.22" step="0.001">
                 
                                             <span class="absolute right-0 bottom-3 text-slate-400 font-medium">TWD</span>
                 
@@ -665,7 +665,7 @@
                 
                                     <div class="flex flex-col gap-2">
                 
-                                        <button id="btn-save-settings" class="w-full bg-orange-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-orange-200 hover:bg-orange-700 btn-active transition-all">儲存設定</button>
+                                        <button id="btn-save-settings" class="w-full bg-yellow-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-yellow-200 hover:bg-yellow-700 btn-active transition-all">儲存設定</button>
                 
                                         <button id="btn-reset-api" class="w-full bg-white text-slate-500 py-3 rounded-xl font-medium border border-slate-200 hover:bg-slate-50 btn-active transition-all flex items-center justify-center gap-2">
                 
