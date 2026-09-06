@@ -118,6 +118,18 @@ body.loaded {
     box-shadow: 0 20px 40px -10px rgba(234, 88, 12, 0.2); /* Orangey Shadow */
 }
 
+/* Itinerary attraction cards use a calmer lift + accent-bar hover instead of the 3D tilt above. */
+.timeline-item .card-hover {
+    border-left: 4px solid transparent;
+    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.timeline-item .card-hover:hover {
+    transform: translateY(-6px);
+    border-left-color: var(--brand-primary);
+    box-shadow: 0 16px 32px -12px rgba(202, 138, 4, 0.25); /* Golden shadow, matches --brand-primary */
+}
+
 .weather-day-box {
     transition: transform .25s ease, box-shadow .25s ease;
 }
