@@ -62,7 +62,7 @@ const itineraryData = {
                 { title: "② 石戶（石ヶ戸）→ 阿修羅之流 → 雲井瀑布", description: "司機在此放大家下車開始徒步：走約 20-25 分鐘抵達阿修羅之流，再繼續走約 25 分鐘抵達雲井瀑布。<br><span class=\"text-red-600 font-semibold\">⚠️ 重點：</span>走到雲井瀑布後，請司機在這裡的避車彎接大家上車！" },
                 { title: "③ 銚子大瀑布", description: "奧入瀨溪流唯一、也是最大的瀑布。搭車抵達旁邊的避車彎，下車走 2 分鐘就能看到，看完直接上車即可。" },
                 { title: "④ 子之口（十和田湖）", description: "搭車抵達終點，欣賞開闊的十和田湖美景，完美結束奧入瀨溪流行程！" }
-            ] } },
+            ], special: { summary: "🗺️ 展開接駁巴士路線圖與平日時刻表（惣辺交差点～子ノ口，涵蓋 9/10 當天）", content: "<p class='text-sm text-slate-600 mb-2'>惣辺交差点到子ノ口這段管制路段，平日建議多利用接駁巴士串聯各站點；時刻表為 9/7(一)-9/11(五) 平日班次，正好涵蓋這次的行程日期，下圖路線圖則標示 00-14 每一站牌與步行距離、所需時間。</p><img src='images/奧入瀨接駁巴士時刻表.png' alt='奧入瀨溪流接駁巴士平日時刻表' class='w-full rounded-lg border border-gray-200 mt-2' loading='lazy'><p class='text-xs text-slate-500 mt-1 text-center'>接駁巴士平日時刻表（9/7-9/11）</p><img src='images/奧入瀨接駁巴士路線圖.png' alt='奧入瀨溪流接駁巴士站牌路線圖' class='w-full rounded-lg border border-gray-200 mt-4' loading='lazy'><p class='text-xs text-slate-500 mt-1 text-center'>接駁巴士站牌路線圖</p>" } } },
             { time: "中午", title: "十和田湖畔巡遊", icon: "fa-water", content: { description: "<span class=\"text-red-600 font-semibold\">⚠️ 重點：</span>抵達十和田湖後最晚 14:30 就要啟程離開，本次行程不安排遊船。用餐可依下列兩個選項擇一：", subsections: [
                 { title: "選項 A：子之口", description: "距離：車程 2 分鐘、1.4 公里。特色：剛出溪流抵達湖畔的第一站，餐廳選擇不多，但可以快速吃碗麵或咖哩飯止饑。" },
                 { title: "選項 B：休屋地區", description: "距離：車程 15 分鐘、10.7 公里。特色：十和田湖觀光精華區，餐廳選擇多，有著名的「十和田烤五花肉」與蘋果派，推薦「みずうみ亭」。" },
