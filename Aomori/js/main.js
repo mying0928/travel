@@ -3,8 +3,11 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // --- JMA (日本氣象廳) 天氣預報：地點資料表 ---
 // 每個代表城市對應「氣象廳 週間預報(7天)」與「短期預報(3天)」的地域代碼。
-// 氣象廳只公布未來 7 天的資料，出發前會逐日往後延伸；
-// 這裡每次開頁都會即時抓取最新 JSON，等日期進入 7 天內就會自動顯示，點地名可展開看整週。
+// 顯示的日期固定鎖定在行程當天（TRIP_DATES），不是氣象廳回傳的任意 7 天：
+// 氣象廳只公布未來 7 天的資料，這裡每次開頁都會即時抓取最新 JSON，
+// 等某個行程日期進入氣象廳的 7 天預報範圍內就會自動出現該天資料，尚未公布的日期顯示「尚未公布」。
+const TRIP_DATES = ['2026-09-08', '2026-09-09', '2026-09-10', '2026-09-11', '2026-09-12', '2026-09-13'];
+
 const WEATHER_LOCATIONS = [
     { id: 'aomori', name: '青森市', icon: 'fa-city', prefCode: '020000', weeklyArea: '020010', shortArea: '020010', tempCity: '31312' },
     { id: 'hirosaki', name: '弘前市', icon: 'fa-apple-alt', prefCode: '020000', weeklyArea: '020010', shortArea: '020010', tempCity: '31461' },
@@ -430,22 +433,28 @@ document.addEventListener('DOMContentLoaded', function () {
             available: todayHasCode
         };
 
-        const days = weeklySeries.timeDefines.map((t, idx) => {
-            const date = t.slice(0, 10);
+        // 只鎖定行程當天（TRIP_DATES），不是氣象廳回傳的任意 7 天視窗；
+        // 用日期字串對照回 weeklySeries 的位置，行程日期還沒進入氣象廳 7 天範圍時 idx 會是 undefined。
+        const weeklyIndexByDate = {};
+        weeklySeries.timeDefines.forEach((t, i) => { weeklyIndexByDate[t.slice(0, 10)] = i; });
+
+        const days = TRIP_DATES.map(date => {
+            const idx = weeklyIndexByDate[date];
+            const hasWeeklyIdx = idx !== undefined;
             const isPast = date < todayStr;
             const source = shortDates.has(date) ? 'short' : 'weekly';
-            const code = shortCodeByDate[date] || areaWeather.weatherCodes[idx];
+            const code = shortCodeByDate[date] || (hasWeeklyIdx ? areaWeather.weatherCodes[idx] : '');
             const hasCode = code && code !== '';
             const [iconClass, codeLabel] = hasCode ? getJmaIconAndLabel(code) : [null, null];
             const label = codeLabel;
 
-            let pop = areaWeather.pops ? (areaWeather.pops[idx] || '') : '';
+            let pop = (hasWeeklyIdx && areaWeather.pops) ? (areaWeather.pops[idx] || '') : '';
             if (pop === '' && shortPopByDate[date] !== undefined) pop = String(shortPopByDate[date]);
 
-            let reliability = areaWeather.reliabilities ? (areaWeather.reliabilities[idx] || '') : '';
+            let reliability = (hasWeeklyIdx && areaWeather.reliabilities) ? (areaWeather.reliabilities[idx] || '') : '';
 
             let tempMax = '', tempMin = '';
-            if (areaTemp) {
+            if (hasWeeklyIdx && areaTemp) {
                 tempMax = areaTemp.tempsMax[idx] || '';
                 tempMin = areaTemp.tempsMin[idx] || '';
             }
@@ -465,11 +474,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function renderWeatherLocationCard(location, today, days) {
-        // 摘要列固定顯示「今天」，跟下面展開後從明天開始的 7 天預報分開
-        const firstAvailable = (today && today.available) ? today : days.find(d => d.available && !d.isPast);
-        const summary = firstAvailable
-            ? `${formatWeatherDateLabel(firstAvailable.date)}　${firstAvailable.label}　${firstAvailable.tempMax !== '' ? firstAvailable.tempMax + '°/' + firstAvailable.tempMin + '°' : ''}`
-            : '預報尚未公布';
+        // 摘要列跟著行程走：今天落在 9/8~9/13 內就顯示當天預報，還沒到就先顯示 9/8，
+        // 過了 9/13（行程最後一天）就顯示「旅途結束！」，不再顯示任何天氣。
+        const todayStr = formatIsoDate(new Date());
+        const lastTripDate = days[days.length - 1].date;
+        const isTripOver = todayStr > lastTripDate;
+        const tripDay = days.find(d => d.date === todayStr) || days[0];
+        const summary = isTripOver
+            ? '旅途結束！'
+            : (tripDay.available
+                ? `${formatWeatherDateLabel(tripDay.date)}　${tripDay.label}　${tripDay.tempMax !== '' ? tripDay.tempMax + '°/' + tripDay.tempMin + '°' : ''}`
+                : `${formatWeatherDateLabel(tripDay.date)}　尚未公布`);
         const jmaLink = `https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=${location.prefCode}`;
 
         const boxes = days.map(d => {
@@ -511,22 +526,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return `
         <div class="weather-loc-card border border-slate-100 rounded-xl overflow-hidden">
-            <div role="button" tabindex="0" class="weather-loc-toggle w-full flex flex-wrap items-center justify-between gap-x-2 sm:gap-x-3 gap-y-1 p-3 sm:p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left cursor-pointer">
+            <div role="button" tabindex="0" class="weather-loc-toggle w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-x-3 p-3 sm:p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left cursor-pointer">
                 <span class="flex items-center gap-2 sm:gap-3 min-w-0">
                     <i class="fas ${location.icon} text-blue-500 w-5 text-center shrink-0"></i>
                     <span class="font-bold text-slate-700 text-sm sm:text-base truncate">${location.name}</span>
                 </span>
-                <span class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <span class="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 shrink-0">
                     <span class="text-xs text-slate-400">${summary}</span>
-                    <a href="${jmaLink}" target="_blank" rel="noopener" title="資料來源：日本氣象廳 JMA" class="weather-jma-badge shrink-0 inline-flex items-center gap-1 text-[10px] leading-none px-1.5 py-1 rounded-full border border-sky-200 bg-sky-50 text-sky-600 hover:bg-sky-100 hover:border-sky-300 hover:text-sky-700 transition-colors" onclick="event.stopPropagation()">
-                        <i class="fas fa-circle-info"></i><span class="hidden sm:inline">JMA</span>
-                    </a>
-                    <i class="fas fa-chevron-down text-slate-400 transition-transform weather-loc-chevron text-xs"></i>
+                    <span class="flex items-center gap-2 sm:gap-3 shrink-0">
+                        <a href="${jmaLink}" target="_blank" rel="noopener" title="資料來源：日本氣象廳 JMA" class="weather-jma-badge shrink-0 inline-flex items-center gap-1 text-[10px] leading-none px-1.5 py-1 rounded-full border border-sky-200 bg-sky-50 text-sky-600 hover:bg-sky-100 hover:border-sky-300 hover:text-sky-700 transition-colors" onclick="event.stopPropagation()">
+                            <i class="fas fa-circle-info"></i><span class="hidden sm:inline">JMA</span>
+                        </a>
+                        <i class="fas fa-chevron-down text-slate-400 transition-transform weather-loc-chevron text-xs"></i>
+                    </span>
                 </span>
             </div>
             <div class="weather-loc-body hidden px-3 sm:px-4 pb-3 sm:pb-4 pt-3">
                 ${location.note ? `<p class="text-[11px] text-slate-400 mb-2">${location.note}</p>` : ''}
-                <div class="grid grid-cols-2 sm:grid-cols-7 gap-1.5 sm:gap-3">${boxes}</div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1.5 sm:gap-3">${boxes}</div>
             </div>
         </div>`;
     }
