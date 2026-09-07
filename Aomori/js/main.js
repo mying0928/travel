@@ -151,12 +151,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const [m, d] = dayData.navInfo.date.split('/').map(Number);
                 const dayDateStr = `2026-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                 const isToday = dayDateStr === todayStr;
-                const todayBadge = isToday
-                    ? `<span class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] leading-none px-1.5 py-0.5 rounded-full shadow">今天</span>`
-                    : '';
                 buttonsHtml += `
-                    <button data-target="${dayId}" class="nav-btn relative ${isToday ? 'ring-2 ring-red-400 ring-offset-2' : ''} bg-yellow-100 text-yellow-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">
-                        ${todayBadge}
+                    <button data-target="${dayId}" class="nav-btn relative ${isToday ? 'ring-2 ring-pink-400 ring-offset-2' : ''} bg-yellow-100 text-yellow-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">
                         ${dayData.navInfo.date}<br><span class="text-xs font-medium">${dayData.navInfo.day}</span>
                     </button>
                 `;
