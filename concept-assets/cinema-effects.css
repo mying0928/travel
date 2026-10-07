@@ -1,0 +1,36 @@
+/* The optical layer is optional: real images and native links remain underneath. */
+#cinema-optics{position:absolute;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;opacity:0;transition:opacity .7s;filter:brightness(.85) saturate(.86)}
+.has-optics #cinema-optics{opacity:1}.has-optics .landscape{visibility:hidden}
+.optical-leak{position:absolute;inset:-15%;z-index:2;pointer-events:none;opacity:0;background:linear-gradient(112deg,transparent 30%,#d7ab6320 47%,#f3dab935 50%,transparent 65%);mix-blend-mode:screen}
+.changing-scene .optical-leak{animation:light-pass 1.05s ease-in-out both}
+@keyframes light-pass{0%{opacity:0;transform:translateX(-35%)}40%{opacity:.7}100%{opacity:0;transform:translateX(40%)}}
+.optical-controls{position:absolute;right:8vw;top:115px;z-index:5;display:flex;align-items:center;gap:7px;font:9px monospace;letter-spacing:.06em;color:#eee8da99}
+.motion-switch{border:1px solid #eee8da35;background:#11161135;color:inherit;padding:7px 10px;font:inherit;letter-spacing:inherit;border-radius:20px}.motion-switch[aria-pressed="false"]{color:var(--gold)}
+.stage .hero-copy{translate:0 var(--story-title-y,0px);opacity:var(--story-title-opacity,1)}
+.interlude-art figure{translate:0 var(--story-paper-y,0px);rotate:var(--story-paper-angle,0deg);transform-origin:35% 80%;will-change:auto}
+.film{perspective:900px}.film figure{transform:rotateX(var(--paper-rx,0deg)) rotateY(var(--paper-ry,0deg));box-shadow:var(--paper-shadow-x,0px) var(--paper-shadow-y,6px) 22px #0004;transition:transform .35s ease-out,box-shadow .35s;transform-style:preserve-3d}
+.film.is-handled figure{transition:transform .08s linear,box-shadow .12s linear}
+.film figure:before{content:"";position:absolute;inset:6px;z-index:2;pointer-events:none;opacity:var(--paper-gloss,0);background:linear-gradient(115deg,transparent 20%,#fff1 39%,#fff5 49%,#fff1 57%,transparent 76%);background-size:180% 100%;background-position:var(--paper-light,50%) 50%;mix-blend-mode:screen;transition:opacity .4s}
+.film h3{position:relative;width:fit-content}.film h3:after{content:"";position:absolute;left:0;bottom:-4px;width:55%;height:2px;background:var(--gold);clip-path:polygon(0 40%,23% 0,61% 60%,100% 15%,96% 80%,55% 100%,20% 55%);transform:scaleX(0);transform-origin:left;opacity:.6;transition:transform .6s .12s}.film:hover h3:after,.film:focus-visible h3:after{transform:scaleX(1)}
+.travel-dropdown{transform-origin:top right}.travel-dropdown.opens-above{transform-origin:bottom right}
+.travel-dropdown.is-open{animation:index-paper .36s cubic-bezier(.2,.7,.3,1) both}
+@keyframes index-paper{from{opacity:0;transform:translateY(-7px) rotate(-.6deg) scale(.985)}to{opacity:1;transform:none}}
+.travel-dropdown.is-open .dropdown-trip{animation:index-row .38s both;animation-delay:calc(var(--row,0)*24ms)}
+@keyframes index-row{from{opacity:0;translate:0 -5px}to{opacity:1;translate:0 0}}
+.dropdown-thumb img{filter:saturate(.65) contrast(.95);transition:filter .4s,transform .5s}.dropdown-trip:hover .dropdown-thumb img,.dropdown-trip:focus-visible .dropdown-thumb img{filter:saturate(1) contrast(1);transform:scale(1.06)}
+.dropdown-num{position:relative}.dropdown-num:after{content:"";position:absolute;width:21px;height:21px;left:-4px;top:-5px;border:1px solid #95734280;border-radius:45% 52% 43% 54%;transform:rotate(-15deg) scale(.7);opacity:0;transition:opacity .2s,transform .35s}.dropdown-trip:hover .dropdown-num:after,.dropdown-trip:focus-visible .dropdown-num:after{opacity:1;transform:rotate(-15deg) scale(1)}
+.viewfinder{display:none;position:fixed;left:0;top:0;z-index:200;pointer-events:none;color:#ead6b8;mix-blend-mode:difference;contain:layout style;opacity:0;transition:opacity .2s}
+.viewfinder.visible{opacity:1}.viewfinder-dot{display:none}
+.viewfinder-ring{position:absolute;left:-16px;top:-16px;width:32px;height:32px;border:1px solid #ead6b890;border-radius:50%;transition:width .3s,height .3s,left .3s,top .3s,border-radius .3s,border-color .3s;transform:translate(var(--cursor-lag-x,0px),var(--cursor-lag-y,0px))}
+.viewfinder-ring:after{content:"";position:absolute;inset:5px;border:1px solid transparent;transition:inset .3s,border-color .3s}
+.viewfinder[data-mode="frame"] .viewfinder-ring{width:46px;height:34px;left:-23px;top:-17px;border-radius:0;border-color:transparent;background:linear-gradient(currentColor,currentColor) left top/10px 1px no-repeat,linear-gradient(currentColor,currentColor) left top/1px 8px no-repeat,linear-gradient(currentColor,currentColor) right top/10px 1px no-repeat,linear-gradient(currentColor,currentColor) right top/1px 8px no-repeat,linear-gradient(currentColor,currentColor) left bottom/10px 1px no-repeat,linear-gradient(currentColor,currentColor) left bottom/1px 8px no-repeat,linear-gradient(currentColor,currentColor) right bottom/10px 1px no-repeat,linear-gradient(currentColor,currentColor) right bottom/1px 8px no-repeat}
+.viewfinder[data-mode="link"] .viewfinder-ring{width:52px;height:52px;left:-26px;top:-26px;border-color:#ead6b8}.viewfinder[data-mode="arrow"] .viewfinder-ring{width:46px;height:28px;left:-23px;top:-14px}
+.viewfinder[data-mode="read"] .viewfinder-ring{width:0;height:0;border-color:transparent;left:0;top:0}.viewfinder[data-mode="read"] .viewfinder-dot{opacity:0}
+.viewfinder-note{position:absolute;left:32px;top:-5px;white-space:nowrap;font:10px/1.4 sans-serif;letter-spacing:.05em;opacity:0;transition:opacity .2s}.viewfinder[data-mode="link"] .viewfinder-note{opacity:1}
+/* The native pointer is always the primary cursor. The viewfinder is decoration only. */
+@media(hover:hover) and (pointer:fine){.cursor-on{cursor:auto}.cursor-on a,.cursor-on button{cursor:pointer}.cursor-on .viewfinder{display:block}.cursor-on p,.cursor-on h1,.cursor-on h2,.cursor-on h3{cursor:text}}
+@media(max-width:640px){.optical-controls{right:7vw;top:95px;font-size:8px}.motion-switch{padding:5px 9px}.stage .hero-copy{translate:0 0;opacity:1}.interlude-art figure{rotate:0deg}.film figure{transform:none}}
+body.motion-off .viewfinder{display:none}body.motion-off,body.motion-off a,body.motion-off button{cursor:auto}
+body.motion-off .optical-leak{animation:none}body.motion-off .hero-copy,body.motion-off .interlude-art figure{translate:0 0;rotate:0deg;opacity:1}body.motion-off .film figure{transform:none}body.motion-off .film figure:before{opacity:0}
+body.motion-off *,body.motion-off *:before,body.motion-off *:after{animation:none!important;transition:none!important}body.motion-off .landscape{transform:none}body.motion-off .ink-line path{stroke-dashoffset:0}
+@media(prefers-reduced-motion:reduce){.viewfinder{display:none!important}.hero-copy,.interlude-art figure{translate:0 0!important;rotate:0deg!important;opacity:1!important}.film figure{transform:none!important}.film figure:before{display:none}.optical-leak{display:none}}

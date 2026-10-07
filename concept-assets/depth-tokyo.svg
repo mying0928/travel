@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1280" viewBox="0 0 1920 1280">
+<defs><linearGradient id="city" x2="0" y2="1"><stop stop-color="#333"/><stop offset="1" stop-color="#777"/></linearGradient><filter id="soft"><feGaussianBlur stdDeviation="22"/></filter></defs>
+<rect width="1920" height="1280" fill="#222"/><path fill="url(#city)" d="M0 566H1920V1280H0Z"/>
+<g fill="#c4c4c4" filter="url(#soft)"><path d="M0 0H580L772 122 915 194 1090 310 1150 420 1170 504 1064 560 912 380 713 295 599 238 433 244 482 366 685 538 741 688 632 698 492 536 437 550 518 706 484 770 391 743 389 939 303 1043 304 1103 231 1138 234 948 135 816 0 1151Z"/>
+<path d="M1370 0H1920V651L1835 697 1690 626 1573 713 1510 676 1640 583 1750 498 1816 409 1694 430 1581 366 1489 291 1380 199 1389 149 1555 188 1562 126 1370 90Z"/></g></svg>

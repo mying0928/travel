@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1440" viewBox="0 0 1920 1440">
+<defs><linearGradient id="trees" x2="0" y2="1"><stop stop-color="#666"/><stop offset="1" stop-color="#b0b0b0"/></linearGradient><filter id="soft"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<rect width="1920" height="1440" fill="#222"/><path fill="#393939" d="M0 425L670 460 1300 465 1920 625V1440H0Z"/>
+<g filter="url(#soft)"><path fill="url(#trees)" d="M0 738L210 646 350 601 580 620 800 702 1040 750 1220 690 1480 730 1660 716 1920 791V1440H0Z"/>
+<path fill="#bfbfbf" d="M971 239L987 239 995 430 1058 492 1150 539 1124 575 1107 602 1113 632 1157 635 1120 668 1101 704 1149 715 1103 761 1121 800 1146 819 1115 860 1170 927 1310 985 1309 1071 1450 1160 1450 1280 1540 1440H618L650 1311 618 1149 691 1094 670 1005 807 927 844 866 805 825 841 792 805 743 851 709 827 666 808 637 852 630 850 594 824 560 838 535 924 490 962 430Z"/></g></svg>
