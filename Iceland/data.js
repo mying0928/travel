@@ -1,6 +1,6 @@
 const itineraryData = {
     day0: {
-        navInfo: { date: '9/1', day: '(週二)' },
+        navInfo: { date: '9/1', day: '(週三)' },
         title: "出發日・飛向冰島",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6kuls%C3%A1rl%C3%B3n-Aurora.jpg",
         highlights: [
@@ -18,7 +18,7 @@ const itineraryData = {
         ]
     },
     day1: {
-        navInfo: { date: '9/2', day: '(週三)' },
+        navInfo: { date: '9/2', day: '(週四)' },
         title: "抵達冰島・取車與首夜補給",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Hallgr%C3%ADmskirkja_church,_Reykjavik,_Iceland.jpg",
         highlights: [
@@ -42,7 +42,7 @@ const itineraryData = {
         ]
     },
     day2: {
-        navInfo: { date: '9/3', day: '(週四)' },
+        navInfo: { date: '9/3', day: '(週五)' },
         title: "黃金圈一日遊",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Gullfoss,_an_iconic_waterfall_of_Iceland.jpg",
         highlights: [
@@ -63,7 +63,7 @@ const itineraryData = {
         ]
     },
     day3: {
-        navInfo: { date: '9/4', day: '(週五)' },
+        navInfo: { date: '9/4', day: '(週六)' },
         title: "南岸瀑布與黑沙灘",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Sk%C3%B3gafoss_July_2014.JPG",
         highlights: [
@@ -88,7 +88,7 @@ const itineraryData = {
         ]
     },
     day4: {
-        navInfo: { date: '9/5', day: '(週六)' },
+        navInfo: { date: '9/5', day: '(週日)' },
         title: "峽谷＋冰川健行 ⭐",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Vatnaj%C3%B6kull_National_Park_banner_2.jpg",
         highlights: [
@@ -110,7 +110,7 @@ const itineraryData = {
         ]
     },
     day5: {
-        navInfo: { date: '9/6', day: '(週日)' },
+        navInfo: { date: '9/6', day: '(週一)' },
         title: "冰河湖＋蝙蝠山",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Jokulsarlon_banner.jpg",
         highlights: [
@@ -132,7 +132,7 @@ const itineraryData = {
         ]
     },
     day6: {
-        navInfo: { date: '9/7', day: '(週一)' },
+        navInfo: { date: '9/7', day: '(週二)' },
         title: "彩虹小鎮＋北上米湖",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Sey%C3%B0isfj%C3%B6r%C3%B0ur_Sept_2019_1.jpg",
         highlights: [
@@ -154,7 +154,7 @@ const itineraryData = {
         ]
     },
     day7: {
-        navInfo: { date: '9/8', day: '(週二)' },
+        navInfo: { date: '9/8', day: '(週三)' },
         title: "米湖地熱日 🔥",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Hverir_Geothermal_Area_(52424275240).jpg",
         highlights: [
@@ -178,7 +178,7 @@ const itineraryData = {
         ]
     },
     day8: {
-        navInfo: { date: '9/9', day: '(週三)' },
+        navInfo: { date: '9/9', day: '(週四)' },
         title: "回雷克雅維克",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Akureyri_Fjord,_North_Iceland_(51335225478).jpg",
         highlights: [
@@ -200,13 +200,13 @@ const itineraryData = {
         ]
     },
     day9: {
-        navInfo: { date: '9/10', day: '(週四)' },
+        navInfo: { date: '9/10', day: '(週五)' },
         title: "市區漫遊＋藍湖告別",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Iceland_Blue_Lagoon.jpg",
         highlights: [
             { icon: "fa-church", text: "Hallgrímskirkja 大教堂" },
             { icon: "fa-spa", text: "Blue Lagoon 藍湖" },
-            { icon: "fa-plane-departure", text: "01:10 起飛回程" }
+            { icon: "fa-plane-departure", text: "9/11 凌晨 01:10 起飛回程" }
         ],
         items: [
             { time: "09:00", title: "Hallgrímskirkja 大教堂", icon: "fa-church", content: { description: "塔頂 360° 全景，門票 ISK 1,200。", transport: "停留約 45 分鐘。" } },
@@ -217,12 +217,12 @@ const itineraryData = {
             { time: "12:00", title: "午餐", icon: "fa-utensils", content: { description: "市區五個點全部步行範圍內，2-3 小時搞定。", transport: "用餐約 1 小時。" } },
             { time: "13:00", title: "回住宿退房、取行李上車", icon: "fa-suitcase-rolling", content: { description: "" } },
             { time: "15:00", title: "⭐ Blue Lagoon 藍湖", icon: "fa-spa", content: { description: "必去！訂下午 3-4 點場次，Comfort 方案約 ISK 11,990。", transport: "停留約 2-3 小時。藍湖離機場只要 20 分鐘，排最後一站最順。" } },
-            { time: "18:30", title: "抵達機場、還車、check in", icon: "fa-plane-departure", content: { description: "航班 01:10 起飛，18:30 到機場非常充裕。" } },
-            { time: "01:10", title: "凱夫拉維克機場起飛", icon: "fa-plane", content: { description: "經哥本哈根轉機。" } }
+            { time: "18:30", title: "抵達機場、還車、check in", icon: "fa-plane-departure", content: { description: "航班為隔日 9/11 凌晨 01:10 起飛；9/10 傍晚 18:30 抵達機場還車、辦理登機。" } },
+            { time: "9/11 01:10", title: "凱夫拉維克機場起飛（跨日）", icon: "fa-plane", content: { description: "經哥本哈根轉機。" } }
         ]
     },
     day10: {
-        navInfo: { date: '9/11-12', day: '(週五-六)' },
+        navInfo: { date: '9/11-12', day: '(週六-日)' },
         title: "轉機哥本哈根・回台灣",
         themeImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Hallgr%C3%ADmskirkja_church,_Reykjavik,_Iceland.jpg",
         highlights: [
@@ -234,7 +234,7 @@ const itineraryData = {
                 { title: "💡 順路市區小旅行", description: "搭地鐵進市區約 13 分鐘：Nyhavn 彩色房子 → Amalienborg 王宮 → 小美人魚，時間充裕可以順路走一圈。" }
             ] } },
             { time: "15:15", title: "從哥本哈根起飛", icon: "fa-plane", content: { description: "經杜拜轉機返回台灣。" } },
-            { time: "16:15", title: "抵達桃園機場（9/12 週六）", icon: "fa-plane-arrival", content: { description: "旅程結束，歡迎回家！" } }
+            { time: "16:15", title: "抵達桃園機場（9/12 週日）", icon: "fa-plane-arrival", content: { description: "旅程結束，歡迎回家！" } }
         ]
     }
 };
@@ -247,5 +247,5 @@ const auroraGuide = [
     { night: "第 5 晚", place: "Egilsstaðir", dates: "9/6", stars: 3, note: "東部樞紐小鎮，光害不高但也不是最低。", spots: ["Lagarfljót 湖邊（最推薦）", "鎮外農田空地"] },
     { night: "第 6 晚", place: "米湖 Mývatn", dates: "9/7", stars: 5, note: "全程最佳！幾乎零光害，是全冰島數一數二的觀測聖地。", spots: ["米湖東岸（Reykjahlíð 附近）", "Dimmuborgir 停車場", "Hverir 地熱區方向", "住宿門口"] },
     { night: "第 7 晚", place: "Akureyri", dates: "9/8", stars: 3, note: "冰島第二大城，市區有一定光害，但比雷市好很多。", spots: ["Kjarnaskógur 森林公園（最推薦）", "峽灣對岸", "Forest Lagoon 溫泉方向"] },
-    { night: "第 8-9 晚", place: "雷克雅維克", dates: "9/9-9/10", stars: 2, note: "同第 1-2 晚，最後機會就靠 Grótta 燈塔。", spots: ["Grótta 燈塔"] }
+    { night: "第 8 晚", place: "雷克雅維克", dates: "9/9", stars: 2, note: "最後一晚市區住宿，可視天氣安排 Grótta 燈塔；9/10 晚間須前往機場，不另安排住宿或觀測夜。", spots: ["Grótta 燈塔"] }
 ];

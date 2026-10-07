@@ -1,0 +1,9 @@
+# Original travel illustration
+
+Asset: `travel-postcards.jpg`
+
+Generated using the built-in GPT image generation tool on 2026-10-07. This is an interpretive editorial illustration, not documentary destination photography. The project asset is a 1200px JPEG optimized from the original 1536 × 1024 PNG.
+
+## Generation prompt
+
+Use case: stylized-concept. Asset type: bespoke wide editorial illustration for a sophisticated personal travel website named 在遠方. Generate a cinematic, hand-drawn travel still-life, horizontal aspect ratio 3:2. A restrained arrangement of three cream uncoated postcards on a very dark forest-green desk, subtly overlapping, with one slender graphite pencil and a tiny brass paper clip. On the postcards: exquisite loosely sketched landscapes in graphite and muted watercolor, a river and old temple silhouette, a Japanese forest stream, and an open coastal road; interpretive illustrations, not documentary photographs of any exact destination. Fine visible human ink strokes and unfinished pencil edges, delicate warm ivory, faded sage, muted ochre. Editorial art direction, quiet analog photographic texture, soft directional late-afternoon window light from upper left, deep natural shadows, tactile paper, cinematic shallow-focus detail, visually luxurious and beautifully understated. Composition: postcards occupy central and right two thirds, left one third largely dark breathing space. No letters, no numbers, no labels, no faux handwriting, no typography, no stamps or passport, no logos, no watermark, no map, no gradients or glowing effects. Avoid busy travel props and vintage cliches. This is a decorative interlude between the film-like hero and postcard selections, not a replacement for factual location photographs. Make a production-ready high-resolution bitmap.
