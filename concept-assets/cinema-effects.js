@@ -131,7 +131,7 @@
   }
   async item(index,image){
    if(this.items.has(index))return this.items.get(index);
-   const depth=new Image();depth.src=['concept-assets/depth-bangkok.svg','concept-assets/depth-tokyo.svg','concept-assets/depth-hangzhou.svg'][index];
+   const depth=new Image();depth.src=['concept-assets/depth-iceland.svg','concept-assets/depth-pattaya.svg','concept-assets/depth-tokyo.svg'][index];
    await Promise.all([image.decode(),depth.decode()]);
    if(this.failed)throw Error('Optical layer unavailable');
    // Browsers vary in their SVG-to-texture support: rasterize the manual mask first.
