@@ -465,6 +465,15 @@
         .route-stop small { font-size:.7rem; color:#627164; }
         .day-chapter small { color:#5d7262; }
         @media(max-width:767px){.known-costs small{font-size:.7rem;}}
+        .travel-pages > nav.date-navigation { display:grid; grid-template-columns:38px minmax(0,1fr) 38px; align-items:center; gap:8px; padding:10px; }
+        .date-strip { min-width:0; width:100%; overflow-x:auto; overscroll-behavior-x:contain; scroll-behavior:smooth; }
+        .date-track { display:flex; align-items:center; gap:12px; width:max-content; box-sizing:content-box; }
+        .date-track .nav-btn { flex:0 0 auto; white-space:nowrap; margin:0; }
+        .date-edge { display:grid; place-items:center; width:38px; height:44px; border:1px solid #c9d9cf; border-radius:50%; background:#f0f5ed; color:#246b5f; transition:background .2s,color .2s,opacity .2s; }
+        .date-edge:hover:not(:disabled) { background:#dfeee5; color:#144e43; }
+        .date-edge:disabled { opacity:.3; cursor:default; }
+        @media(max-width:767px){.travel-pages > nav.date-navigation{grid-template-columns:34px minmax(0,1fr) 34px;gap:4px;padding:8px;}.date-edge{width:34px;height:44px;}.date-track{gap:8px;}}
+        @media(prefers-reduced-motion:reduce){.date-strip{scroll-behavior:auto;}}
     </style>
 </head>
 <body class="text-slate-700">
@@ -488,8 +497,9 @@
     </header>
 
     <div class="travel-pages container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl z-20 relative">
-        <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg">
-            <div class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
+        <nav class="date-navigation sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg" aria-label="每日行程日期導覽">
+            <button id="date-first" class="date-edge" type="button" aria-label="日期列回到最左端" title="回到最左端" aria-controls="date-strip"><i class="fas fa-angles-left" aria-hidden="true"></i></button>
+            <div id="date-strip" class="date-strip hide-scrollbar" aria-label="左右滑動查看日期"><div id="date-track" class="date-track">
                 <button data-target="overview" class="nav-btn bg-sky-500 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
                 <button data-target="day1" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/10<br><span class="text-xs font-medium">(週六)</span></button>
                 <button data-target="day2" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/11<br><span class="text-xs font-medium">(週日)</span></button>
@@ -499,7 +509,8 @@
                 <button data-target="day6" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/15<br><span class="text-xs font-medium">(週四)</span></button>
                 <button data-target="day7" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/16<br><span class="text-xs font-medium">(週五)</span></button>
                 <button data-target="day8" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/17<br><span class="text-xs font-medium">(週六)</span></button>
-            </div>
+            </div></div>
+            <button id="date-last" class="date-edge" type="button" aria-label="日期列移到最右端" title="移到最右端" aria-controls="date-strip"><i class="fas fa-angles-right" aria-hidden="true"></i></button>
         </nav>
 
         <main>
@@ -533,6 +544,8 @@
         document.addEventListener('DOMContentLoaded', function () {
             // --- DOM Elements ---
             const navButtons = document.querySelectorAll('.nav-btn');
+            const dateStrip = document.getElementById('date-strip');
+            const dateTrack = document.getElementById('date-track');
             const dailySectionsContainer = document.getElementById('daily-sections-container');
             let currentActiveSectionId = null;
             let isAnimating = false;
@@ -1791,6 +1804,7 @@
                 setupWeather();
                 generateDailySections();
                 setupRouteControls();
+                setupDateNavigation();
                 setupTabSwitching();
                 setupScrollToTop();
                 setupChart();
@@ -2094,10 +2108,47 @@
                 });
             }
 
+            function centerDateButton(button, behavior = reduceMotion ? 'auto' : 'smooth') {
+                if (!button || !dateStrip) return;
+                const stripRect = dateStrip.getBoundingClientRect();
+                const buttonRect = button.getBoundingClientRect();
+                const left = dateStrip.scrollLeft + buttonRect.left - stripRect.left - (dateStrip.clientWidth - buttonRect.width) / 2;
+                const max = Math.max(0, dateStrip.scrollWidth - dateStrip.clientWidth);
+                dateStrip.scrollTo({ left: Math.min(max, Math.max(0, left)), behavior });
+            }
+
+            function setupDateNavigation() {
+                const firstArrow = document.getElementById('date-first');
+                const lastArrow = document.getElementById('date-last');
+                let scrollFrame = 0;
+                function updateEdges() {
+                    scrollFrame = 0;
+                    const max = Math.max(0, dateStrip.scrollWidth - dateStrip.clientWidth);
+                    firstArrow.disabled = dateStrip.scrollLeft <= 2;
+                    lastArrow.disabled = dateStrip.scrollLeft >= max - 2;
+                }
+                function syncSizing() {
+                    const first = navButtons[0], last = navButtons[navButtons.length - 1];
+                    dateTrack.style.paddingLeft = Math.max(0, (dateStrip.clientWidth - first.getBoundingClientRect().width) / 2) + 'px';
+                    dateTrack.style.paddingRight = Math.max(0, (dateStrip.clientWidth - last.getBoundingClientRect().width) / 2) + 'px';
+                    const active = document.querySelector('.nav-btn[aria-current="page"]') || first;
+                    centerDateButton(active, 'auto');
+                    updateEdges();
+                }
+                firstArrow.addEventListener('click', () => dateStrip.scrollTo({ left: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+                lastArrow.addEventListener('click', () => dateStrip.scrollTo({ left: dateStrip.scrollWidth - dateStrip.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' }));
+                dateStrip.addEventListener('scroll', () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateEdges); }, { passive: true });
+                syncSizing();
+                if (window.ResizeObserver) new ResizeObserver(syncSizing).observe(dateStrip);
+                else window.addEventListener('resize', syncSizing);
+                document.fonts?.ready.then(syncSizing);
+            }
+
             function setupTabSwitching() {
                 navButtons.forEach(button => {
                     button.addEventListener('click', () => {
                         const targetId = button.dataset.target;
+                        if (!isAnimating) centerDateButton(button);
                         if (!isAnimating && targetId !== currentActiveSectionId) {
                             isAnimating = true;
                             switchTab(targetId, true, () => { isAnimating = false; });
@@ -2119,7 +2170,10 @@
                 tl.add(() => {
                     navButtons.forEach(btn => {
                         const isTarget = btn.dataset.target === targetId;
-                        if (isTarget) btn.setAttribute('aria-current', 'page'); else btn.removeAttribute('aria-current');
+                        if (isTarget) {
+                            btn.setAttribute('aria-current', 'page');
+                            centerDateButton(btn, shouldScroll && !reduceMotion ? 'smooth' : 'auto');
+                        } else btn.removeAttribute('aria-current');
                         btn.classList.toggle('bg-sky-500', isTarget);
                         btn.classList.toggle('text-white', isTarget);
                         btn.classList.toggle('bg-sky-100', !isTarget);
