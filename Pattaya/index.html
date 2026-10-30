@@ -13,13 +13,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
@@ -52,11 +50,421 @@
         .timeline-line-progress { position: absolute; left: -21px; top: 20px; width: 4px; background-color: var(--brand-gold); border-radius: 2px; height: 0; }
         .daily-theme-card { background-size: cover; background-position: center; transition: transform 0.5s ease; }
         .daily-theme-card:hover { transform: scale(1.03); }
-        #map { height: 450px; border-radius: 1rem; z-index: 1; }
-        .leaflet-popup-content-wrapper { border-radius: 0.5rem; }
-        .leaflet-popup-content { font-family: 'Noto Sans TC', sans-serif; }
+
+
+
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        :root { --ink: #243844; --muted: #586976; --teal: #116c65; --purple: #6d3788; --amber: #86500b; }
+        body { color: var(--ink); opacity: 1; }
+        .preloader { pointer-events: none; animation: loader-fallback 0s 4s forwards; }
+        @keyframes loader-fallback { to { opacity: 0; visibility: hidden; } }
+        nav { border: 1px solid #e5edf1; }
+        .nav-btn { transition: background-color .2s, box-shadow .2s; min-height: 48px; }
+        .nav-btn[aria-current="page"] { box-shadow: 0 3px 10px #07598530; }
+        button:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid #1d5fb0; outline-offset: 4px; }
+        .timeline-item { --accent: #116c65; --tint: #e8f5f0; }
+        .timeline-item.type-transport { --accent: #285c98; --tint: #ecf3fc; }
+        .timeline-item.type-dining { --accent: #985219; --tint: #fff3e6; }
+        .timeline-item.type-night { --accent: #6d4489; --tint: #f3edf8; }
+        .timeline-item .icon { left: -18px; background: var(--accent); border-color: var(--tint); }
+        .timeline-line, .timeline-line-progress { left: 39px; }
+        .trip-card { border: 1px solid #dce6eb; border-radius: 14px; box-shadow: 0 7px 22px -18px #1e465c66; }
+        .trip-card-heading { padding: 22px 24px 20px; }
+        .trip-meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; margin-bottom: 12px; }
+        .trip-time { color: var(--accent); background: var(--tint); border-radius: 6px; padding: 5px 10px; font-size: .88rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+        .trip-type { color: var(--accent); font-size: .75rem; font-weight: 500; }
+        .trip-card-heading h3 { color: #233b48; font-size: 1.2rem; line-height: 1.6; font-weight: 700; }
+        .trip-summary { color: #4e626f; font-size: .94rem; line-height: 1.9; margin-top: 7px; }
+        .trip-more { border-top: 1px solid #e5edf1; }
+        .trip-more > summary { cursor: pointer; list-style: none; padding: 14px 24px; color: #365e73; font-size: .82rem; background: #f7fafc; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+        .trip-more > summary::-webkit-details-marker { display: none; }
+        .trip-more > summary:hover { background: #eef5f8; }
+        .trip-more > summary span { font-size: 1.1rem; transition: transform .18s; }
+        .trip-more[open] > summary span { transform: rotate(45deg); }
+        .trip-details { padding: 22px 24px 24px; color: #4b5e6b; font-size: .9rem; line-height: 1.9; }
+        .detail-copy p + p { margin-top: 10px; }
+        .detail-copy strong { color: #294957; }
+        .detail-copy > div { background: transparent !important; border: 0 !important; padding: 0 !important; }
+        .cost-tag { background: #f3eafa; color: #6a3285; padding: 1px 5px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+        .trip-notice { background: #fff7e6; border: 1px solid #eed9ac; border-radius: 9px; color: #795017; padding: 13px 15px; margin-top: 18px; }
+        .trip-notice > strong { display: block; color: #795017; font-size: .8rem; margin-bottom: 4px; }
+        .trip-notice i { margin-right: 5px; }
+        .trip-notice p { font-size: .86rem; line-height: 1.8; }
+        .trip-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+        .trip-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 100%; min-height: 44px; padding: 10px 14px; border: 1px solid #9dc8c2; border-radius: 7px; color: #0f625b; background: #edf7f4; font-size: .83rem; font-weight: 500; line-height: 1.6; text-decoration: none; }
+        .trip-link:hover { color: #084d46; background: #deefea; border-color: #478e83; }
+        .trip-link span { flex-shrink: 0; }
+        .daily-theme-card { min-height: 360px; }
+        .daily-theme-card:hover { transform: none; }
+        .view-timeline-btn { background-color: #126d68 !important; }
+        ::selection { background: #cce7e3; color: #123d38; }
+        @media (max-width: 640px) {
+            .timeline-line, .timeline-line-progress { left: 27px; }
+            .trip-card-heading { padding: 18px; }
+            .trip-card-heading h3 { font-size: 1.05rem; }
+            .trip-summary { font-size: .88rem; }
+            .trip-more > summary { padding: 13px 18px; }
+            .trip-details { padding: 18px; }
+            .trip-link { width: 100%; }
+            .daily-theme-card { min-height: 340px; padding: 24px !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition: none !important; animation: none !important; }
+            .card-hover:hover { transform: none; }
+        }
+        .trip-inline { padding: 0 24px 22px; color: #586976; font-size: .86rem; line-height: 1.85; }
+        .trip-inline .trip-links { margin-top: 12px; }
+        .trip-inline .detail-copy p + p { margin-top: 8px; }
+        @media (max-width: 640px) { .trip-inline { padding: 0 18px 18px; } }
+
+        /* Sea light and Songkran droplets, confined to the hero. */
+        .hero-header { isolation: isolate; background: #123e54; }
+        #hero-bg { background-position: center 58%; }
+        .hero-shade { z-index: 1; background: linear-gradient(180deg, rgba(4,39,56,.22), rgba(4,38,50,.36) 55%, rgba(3,37,49,.55)); }
+        #songkran-water { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+        .hero-waterline { position: absolute; left: -3%; bottom: 0; width: 106%; height: 100px; fill: none; stroke: #c6f4ff; stroke-width: 1; opacity: .25; z-index: 2; pointer-events: none; }
+        .hero-waterline path { animation: waterline-drift 9s ease-in-out infinite alternate; }
+        .hero-waterline path:nth-child(2) { animation-delay: -3s; opacity: .65; }
+        .hero-waterline path:nth-child(3) { animation-delay: -6s; opacity: .4; }
+        @keyframes waterline-drift { from { transform: translateX(-24px) translateY(2px); } to { transform: translateX(24px) translateY(-8px); } }
+        .daily-intro { max-width: 42em; margin: 18px auto 0; color: #fff; font-size: .92rem; line-height: 1.9; text-shadow: 0 1px 5px #000b; }
+        @media (max-width: 640px) { #hero-bg { background-position: center; } .hero-waterline { height: 65px; } .daily-intro { font-size: .85rem; } }
+        @media (prefers-reduced-motion: reduce) { #songkran-water { display: none; } .hero-waterline path { animation: none; } }
+        .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+        .hero-actions button { display: inline-flex; gap: 14px; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; font-size: .9rem; font-weight: 700; transition: transform .2s, background .2s, box-shadow .2s; }
+        #begin-trip { background: #eafcff; color: #10576a; border: 1px solid #eafcff; box-shadow: 0 6px 24px #00273433; }
+        #splash-party { background: #104d6690; color: #fff; border: 1px solid #bcf2ff99; }
+        .hero-actions button:hover { transform: translateY(-3px); box-shadow: 0 8px 28px #00273455; }
+        .hero-header::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, #83ebff55, transparent 65%); opacity: 0; pointer-events: none; z-index: 2; }
+        .hero-header.water-flash::after { animation: splash-light 1.2s ease-out both; }
+        @keyframes splash-light { 0% { opacity: 0; transform: scale(.8); } 22% { opacity: .7; } 100% { opacity: 0; transform: scale(1.1); } }
+        .water-photo { isolation: isolate; transition: box-shadow .3s ease; }
+        .water-photo::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 480px 320px at var(--water-x, 50%) var(--water-y, 50%), #a5f4ff35, transparent 75%); opacity: 0; transition: opacity .4s; }
+        .water-photo:hover::before { opacity: 1; }
+        .water-photo:hover { box-shadow: 0 16px 38px -16px #1e657d77; }
+        .trip-card { transition: border-color .2s, box-shadow .2s; }
+        .trip-card:hover { border-color: var(--accent); box-shadow: 0 10px 28px -20px var(--accent); }
+
+
+
+
+
+
+        .timeline-line, .timeline-line-progress { top: 20px; }
+        .timeline-item[hidden] { display: none !important; }
+        @media (prefers-reduced-motion: reduce) { .hero-header.water-flash::after { animation: none; } #splash-party { display: none; } .hero-actions button:hover { transform: none; } }
+        /* All eight daily covers share the same frame. */
+        .daily-theme-card { height: 400px; min-height: 400px; padding: 28px !important; }
+        .daily-theme-card h2 { font-size: 2rem; line-height: 1.35; }
+        .daily-theme-card .daily-intro { margin-top: 12px; }
+        .daily-theme-card .view-timeline-btn { margin-top: 18px; }
+        @media (max-width: 640px) {
+            .daily-theme-card { height: 440px; min-height: 440px; padding: 20px !important; }
+            .daily-theme-card h2 { font-size: 1.5rem; line-height: 1.4; }
+            .daily-theme-card .daily-intro { font-size: .8rem; line-height: 1.7; }
+        }
+        @font-face { font-family: 'Travel Serif'; src: url('../fonts/CormorantGaramond-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+        @font-face { font-family: 'Travel Serif'; src: url('../fonts/CormorantGaramond-MediumItalic.ttf') format('truetype'); font-weight: 500; font-style: italic; font-display: swap; }
+        :root { --paper: #faf8f1; --editorial-ink: #243f43; --rule: #d8ded4; --coral: #aa563c; }
+        body { background-color: var(--paper); background-image: linear-gradient(#faf8f1c9,#faf8f1c9),url('images/background-pattern.svg'); color: var(--editorial-ink); }
+        h1, .section-heading h2, .overview-opening h2, .day-editorial-heading h2, .trip-card-heading h3 { font-family: 'Noto Serif TC', Georgia, serif; }
+        .hero-header { justify-content: flex-start; align-items: flex-end; }
+        .cover-copy { text-align: left; width: min(1180px,100%); margin: 0 auto; padding: 60px 40px 100px; }
+        .cover-kicker { font-size: .72rem; letter-spacing: .19em; font-weight: 500; margin-bottom: 16px; }
+        .cover-script { font-family: 'Travel Serif',Georgia,serif; font-style: italic; font-size: clamp(2rem,4vw,3.8rem); line-height: 1.1; margin-bottom: 18px; }
+        #hero-title { font-size: clamp(2.6rem,5.5vw,5rem); font-weight: 600; letter-spacing: .07em; line-height: 1.4; }
+        #hero-subtitle { font-size: 1rem; margin-top: 20px; line-height: 1.9; }
+        .hero-actions { justify-content: flex-start; }
+        .hero-actions button { border-radius: 2px; font-weight: 500; padding: 12px 20px; }
+        .travel-pages { max-width: 1140px; padding-top: 0; }
+        .travel-pages > nav { top: 0 !important; margin: 0 0 56px; padding: 14px 0; background: #faf8f1f2; border: 0; border-bottom: 1px solid var(--rule); border-radius: 0; box-shadow: none; backdrop-filter: blur(12px); }
+        .nav-btn { background: transparent !important; color: #5b6f6e !important; border-radius: 0; border-bottom: 2px solid transparent; box-shadow: none !important; padding: 10px 17px; }
+        .nav-btn.bg-sky-500, .nav-btn[aria-current="page"] { color: #195f58 !important; border-color: #195f58; background: transparent !important; }
+        .nav-btn:hover { color: #a45039 !important; }
+        .editorial-kicker { display: block; color: #8c5944; font-size: .72rem; letter-spacing: .12em; margin-bottom: 12px; font-weight: 500; }
+        .overview-opening { display: grid; grid-template-columns: .9fr 1.1fr; gap: 62px; align-items: center; padding: 12px 0 54px; }
+        .overview-opening h2 { font-size: clamp(2.1rem,4vw,3.7rem); font-weight: 500; line-height: 1.5; letter-spacing: .03em; }
+        .overview-lead { margin-top: 22px; font-size: .95rem; line-height: 2.1; color: #526561; max-width: 29em; }
+        .trip-dateline { font-size: .76rem; margin-top: 24px; letter-spacing: .05em; color: #6a756b; }
+        .opening-photo { padding: 9px 9px 0; background: #fffdf8; transform: rotate(1.3deg); box-shadow: 0 12px 35px -24px #31403870; }
+        .opening-photo img { width: 100%; height: 310px; object-fit: cover; border-radius: 1px; }
+        .opening-photo figcaption { font-family: 'Noto Serif TC',serif; font-size: .8rem; color: #6f756b; padding: 14px 9px; }
+        .travel-pulse { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 26px 0; }
+        .countdown-editorial { display: flex; gap: 18px; color: #68766e; font-size: .75rem; font-variant-numeric: tabular-nums; flex-wrap: wrap; }
+        .countdown-editorial b { font-family: 'Travel Serif',serif; font-size: 2.1rem; color: #254e4c; font-weight: 500; }
+        .weather-editorial { display: flex; align-items: center; gap: 14px; font-size: .85rem; color: #526f70; }
+        #weather-temp { font-size: 1.6rem; color: #254e4c; }
+        #weather-icon { font-size: 1.8rem !important; color: #bc8652; }
+        .overview-section { margin: 66px 0; }
+        .section-heading { margin-bottom: 26px; }
+        .section-heading h2 { font-size: clamp(1.5rem,2.8vw,2rem); font-weight: 500; letter-spacing: .025em; line-height: 1.6; }
+        .small-note { font-size: .76rem; color: #64756f; line-height: 1.9; margin-top: 12px; }
+        .flight-ledger { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 24px 0; gap: 40px; }
+        .flight-ledger article + article { border-left: 1px solid var(--rule); padding-left: 40px; }
+        .flight-direction { color: #9b563d; font-size: .8rem; }
+        .flight-clock { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; font-family: 'Travel Serif',Georgia,serif; font-size: 2.7rem; line-height: 1.2; }
+        .flight-clock small { display: block; margin-top: 7px; font-family: 'Noto Sans TC',sans-serif; font-size: .8rem; color: #64736d; }
+        .flight-clock i { font-size: .9rem; color: #9aada5; }
+        .flight-ledger article > p { font-size: .75rem; color: #65756e; line-height: 1.8; }
+        .arrival-note { margin-top: 24px; padding-left: 20px; border-left: 2px solid #b8774e; font-size: .88rem; color: #546963; line-height: 1.95; }
+        .arrival-note > strong { color: #3c544a; font-weight: 500; }
+        .arrival-note p { margin-top: 6px; }
+        .editorial-text-button { color: #a45238; border-bottom: 1px solid #b98975; font-size: .8rem; padding: 6px 0; margin-top: 10px; }
+        .story-spread { display: grid; grid-template-columns: 1.2fr .85fr 1fr; gap: 26px; align-items: start; }
+        .story-photo { text-align: left; display: block; min-width: 0; }
+        .story-photo:nth-child(2) { padding-top: 38px; }
+        .story-photo:nth-child(3) { padding-top: 16px; }
+        .story-photo img { width: 100%; height: 235px; object-fit: cover; transition: transform .4s ease; }
+        .story-photo:hover img { transform: translateY(-5px); }
+        .story-photo:nth-child(2) img { height: 265px; }
+        .story-photo > span { display: block; font-family: 'Noto Serif TC',serif; font-size: .95rem; line-height: 1.8; margin-top: 14px; }
+        .story-photo small { display: block; color: #8e684e; font: .75rem 'Noto Sans TC',sans-serif; letter-spacing: .08em; margin-bottom: 5px; }
+        .travel-notes { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 36px 0; }
+        .packing-list label { display: flex; align-items: start; gap: 12px; padding: 11px 0; cursor: pointer; font-size: .88rem; color: #4a635a; line-height: 1.9; }
+        .packing-list input { margin-top: 6px; width: 17px; height: 17px; accent-color: #286e61; flex-shrink: 0; }
+        .packing-list label:has(input:checked) span { color: #758078; text-decoration: line-through; text-decoration-color: #a9b7ab; }
+        .field-notes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 55px; row-gap: 30px; }
+        .field-notes article { border-top: 1px solid var(--rule); padding-top: 18px; }
+        .field-notes h3 { font-family: 'Noto Serif TC',serif; font-size: 1.15rem; margin-bottom: 12px; color: #34534b; }
+        .field-notes p { color: #586d63; font-size: .86rem; line-height: 2; }
+        .booking-bookmarks { display: flex; flex-wrap: wrap; gap: 4px 25px; }
+        .trip-link { border: 0; border-bottom: 1px solid #9cb8aa; border-radius: 0; padding: 8px 0; background: transparent; color: #286251; min-height: 40px; gap: 14px; }
+        .trip-link:hover { border-color: #a85b3d; color: #a85b3d; background: transparent; }
+        .known-costs > div { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-bottom: 1px solid var(--rule); padding: 17px 0; }
+        .known-costs dt { font-size: .87rem; color: #566b61; line-height: 1.9; }
+        .known-costs dd { white-space: nowrap; font: 1.65rem 'Travel Serif',serif; color: #765277; }
+        .known-costs small { display: block; font: .72rem 'Noto Sans TC',sans-serif; color: #718078; margin-top: 5px; }
+        .budget-fold { margin-top: 25px; }
+        .budget-fold summary { cursor: pointer; color: #566c62; display: flex; justify-content: space-between; padding: 10px 0; font-size: .87rem; }
+        .budget-fold .chart-container { position: relative; height: 260px; width: 100%; margin-top: 20px; }
+        .day-editorial-heading { display: grid; grid-template-columns: 100px 1fr; gap: 30px; align-items: start; margin: 16px 0 32px; }
+        .day-folio { color: #ab6144; }
+        .day-folio span { font: italic 1.3rem 'Travel Serif',serif; display: block; }
+        .day-folio b { font: 5.2rem/.9 'Travel Serif',serif; display: block; font-weight: 500; }
+        .day-date { font-size: .72rem; color: #7d7865; letter-spacing: .07em; margin-bottom: 10px; }
+        .day-editorial-heading h2 { font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 500; line-height: 1.65; }
+        .day-description { color: #5e6d61; font-size: .92rem; line-height: 2; margin-top: 12px; max-width: 45em; }
+        .day-places { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 16px; font-size: .76rem; color: #8b624a; }
+        .day-places span + span::before { content: '·'; margin-right: 16px; color: #b9a28b; }
+        .daily-theme-card { display: block !important; border-radius: 4px; box-shadow: none; height: 400px; min-height: 400px; padding: 24px !important; margin-bottom: 34px !important; }
+        .photo-day-caption { position: absolute; bottom: 28px; left: 28px; font-family: 'Noto Serif TC',serif; color: #fff; font-size: .85rem; text-shadow: 0 1px 6px #0009; }
+        .view-timeline-btn { position: absolute; right: 24px; bottom: 20px; display: flex; align-items: center; gap: 18px; border: 0; border-bottom: 1px solid #fff9; padding: 10px 0; background: transparent !important; color: #fff; font-size: .85rem; border-radius: 0; }
+        .timeline-container { padding: 0 !important; max-width: 920px; margin: 40px auto 0; }
+        .timeline-line, .timeline-line-progress { display: none; }
+        .timeline-item { display: grid; grid-template-columns: 155px minmax(0,1fr); gap: 32px; margin: 0 !important; padding: 30px 0; border-top: 1px solid var(--rule); }
+        .itinerary-margin { padding-top: 3px; }
+        .trip-time { padding: 0; display: block; background: none; border-radius: 0; font-size: .88rem; color: var(--accent); line-height: 1.8; }
+        .trip-type { display: block; margin-top: 8px; color: #7c8475; font-size: .7rem; }
+        .trip-card { margin: 0 !important; border: 0 !important; box-shadow: none !important; background: transparent !important; overflow: visible; border-radius: 0; }
+        .trip-card-heading { padding: 0; }
+        .trip-card-heading h3 { font-weight: 600; color: #2c4c43; font-size: 1.3rem; }
+        .trip-summary { font-size: .92rem; color: #4e685c; line-height: 2; }
+        .trip-inline { padding: 12px 0 0; font-size: .84rem; color: #68766b; }
+        .trip-more { border: 0; margin-top: 12px; }
+        .trip-more > summary { background: transparent; padding: 8px 0; justify-content: flex-start; gap: 20px; color: #966043; font-size: .78rem; }
+        .trip-more > summary:hover { background: transparent; color: #733f28; }
+        .trip-details { padding: 12px 0 0; font-size: .84rem; }
+        .trip-notice { border: 0; border-left: 2px solid #c69a51; border-radius: 0; background: #f6edddaa; padding: 10px 14px; margin-top: 14px; }
+        .trip-notice > strong { font-weight: 500; font-size: .74rem; }
+        .trip-notice p { font-size: .8rem; }
+        .cost-tag { color: #765277; background: #efe4ee; border-radius: 2px; padding: 0 4px; font-weight: 500; }
+        footer { border-top: 1px solid var(--rule); color: #7b8779; }
+        @media (max-width: 767px) {
+            .cover-copy { padding: 40px 24px 70px; }
+            #hero-title { font-size: 2.6rem; }
+            .cover-script { font-size: 2.4rem; }
+            .travel-pages > nav { margin-bottom: 30px; }
+            .nav-btn { padding: 8px 13px; }
+            .overview-opening { grid-template-columns: 1fr; gap: 30px; }
+            .overview-opening h2 { font-size: 2.35rem; }
+            .opening-photo { width: 93%; margin-left: auto; }
+            .opening-photo img { height: 240px; }
+            .travel-pulse { gap: 22px; }
+            .countdown-editorial { gap: 5px 10px; }
+            .countdown-editorial b { font-size: 1.6rem; }
+            .weather-editorial { flex-wrap: wrap; gap: 8px; }
+            .overview-section { margin: 44px 0; }
+            .flight-ledger { grid-template-columns: 1fr; gap: 22px; }
+            .flight-ledger article + article { padding: 22px 0 0; border-left: 0; border-top: 1px solid var(--rule); }
+            .story-spread { gap: 15px; grid-template-columns: 1fr 1fr; }
+            .story-photo img { height: 180px; }
+            .story-photo:nth-child(2) { padding-top: 25px; }
+            .story-photo:nth-child(2) img { height: 200px; }
+            .story-photo:nth-child(3) { grid-column: 1/-1; padding-top: 12px; }
+            .story-photo:nth-child(3) img { height: 210px; }
+            .story-photo span { font-size: .86rem; }
+            .travel-notes { grid-template-columns: 1fr; gap: 0; }
+            .field-notes { grid-template-columns: 1fr; gap: 24px; }
+            .booking-bookmarks { gap: 4px 18px; }
+            .booking-bookmarks .trip-link { width: auto; }
+            .known-costs > div { align-items: start; gap: 15px; }
+            .known-costs dt { font-size: .78rem; }
+            .known-costs dd { font-size: 1.3rem; }
+            .known-costs small { font-size: .64rem; white-space: normal; max-width: 130px; }
+            .day-editorial-heading { grid-template-columns: 58px minmax(0,1fr); gap: 15px; }
+            .day-folio b { font-size: 3.5rem; }
+            .day-folio span { font-size: 1.1rem; }
+            .day-editorial-heading h2 { font-size: 1.55rem; }
+            .day-description { font-size: .85rem; }
+            .daily-theme-card { height: 440px; min-height: 440px; padding: 20px !important; }
+            .photo-day-caption { bottom: 72px; left: 20px; }
+            .view-timeline-btn { right: 20px; bottom: 20px; }
+            .timeline-item { grid-template-columns: 1fr; gap: 10px; padding: 24px 0; }
+            .itinerary-margin { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; }
+            .trip-type { margin: 0; }
+            .trip-card-heading { padding: 0; }
+            .trip-card-heading h3 { font-size: 1.17rem; }
+            .trip-inline, .trip-details { padding: 12px 0 0; }
+            .trip-more > summary { padding: 8px 0; }
+        }
+
+        .day-route-spread { display: grid; grid-template-columns: .8fr 1.2fr; gap: 36px; align-items: start; margin: 34px 0 48px; padding-bottom: 32px; border-bottom: 1px solid var(--rule); }
+        .route-copy h3 { font-family:'Noto Serif TC',serif; font-size:1.25rem; color:#35594c; }
+        .route-stop-list { margin-top:16px; padding:0; list-style:none; }
+        .route-stop { display:flex; gap:10px; align-items:center; padding:7px 0; min-height:38px; width:100%; text-align:left; font-size:.8rem; color:#506c5e; border-radius:4px; }
+        .route-stop>span { display:inline-flex; justify-content:center; align-items:center; width:23px; height:23px; flex-shrink:0; border:1px solid #b1c7b5; border-radius:50%; font: .8rem Georgia,serif; color:#2c6d59; }
+        .route-stop small { font-size:.6rem; color:#7d8574; margin-left:auto; white-space:nowrap; }
+        .route-stop:hover,.route-stop[aria-pressed="true"] { color:#a4563d; }
+        .route-stop[aria-pressed="true"]>span { color:#fff; background:#2c7868; border-color:#2c7868; }
+        .route-stop-note { color:#7b7b65; font-size:.7rem; line-height:1.8; margin-top:12px; }
+        .route-reset { font-size:.73rem; color:#976343; border-bottom:1px solid #baa58d; padding:7px 0; margin-top:10px; }
+        .route-visual { position:relative; height:330px; background:#eef2e8; border-radius:5px; overflow:hidden; isolation:isolate; }
+        .mini-route-map { position:absolute; inset:0; z-index:1; height:100%; background:#eef2e8; }
+        .route-fallback { position:absolute; inset:0; z-index:2; pointer-events:none; background:#eef2e8; display:flex; align-items:center; }
+        .route-fallback svg { width:100%; height:auto; }
+        .map-loaded .route-fallback { display:none; }
+        .route-map-caption { position:absolute; top:10px; right:10px; z-index:3; pointer-events:none; font-size:.62rem; padding:5px 8px; color:#536a55; background:#fffdf1e8; }
+        .route-node.is-active circle { fill:#2c7868; }.route-node.is-active text { fill:white; }
+        .route-pin span { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#fffdf6;color:#2c6d59;border:2px solid #2c7868;box-shadow:0 3px 8px #233f3a22;font-weight:700;font-size:12px; }
+
+
+        @media(max-width:767px){.day-route-spread{grid-template-columns:1fr;gap:20px;}.route-visual{height:285px;}.route-stop-list{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;}.route-stop{font-size:.75rem;}.route-stop small{display:none;}}
+
+        /* Preserve the established patterned paper, colour cues and recognisable links. */
+        body { background-color:#f6f7ef; background-image:linear-gradient(#faf8f170,#faf8f170),url('images/background-pattern.svg'); color:#243844; }
+        .cover-copy h1 { font-family:'Noto Sans TC',sans-serif; font-weight:900; }
+        .day-editorial-heading h2,.trip-card-heading h3 { font-family:'Noto Sans TC',sans-serif; font-weight:700; }
+        .day-editorial-heading h2 { color:#17646e; }
+        .day-folio { color:#118caa; }
+        .day-description { color:#4f6670; }
+        .day-places { color:#9b5c36; }
+        .travel-pages > nav { top:12px !important; background:#ffffffed; border:1px solid #d5e7ed; border-radius:14px; padding:12px; box-shadow:0 7px 20px -15px #326a7955; }
+        .nav-btn { border:0; border-radius:999px; color:#26627b !important; background:#e4f3fb !important; padding:10px 17px; }
+        .nav-btn.bg-sky-500,.nav-btn[aria-current="page"] { background:#0ea5e9 !important; color:#fff !important; }
+        .nav-btn:hover { background:#cdeaf7 !important; color:#18546c !important; }
+        .nav-btn[aria-current="page"]:hover { background:#0284c7 !important; color:#fff !important; }
+        .timeline-container { padding:12px 26px !important; background:#ffffffde; border-radius:18px; }
+        .trip-time { display:inline-block; padding:5px 10px; border-radius:6px; background:var(--tint); color:var(--accent); font-weight:700; }
+        .trip-type { color:var(--accent); font-weight:500; }
+        .trip-card-heading h3 { color:var(--accent); }
+        .trip-summary { color:#425d68; }
+        .trip-notice { background:#fff5dc; border:1px solid #e8d39e; border-left:3px solid #c38a27; border-radius:8px; color:#795017; padding:12px 15px; }
+        .trip-notice>strong { color:#80500d; font-weight:700; }
+        .trip-notice p { color:#795017; }
+        .cost-tag { background:#f1e5f7; color:#703d8a; font-weight:700; padding:1px 5px; border-radius:4px; }
+        .trip-link { display:inline-flex; align-items:center; justify-content:space-between; gap:14px; min-height:44px; padding:10px 14px; margin:4px 5px 4px 0; background:#eaf7f2; color:#12685b; border:1px solid #a9cec2; border-radius:8px; font-weight:500; }
+        .trip-link:hover { background:#d5ede5; color:#084f43; border-color:#548e7c; }
+        .trip-more>summary { color:#97622b; background:#fbf6e9; border:1px solid #ede0c4; border-radius:6px; padding:9px 12px; }
+        .trip-more>summary:hover { color:#754816; background:#f6edda; }
+        .route-copy h3 { color:#17646e; font-family:'Noto Sans TC',sans-serif; font-weight:700; }
+        .route-visual.google-route { height:370px; background:#e8f2f4; border:1px solid #c8dce1; border-radius:12px; overflow:hidden; }
+        .google-map-frame { display:block; width:100%; height:100%; border:0; }
+        .google-route .route-map-caption { top:auto;bottom:10px;right:10px;background:#fffdf4ed; color:#395e67; font-size:.68rem; max-width:90%; }
+        .route-stop { color:#315e69; }
+        .route-stop[aria-pressed="true"] { color:#116b61; font-weight:700; }
+        .route-stop[aria-pressed="true"]>span { color:#fff;background:#167970;border-color:#167970; }
+        .route-reset { color:#0e766b; border-color:#69aa9d; }
+        @media(max-width:767px){.timeline-container{padding:8px 16px !important;}.route-visual.google-route{height:330px;}.trip-more>summary{padding:9px 12px;}.trip-link{width:100%;}.booking-bookmarks .trip-link{width:auto;}}
+        /* Open travel notes: rhythm and a light route line instead of nested boxes. */
+        .timeline-container { padding: 0 6px !important; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+        .itinerary-reading-heading { padding: 0 0 26px 187px; margin-bottom: 4px; }
+        .itinerary-reading-heading .editorial-kicker { margin-bottom: 7px; }
+        .itinerary-reading-heading h3 { font-family: 'Noto Serif TC',serif; color:#285c62; font-size:1.5rem; line-height:1.6; }
+        .itinerary-reading-heading > p:last-child { color:#667779; font-size:.78rem; line-height:1.9; margin-top:7px; }
+        .timeline-item { border: 0; padding: 22px 0 30px; }
+        .timeline-item::before { content:''; position:absolute; left:4px; top:39px; bottom:-17px; width:1px; background:repeating-linear-gradient(to bottom,#a9c4c3 0 3px,transparent 3px 8px); opacity:.75; }
+        .timeline-item:last-child::before { display:none; }
+        .itinerary-margin { position:relative; padding-left:23px; }
+        .itinerary-margin::before { content:''; position:absolute; width:9px; height:9px; left:0; top:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--tint); }
+        .trip-time { padding:0; background:transparent; border-radius:0; font-size:.87rem; line-height:1.9; font-weight:700; }
+        .trip-type { margin-top:5px; font-size:.7rem; opacity:.88; }
+        .trip-card-heading h3 { font-size:1.28rem; line-height:1.7; }
+        .trip-summary { margin-top:8px; line-height:1.95; }
+        .trip-inline,.trip-details { line-height:1.95; }
+        .trip-notice { background:linear-gradient(90deg,#fff3d9e6,#fff6e180); border:0; border-left:2px solid #c38a27; border-radius:0 16px 16px 0; padding:10px 14px; }
+        .trip-more { margin-top:13px; }
+        .trip-more > summary { display:inline-flex; width:auto; max-width:100%; padding:7px 0; gap:14px; background:transparent; border:0; border-bottom:1px solid #d4b788; border-radius:0; font-weight:500; }
+        .trip-more > summary:hover { background:transparent; border-color:#986526; }
+        .trip-more > summary > span { display:inline-grid; place-items:center; width:23px; height:23px; border-radius:50%; background:#f6ead4; color:#946126; flex-shrink:0; }
+        .trip-link { border-radius:999px; padding:9px 16px; width:auto; font-size:.81rem; box-shadow:none; }
+        .trip-link:hover { transform:translateY(-1px); }
+        .trip-links { gap:8px 10px; }
+        .view-timeline-btn { border:0; padding:6px 0; gap:16px; background:transparent !important; }
+        .view-timeline-btn i { display:inline-grid; place-items:center; width:34px; height:34px; border:1px solid #ffffff99; border-radius:50%; transition:transform .2s,background .2s; }
+        .view-timeline-btn:hover i { transform:translateY(3px); background:#ffffff22; }
+        @media(max-width:767px) {
+            .timeline-container { padding:0 4px !important; }
+            .itinerary-reading-heading { padding:0 0 22px 23px; }
+            .itinerary-reading-heading h3 { font-size:1.3rem; }
+            .timeline-item { padding:18px 0 26px 23px; gap:8px; }
+            .itinerary-margin { padding-left:0; position:static; }
+            .itinerary-margin::before { left:0; top:27px; width:8px; height:8px; }
+            .timeline-item::before { left:3.5px; top:45px; bottom:-16px; }
+            .trip-card-heading h3 { font-size:1.13rem; }
+            .trip-more > summary { padding:8px 0; font-size:.76rem; }
+            .trip-link { width:auto; max-width:100%; }
+            .trip-notice { padding:10px 12px; }
+        }
+        @media(prefers-reduced-motion:reduce){.trip-link:hover,.view-timeline-btn:hover i{transform:none;}}
+
+        /* One palette for the cover, date index, photos and reading pages. */
+        .travel-pages > nav { background:#fffdf7f5; border:1px solid #dedfd1; border-radius:18px; padding:10px 12px; box-shadow:0 7px 24px -19px #344e4245; }
+        .nav-btn { background:transparent !important; color:#4e6a65 !important; border:0; border-radius:11px; font-weight:500; padding:10px 17px; position:relative; }
+        .nav-btn.bg-sky-500,.nav-btn[aria-current="page"] { background:#176e63 !important; color:#fff !important; box-shadow:0 4px 12px -8px #124b42 !important; }
+        .nav-btn:hover { background:#eef2e6 !important; color:#315f53 !important; }
+        .nav-btn[aria-current="page"]:hover { background:#115b51 !important; color:#fff !important; }
+        .nav-btn .text-xs { color:inherit; opacity:.8; font-size:.72rem; }
+        .overview-opening h2,.section-heading h2,.day-editorial-heading h2,.itinerary-reading-heading h3 { color:#285c62; font-family:'Noto Serif TC',Georgia,serif; font-weight:600; }
+        .day-folio { color:#2c8077; }
+        .day-folio span { color:#9c6a4b; }
+        .day-date,.trip-dateline { color:#6a796f; }
+        .editorial-kicker { color:#a06646; letter-spacing:.09em; }
+        .section-heading h2 { line-height:1.65; }
+        .day-photo-image { position:absolute; inset:0; z-index:-2; background-size:cover; background-repeat:no-repeat; filter:saturate(.91) contrast(.98) brightness(1.02); }
+        .day-photo-image.scene-night { filter:saturate(.92) contrast(.97) brightness(1.06); }
+        .opening-photo img,.story-photo img,.itinerary-photo img { filter:saturate(.91) contrast(.98) brightness(1.02); }
+        .scene-night img,.story-photo:first-child img { filter:saturate(.92) contrast(.97) brightness(1.06); }
+        .day-chapter { display:grid; grid-template-columns:155px minmax(0,1fr); gap:32px; align-items:end; padding:26px 0 20px; margin:12px 0 8px; border-bottom:1px solid #c5d6c8; }
+        .day-chapter:first-of-type { margin-top:0; padding-top:4px; }
+        .day-chapter>div { padding-left:22px; }
+        .day-chapter span { display:block; font-family:'Noto Serif TC',serif; color:#a56843; font-size:1.1rem; font-weight:600; }
+        .day-chapter small { display:block; color:#718174; font-size:.73rem; margin-top:6px; font-variant-numeric:tabular-nums; }
+        .day-chapter h3 { font-family:'Noto Serif TC',serif; color:#315f5b; font-size:1.2rem; line-height:1.7; }
+        .trip-with-photo { display:grid; grid-template-columns:minmax(0,1fr) minmax(160px,30%); gap:26px; align-items:start; }
+        .trip-copy { min-width:0; }
+        .itinerary-photo { margin:4px 0 0; padding:7px 7px 0; background:#fffdf7; box-shadow:0 8px 22px -18px #2a4f4870; }
+        .itinerary-photo img { display:block; width:100%; aspect-ratio:4/3; height:auto; object-fit:cover; border-radius:2px; }
+        .itinerary-photo figcaption { font-family:'Noto Serif TC',serif; font-size:.73rem; color:#586d61; line-height:1.85; padding:9px 3px; }
+        .trip-link { transition:background .2s,border-color .2s,color .2s; }
+        .budget-fold summary { border-bottom:1px solid #ccd9cc; }
+        .field-notes .trip-link { margin-top:12px; }
+        .small-note { line-height:1.95; }
+        @media(max-width:900px){.trip-with-photo{grid-template-columns:1fr;gap:16px;}.itinerary-photo{width:min(320px,90%);margin:6px 0 4px auto;}}
+        @media(max-width:767px){
+            .travel-pages > nav { padding:8px; border-radius:14px; }
+            .nav-btn { padding:9px 14px; min-height:46px; }
+            .day-chapter { grid-template-columns:1fr; gap:8px; padding:24px 0 16px 23px; }
+            .day-chapter>div { padding:0; display:flex; gap:14px; align-items:baseline; }
+            .day-chapter small { margin:0; }
+            .day-chapter h3 { font-size:1.08rem; }
+            .day-chapter span { font-size:.93rem; }
+            .itinerary-photo { width:min(320px,94%); }
+        }
+        .route-stop small { font-size:.7rem; color:#627164; }
+        .day-chapter small { color:#5d7262; }
+        @media(max-width:767px){.known-costs small{font-size:.7rem;}}
     </style>
 </head>
 <body class="text-slate-700">
@@ -67,68 +475,43 @@
 
     <header class="hero-header relative w-full flex items-center justify-center text-white overflow-hidden">
         <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
-             style="background-image: url('images/hero-真理寺.jpg'); z-index: 0;">
+             style="background-image: url('images/hero-pattaya-songkran.jpg'); z-index: 0;">
         </div>
-        <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-index: 1;"></div>
-        <div class="relative text-center z-10 p-4">
-            <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 12px rgba(0,0,0,0.7);">戲水南洋・芭達雅浪遊</h1>
-            <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl text-shadow" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.7);">潑水節狂歡、海島秘境與金輝聖殿的六日詩篇</p>
+        <div class="hero-shade absolute inset-0" aria-hidden="true"></div>
+        <canvas id="songkran-water" aria-hidden="true"></canvas>
+        <svg class="hero-waterline" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M-100 58 Q260 0 620 56 T1540 58"/><path d="M-100 78 Q290 20 720 70 T1540 75"/><path d="M-100 96 Q400 40 820 96 T1540 98"/></svg>
+        <div class="cover-copy relative z-10 p-4"><p class="cover-kicker">THAILAND · 10—17 APRIL 2027</p><p class="cover-script" aria-hidden="true">Pattaya, with a splash.</p>
+            <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl font-black tracking-wider" style="text-shadow: 2px 2px 12px rgba(0,0,0,0.7);">芭達雅・曼谷</h1>
+            <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl text-shadow" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.7);">海風、潑水節，與八天的南洋假期。</p>
+            <div class="hero-actions"><button id="begin-trip" type="button">展開旅程 <i class="fas fa-arrow-down" aria-hidden="true"></i></button><button id="splash-party" type="button"><i class="fas fa-droplet" aria-hidden="true"></i> 潑水一下</button></div>
         </div>
     </header>
 
-    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl -mt-24 z-20 relative">
+    <div class="travel-pages container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl z-20 relative">
         <nav class="sticky top-4 z-30 bg-white/80 backdrop-blur-lg p-4 mb-12 rounded-xl shadow-lg">
             <div class="flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto hide-scrollbar">
                 <button data-target="overview" class="nav-btn bg-sky-500 text-white py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">旅程總覽</button>
-                <button data-target="day1" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/12<br><span class="text-xs font-medium">(週一)</span></button>
-                <button data-target="day2" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/13<br><span class="text-xs font-medium">(週二)</span></button>
-                <button data-target="day3" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/14<br><span class="text-xs font-medium">(週三)</span></button>
-                <button data-target="day4" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/15<br><span class="text-xs font-medium">(週四)</span></button>
-                <button data-target="day5" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/16<br><span class="text-xs font-medium">(週五)</span></button>
-                <button data-target="day6" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/17<br><span class="text-xs font-medium">(週六)</span></button>
+                <button data-target="day1" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/10<br><span class="text-xs font-medium">(週六)</span></button>
+                <button data-target="day2" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/11<br><span class="text-xs font-medium">(週日)</span></button>
+                <button data-target="day3" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/12<br><span class="text-xs font-medium">(週一)</span></button>
+                <button data-target="day4" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/13<br><span class="text-xs font-medium">(週二)</span></button>
+                <button data-target="day5" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/14<br><span class="text-xs font-medium">(週三)</span></button>
+                <button data-target="day6" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/15<br><span class="text-xs font-medium">(週四)</span></button>
+                <button data-target="day7" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/16<br><span class="text-xs font-medium">(週五)</span></button>
+                <button data-target="day8" class="nav-btn bg-sky-100 text-sky-800 py-2 px-4 rounded-full shadow-sm text-center leading-tight flex-shrink-0 whitespace-nowrap">4/17<br><span class="text-xs font-medium">(週六)</span></button>
             </div>
         </nav>
 
         <main>
-            <section id="overview" class="content-section">
-                <!-- Countdown & Weather -->
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
-                        <h2 class="text-2xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-hourglass-half mr-3 text-sky-500"></i>出發倒數計時</h2>
-                        <div id="countdown" class="text-center grid grid-cols-4 gap-2">
-                            <div><div class="text-4xl font-bold text-slate-700" id="days">00</div><div class="text-xs text-slate-500">天</div></div>
-                            <div><div class="text-4xl font-bold text-slate-700" id="hours">00</div><div class="text-xs text-slate-500">小時</div></div>
-                            <div><div class="text-4xl font-bold text-slate-700" id="minutes">00</div><div class="text-xs text-slate-500">分鐘</div></div>
-                            <div><div class="text-4xl font-bold text-slate-700" id="seconds">00</div><div class="text-xs text-slate-500">秒</div></div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 card-hover">
-                        <h2 class="text-2xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-cloud-sun mr-3 text-sky-500"></i>芭達雅天氣速覽</h2>
-                        <div id="weather-info" class="flex items-center justify-around">
-                            <i id="weather-icon" class="fas fa-spinner fa-spin text-6xl text-sky-400"></i>
-                            <div>
-                                <div id="weather-temp" class="text-4xl font-bold text-slate-700">--°C</div>
-                                <div id="weather-desc" class="text-slate-500">讀取中...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Map Section -->
-                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-map-marked-alt mr-3 text-sky-500"></i>互動行程地圖</h2>
-                    <p class="mb-6 text-slate-600">點擊每日行程，即可在地圖上看到當天所有景點！</p>
-                    <div id="map"></div>
-                </div>
-
-                <!-- Budget Chart -->
-                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100 mb-12 card-hover">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 mb-4 flex items-center"><i class="fas fa-chart-pie mr-3 text-sky-500"></i>預估人均支出 (THB)</h2>
-                    <p class="mb-6 text-slate-600">此圖表為您呈現每日預估的人均支出，主要涵蓋交通、景點門票與餐飲，不含住宿與購物，為旅程開銷提供參考。</p>
-                    <div class="chart-container relative w-full h-80 sm:h-96 max-w-3xl mx-auto">
-                        <canvas id="budgetChart"></canvas>
-                    </div>
-                </div>
+            <section id="overview" class="content-section magazine-overview">
+                <div class="overview-opening"><div><p class="editorial-kicker">這趟旅行</p><h2>先去海邊，<br>再走進曼谷。</h2><p class="overview-lead">四個人，八天七夜。從 LOF LAND、火舞和潑水節，玩到格蘭島，再把最後兩天留給曼谷。</p><p class="trip-dateline">2027.04.10 — 04.17 · 芭達雅 → 曼谷</p></div><figure class="opening-photo"><img src="images/koh-larn.jpg" alt="格蘭島的海岸與碧綠海水" width="1700" height="510" loading="lazy"><figcaption>4 月，把白天留給海。</figcaption></figure></div>
+                <div class="travel-pulse"><div><span class="editorial-kicker">距離出發</span><div id="countdown" class="countdown-editorial"><span><b id="days">00</b> 天</span><span><b id="hours">00</b> 時</span><span><b id="minutes">00</b> 分</span><span><b id="seconds">00</b> 秒</span></div></div><div><span class="editorial-kicker">現在的芭達雅</span><div id="weather-info" class="weather-editorial"><i id="weather-icon" class="fas fa-cloud-sun" aria-hidden="true"></i><span id="weather-temp">--°C</span><span id="weather-desc">讀取中…</span></div><p class="small-note">目前即時天氣，非旅遊日期預報。</p></div></div>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">航班與第一天接送</span><h2>出發和回家，先記好。</h2></div><div class="flight-ledger"><article><span class="flight-direction">去程 · 4/10（六）</span><div class="flight-clock"><span>07:55 <small>TPE 桃園</small></span><i class="fas fa-plane" aria-hidden="true"></i><span>10:40 <small>BKK 曼谷</small></span></div><p>TG637 · 桃園第 1 航廈 · 飛行 3 小時 45 分鐘</p></article><article><span class="flight-direction">回程 · 4/17（六）</span><div class="flight-clock"><span>11:45 <small>BKK 曼谷</small></span><i class="fas fa-plane" aria-hidden="true"></i><span>16:15 <small>KHH 高雄</small></span></div><p>TG630 · 抵達高雄第 1 航廈 · 飛行 3 小時 30 分鐘</p></article></div><p class="small-note">航班皆為當地時間；泰國比台灣慢 1 小時。</p><div class="arrival-note"><strong>落地後的路線</strong><p>BKK → LOF LAND（停留兩小時）→ 海灘路民宿 → DAM 火舞 → 六巷。包車四人 <mark class="cost-tag">2,400 THB</mark>；LOF LAND 四人門票 <mark class="cost-tag">1,200 THB</mark>，各含一杯飲料。</p><p class="small-note">回程 4/17 約 07:00 從曼谷飯店出發，目標 08:30 前抵達 BKK。</p><button type="button" class="editorial-text-button jump-day" data-day="day1">看 4/10 的詳細時間 ↗</button></div></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">八天的節奏</span><h2>這趟想記住的畫面。</h2></div><div class="story-spread"><button class="story-photo jump-day" data-day="day1" type="button"><img src="images/dam-pattaya-fire-panorama.jpg" alt="DAM 海邊的火舞與金色火花" loading="lazy"><span><small>10 APR</small>海風裡看一場火舞 ↗</span></button><button class="story-photo jump-day" data-day="day3" type="button"><img src="images/sky-wide-exit.webp" alt="高空跳傘躍出機艙" loading="lazy"><span><small>12 APR</small>從空中看這片海 ↗</span></button><button class="story-photo jump-day" data-day="day4" type="button"><img src="images/songkran-water-splash.jpg" alt="潑水節的水花與水槍" loading="lazy"><span><small>13 APR</small>帶著水槍去過節 ↗</span></button></div></section>
+                <section class="overview-section travel-notes"><div class="section-heading"><span class="editorial-kicker">出門前翻一下</span><h2>行李裡，要有這些。</h2><p class="small-note">可以勾選，紀錄只保存在這台裝置。</p></div><div><div class="packing-list"><label><input type="checkbox" data-pack="documents"><span>護照、機票與住宿資料的離線備份</span></label><label><input type="checkbox" data-pack="waterproof"><span>防水袋、護目鏡與快乾衣</span></label><label><input type="checkbox" data-pack="temple"><span>真理寺用的遮肩、過膝乾爽衣物</span></label><label><input type="checkbox" data-pack="beach"><span>泳衣、防曬、帽子與替換衣物</span></label><label><input type="checkbox" data-pack="network"><span>行動網路、充電器與行動電源</span></label><label><input type="checkbox" data-pack="bookings"><span>跳傘、船班、DAM 與按摩預約憑證</span></label></div><p id="packing-status" class="small-note" aria-live="polite">尚未勾選</p></div></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">實用小抄</span><h2>到了當地，少找幾次資料。</h2></div><div class="field-notes"><article><h3>入境資料</h3><p>依現行規定，TDAC 需於抵達前三天內（含抵達日）提交，官方申請免費。先備好護照、航班與第一晚住宿地址。</p><a class="trip-link" href="https://tdac.immigration.go.th/" target="_blank" rel="noopener noreferrer">TDAC 官方入口<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://tdac.immigration.go.th/manual/en/faq.html" target="_blank" rel="noopener noreferrer">官方填寫說明<span aria-hidden="true">↗</span></a><p class="small-note">現行資訊查核於 2026/10/30；2027 出發前再確認規定。</p></article><article><h3>叫車與接送</h3><p>4/10 已有整段包車報價；其餘接送依各方案確認。先把海灘路民宿地址存進手機，節日期間預留叫車時間。</p><a class="trip-link" href="https://maps.app.goo.gl/FmaH19S7VuRyycdq8" target="_blank" rel="noopener noreferrer">LOF LAND 位置<span aria-hidden="true">↗</span></a></article><article><h3>下雨時怎麼調整</h3><p>室內逛街可改 Royal Garden Plaza 或 Terminal 21。跳傘、快艇與火舞則先聯絡業者，依天候及訂單規則調整。</p></article><article><h3>需要協助時</h3><p>旅遊警察 1155，警察緊急電話 191。先保存司機、民宿房東及活動業者的聯絡方式。</p><a class="trip-link" href="https://thailand.prd.go.th/en/content/category/detail/id/2078/iid/447104" target="_blank" rel="noopener noreferrer">官方旅遊協助電話<span aria-hidden="true">↗</span></a></article></div></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">預約書籤</span><h2>會用到的入口，放一起。</h2></div><div class="booking-bookmarks"><a class="trip-link" href="https://www.lof-land.com/th/ticket" target="_blank" rel="noopener noreferrer">LOF LAND 門票<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/zh-TW/activity/186411-dam-beach-fireshow-pattaya/" target="_blank" rel="noopener noreferrer">DAM 四人前排<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/en-US/activity/338-khao-kheow-open-zoo-pattaya/" target="_blank" rel="noopener noreferrer">綠山動物園<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://thaiskyadventures.com/begin-your-booking/" target="_blank" rel="noopener noreferrer">Thai Sky Adventures<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/zh-TW/activity/106819-ocean-sky-cruise-with-show-in-pattaya/" target="_blank" rel="noopener noreferrer">日落郵輪<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sanctuaryoftruthmuseum.com/visit-us/" target="_blank" rel="noopener noreferrer">真理寺<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sky.theskygroupth.com/sky/customer/index.php?lang=en" target="_blank" rel="noopener noreferrer">The Sky Gallery 訂位<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://letsrelaxspa.com/branches/pattaya-beachfront/" target="_blank" rel="noopener noreferrer">Let’s Relax 海灘路店<span aria-hidden="true">↗</span></a></div><p class="small-note">書籤是預約入口，不代表已購票。日期、套餐與費用仍以實際訂單為準。</p></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">費用手記</span><h2>確認的先記，其他慢慢補。</h2></div><dl class="known-costs"><div><dt>4/10 包車，含 LOF LAND 停留與春武里加價</dt><dd>2,400 THB <small>四人／每人 600 THB</small></dd></div><div><dt>LOF LAND 門票，含飲料</dt><dd>1,200 THB <small>四人／每人 300 THB</small></dd></div><div><dt>DAM 四人前排方案</dt><dd>NT$1,933 <small>四人／每人 NT$483.25</small></dd></div></dl><p class="small-note">4/10 已知費用：3,600 THB＋NT$1,933／四人；餐飲加點、晚間叫車另計。不同幣別分開記。</p><details class="budget-fold"><summary>查看每日人均預算圖 <span aria-hidden="true">＋</span></summary><p class="small-note">4/10 僅列已知泰銖費用每人 900 THB；4/11～4/14 暫留空，其他日期為粗估。不含機票、住宿與購物。</p><div class="chart-container"><canvas id="budgetChart"></canvas></div></details></section>
             </section>
 
             <div id="daily-sections-container"></div>
@@ -145,6 +528,7 @@
 
     <script>
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         document.addEventListener('DOMContentLoaded', function () {
             // --- DOM Elements ---
@@ -155,129 +539,1270 @@
 
             // --- DATA ---
             const itineraryData = {
-                day1: {
-                    title: "抵達・水戰前夜的寧靜",
-                    themeImage: "images/芭達雅海灣.jpg",
-                    highlights: [
-                        { icon: "fa-shopping-bag", text: "Terminal 21 備戰採買" },
-                        { icon: "fa-utensils", text: "Pier 21 美食街" }
-                    ],
-                    locations: {
-                        "芭達雅海灘路": { lat: 12.928, lon: 100.883 },
-                        "Terminal 21 Pattaya": { lat: 12.935, lon: 100.889 }
-                    },
-                    items: [
-                        { time: "下午", title: "專車直達・入住濱海飯店", icon: "fa-car", details: "<p>從曼谷機場入境後，搭乘預約的專車直奔熱情的芭達雅，車程約1.5-2小時。選擇入住海灘路（Beach Road）周邊的飯店，方便體驗這座城市的活力。</p><p><strong>推薦住宿：</strong>芭達雅希爾頓酒店 或 芭達雅硬石酒店。</p>" },
-                        { time: "傍晚", title: "備戰採買・決戰裝備購置", icon: "fa-shopping-cart", details: "<p>前往芭達雅最醒目的地標之一 <strong>Terminal 21 Pattaya</strong> 商場。我們的首要任務是為明日的潑水節大戰採購完美裝備！</p><ul class='list-disc list-inside mt-2 text-sm'><li><i class='fas fa-shield-alt mr-2 text-sky-500'></i>專業手機防水袋</li><li><i class='fas fa-glasses mr-2 text-sky-500'></i>護目鏡（保護眼睛不受強力水柱攻擊）</li><li><i class='fas fa-crosshairs mr-2 text-sky-500'></i>強力水槍</li><li><i class='fas fa-tshirt mr-2 text-sky-500'></i>一件色彩鮮豔的泰式花襯衫</li></ul>" },
-                        { time: "晚上", title: "美食饗宴・海風中的悠閒", icon: "fa-utensils", details: "<p>在商場內的 <strong>Pier 21 美食街</strong> 享用平價又道地的泰式小吃，儲備明日戰鬥的能量。晚餐後，沿著海灘路散步，感受南國夜晚的涼爽海風，為充滿活力的一天畫下句點。</p>" }
-                    ]
-                },
-                day2: {
-                    title: "潑水節・終極水戰狂歡日",
-                    themeImage: "images/潑水節.jpg",
-                    highlights: [
-                        { icon: "fa-faucet-drip", text: "海灘路終極水戰" },
-                        { icon: "fa-crab", text: "戰後海鮮盛宴" }
-                    ],
-                    locations: {
-                        "芭達雅海灘路戰區": { lat: 12.930, lon: 100.885 }
-                    },
-                    items: [
-                        { time: "上午", title: "自然醒・戰前整備", icon: "fa-sun", details: "<p>睡到自然醒，為身體充滿電。出門前務必塗好高係數的防水防曬乳，並將所有貴重物品（護照、錢包、無防水的手機）鎖在飯店保險箱。</p>" },
-                        { time: "下午", title: "全面開戰・濕身大作戰", icon: "fa-faucet-drip", details: "<p>直奔海灘路一級戰區！跟著路邊的消防車、臨時補水站和泡沫派對，與來自世界各地的遊客一同陷入瘋狂的水戰。感受重低音響徹雲霄，享受無差別攻擊的濕身快感！</p><div class='mt-4 p-3 bg-yellow-100 border-l-4 border-yellow-400 text-yellow-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-exclamation-triangle mr-2'></i>重要提示：</strong>水戰當天隨身重要物品（少量現金、護照影本）請務必裝入專業防水袋，盡量勿帶未具防水功能的相機。</p></div>" },
-                        { time: "晚上", title: "戰後休整・海鮮盛宴", icon: "fa-crab", details: "<p>返回飯店洗個舒服的熱水澡，換上乾爽的衣服。前往海濱的海鮮餐廳，大啖美味的海鮮料理，伴隨著溫柔的海浪聲與音樂，享受戰後和平的寧靜夜晚。</p>" }
-                    ]
-                },
-                day3: {
-                    title: "海島晨光・聖殿夕照",
-                    themeImage: "images/真理寺.jpg",
-                    highlights: [
-                        { icon: "fa-ship", text: "格蘭島跳島" },
-                        { icon: "fa-gopuram", text: "真理寺木雕聖殿" },
-                        { icon: "fa-moon", text: "中天海灘晚餐" }
-                    ],
-                    locations: {
-                        "峇里海碼頭": { lat: 12.920, lon: 100.867 },
-                        "格蘭島 (Tien Beach)": { lat: 12.909, lon: 100.781 },
-                        "真理寺": { lat: 12.972, lon: 100.889 },
-                        "中天海灘": { lat: 12.885, lon: 100.883 }
-                    },
-                    items: [
-                        { time: "上午", title: "跳島之旅・格蘭島的呼喚", icon: "fa-ship", details: "<p>從<strong>峇里海碼頭（Bali Hai Pier）</strong>搭乘快艇，僅需15分鐘即可抵達被譽為「珊瑚島」的格蘭島。上午的海水最為清澈，推薦在 <strong>Tien Beach</strong> 或 <strong>Tawaen Beach</strong> 的躺椅上放空、喝冰涼的椰子水，或體驗刺激的水上活動。</p>" },
-                        { time: "下午", title: "返航・為朝聖做準備", icon: "fa-person-walking-luggage", details: "<p>約13:30搭船返回芭達雅市區。回飯店徹底沖洗，換上合乎寺廟禮儀的乾爽服裝（過膝褲/裙、不露肩膀的上衣），準備前往下一個神聖的目的地。</p>" },
-                        { time: "傍晚", title: "真理寺・黃昏下的木雕神話", icon: "fa-gopuram", details: "<p>前往<strong>真理寺（The Sanctuary of Truth）</strong>，這座全球最大的純木雕聖殿將讓你嘆為觀止。欣賞工匠們精湛的手雕工藝，並靜待傍晚時分，夕陽斜射在木造廊柱上，形成壯麗而神聖的光影。</p><div class='mt-4 p-3 bg-blue-100 border-l-4 border-blue-400 text-blue-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-tshirt mr-2'></i>服儀提醒：</strong>真理寺嚴格禁止穿著無袖背心、短裙及高於膝蓋的短褲，請務必更換合規服裝。</p></div>" },
-                        { time: "晚上", title: "中天海灘・寧靜的晚餐", icon: "fa-moon", details: "<p>遠離芭達雅市中心的喧囂，前往相對寧靜的<strong>中天海灘（Jomtien Beach）</strong>。在這裡的景觀餐廳或在地夜市享用晚餐，享受更為悠閒的夜晚。</p>" }
-                    ]
-                },
-                day4: {
-                    title: "近郊巡禮・回歸曼谷",
-                    themeImage: "images/七珍佛山.jpg",
-                    highlights: [
-                        { icon: "fa-mountain", text: "七珍佛山金身巨佛" },
-                        { icon: "fa-tree", text: "東芭樂園天空步道" },
-                        { icon: "fa-utensils", text: "Jodd Fairs 夜市" }
-                    ],
-                    locations: {
-                        "七珍佛山": { lat: 12.766, lon: 100.957 },
-                        "東芭樂園": { lat: 12.768, lon: 100.932 },
-                        "Jodd Fairs 夜市": { lat: 13.810, lon: 100.562 }
-                    },
-                    items: [
-                        { time: "上午", title: "包車出發・仰望金色巨佛", icon: "fa-car-side", details: "<p>辦理退房後，搭乘預定的包車開始近郊之旅。第一站來到<strong>七珍佛山（Khao Chi Chan）</strong>，仰望在130公尺高的峭壁上，以18K金箔雷射雕刻而成的宏偉釋迦牟尼佛像。園區環境清幽，且免門票即可參觀。</p>" },
-                        { time: "下午", title: "東芭樂園・漫步奇幻花園", icon: "fa-tree", details: "<p>前往旁大的<strong>東芭樂園（Nong Nooch Tropical Garden）</strong>。漫步在天空步道上，俯瞰精心設計的法式幾何花園、奇特的仙人掌園，以及栩栩如生的恐龍谷，彷彿進入一個奇幻世界。</p>" },
-                        { time: "傍晚", title: "啟程・返回曼谷", icon: "fa-road", details: "<p>約16:00從東芭樂園出發，包車返回曼谷市區，車程約2小時。入住市區飯店，為接下來的城市探索做準備。</p><div class='mt-4 p-3 bg-red-100 border-l-4 border-red-400 text-red-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-traffic-light mr-2'></i>交通提示：</strong>為避開下班尖峰時段的嚴重塞車，建議預留充裕的交通時間返回曼谷。</p></div>" },
-                        { time: "晚上", title: "Jodd Fairs・火山排骨的召喚", icon: "fa-utensils", details: "<p>抵達曼谷後，直奔人氣爆棚的 <strong>Jodd Fairs 喬德夜市</strong>。在這裡，你將能大啖網路名物「火山排骨」、新鮮的生醃海鮮、清涼的水果冰沙與各式泰式串燒，享受曼谷的夜生活。</p>" }
-                    ]
-                },
-                day5: {
-                    title: "曼谷心臟・購物與療癒之旅",
-                    themeImage: "images/昭披耶河夜景.jpg",
-                    highlights: [
-                        { icon: "fa-shopping-bag", text: "Siam・Central World" },
-                        { icon: "fa-spa", text: "泰式按摩 SPA" },
-                        { icon: "fa-water", text: "ICONSIAM 水舞秀" }
-                    ],
-                    locations: {
-                        "Siam Paragon": { lat: 13.746, lon: 100.534 },
-                        "Central World": { lat: 13.746, lon: 100.539 },
-                        "Big C Supercenter": { lat: 13.747, lon: 100.542 },
-                        "ICONSIAM": { lat: 13.726, lon: 100.510 }
-                    },
-                    items: [
-                        { time: "白天", title: "BTS暢遊・心臟商圈巡禮", icon: "fa-shopping-bag", details: "<p>搭乘BTS空鐵，輕鬆暢遊曼谷最核心的商圈。從 <strong>Siam Paragon</strong> 的國際精品到 <strong>Central World</strong> 的潮流品牌，以及泰國本地特色的設計與香氛，滿足你的所有購物慾望。</p>" },
-                        { time: "下午", title: "伴手禮採買 & SPA放鬆", icon: "fa-gifts", details: "<p>前往 <strong>Big C Supercenter (Rajdamri)</strong> 進行最後的伴手禮大採買，將泰國的美味零食打包回家。隨後，安排一場約2小時的泰式傳統按摩或精油SPA，徹底舒緩旅途中的疲勞。</p>" },
-                        { time: "晚上", title: "昭披耶河畔的璀璨", icon: "fa-water", details: "<p>晚餐有兩種絕佳選擇：</p><ul class='list-disc list-inside mt-2 text-sm'><li>前往位於昭披耶河畔的頂級商場 <strong>ICONSIAM</strong>，欣賞壯觀的戶外水舞秀，並逛逛充滿特色的室內水上市場。</li><li>挑選一間能俯瞰曼谷夜景的高空酒吧，在百萬夜景的陪伴下，享受一個微醺的浪漫夜晚。</li></ul>" }
-                    ]
-                },
-                day6: {
-                    title: "告別曼谷・滿載而歸",
-                    themeImage: "images/蘇凡納布機場.jpg",
-                    highlights: [
-                        { icon: "fa-coffee", text: "悠閒早午餐" },
-                        { icon: "fa-plane-departure", text: "機場專車返台" }
-                    ],
-                    locations: {},
-                    items: [
-                        { time: "上午", title: "悠閒早午餐・最後巡禮", icon: "fa-coffee", details: "<p>在飯店享用豐盛的早餐，或是尋找一間有質感的文青咖啡廳，品嚐一杯手沖咖啡，為這趟旅程寫下悠閒的註腳。整理行李並辦理退房。</p>" },
-                        { time: "下午", title: "機場專車・返台", icon: "fa-plane-departure", details: "<p>為確保有充裕的時間辦理登機與退稅手續，請<strong>務必提前3.5小時</strong>搭乘預約的專車前往蘇凡納布（BKK）或廊曼（DMK）機場。</p><div class='mt-4 p-3 bg-red-100 border-l-4 border-red-400 text-red-800 text-sm rounded-r-lg'><p><strong><i class='fas fa-traffic-light mr-2'></i>交通提示：</strong>前往機場的交通狀況難以預測，強烈建議預留充裕的交通時間以避開可能的塞車。</p></div>" }
-                    ]
+    "day1": {
+        "title": "抵達芭達雅・DAM 火舞之夜",
+        "themeImage": "images/dam-pattaya-fire-panorama.jpg",
+        "highlights": [
+            {
+                "icon": "fa-camera",
+                "text": "LOF LAND"
+            },
+            {
+                "icon": "fa-water",
+                "text": "芭達雅海灘路"
+            },
+            {
+                "icon": "fa-fire",
+                "text": "DAM 火舞秀"
+            },
+            {
+                "icon": "fa-moon",
+                "text": "Soi 6 六巷"
+            }
+        ],
+        "locations": {
+            "蘇凡納布機場 BKK": {
+                "lat": 13.69,
+                "lon": 100.75
+            },
+            "芭達雅海灘路（住宿區域示意）": {
+                "lat": 12.928,
+                "lon": 100.883
+            }
+        },
+        "items": [
+            {
+                "time": "07:55 → 10:40",
+                "title": "桃園飛曼谷",
+                "icon": "fa-plane-departure",
+                "details": "<div class=\"detail-copy\"><p>4/10（六）TG637 自桃園第 1 航廈出發，飛行 3 小時 45 分鐘；台灣比泰國快 1 小時。</p></div>",
+                "summary": "07:55 起飛、10:40 抵達 BKK，抵達後改用泰國時間。",
+                "notice": "航班時間為各地當地時間；抵達曼谷後，行程一律使用泰國時間。",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "10:40–11:10",
+                "title": "下機・前往入境區",
+                "icon": "fa-person-walking-luggage",
+                "details": "<div class=\"detail-copy\"><p>10:40 為航班抵達時間；遠端登機門或接駁可能延長移動時間。</p></div>",
+                "summary": "抵達後預留約 30 分鐘下機與步行。",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "11:10–12:10",
+                "title": "入境・領行李・海關",
+                "icon": "fa-passport",
+                "details": "<div class=\"detail-copy\"><p>先入境審查，再領行李、通過海關。行李卸載與入境排隊時間可能重疊；排程以航班準點及一般人潮估算。</p></div>",
+                "summary": "約 60 分鐘辦理手續，整體出機場抓 1.5～2 小時。",
+                "notice": "抵達至出關約抓 1.5～2 小時，排隊與行李時間可能變動。",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "12:10–12:30",
+                "title": "與司機會合",
+                "icon": "fa-car",
+                "details": "<div class=\"detail-copy\"><p>補水、洗手間並聯絡司機；提供 TG637 航班，請司機追蹤實際抵達時間。</p></div>",
+                "summary": "預計 12:30 上車，集合點依司機訊息。",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "12:30–13:30（估）",
+                "title": "BKK → 春武里 LOF LAND",
+                "summary": "出關後包車前往 LOF LAND，先抓約 1～1.5 小時車程。",
+                "details": "<div class=\"detail-copy\"><p>路線：BKK → LOF LAND 停留 2 小時 → 芭達雅海灘路附近民宿。</p><p><strong>四人包車總價 <mark class=\"cost-tag\">2,400 THB</mark>，平均每人 <mark class=\"cost-tag\">600 THB</mark>。</strong></p><ul><li>機場接送基本車資：<mark class=\"cost-tag\">1,600 THB</mark>／車。</li><li>LOF LAND 停留：<mark class=\"cost-tag\">300 THB</mark> × 2 小時＝<mark class=\"cost-tag\">600 THB</mark>。</li><li>前往春武里加價：<mark class=\"cost-tag\">200 THB</mark>。</li></ul><p>此為你提供的整段接送報價，含上述停留加價；LOF LAND 門票及晚間市區叫車另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/FmaH19S7VuRyycdq8\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"LOF LAND 地圖（另開分頁）\">LOF LAND 地圖<span aria-hidden=\"true\">↗</span></a></div>",
+                "kind": "transport",
+                "icon": "fa-car",
+                "notice": "以約 12:30 上車估算；出關或交通延後時，後續行程同步順延。",
+                "disclosureLabel": "接送路線與包車費用"
+            },
+            {
+                "time": "13:30–15:30（估）",
+                "title": "LOF LAND・拍照與飲料",
+                "summary": "停留約 2 小時，門票每人 300 THB，含一杯飲料。",
+                "details": "<div class=\"detail-copy\"><p>在春武里的 LOF LAND 逛園區、拍照，再坐下喝杯飲料。</p><p><strong>門票 <mark class=\"cost-tag\">300 THB</mark>／人，含飲料一杯；四人共 <mark class=\"cost-tag\">1,200 THB</mark>。</strong>飲料可兌換品項依店家規則，加點餐食另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/FmaH19S7VuRyycdq8\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"LOF LAND 地圖（另開分頁）\">LOF LAND 地圖<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.lof-land.com/th/ticket\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"LOF LAND 門票預訂（另開分頁）\">LOF LAND 門票預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "kind": "activity",
+                "icon": "fa-camera",
+                "notice": "門票以你提供的 300 THB 記錄；出發前確認預約方案與飲料兌換內容。",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "15:30–16:30／17:00（估）",
+                "title": "LOF LAND → 芭達雅海灘路",
+                "summary": "拍照後繼續搭原包車，前往海灘路附近民宿。",
+                "details": "<div class=\"detail-copy\"><p>此段車程抓約 1～1.5 小時，費用已計入整段包車 2,400 THB，不另重複加總。</p></div>",
+                "kind": "transport",
+                "icon": "fa-car",
+                "notice": "",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "16:30／17:00–17:30",
+                "title": "入住・盥洗換裝",
+                "summary": "抵達後先放行李、簡單整理，再出發去 DAM。",
+                "details": "<div class=\"detail-copy\"><p>依民宿約定辦理入住。這段約 30～60 分鐘，優先留給盥洗換裝；午餐可在機場上車前簡單解決或先準備輕食。</p></div>",
+                "kind": "activity",
+                "icon": "fa-house",
+                "notice": "加入 LOF LAND 後，下午休息時間較短；若晚到，先放行李再前往晚餐。",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "17:30–18:15（估）",
+                "title": "海灘路 → DAM Pattaya",
+                "summary": "叫車前往 DAM，目標 18:15 左右入座。",
+                "details": "<div class=\"detail-copy\"><p>預留約 45 分鐘叫車、交通與找入口；地址依 Klook 憑證確認。此段市區車資另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=DAM+Pattaya\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"DAM Pattaya 地圖（另開分頁）\">DAM Pattaya 地圖<span aria-hidden=\"true\">↗</span></a></div>",
+                "kind": "transport",
+                "icon": "fa-car",
+                "notice": "",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "18:15–19:30",
+                "title": "DAM 海濱晚餐",
+                "icon": "fa-utensils",
+                "details": "<div class=\"detail-copy\"><p>先報到入座、享用晚餐，再欣賞火舞。四人前排方案費用 <strong><mark class=\"cost-tag\">NT$1,933</mark>／四人</strong>，平均 <strong><mark class=\"cost-tag\">NT$483.25</mark>／人</strong>。第一排座位與餐飲內容依方案及訂單確認；額外加點另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/zh-TW/activity/186411-dam-beach-fireshow-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Klook 四人海濱方案（另開分頁）\">Klook 四人海濱方案<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "四人海濱前排方案 NT$1,933，平均每人 NT$483.25。",
+                "notice": "第一排座位及套餐內容以訂單確認；餐飲加點另計。",
+                "kind": "dining",
+                "disclosureLabel": "套餐內容與訂票"
+            },
+            {
+                "time": "19:30–20:30",
+                "title": "火舞秀・演後拍照",
+                "icon": "fa-fire",
+                "details": "<div class=\"detail-copy\"><p>火舞 19:30～20:00，拍照 20:00～20:30；實際場次依憑證及當日通知。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/zh-TW/activity/186411-dam-beach-fireshow-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Klook 演出資訊（另開分頁）\">Klook 演出資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "19:30 開演，20:00～20:30 拍照。",
+                "notice": "演出可能受天候或潮汐影響，出發前查看通知。",
+                "kind": "activity",
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/dam-option-4.jpg",
+                    "caption": "DAM・火焰在海風裡劃過",
+                    "alt": "DAM Pattaya 火舞表演者揮動火焰的近景",
+                    "scene": "night"
                 }
-            };
+            },
+            {
+                "time": "20:30 後",
+                "title": "Soi 6・六巷小酌",
+                "summary": "火舞與拍照結束後叫車前往六巷，依體力決定停留時間。",
+                "icon": "fa-moon",
+                "details": "<div class=\"detail-copy\"><p>從 DAM Pattaya 叫車前往海灘路 Soi 6；20:30 為離開 DAM 的預計時間，抵達依叫車與路況調整。找間酒吧喝一杯、聊天或玩桌遊，結束後返回民宿。</p><p>交通、飲品與互動飲料另計，點單前確認菜單價格。</p></div>",
+                "notice": "",
+                "kind": "night",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "落地後先到春武里 LOF LAND 拍照，再入住海灘路，晚上看火舞、去六巷小酌。",
+        "route": [
+            {
+                "name": "BKK 蘇凡納布機場",
+                "lat": 13.69,
+                "lon": 100.75,
+                "note": "航廈區域示意。",
+                "approx": true,
+                "googleQuery": "Suvarnabhumi Airport Thailand"
+            },
+            {
+                "name": "LOF LAND",
+                "lat": 13.3187621,
+                "lon": 100.9798617,
+                "note": "依你提供的 Google Maps 定位。",
+                "approx": false,
+                "googleQuery": "LOF LAND Chonburi Thailand"
+            },
+            {
+                "name": "海灘路住宿區",
+                "lat": 12.936,
+                "lon": 100.883,
+                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "approx": true,
+                "googleQuery": "Pattaya Beach Road Thailand"
+            },
+            {
+                "name": "DAM 海濱區域",
+                "lat": 12.99,
+                "lon": 100.912,
+                "note": "暫標กระทิงลาย北側海濱區域，店家精確入口待確認。",
+                "approx": true,
+                "googleQuery": "DAM Pattaya Thailand"
+            },
+            {
+                "name": "Soi 6 六巷",
+                "lat": 12.943,
+                "lon": 100.885,
+                "note": "街區位置示意。",
+                "approx": true,
+                "googleQuery": "Soi 6 Pattaya Thailand"
+            }
+        ],
+        "photoCaption": "DAM Pattaya・海濱火舞"
+    },
+    "day2": {
+        "title": "綠山動物園・午後拍照與夜生活",
+        "themeImage": "images/khao-kheow-zoo.jpg",
+        "highlights": [
+            {
+                "icon": "fa-paw",
+                "text": "綠山動物園"
+            },
+            {
+                "icon": "fa-camera",
+                "text": "House of Benedict"
+            },
+            {
+                "icon": "fa-ticket",
+                "text": "IMAGINE 79 秀"
+            },
+            {
+                "icon": "fa-moon",
+                "text": "Soi 6 六巷"
+            }
+        ],
+        "locations": {
+            "綠山動物園": {
+                "lat": 13.215,
+                "lon": 101.056
+            }
+        },
+        "items": [
+            {
+                "time": "07:30–08:30",
+                "title": "海灘路 → 綠山動物園",
+                "summary": "預留約 1 小時車程，提前安排回程接送。",
+                "details": "<div class=\"detail-copy\"><p>車程按 45～60 分鐘規劃，依海灘路實際上車點與路況調整。建議包車等候或約定 13:30 接回，今日車資另詢價。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": "",
+                "chapter": {
+                    "label": "上午",
+                    "time": "07:30–11:30",
+                    "title": "動物園，先走想看的重點"
+                }
+            },
+            {
+                "time": "08:30–08:45",
+                "title": "換票・租四人球車",
+                "summary": "先換票，再確認租金、超時費與擔保方式。",
+                "details": "<div class=\"detail-copy\"><p>選非泰國居民門票；換票地點依憑證。球車依你提供的參考價：前 2 小時 <mark class=\"cost-tag\">500 THB</mark>＋保險 <mark class=\"cost-tag\">50 THB</mark>／車，四人基本均攤 <mark class=\"cost-tag\">137.5 THB</mark>／人。</p><p>08:45 租至 13:30 共 4 小時 45 分鐘，超出基本方案 2 小時 45 分鐘；超時費另計。護照、押金或其他擔保方式與可租數量須現場確認，早到不保證有車。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/en-US/activity/338-khao-kheow-open-zoo-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"動物園門票（另開分頁）\">動物園門票<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://khaokheowzoothailand.org/site/khaokheow.zoothailand.org/en/index.html\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"園方資訊（另開分頁）\">園方資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-ticket",
+                "notice": "球車共使用約 4 小時 45 分鐘，超時費另計；租金與擔保方式現場確認。",
+                "kind": "activity",
+                "disclosureLabel": "門票與球車租借"
+            },
+            {
+                "time": "08:45–09:40",
+                "title": "Moo Deng・草食動物區",
+                "summary": "先看侏儒河馬，再依園區動線看水豚、坡鹿與長頸鹿。",
+                "details": "<div class=\"detail-copy\"><p>以當日園區地圖及開放展區為準，不依未核實的分區顏色趕路。動物是否露面、餵食是否開放，依現場安排；草料費另計。</p></div>",
+                "icon": "fa-paw",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "09:40–10:20",
+                "title": "企鵝館・10:00 散步",
+                "summary": "提前找位置，保留移動與等候時間。",
+                "details": "<div class=\"detail-copy\"><p>園方目前列首場 10:00；當日可能調整。餵食與合照須依現場開放，費用另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://khaokheowzoothailand.org/site/khaokheow.zoothailand.org/en/index.html\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"查看當日場次（另開分頁）\">查看當日場次<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-paw",
+                "notice": "企鵝 10:00、大象 11:00 為目前參考場次；入園後確認當日時刻。",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "10:20–11:30",
+                "title": "移動・11:00 大象場次",
+                "summary": "看完企鵝直接前往大象區，不插入遠端展區。",
+                "details": "<div class=\"detail-copy\"><p>依目前園方時刻安排 11:00；4/11 為週日，入園後再次確認場次。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://khaokheowzoothailand.org/site/khaokheow.zoothailand.org/en/index.html\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"園方表演時刻（另開分頁）\">園方表演時刻<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-water",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "11:30–12:15",
+                "title": "Food Center 午餐",
+                "summary": "補水、用餐，避開中午最熱的一段。",
+                "details": "<div class=\"detail-copy\"><p>午餐與飲料自理，安排約 45 分鐘。</p></div>",
+                "icon": "fa-utensils",
+                "notice": "",
+                "kind": "dining",
+                "disclosureLabel": "",
+                "chapter": {
+                    "label": "午間",
+                    "time": "11:30–13:30",
+                    "title": "午餐、補看與還車"
+                }
+            },
+            {
+                "time": "12:15–13:00",
+                "title": "猛獸區・鳥園補看",
+                "summary": "依距離擇近參觀，不為餵食繞遠路。",
+                "details": "<div class=\"detail-copy\"><p>白獅、白虎與鳥園以當日開放為準；餵食種類、場次與價格不先視為保證項目。</p></div>",
+                "icon": "fa-paw",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "13:00–13:30",
+                "title": "回租借站・還車",
+                "summary": "結清超時費，取回擔保物。",
+                "details": "<div class=\"detail-copy\"><p>保留回程與驗車時間；確認證件或押金已取回，再前往接送點。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "13:30–15:00",
+                "title": "動物園 → House of Benedict",
+                "summary": "直接南下，交通預留約 1～1.5 小時。",
+                "details": "<div class=\"detail-copy\"><p>此為排程緩衝，非即時導航；若塞車，縮短拍照時段，不壓縮晚餐與接送。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": "",
+                "chapter": {
+                    "label": "午後",
+                    "time": "13:30–18:15",
+                    "title": "拍照，再回海灘路休息"
+                }
+            },
+            {
+                "time": "15:00–16:30",
+                "title": "House of Benedict",
+                "summary": "主題造景拍照、下午茶，停留約 90 分鐘。",
+                "details": "<div class=\"detail-copy\"><p>售票頁目前列外國成人 <mark class=\"cost-tag\">200 THB</mark>／人，四人 <mark class=\"cost-tag\">800 THB</mark>；餐飲另計。選 Non-Thai Adult，2027/4/11 可訂日期與實付價格依結帳頁。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://chillpainai.com/public/en/products/11257\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"House of Benedict 訂票（另開分頁）\">House of Benedict 訂票<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-camera",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/house-of-benedict.jpg",
+                    "caption": "House of Benedict・午後拍照",
+                    "alt": "House of Benedict 店內主題造景",
+                    "scene": "day"
+                }
+            },
+            {
+                "time": "16:30–18:15",
+                "title": "返回海灘路・休息與晚餐",
+                "summary": "回民宿整理後就近用餐，Terminal 21 視體力再去。",
+                "details": "<div class=\"detail-copy\"><p>回程先留 30～45 分鐘，再休息、吃飯。避免為了逛街錯過 79 秀接送。</p></div>",
+                "icon": "fa-utensils",
+                "notice": "",
+                "kind": "dining",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "18:15–19:00",
+                "title": "前往 79 秀",
+                "summary": "接送或叫車時間依方案確認。",
+                "details": "<div class=\"detail-copy\"><p>若方案含飯店接送，依憑證集合，不把接車時間當成開演時間。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": "",
+                "chapter": {
+                    "label": "晚間",
+                    "time": "18:15–23:00",
+                    "title": "看秀與六巷小酌"
+                }
+            },
+            {
+                "time": "19:00–20:15",
+                "title": "IMAGINE 79 成人秀",
+                "summary": "保留約一輪演出及進出場時間。",
+                "details": "<div class=\"detail-copy\"><p>18+；攜帶可核驗年齡的證件，手機與攝影器材依場館規則寄存，場內不拍攝。方案依護照類別選擇，請向售票商確認台灣護照適用性。</p><p>待確認 2027/4/11 營運、時段與票價。預訂時確認方案名稱為 IMAGINE 79，並確認接送及護照適用條件。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.thailandactivitytickets.com/activity/imagine-79-show-pattaya-tickets\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"79 秀方案與預訂（另開分頁）\">79 秀方案與預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-ticket",
+                "notice": "18+；先確認台灣護照適用方案，場內不拍攝，器材依規定寄存。",
+                "kind": "activity",
+                "disclosureLabel": "入場規則與訂票"
+            },
+            {
+                "time": "20:15–20:45",
+                "title": "79 秀 → 六巷",
+                "summary": "預留叫車與移動時間，依演出結束時間順延。",
+                "details": "<div class=\"detail-copy\"><p>以叫車或已約定的接送為主；不先假設有固定 <mark class=\"cost-tag\">10 THB</mark> 雙條車直達。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "20:45–23:00",
+                "title": "Soi 6 酒吧街",
+                "summary": "找間喜歡的酒吧小酌、聊天與玩桌遊。",
+                "details": "<div class=\"detail-copy\"><p>飲品、互動飲料與交通另計，點單前看菜單。店家營業時間各異，結束後返回海灘路民宿。</p></div>",
+                "icon": "fa-moon",
+                "notice": "",
+                "kind": "night",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "提早出發看動物，午後留給拍照，晚餐後再接成人秀與夜生活。",
+        "route": [
+            {
+                "name": "海灘路住宿區",
+                "lat": 12.936,
+                "lon": 100.883,
+                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "approx": true,
+                "googleQuery": "Pattaya Beach Road Thailand"
+            },
+            {
+                "name": "綠山動物園",
+                "lat": 13.2134628,
+                "lon": 101.0611659,
+                "note": "",
+                "approx": false,
+                "googleQuery": "Khao Kheow Open Zoo Thailand"
+            },
+            {
+                "name": "House of Benedict",
+                "lat": 12.8606473,
+                "lon": 100.904986,
+                "note": "",
+                "approx": false,
+                "googleQuery": "House of Benedict Pattaya"
+            },
+            {
+                "name": "79 秀所在區域",
+                "lat": 12.907,
+                "lon": 100.89,
+                "note": "先標 Thep Prasit 一帶；入口依訂票憑證。",
+                "approx": true,
+                "googleQuery": "IMAGINE 79 SHOW Pattaya Thailand"
+            },
+            {
+                "name": "Soi 6 六巷",
+                "lat": 12.943,
+                "lon": 100.885,
+                "note": "街區位置示意。",
+                "approx": true,
+                "googleQuery": "Soi 6 Pattaya Thailand"
+            }
+        ],
+        "photoCaption": "綠山動物園"
+    },
+    "day3": {
+        "title": "高空跳傘・海上晚餐與高空夜景",
+        "themeImage": "images/sky-wide-exit.webp",
+        "highlights": [
+            {
+                "icon": "fa-plane",
+                "text": "高空跳傘"
+            },
+            {
+                "icon": "fa-shopping-bag",
+                "text": "Royal Garden Plaza"
+            },
+            {
+                "icon": "fa-ship",
+                "text": "亞特蘭蒂斯日落郵輪"
+            },
+            {
+                "icon": "fa-moon",
+                "text": "ZAMĀ Skybar"
+            }
+        ],
+        "locations": {
+            "Royal Garden Plaza": {
+                "lat": 12.927,
+                "lon": 100.879
+            },
+            "Bali Hai 碼頭區域": {
+                "lat": 12.92,
+                "lon": 100.867
+            }
+        },
+        "items": [
+            {
+                "time": "07:00–12:00",
+                "title": "Thai Sky Adventures 雙人跳傘",
+                "summary": "預約上午第一批；接送、講習與候跳共抓半天。",
+                "details": "<div class=\"detail-copy\"><p>07:00 為希望安排的接送時間，須由業者確認。高度、攝影與飯店接送是否包含，以所選方案為準。官網目前基本方案參考 <mark class=\"cost-tag\">9,700 THB</mark>／人；若四人皆跳約 <mark class=\"cost-tag\">38,800 THB</mark>，2027 價格及附加費依結帳。</p><p>風況可能延誤，12:00 不保證返回市區。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://thaiskyadventures.com/begin-your-booking/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"跳傘官網預訂（另開分頁）\">跳傘官網預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-plane",
+                "notice": "預約上午接送；天候與候跳可能延誤，午間返回時間不保證。",
+                "kind": "activity",
+                "disclosureLabel": "跳傘方案與接送",
+                "chapter": {
+                    "label": "上午",
+                    "time": "07:00–12:00",
+                    "title": "把早晨留給高空"
+                },
+                "photo": {
+                    "file": "images/sky-wide-tandem.webp",
+                    "caption": "高空跳傘・自由落體",
+                    "alt": "Thai Sky Adventures 雙人跳傘與地面遠景",
+                    "scene": "day"
+                }
+            },
+            {
+                "time": "12:00–13:00",
+                "title": "返回市區・午餐",
+                "summary": "依實際回程時間，在海灘路附近用餐。",
+                "details": "<div class=\"detail-copy\"><p>先確認接送下車點。若跳傘延後，優先縮短百貨時間。</p></div>",
+                "icon": "fa-utensils",
+                "notice": "",
+                "kind": "dining",
+                "disclosureLabel": "",
+                "chapter": {
+                    "label": "午後",
+                    "time": "12:00–16:00",
+                    "title": "回到市區，吃飯逛街"
+                }
+            },
+            {
+                "time": "13:00–16:00",
+                "title": "Royal Garden Plaza",
+                "summary": "午餐後逛街；Ripley’s 選一兩項體驗即可。",
+                "details": "<div class=\"detail-copy\"><p>位於海灘路，逛街本身不需門票；Ripley’s 展館與遊樂設施另購。最晚 16:00 結束，為郵輪報到留緩衝。</p></div>",
+                "icon": "fa-shopping-bag",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "16:00–17:30",
+                "title": "前往集合點・郵輪報到",
+                "summary": "保留交通、找售票處與登船時間。",
+                "details": "<div class=\"detail-copy\"><p>目標約 17:00 前抵達憑證指定集合處；報到截止與接駁安排須先確認。集合地址、登船位置與接駁時刻以預訂憑證為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/zh-TW/activity/106819-ocean-sky-cruise-with-show-in-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"確認郵輪方案與集合點（另開分頁）\">確認郵輪方案與集合點<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-ticket",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": "",
+                "chapter": {
+                    "label": "傍晚",
+                    "time": "16:00–19:45",
+                    "title": "報到、登船與日落晚餐"
+                }
+            },
+            {
+                "time": "18:00–19:45",
+                "title": "Ocean Sky 升級版・日落場",
+                "summary": "海上自助餐、歌舞與夜景，選日落場銜接下一站。",
+                "details": "<div class=\"detail-copy\"><p>Klook 現為「亞特蘭蒂斯海天 PLUS」，列日落場 18:00～19:45。預訂四人時確認自助餐與表演包含內容。</p><p>此安排以選到日落場為前提；20:00 晚餐場會與後續行程衝突。票價待選 2027/4/12 後填入。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/zh-TW/activity/106819-ocean-sky-cruise-with-show-in-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Klook 日落場預訂（另開分頁）\">Klook 日落場預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-ship",
+                "notice": "集合處、報到截止與接駁位置以憑證為準。",
+                "kind": "activity",
+                "disclosureLabel": "郵輪方案與登船資訊",
+                "photo": {
+                    "file": "images/atlantis-ocean-sky.jpg",
+                    "caption": "亞特蘭蒂斯海天 PLUS・船上夜景",
+                    "alt": "亞特蘭蒂斯海天 PLUS 郵輪的開放甲板與燈光",
+                    "scene": "night"
+                }
+            },
+            {
+                "time": "19:45–20:30",
+                "title": "下船・前往中天",
+                "summary": "預留約 45 分鐘，下船後叫車至 D Varee 飯店。",
+                "details": "<div class=\"detail-copy\"><p>19:45 是方案結束時間，不保證已到岸。依實際接駁下船與路況調整，晚到則縮短酒吧停留。</p></div>",
+                "icon": "fa-car",
+                "notice": "選 18:00～19:45 日落場；20:00 晚餐場會影響後續行程。",
+                "kind": "transport",
+                "disclosureLabel": "",
+                "chapter": {
+                    "label": "晚間",
+                    "time": "19:45–01:00",
+                    "title": "從海上轉往高空夜景"
+                }
+            },
+            {
+                "time": "20:30–21:45",
+                "title": "ZAMĀ Skybar・38 樓",
+                "summary": "中天海岸夜景與調酒，建議預約四人桌。",
+                "details": "<div class=\"detail-copy\"><p>位於 D Varee Jomtien Beach 飯店 38 樓；飲品與餐飲依現場菜單，訂位條件以官網為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://zama.asia/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ZAMĀ 官網訂位（另開分頁）\">ZAMĀ 官網訂位<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-moon",
+                "notice": "",
+                "kind": "night",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "21:45–22:30",
+                "title": "中天 → Soi 6",
+                "summary": "預留叫車與跨區移動時間。",
+                "details": "<div class=\"detail-copy\"><p>這段以叫車規劃，約 30～45 分鐘作排程緩衝，非固定導航車程。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "22:30–01:00（彈性）",
+                "title": "六巷續攤・依營業情況",
+                "summary": "看店家與體力決定停留時間，隨時可回民宿。",
+                "details": "<div class=\"detail-copy\"><p>01:00 為最晚預留時間，不保證每家店營業至此；若六巷已收店就直接返宿。飲品含互動飲料先看菜單，不固定以 <mark class=\"cost-tag\">200 THB</mark> 計。</p></div>",
+                "icon": "fa-moon",
+                "notice": "",
+                "kind": "night",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "上午挑戰跳傘，午後逛街，傍晚出海吃飯，再到高空酒吧看夜景。",
+        "route": [
+            {
+                "name": "海灘路住宿區",
+                "lat": 12.936,
+                "lon": 100.883,
+                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "approx": true,
+                "googleQuery": "Pattaya Beach Road Thailand"
+            },
+            {
+                "name": "Thai Sky Adventures",
+                "lat": 13.1424231,
+                "lon": 101.0485811,
+                "note": "依業者官網的地圖連結定位。",
+                "approx": false,
+                "googleQuery": "Thai Sky Adventures Thailand"
+            },
+            {
+                "name": "Royal Garden Plaza",
+                "lat": 12.9293076,
+                "lon": 100.8780487,
+                "note": "",
+                "approx": false,
+                "googleQuery": "Royal Garden Plaza Pattaya"
+            },
+            {
+                "name": "南芭達雅碼頭區",
+                "lat": 12.9273,
+                "lon": 100.8677,
+                "note": "郵輪實際集合處依憑證，非確定登船點。",
+                "approx": true,
+                "googleQuery": "Bali Hai Pier Pattaya"
+            },
+            {
+                "name": "中天海灘・ZAMĀ 所在區域",
+                "lat": 12.885,
+                "lon": 100.883,
+                "note": "先標海灘區域；D Varee 飯店入口依訂位資訊。",
+                "approx": true,
+                "googleQuery": "D Varee Jomtien Beach Pattaya"
+            },
+            {
+                "name": "Soi 6 六巷",
+                "lat": 12.943,
+                "lon": 100.885,
+                "note": "街區位置示意。",
+                "approx": true,
+                "googleQuery": "Soi 6 Pattaya Thailand"
+            }
+        ],
+        "photoCaption": "Thai Sky Adventures・高空跳傘"
+    },
+    "day4": {
+        "title": "潑水節・真理寺・海景日落晚餐",
+        "themeImage": "images/songkran-water-splash.jpg",
+        "highlights": [
+            {
+                "icon": "fa-faucet-drip",
+                "text": "海灘路潑水節"
+            },
+            {
+                "icon": "fa-gopuram",
+                "text": "真理寺"
+            },
+            {
+                "icon": "fa-utensils",
+                "text": "The Sky Gallery"
+            }
+        ],
+        "locations": {
+            "海灘路（活動區域示意）": {
+                "lat": 12.93,
+                "lon": 100.885
+            },
+            "真理寺": {
+                "lat": 12.972,
+                "lon": 100.889
+            }
+        },
+        "items": [
+            {
+                "time": "09:30–13:00",
+                "title": "海灘路・潑水節水戰",
+                "summary": "在住宿附近參與玩水，午前後留意回房時間。",
+                "details": "<div class=\"detail-copy\"><p>穿速乾衣、帶防水袋與護目鏡，證件等重要物品留在住宿處。4/13 為宋干節期間，活動範圍與熱鬧程度依當日安排；2027 年地方活動時刻待公告。</p></div>",
+                "icon": "fa-faucet-drip",
+                "notice": "2027 年地方活動細節待公告，玩水範圍以當日安排為準。",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "13:00–14:00",
+                "title": "回民宿・盥洗與午餐",
+                "summary": "洗澡、換乾衣，再簡單用餐。",
+                "details": "<div class=\"detail-copy\"><p>下午參觀真理寺，準備遮肩、過膝的乾爽衣褲。餐點以民宿周邊或外帶為主，避免等餐耽誤出發。</p></div>",
+                "icon": "fa-house",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "14:00–14:30",
+                "title": "海灘路 → 真理寺",
+                "summary": "預留約 30 分鐘叫車與交通，依路況調整。",
+                "details": "<div class=\"detail-copy\"><p>潑水節期間預約接送較好掌握時間；若塞車，參觀與晚餐同步順延，不壓縮換票及入場流程。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "14:30–16:30",
+                "title": "真理寺・木雕工藝參觀",
+                "summary": "安排約 2 小時欣賞海濱木構建築與雕刻。",
+                "details": "<div class=\"detail-copy\"><p>先換票並依現場安排入場；穿著遮肩、過膝服飾，安全帽等要求依工作人員指示。門票選日間票，參觀與導覽時間以當日安排為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://sanctuaryoftruthmuseum.com/visit-us/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"真理寺參觀資訊・官網購票入口（另開分頁）\">真理寺參觀資訊・官網購票入口<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-gopuram",
+                "notice": "遮肩、過膝、乾爽服裝；安全帽與入場規定依現場指示。",
+                "kind": "activity",
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/真理寺.jpg",
+                    "caption": "真理寺・近看木雕屋簷",
+                    "alt": "真理寺的木雕屋簷與建築",
+                    "scene": "day"
+                }
+            },
+            {
+                "time": "16:30–17:15",
+                "title": "真理寺 → The Sky Gallery",
+                "summary": "跨市區移動先留 45 分鐘，爭取日落前入座。",
+                "details": "<div class=\"detail-copy\"><p>目的地位於帕山、Cosy Beach 附近。此為排程緩衝，非即時導航時間；節日塞車可能延後抵達。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "17:15–19:30",
+                "title": "The Sky Gallery・日落晚餐",
+                "summary": "預約四人海景座位，晚餐與調酒依菜單點選。",
+                "details": "<div class=\"detail-copy\"><p>以海景及日落用餐為主，景觀席與鳥巢造型座位需向餐廳確認，不保證分配。費用依餐點、飲品及訂位條件，暫不列固定人均。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://sky.theskygroupth.com/sky/customer/index.php?lang=en\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"The Sky Gallery 訂位（另開分頁）\">The Sky Gallery 訂位<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.tourismthailand.org/Restaurant/the-sky-gallery-pattaya\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"餐廳位置與資訊（另開分頁）\">餐廳位置與資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-utensils",
+                "notice": "海景及鳥巢造型座位須向餐廳確認，不保證分配。",
+                "kind": "dining",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "19:30–20:15",
+                "title": "返回市區",
+                "summary": "晚餐後叫車，留約 45 分鐘交通緩衝。",
+                "details": "<div class=\"detail-copy\"><p>依實際用餐結束時間與路況調整，接下來的晚間活動擇一即可。</p></div>",
+                "icon": "fa-car",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "20:15 之後",
+                "title": "Terminal 21／Runway 夜市／六巷",
+                "summary": "逛街、吃小點或小酌，依體力三選一。",
+                "details": "<div class=\"detail-copy\"><p>Terminal 21 百貨與 Runway Street Food 飛機夜市為不同場所；出發前確認營業。想喝一杯可改去 Soi 6，酒水與回程交通另計。</p></div>",
+                "icon": "fa-moon",
+                "notice": "",
+                "kind": "night",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "上午玩水，中午換裝，下午看木雕工藝，傍晚坐下來看海吃飯。",
+        "route": [
+            {
+                "name": "海灘路住宿區",
+                "lat": 12.936,
+                "lon": 100.883,
+                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "approx": true,
+                "googleQuery": "Pattaya Beach Road Thailand"
+            },
+            {
+                "name": "真理寺",
+                "lat": 12.972,
+                "lon": 100.889,
+                "note": "園區位置示意。",
+                "approx": true,
+                "googleQuery": "Sanctuary of Truth Pattaya"
+            },
+            {
+                "name": "The Sky Gallery",
+                "lat": 12.9215465,
+                "lon": 100.8594453,
+                "note": "",
+                "approx": false,
+                "googleQuery": "The Sky Gallery Pattaya"
+            },
+            {
+                "name": "Terminal 21",
+                "lat": 12.95,
+                "lon": 100.888,
+                "note": "商場區域示意；飛機夜市為替代方案，未另連線。",
+                "approx": true,
+                "googleQuery": "Terminal 21 Pattaya"
+            }
+        ],
+        "photoCaption": "宋干節・水花與水槍"
+    },
+    "day5": {
+        "title": "格蘭島全天・SPA・海灘路夜晚",
+        "themeImage": "images/koh-larn.jpg",
+        "highlights": [
+            {
+                "icon": "fa-ship",
+                "text": "格蘭島"
+            },
+            {
+                "icon": "fa-spa",
+                "text": "Let’s Relax SPA"
+            },
+            {
+                "icon": "fa-shopping-bag",
+                "text": "Terminal 21／飛機夜市"
+            },
+            {
+                "icon": "fa-moon",
+                "text": "Soi 6 六巷"
+            }
+        ],
+        "locations": {
+            "Bali Hai 碼頭（依方案確認出發點）": {
+                "lat": 12.92,
+                "lon": 100.867
+            },
+            "格蘭島（島嶼位置示意）": {
+                "lat": 12.918,
+                "lon": 100.78
+            },
+            "Terminal 21 Pattaya": {
+                "lat": 12.935,
+                "lon": 100.889
+            }
+        },
+        "items": [
+            {
+                "time": "08:30–16:30",
+                "title": "格蘭島・全天跳島與水上活動",
+                "summary": "飯店接送、快艇出海，沙灘放空搭配自選水上體驗。",
+                "details": "<div class=\"detail-copy\"><p>08:30 為規劃接送時間；碼頭、午餐、躺椅及返程以所選方案為準。拖曳傘、香蕉船、水上摩托車、浮潛或海底漫步，依套票內容選擇，不預設全部包含。</p><p>目標 16:30 前返抵芭達雅；海況或接送延後時，後續行程順延。四人套票費用待選方案後填入。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.pattayacoral.com/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"格蘭島方案與預訂（另開分頁）\">格蘭島方案與預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-ship",
+                "notice": "水上活動、午餐與躺椅依套票內容，不預設全部包含。",
+                "kind": "activity",
+                "disclosureLabel": "水上活動方案與預訂"
+            },
+            {
+                "time": "16:30–18:30",
+                "title": "回民宿盥洗・泰式 SPA",
+                "summary": "先換乾衣，再安排約 60 分鐘按摩。",
+                "details": "<div class=\"detail-copy\"><p>約 16:30～17:15 返回民宿、沖澡與移動；17:15～18:30 留給報到及 60 分鐘療程。此銜接以準時回程、店面靠近住宿為前提；晚到則按摩與晚餐順延。</p><p>優先選海灘路 Soi 12 的 Let’s Relax Beachfront，或民宿附近按摩店。四人同時段、療程與實付金額先確認；兩小時 SPA 需另延後晚餐。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://letsrelaxspa.com/branches/pattaya-beachfront/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Let’s Relax 海灘路店預約資訊（另開分頁）\">Let’s Relax 海灘路店預約資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-spa",
+                "notice": "以 60 分鐘按摩安排；返程延誤時，按摩與晚餐一併順延。",
+                "kind": "activity",
+                "disclosureLabel": "按摩療程與預約"
+            },
+            {
+                "time": "18:30–20:30",
+                "title": "Terminal 21／Runway 飛機夜市",
+                "summary": "晚餐與逛街二選一，移動時間一併計入。",
+                "details": "<div class=\"detail-copy\"><p>Terminal 21：看航空主題樓層，在 Pier 21 美食街吃晚餐。想逛露天小吃攤，可改去 Runway Street Food；兩者為不同場所，不硬排全逛。</p><p>先留約 30 分鐘交通；依按摩結束時間調整。餐飲、購物與市區接送另計。</p></div>",
+                "icon": "fa-utensils",
+                "notice": "",
+                "kind": "dining",
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/芭達雅海灣.jpg",
+                    "caption": "回到芭達雅・海灣的午後",
+                    "alt": "芭達雅海灣與城市海岸線",
+                    "scene": "day"
+                }
+            },
+            {
+                "time": "20:30–23:30",
+                "title": "Soi 6・六巷小酌",
+                "summary": "留出前往六巷的時間，找間酒吧聊天、玩桌遊。",
+                "details": "<div class=\"detail-copy\"><p>從百貨或夜市前往六巷，依路線選叫車或雙條車；先確認方向與費用，不以固定 <mark class=\"cost-tag\">10 THB</mark> 當作保證票價。</p><p>飲品與互動飲料先看菜單，依店家營業及體力提早結束。今晚仍住芭達雅，4/15 才安排退房前往曼谷。</p></div>",
+                "icon": "fa-moon",
+                "notice": "",
+                "kind": "night",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "把白天留給格蘭島，回來洗澡按摩，晚餐與逛街依體力安排。",
+        "route": [
+            {
+                "name": "海灘路住宿區",
+                "lat": 12.936,
+                "lon": 100.883,
+                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "approx": true,
+                "googleQuery": "Pattaya Beach Road Thailand"
+            },
+            {
+                "name": "Bali Hai 碼頭區",
+                "lat": 12.9273,
+                "lon": 100.8677,
+                "note": "實際出發點依一日團憑證。",
+                "approx": true,
+                "googleQuery": "Bali Hai Pier Pattaya"
+            },
+            {
+                "name": "格蘭島",
+                "lat": 12.918,
+                "lon": 100.78,
+                "note": "只標島嶼位置，不代表實際停靠沙灘或海上航線。",
+                "approx": true,
+                "googleQuery": "Ko Lan Pattaya Thailand"
+            },
+            {
+                "name": "海灘路盥洗・SPA 區域",
+                "lat": 12.931,
+                "lon": 100.88,
+                "note": "按摩店及民宿確切位置待確認。",
+                "approx": true,
+                "googleQuery": "Lets Relax Spa Pattaya Beachfront"
+            },
+            {
+                "name": "Terminal 21",
+                "lat": 12.95,
+                "lon": 100.888,
+                "note": "商場區域示意；飛機夜市為替代方案，未另連線。",
+                "approx": true,
+                "googleQuery": "Terminal 21 Pattaya"
+            },
+            {
+                "name": "Soi 6 六巷",
+                "lat": 12.943,
+                "lon": 100.885,
+                "note": "街區位置示意。",
+                "approx": true,
+                "googleQuery": "Soi 6 Pattaya Thailand"
+            }
+        ],
+        "photoCaption": "格蘭島"
+    },
+    "day6": {
+        "title": "七珍佛山・東芭樂園・前往曼谷",
+        "themeImage": "images/七珍佛山.jpg",
+        "highlights": [
+            {
+                "icon": "fa-mountain",
+                "text": "七珍佛山"
+            },
+            {
+                "icon": "fa-tree",
+                "text": "東芭樂園"
+            },
+            {
+                "icon": "fa-city",
+                "text": "曼谷夜市"
+            }
+        ],
+        "locations": {
+            "七珍佛山": {
+                "lat": 12.766,
+                "lon": 100.957
+            },
+            "東芭樂園": {
+                "lat": 12.768,
+                "lon": 100.932
+            },
+            "Jodd Fairs 夜市": {
+                "lat": 13.81,
+                "lon": 100.562
+            }
+        },
+        "items": [
+            {
+                "time": "上午",
+                "title": "退房・七珍佛山",
+                "icon": "fa-car-side",
+                "details": "<div class=\"detail-copy\"><p>先完成退房、帶齊行李，再由包車前往七珍佛山。以戶外參觀與拍照為主。</p></div>",
+                "summary": "退房後包車出發，參觀七珍佛山金色佛像。",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "下午",
+                "title": "東芭樂園",
+                "icon": "fa-tree",
+                "details": "<div class=\"detail-copy\"><p>園區較大，優先選想看的花園與步道；午餐、門票及接送依實際方案。</p></div>",
+                "summary": "花園、天空步道與恐龍谷，依體力選區域參觀。",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "傍晚",
+                "title": "前往曼谷",
+                "icon": "fa-road",
+                "details": "<div class=\"detail-copy\"><p>車程先抓約 2 小時，尖峰與節日塞車時延長。晚餐依實際抵達時間調整。</p></div>",
+                "summary": "約 16:00 出發，抵達後入住市區飯店。",
+                "notice": "節日期間交通另留緩衝，抵達曼谷時間依當日路況。",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "晚上",
+                "title": "夜市晚餐",
+                "icon": "fa-utensils",
+                "details": "<div class=\"detail-copy\"><p>原定 Jodd Fairs，出發前確認當時營業位置；若抵達太晚，改在飯店附近用餐。</p></div>",
+                "summary": "入住後再到夜市用餐，不趕行程。",
+                "notice": "",
+                "kind": "dining",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "退房後順遊芭達雅近郊，下午前往曼谷，晚上再輕鬆用餐。",
+        "route": [
+            {
+                "name": "海灘路住宿區",
+                "lat": 12.936,
+                "lon": 100.883,
+                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "approx": true,
+                "googleQuery": "Pattaya Beach Road Thailand"
+            },
+            {
+                "name": "七珍佛山",
+                "lat": 12.766,
+                "lon": 100.957,
+                "note": "景點區域示意。",
+                "approx": true,
+                "googleQuery": "Khao Chi Chan Thailand"
+            },
+            {
+                "name": "東芭樂園",
+                "lat": 12.768,
+                "lon": 100.932,
+                "note": "園區位置示意。",
+                "approx": true,
+                "googleQuery": "Nong Nooch Tropical Garden Thailand"
+            },
+            {
+                "name": "曼谷市區",
+                "lat": 13.7466,
+                "lon": 100.539,
+                "note": "住宿地址待提供，先標市中心區域。",
+                "approx": true,
+                "googleQuery": "CentralWorld Bangkok Thailand"
+            }
+        ],
+        "photoCaption": "七珍佛山"
+    },
+    "day7": {
+        "title": "曼谷購物・按摩與河畔夜景",
+        "themeImage": "images/昭披耶河夜景.jpg",
+        "highlights": [
+            {
+                "icon": "fa-shopping-bag",
+                "text": "Siam・Central World"
+            },
+            {
+                "icon": "fa-gifts",
+                "text": "Big C 伴手禮"
+            },
+            {
+                "icon": "fa-spa",
+                "text": "泰式 SPA"
+            },
+            {
+                "icon": "fa-water",
+                "text": "ICONSIAM／高空酒吧"
+            }
+        ],
+        "locations": {
+            "Siam Paragon": {
+                "lat": 13.746,
+                "lon": 100.534
+            },
+            "Central World": {
+                "lat": 13.746,
+                "lon": 100.539
+            },
+            "Big C Supercenter": {
+                "lat": 13.747,
+                "lon": 100.542
+            },
+            "ICONSIAM": {
+                "lat": 13.726,
+                "lon": 100.51
+            }
+        },
+        "items": [
+            {
+                "time": "白天",
+                "title": "Siam・Central World",
+                "icon": "fa-shopping-bag",
+                "details": "<div class=\"detail-copy\"><p>Siam Paragon、Central World 二者可串連，午餐在商場內解決。</p></div>",
+                "summary": "搭 BTS 逛核心商圈，依喜歡的品牌選擇停留。",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "下午",
+                "title": "Big C・按摩放鬆",
+                "icon": "fa-gifts",
+                "details": "<div class=\"detail-copy\"><p>Big C Rajdamri 採買零食與伴手禮，再依預約前往按摩店；購物、交通與療程另計。</p></div>",
+                "summary": "伴手禮採買後，安排約 2 小時按摩或 SPA。",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "晚上",
+                "title": "ICONSIAM／高空酒吧",
+                "icon": "fa-water",
+                "details": "<div class=\"detail-copy\"><p>ICONSIAM 可安排晚餐與商場散步；偏好夜景與調酒則改選高空酒吧，不必兩邊趕場。</p></div>",
+                "summary": "河畔逛街與高空夜景二選一。",
+                "notice": "",
+                "kind": "activity",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "今天以商圈採買和按摩為主，晚間在河畔與高空夜景之間擇一。",
+        "route": [
+            {
+                "name": "Siam Paragon",
+                "lat": 13.7467785,
+                "lon": 100.534954,
+                "note": "",
+                "approx": false,
+                "googleQuery": "Siam Paragon Bangkok"
+            },
+            {
+                "name": "CentralWorld",
+                "lat": 13.7465769,
+                "lon": 100.5390414,
+                "note": "",
+                "approx": false,
+                "googleQuery": "CentralWorld Bangkok"
+            },
+            {
+                "name": "Big C Rajdamri",
+                "lat": 13.7470321,
+                "lon": 100.5407658,
+                "note": "",
+                "approx": false,
+                "googleQuery": "Big C Rajdamri Bangkok"
+            },
+            {
+                "name": "ICONSIAM",
+                "lat": 13.7268227,
+                "lon": 100.510294,
+                "note": "晚間河畔方案；若改高空酒吧，位置另確認。",
+                "approx": false,
+                "googleQuery": "ICONSIAM Bangkok"
+            }
+        ],
+        "photoCaption": "昭披耶河畔夜景"
+    },
+    "day8": {
+        "title": "曼谷返台・抵達高雄",
+        "themeImage": "images/蘇凡納布機場.jpg",
+        "highlights": [
+            {
+                "icon": "fa-coffee",
+                "text": "飯店早餐"
+            },
+            {
+                "icon": "fa-plane-departure",
+                "text": "曼谷返台"
+            }
+        ],
+        "locations": {
+            "蘇凡納布機場 BKK": {
+                "lat": 13.69,
+                "lon": 100.75
+            }
+        },
+        "items": [
+            {
+                "time": "06:00–07:00",
+                "title": "早餐・退房與出發",
+                "icon": "fa-suitcase",
+                "details": "<div class=\"detail-copy\"><p>前一晚先整理好行李。早上簡單用餐或準備外帶早餐，06:30 前完成退房，預約專車約 07:00 從曼谷市區飯店出發。</p></div>",
+                "summary": "前一晚整理行李，07:00 從曼谷飯店出發。",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "08:30 前",
+                "title": "抵達 BKK・報到與退稅",
+                "icon": "fa-car",
+                "details": "<div class=\"detail-copy\"><p>目標於 08:30 前抵達蘇凡納布機場（BKK），預留超過 3 小時辦理報到、行李託運、退稅與出境。接送時間依飯店位置與當日路況提前調整。</p></div>",
+                "summary": "08:30 前到 BKK，辦理報到與退稅。",
+                "notice": "08:30 前抵達 BKK；接送時間依飯店位置與路況提前。",
+                "kind": "transport",
+                "disclosureLabel": ""
+            },
+            {
+                "time": "11:45 → 16:15",
+                "title": "TG630・曼谷飛高雄",
+                "icon": "fa-plane-departure",
+                "details": "<div class=\"detail-copy\"><p>4/17（六）搭乘泰國航空 TG630，11:45 自 BKK 出發，16:15 抵達高雄 KHH 第 1 航廈。飛行時間 3 小時 30 分鐘，皆為當地時間。</p></div>",
+                "summary": "TG630，11:45 曼谷起飛、16:15 抵達高雄。",
+                "notice": "",
+                "kind": "transport",
+                "disclosureLabel": ""
+            }
+        ],
+        "intro": "早餐後提早退房，上午前往 BKK，搭機返回高雄。",
+        "route": [
+            {
+                "name": "曼谷市區",
+                "lat": 13.7466,
+                "lon": 100.539,
+                "note": "住宿地址待提供，先標市中心區域。",
+                "approx": true,
+                "googleQuery": "CentralWorld Bangkok Thailand"
+            },
+            {
+                "name": "BKK 蘇凡納布機場",
+                "lat": 13.69,
+                "lon": 100.75,
+                "note": "航廈區域示意。",
+                "approx": true,
+                "googleQuery": "Suvarnabhumi Airport Thailand"
+            }
+        ],
+        "photoCaption": "BKK 蘇凡納布機場"
+    }
+};
 
             // --- INITIALIZATION ---
-            let map;
-            let markers = [];
 
             function setupPage() {
                 setupAnimations();
+                setupSongkranWater();
+                document.getElementById('begin-trip').addEventListener('click', () => document.querySelector('[data-target="day1"]').click());
                 setupCountdown();
                 setupWeather();
-                setupMap();
                 generateDailySections();
+                setupRouteControls();
                 setupTabSwitching();
                 setupScrollToTop();
                 setupChart();
-                
+                document.querySelectorAll('.jump-day').forEach(button => button.addEventListener('click', () => document.querySelector('[data-target="' + button.dataset.day + '"]').click()));
+                const packing = document.querySelectorAll('[data-pack]');
+                function refreshPacking() { document.getElementById('packing-status').textContent = '已準備 ' + [...packing].filter(input => input.checked).length + '／' + packing.length + ' 項'; }
+                packing.forEach(input => {
+                    try { input.checked = localStorage.getItem('pattaya-pack-' + input.dataset.pack) === 'yes'; } catch {}
+                    input.addEventListener('change', () => { try { localStorage.setItem('pattaya-pack-' + input.dataset.pack, input.checked ? 'yes' : 'no'); } catch {} refreshPacking(); });
+                });
+                refreshPacking();
+
                 window.addEventListener('load', () => {
                     document.querySelector('.preloader')?.classList.add('hidden');
                     document.body.classList.add('loaded');
@@ -285,7 +1810,7 @@
                     switchTab('overview', false, () => { isAnimating = false; });
                 });
             }
-            
+
             setupPage();
 
             // --- SETUP FUNCTIONS ---
@@ -312,17 +1837,101 @@
                         document.getElementById('weather-info').innerHTML = '<div class="text-sm text-slate-500">無法載入天氣資訊</div>';
                     });
             }
-            
+
+
+            function setupSongkranWater() {
+                const canvas = document.getElementById('songkran-water');
+                const hero = canvas?.closest('header');
+                const ctx = canvas?.getContext('2d');
+                if (!ctx || !hero) return;
+                const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+                let width = 0, height = 0, visible = true, frame = 0, last = 0, clock = 0;
+                let drops = [], rings = [];
+                function resize() {
+                    const rect = hero.getBoundingClientRect();
+                    width = rect.width; height = rect.height;
+                    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+                    canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
+                    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+                    drops = []; rings = [];
+                }
+                function makeDrop(x, y, burst = false) {
+                    return { x, y, vx: (width / 2 - x) * .06 + (Math.random() - .5) * (burst ? 140 : 35),
+                        vy: -(burst ? 100 + Math.random() * 110 : 75 + Math.random() * 95),
+                        age: 0, life: burst ? 1.2 : 2.8, radius: 1 + Math.random() * 2.2 };
+                }
+                function tick(now) {
+                    frame = 0;
+                    if (motion.matches || !visible || document.hidden) return;
+                    const dt = Math.min((now - (last || now)) / 1000, .04); last = now; clock += dt;
+                    ctx.clearRect(0, 0, width, height);
+                    if (clock > .18 && drops.length < (width < 640 ? 26 : 42)) {
+                        const left = Math.random() < .5;
+                        drops.push(makeDrop(width * (left ? .04 + Math.random() * .18 : .78 + Math.random() * .18), height * .93));
+                        clock = 0;
+                    }
+                    drops = drops.filter(drop => {
+                        drop.age += dt; drop.vy += 68 * dt; drop.x += drop.vx * dt; drop.y += drop.vy * dt;
+                        if (drop.age >= drop.life) return false;
+                        const opacity = Math.sin(Math.PI * drop.age / drop.life) * .6;
+                        ctx.strokeStyle = 'rgba(201,247,255,' + opacity + ')'; ctx.lineWidth = 1;
+                        ctx.fillStyle = 'rgba(218,250,255,' + opacity * .55 + ')';
+                        ctx.beginPath(); ctx.ellipse(drop.x, drop.y, drop.radius, drop.radius * 1.6, -.25, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                        return true;
+                    });
+                    rings = rings.filter(ring => {
+                        ring.age += dt; if (ring.age >= 1.1) return false;
+                        ctx.strokeStyle = 'rgba(199,246,255,' + .45 * (1 - ring.age / 1.1) + ')'; ctx.lineWidth = 1;
+                        ctx.beginPath(); ctx.ellipse(ring.x, ring.y, 12 + ring.age * 75, 5 + ring.age * 28, 0, 0, Math.PI * 2); ctx.stroke(); return true;
+                    });
+                    frame = requestAnimationFrame(tick);
+                }
+                function sync() {
+                    if (frame) cancelAnimationFrame(frame);
+                    frame = 0; last = 0;
+                    if (!motion.matches && visible && !document.hidden) frame = requestAnimationFrame(tick);
+                    else ctx.clearRect(0, 0, width, height);
+                }
+                let lastSplash = 0;
+                hero.addEventListener('pointerdown', event => {
+                    if (motion.matches || event.target.closest('button, a') || performance.now() - lastSplash < 400) return;
+                    lastSplash = performance.now();
+                    const rect = hero.getBoundingClientRect();
+                    const x = event.clientX - rect.left, y = event.clientY - rect.top;
+                    rings.push({ x, y, age: 0 }); rings = rings.slice(-3);
+                    for (let i = 0; i < 10 && drops.length < 55; i++) drops.push(makeDrop(x, y, true));
+                });
+                document.getElementById('splash-party').addEventListener('click', () => {
+                    if (motion.matches) return;
+                    for (const x of [width * .2, width * .8]) {
+                        rings.push({ x, y: height * .72, age: 0 });
+                        for (let i = 0; i < 24; i++) drops.push(makeDrop(x, height * .78, true));
+                    }
+                    drops = drops.slice(-80); rings = rings.slice(-4);
+                    hero.classList.remove('water-flash');
+                    requestAnimationFrame(() => hero.classList.add('water-flash'));
+                });
+                const observer = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); });
+                observer.observe(hero);
+                if (window.ResizeObserver) new ResizeObserver(resize).observe(hero);
+                else window.addEventListener('resize', resize);
+                document.addEventListener('visibilitychange', sync);
+                motion.addEventListener('change', sync);
+                window.addEventListener('pagehide', () => { if (frame) cancelAnimationFrame(frame); frame = 0; });
+                window.addEventListener('pageshow', sync);
+                resize(); sync();
+            }
+
             function setupAnimations() {
                 const heroTitle = document.getElementById('hero-title');
                 const text = heroTitle.innerText;
                 heroTitle.innerHTML = text.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-                gsap.from(heroTitle.querySelectorAll('.char'), { duration: 1.2, y: 100, autoAlpha: 0, stagger: 0.05, ease: "back.out(1.7)" });
-                gsap.from("#hero-subtitle", { duration: 1, y: 30, opacity: 0, ease: "power3.out", delay: 1 });
+                gsap.from(heroTitle.querySelectorAll('.char'), { duration: reduceMotion ? 0 : 1.2, y: 100, autoAlpha: 0, stagger: 0.05, ease: "back.out(1.7)" });
+                gsap.from("#hero-subtitle", { duration: reduceMotion ? 0 : 1, y: 30, opacity: 0, ease: "power3.out", delay: 1 });
             }
-            
+
             function setupCountdown() {
-                const targetDate = new Date('2027-04-12T00:00:00').getTime();
+                const targetDate = new Date('2027-04-10T07:55:00+08:00').getTime();
                 const interval = setInterval(() => {
                     const now = new Date().getTime();
                     const distance = targetDate - now;
@@ -338,12 +1947,54 @@
                 }, 1000);
             }
 
-            function setupMap() {
-                map = L.map('map').setView([12.9236, 100.8825], 12);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    maxZoom: 19
-                }).addTo(map);
+
+
+
+            function googlePointUrl(point, zoom = 15) {
+                return 'https://maps.google.com/maps?hl=zh-TW&q=' + encodeURIComponent(point.googleQuery || (point.lat + ',' + point.lon)) + '&z=' + zoom + '&output=embed';
+            }
+            function googleRouteUrl(dayId) {
+                const stops = itineraryData[dayId].route;
+                // Island day: show the sea and both coasts, rather than a driving route across water.
+                if (dayId === 'day5') return 'https://maps.google.com/maps?hl=zh-TW&q=Ko%20Lan%20Pattaya%20Thailand&ll=12.927,100.835&z=12&output=embed';
+                const latitudes = stops.map(p=>p.lat), longitudes = stops.map(p=>p.lon);
+                const latitude = (Math.min(...latitudes)+Math.max(...latitudes))/2;
+                const longitude = (Math.min(...longitudes)+Math.max(...longitudes))/2;
+                const span = Math.max((Math.max(...latitudes)-Math.min(...latitudes))*111000,(Math.max(...longitudes)-Math.min(...longitudes))*108000);
+                const distance = Math.max(span * 6, 12000);
+                // Same route embed structure provided by Google's Share → Embed a map UI.
+                const pb = '!1m'+(16+4*stops.length)+'!1m12!1m3!1d'+distance+'!2d'+longitude+'!3d'+latitude+'!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m'+(1+4*stops.length)+'!3e0'+stops.map(p=>'!4m3!3m2!1d'+p.lat+'!2d'+p.lon).join('')+'!5e0!3m2!1szh-TW!2stw!5m2!1szh-TW!2stw';
+                return 'https://www.google.com/maps/embed?pb='+pb;
+            }
+            function renderDayRoute(dayId, dayData) {
+                return '<section class="day-route-spread" aria-label="當日 Google 地圖"><div class="route-copy"><p class="editorial-kicker">今日小路線</p><h3>今天的景點，放在同一張圖。</h3><p class="small-note">點選景點，在右側 Google 地圖定位。</p><ol class="route-stop-list">'+dayData.route.map((p,i)=>'<li><button type="button" class="route-stop" data-day="'+dayId+'" data-index="'+i+'" aria-pressed="false"><span>'+(i+1)+'</span>'+p.name+(p.approx?'<small>區域</small>':'')+'</button></li>').join('')+'</ol><p class="route-stop-note" id="route-note-'+dayId+'" aria-live="polite">'+(dayId==='day5'?'海島日先看格蘭島與芭達雅位置；各段船程依一日團安排。':'Google 路線僅供位置參考；區域標記不是民宿或店家精確入口。')+'</p><button class="route-reset" type="button" data-day="'+dayId+'">看整天路線 ↺</button></div><div class="route-visual google-route" id="route-visual-'+dayId+'"><iframe class="google-map-frame" id="route-map-'+dayId+'" title="4/'+(Number(dayId.slice(3))+9)+' 行程 Google 地圖" data-route-day="'+dayId+'" data-src="'+googleRouteUrl(dayId)+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p class="route-map-caption" id="map-caption-'+dayId+'">Google Maps · '+dayData.route.length+' 個停靠點</p></div></section>';
+            }
+            function setupDayRouteMap(dayId) {
+                const frame = document.getElementById('route-map-'+dayId);
+                if (!frame) return;
+                if (!frame.getAttribute('src')) frame.src = frame.dataset.src;
+            }
+            function setupRouteControls() {
+                document.querySelectorAll('.route-stop').forEach(button=>button.addEventListener('click',()=>{
+                    const dayId=button.dataset.day,index=Number(button.dataset.index),point=itineraryData[dayId].route[index];
+                    button.closest('.day-route-spread').querySelectorAll('.route-stop').forEach(control=>control.setAttribute('aria-pressed',String(control===button)));
+                    document.getElementById('route-map-'+dayId).src=googlePointUrl(point,point.approx?13:15);
+                    document.getElementById('route-note-'+dayId).textContent=point.note || point.name;
+                    document.getElementById('map-caption-'+dayId).textContent=(index+1)+'. '+point.name;
+                }));
+                document.querySelectorAll('.route-reset').forEach(button=>button.addEventListener('click',()=>{
+                    const dayId=button.dataset.day;
+                    document.getElementById('route-map-'+dayId).src=googleRouteUrl(dayId);
+                    button.closest('.day-route-spread').querySelectorAll('.route-stop').forEach(control=>control.setAttribute('aria-pressed','false'));
+                    document.getElementById('route-note-'+dayId).textContent=dayId==='day5'?'海島日先看格蘭島與芭達雅位置；各段船程依一日團安排。':'Google 路線僅供位置參考；區域標記不是民宿或店家精確入口。';
+                    document.getElementById('map-caption-'+dayId).textContent='Google Maps · '+itineraryData[dayId].route.length+' 個停靠點';
+                }));
+            }
+
+            function renderItemDetails(item) { return item.details; }
+
+            function markPrice(text) {
+                return text.replace(/(?:NT\$\s*|THB\s*|฿\s*)[\d,]+(?:\.\d+)?|[\d,]+(?:\.\d+)?\s*THB/g, value => '<mark class="cost-tag">' + value + '</mark>');
             }
 
             function generateDailySections() {
@@ -355,25 +2006,28 @@
                         </div>
                     ` : '';
                     const timelineHtml = dayData.items.map(item => `
-                        <div class="timeline-item relative mb-8">
-                            <div class="icon"><i class="fas ${item.icon}"></i></div>
-                            <div class="ml-10 sm:ml-8 bg-white rounded-lg shadow-md overflow-hidden card-hover">
-                                <div class="p-4">
-                                    <h3 class="text-base sm:text-lg font-bold text-sky-700">${item.time} | ${item.title}</h3>
+                        ${item.chapter ? `<header class="day-chapter"><div><span>${item.chapter.label}</span><small>${item.chapter.time}</small></div><h3>${item.chapter.title}</h3></header>` : ''}
+                        <article data-kind="${item.kind}" class="timeline-item relative mb-8 type-${item.kind}">
+                            <div class="itinerary-margin"><span class="trip-time">${item.time}</span><span class="trip-type">${({transport:'交通・移動',dining:'用餐',night:'晚間活動',activity:'景點・體驗'})[item.kind]}</span></div>
+                            <div class="trip-card ${item.photo ? 'trip-with-photo' : ''}">
+                                <div class="trip-copy"><div class="trip-card-heading">
+                                    <h3>${item.title}</h3><p class="trip-summary">${markPrice(item.summary || '')}</p>${item.notice ? `<aside class="trip-notice"><strong><i class="fas fa-circle-exclamation" aria-hidden="true"></i> 注意事項</strong><p>${item.notice}</p></aside>` : ''}
                                 </div>
-                                <div class="p-4 bg-gray-50 border-t border-gray-100 text-slate-600">${item.details}</div>
+                                ${item.disclosureLabel ? `<details class="trip-more"><summary>${item.disclosureLabel} <span aria-hidden="true">＋</span></summary><div class="trip-details">${renderItemDetails(item)}</div></details>` : `<div class="trip-inline">${renderItemDetails(item)}</div>`}</div>
+                                ${item.photo ? `<figure class="itinerary-photo scene-${item.photo.scene}"><img src="${item.photo.file}" alt="${item.photo.alt}" width="480" height="360" loading="lazy" decoding="async"><figcaption>${item.photo.caption}</figcaption></figure>` : ''}
                             </div>
-                        </div>
+                        </article>
                     `).join('');
 
                     return `
                         <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
-                            <div class="daily-theme-card cursor-pointer relative rounded-2xl shadow-xl overflow-hidden p-8 md:p-12 text-white flex flex-col justify-center items-center text-center min-h-[300px] mb-12" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${dayData.themeImage}'); background-size: cover; background-position: center;">
-                                <h2 class="text-3xl sm:text-4xl font-black mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">${dayData.title}</h2>
-                                ${highlightsHtml}
-                                <button class="view-timeline-btn mt-6 bg-sky-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-sky-600 transition-transform hover:scale-105 flex items-center justify-center">查看詳細行程 <i class="fas fa-chevron-down ml-2"></i></button>
+                            <div class="day-editorial-heading"><div class="day-folio"><span>Day</span><b>${String(Number(dayId.slice(3))).padStart(2,'0')}</b></div><div><p class="day-date">2027/4/${Number(dayId.slice(3)) + 9} · 週${['六','日','一','二','三','四','五','六'][Number(dayId.slice(3)) - 1]}</p><h2>${dayData.title}</h2><p class="day-description">${dayData.intro}</p><div class="day-places">${dayData.highlights.map(h => `<span>${h.text}</span>`).join('')}</div></div></div>
+                            <div class="daily-theme-card water-photo cursor-pointer relative overflow-hidden mb-12"><div class="day-photo-image ${['day1','day7'].includes(dayId) ? 'scene-night' : ''}" style="background-image:linear-gradient(0deg,rgba(3,28,36,.35),transparent 60%),url('${dayData.themeImage}'); background-position:${dayId === 'day3' ? 'center 55%' : 'center'};" aria-hidden="true"></div>
+                                <span class="photo-day-caption">${dayData.photoCaption}</span><button aria-expanded="false" aria-controls="timeline-${dayId}" class="view-timeline-btn">閱讀今日行程 <i class="fas fa-arrow-down" aria-hidden="true"></i></button>
                             </div>
-                            <div class="timeline-container hidden relative pl-10 sm:pl-12">
+                            ${renderDayRoute(dayId, dayData)}
+                            <div id="timeline-${dayId}" class="timeline-container hidden relative pl-10 sm:pl-12">
+                                <div class="itinerary-reading-heading"><p class="editorial-kicker">今日行程</p><h3>照著時間，慢慢走。</h3><p>時間皆為泰國當地時間；需要的訂票與交通細節，再點開看。</p></div>
                                 <div class="timeline-line"></div>
                                 <div class="timeline-line-progress"></div>
                                 ${timelineHtml}
@@ -381,19 +2035,29 @@
                         </section>`;
                 }).join('');
                 dailySectionsContainer.innerHTML = allSectionsHtml;
+                document.querySelectorAll('.water-photo').forEach(photo => {
+                    photo.addEventListener('pointermove', event => {
+                        const rect = photo.getBoundingClientRect();
+                        photo.style.setProperty('--water-x', ((event.clientX - rect.left) / rect.width * 100) + '%');
+                        photo.style.setProperty('--water-y', ((event.clientY - rect.top) / rect.height * 100) + '%');
+                    });
+                });
+                document.querySelectorAll('.trip-more').forEach(detail => detail.addEventListener('toggle', () => ScrollTrigger.refresh()));
 
                 document.querySelectorAll('.daily-theme-card').forEach(card => {
                     card.addEventListener('click', () => {
                         const button = card.querySelector('.view-timeline-btn');
-                        const timeline = card.nextElementSibling;
+                        const timeline = card.closest('.content-section').querySelector('.timeline-container');
                         if (!timeline || !timeline.classList.contains('timeline-container')) return;
 
                         const isOpening = timeline.classList.contains('hidden');
+                        button.setAttribute('aria-expanded', String(isOpening));
 
                         document.querySelectorAll('.timeline-container:not(.hidden)').forEach(openTimeline => {
                             if (openTimeline !== timeline) {
                                 openTimeline.classList.add('hidden');
-                                const openButton = openTimeline.previousElementSibling.querySelector('.view-timeline-btn');
+                                const openButton = openTimeline.closest('.content-section').querySelector('.view-timeline-btn');
+                                if (openButton) openButton.setAttribute('aria-expanded', 'false');
                                 if (openButton) openButton.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
                             }
                         });
@@ -403,20 +2067,20 @@
                             button.innerHTML = '隱藏詳細行程 <i class="fas fa-chevron-up ml-2"></i>';
                             setTimeout(() => {
                                 ScrollTrigger.refresh();
-                                gsap.from(timeline.querySelectorAll('.timeline-item'), { opacity: 0, x: -50, stagger: 0.15, duration: 0.7, ease: "power3.out" });
+                                gsap.from(timeline.querySelectorAll('.timeline-item'), { opacity: 0, x: -18, stagger: 0.055, duration: reduceMotion ? 0 : 0.45, ease: "power3.out" });
                                 gsap.to(timeline.querySelector('.timeline-line-progress'), {
                                     scrollTrigger: { trigger: timeline, start: "top center", end: "bottom bottom", scrub: true },
                                     height: "100%"
                                 });
-                                gsap.to(window, { duration: 0.8, ease: 'power3.inOut', scrollTo: { y: timeline, offsetY: document.querySelector('nav').offsetHeight + 32 } });
+                                gsap.to(window, { duration: reduceMotion ? 0 : 0.8, ease: 'power3.inOut', scrollTo: { y: timeline, offsetY: document.querySelector('nav').offsetHeight + 32 } });
                             }, 10);
                         } else {
                             gsap.to(window, {
-                                duration: 0.5, ease: 'power3.inOut',
+                                duration: reduceMotion ? 0 : 0.5, ease: 'power3.inOut',
                                 scrollTo: { y: card, offsetY: document.querySelector('nav').offsetHeight + 32 },
                                 onComplete: () => {
                                     gsap.to(timeline, {
-                                        duration: 0.4, opacity: 0, ease: 'power2.in',
+                                        duration: reduceMotion ? 0 : 0.4, opacity: 0, ease: 'power2.in',
                                         onComplete: () => {
                                             timeline.classList.add('hidden');
                                             timeline.style.opacity = 1;
@@ -449,12 +2113,13 @@
 
                 const tl = gsap.timeline({ onComplete: () => { currentActiveSectionId = targetId; ScrollTrigger.refresh(); onCompleteCallback(); } });
                 if (oldSection) {
-                    tl.to(oldSection, { duration: 0.3, opacity: 0, ease: 'power2.in', onComplete: () => { oldSection.style.display = 'none'; } });
+                    tl.to(oldSection, { duration: reduceMotion ? 0 : 0.3, opacity: 0, ease: 'power2.in', onComplete: () => { oldSection.style.display = 'none'; } });
                 }
-                
+
                 tl.add(() => {
                     navButtons.forEach(btn => {
                         const isTarget = btn.dataset.target === targetId;
+                        if (isTarget) btn.setAttribute('aria-current', 'page'); else btn.removeAttribute('aria-current');
                         btn.classList.toggle('bg-sky-500', isTarget);
                         btn.classList.toggle('text-white', isTarget);
                         btn.classList.toggle('bg-sky-100', !isTarget);
@@ -464,40 +2129,18 @@
 
                 tl.set(newSection, { display: 'block', opacity: 0 })
                   .to(newSection, {
-                    duration: 0.4,
+                    duration: reduceMotion ? 0 : 0.4,
                     opacity: 1,
                     ease: 'power2.out',
                     onStart: () => {
-                        updateMapForDay(targetId);
-                        gsap.from(newSection.querySelectorAll('.daily-theme-card'), { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out', stagger: 0.1 });
+                        requestAnimationFrame(() => setupDayRouteMap(targetId));
+                        gsap.from(newSection.querySelectorAll('.daily-theme-card'), { opacity: 0, y: 50, duration: reduceMotion ? 0 : 0.8, ease: 'power3.out', stagger: 0.1 });
                     }
                 });
 
                 if (shouldScroll) {
-                    tl.to(window, { duration: 0.8, ease: 'power2.inOut', scrollTo: { y: newSection, offsetY: document.querySelector('nav').offsetHeight + 32 } }, "-=0.2");
+                    tl.to(window, { duration: reduceMotion ? 0 : 0.8, ease: 'power2.inOut', scrollTo: { y: newSection, offsetY: document.querySelector('nav').offsetHeight + 32 } }, "-=0.2");
                 }
-            }
-
-            function updateMapForDay(dayId) {
-                markers.forEach(marker => map.removeLayer(marker));
-                markers = [];
-
-                const dayData = itineraryData[dayId];
-                if (!dayData || !dayData.locations || Object.keys(dayData.locations).length === 0) {
-                    map.setView([12.9236, 100.8825], 12);
-                    return;
-                }
-
-                const locations = dayData.locations;
-                const bounds = L.latLngBounds();
-
-                for (const name in locations) {
-                    const loc = locations[name];
-                    const marker = L.marker([loc.lat, loc.lon]).addTo(map).bindPopup(`<b>${name}</b>`);
-                    markers.push(marker);
-                    bounds.extend([loc.lat, loc.lon]);
-                }
-                if (bounds.isValid()) { map.fitBounds(bounds, { padding: [50, 50] }); }
             }
 
             function setupScrollToTop() {
@@ -515,10 +2158,10 @@
                 const budgetChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['4/12 (一)', '4/13 (二)', '4/14 (三)', '4/15 (四)', '4/16 (五)', '4/17 (六)'],
+                        labels: ['4/10 (六)', '4/11 (日)', '4/12 (一)', '4/13 (二)', '4/14 (三)', '4/15 (四)', '4/16 (五)', '4/17 (六)'],
                         datasets: [{
                             label: '預估人均支出 (THB)',
-                            data: [1200, 1000, 1800, 2500, 3500, 800],
+                            data: [900, null, null, null, null, 2500, 3500, 800],
                             backgroundColor: 'rgba(14, 165, 233, 0.6)',
                             borderColor: 'rgba(14, 165, 233, 1)',
                             borderWidth: 1, borderRadius: 5,
@@ -531,9 +2174,10 @@
                         plugins: { legend: { display: false } }
                     }
                 });
+                document.querySelector('.budget-fold').addEventListener('toggle', event => { if (event.currentTarget.open) budgetChart.resize(); });
                 ScrollTrigger.create({
                     trigger: "#budgetChart", start: "top 80%",
-                    onEnter: () => { budgetChart.options.animation = { duration: 1500, easing: 'easeOutBounce' }; budgetChart.update(); },
+                    onEnter: () => { budgetChart.options.animation = { duration: reduceMotion ? 0 : 1500, easing: 'easeOutBounce' }; budgetChart.update(); },
                     once: true
                 });
             }
