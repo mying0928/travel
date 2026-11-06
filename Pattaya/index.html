@@ -1902,18 +1902,46 @@
 
             // --- SETUP FUNCTIONS ---
 
-            function setupWeather() {
-                const weatherIconMap = { "Sunny": "fa-sun", "Clear": "fa-moon", "Partly cloudy": "fa-cloud-sun", "Cloudy": "fa-cloud", "Overcast": "fa-smog", "Mist": "fa-smog", "Patchy rain possible": "fa-cloud-showers-heavy", "Thundery outbreaks possible": "fa-bolt", "Light rain": "fa-cloud-rain", "Moderate rain": "fa-cloud-showers-heavy", "Heavy rain": "fa-cloud-showers-heavy", "Light rain shower": "fa-cloud-rain" };
-                const weatherDescTranslations = { "Sunny": "晴朗", "Clear": "晴朗", "Partly cloudy": "多雲時晴", "Cloudy": "多雲", "Overcast": "陰天", "Mist": "有霧", "Patchy rain possible": "可能有零星降雨", "Thundery outbreaks possible": "可能有雷暴", "Light rain": "小雨", "Moderate rain": "中雨", "Heavy rain": "大雨", "Light rain shower": "陣雨" };
+            function weatherPresentation(condition) {
+                const description = String(condition.weatherDesc?.[0]?.value || '').trim().toLowerCase();
+                const code = Number(condition.weatherCode);
+                const groups = [
+                    [[113], description === 'clear' ? 'fa-moon' : 'fa-sun', '晴朗'],
+                    [[116], 'fa-cloud-sun', '多雲時晴'],
+                    [[119], 'fa-cloud', '多雲'],
+                    [[122], 'fa-cloud', '陰天'],
+                    [[143,248,260], 'fa-smog', '有霧'],
+                    [[176], 'fa-cloud-rain', '附近有零星降雨'],
+                    [[263,266,293,296], 'fa-cloud-rain', '小雨'],
+                    [[299,302], 'fa-cloud-rain', '中雨'],
+                    [[305,308], 'fa-cloud-showers-heavy', '大雨'],
+                    [[353], 'fa-cloud-rain', '陣雨'],
+                    [[356,359], 'fa-cloud-showers-heavy', '強陣雨'],
+                    [[200,386,389,392,395], 'fa-cloud-bolt', '雷雨'],
+                    [[179,182,185,227,230,281,284,311,314,317,320,323,326,329,332,335,338,350,362,365,368,371,374,377], 'fa-snowflake', '降雪或冰凍降水']
+                ];
+                const match = groups.find(([codes]) => codes.includes(code));
+                if (match) return {icon:match[1], description:match[2]};
+                // Descriptions are a fallback when the provider omits or adds a code.
+                if (/thunder/.test(description)) return {icon:'fa-cloud-bolt', description:'雷雨'};
+                if (/rain|drizzle|shower/.test(description)) return {icon:'fa-cloud-rain', description:'附近有降雨'};
+                if (/snow|sleet|ice|blizzard/.test(description)) return {icon:'fa-snowflake', description:'降雪或冰凍降水'};
+                if (/mist|fog/.test(description)) return {icon:'fa-smog', description:'有霧'};
+                if (/partly/.test(description)) return {icon:'fa-cloud-sun', description:'多雲時晴'};
+                if (/cloud|overcast/.test(description)) return {icon:'fa-cloud', description:'多雲或陰天'};
+                if (/sunny|clear/.test(description)) return {icon:description==='clear'?'fa-moon':'fa-sun', description:'晴朗'};
+                return {icon:'fa-cloud', description:'天氣狀況待更新'};
+            }
 
+            function setupWeather() {
                 fetch('https://wttr.in/Pattaya?format=j1')
                     .then(response => response.json())
                     .then(data => {
                         const condition = data.current_condition[0];
                         const temp = condition.temp_C;
-                        const weatherDesc = condition.weatherDesc[0].value;
-                        const iconClass = weatherIconMap[weatherDesc] || 'fa-question-circle';
-                        const translatedDesc = weatherDescTranslations[weatherDesc] || weatherDesc;
+                        const weather = weatherPresentation(condition);
+                        const iconClass = weather.icon;
+                        const translatedDesc = weather.description;
 
                         document.getElementById('weather-icon').className = `fas ${iconClass} text-6xl text-sky-400`;
                         document.getElementById('weather-temp').textContent = `${temp}°C`;
