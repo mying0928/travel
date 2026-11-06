@@ -467,13 +467,14 @@
         @media(max-width:767px){.known-costs small{font-size:.7rem;}}
         .travel-pages > nav.date-navigation { display:grid; grid-template-columns:38px minmax(0,1fr) 38px; align-items:center; gap:8px; padding:10px; }
         .date-strip { min-width:0; width:100%; overflow-x:auto; overscroll-behavior-x:contain; scroll-behavior:smooth; }
-        .date-track { display:flex; align-items:center; gap:12px; width:max-content; box-sizing:content-box; }
+        .date-track { display:flex; align-items:center; gap:12px; width:max-content; margin-inline:auto; box-sizing:content-box; }
         .date-track .nav-btn { flex:0 0 auto; white-space:nowrap; margin:0; }
         .date-edge { display:grid; place-items:center; width:38px; height:44px; border:1px solid #c9d9cf; border-radius:50%; background:#f0f5ed; color:#246b5f; transition:background .2s,color .2s,opacity .2s; }
         .date-edge:hover:not(:disabled) { background:#dfeee5; color:#144e43; }
         .date-edge:disabled { opacity:.3; cursor:default; }
         @media(max-width:767px){.travel-pages > nav.date-navigation{grid-template-columns:34px minmax(0,1fr) 34px;gap:4px;padding:8px;}.date-edge{width:34px;height:44px;}.date-track{gap:8px;}}
         @media(prefers-reduced-motion:reduce){.date-strip{scroll-behavior:auto;}}
+        .google-route .route-map-caption { top:auto; bottom:10px; max-width:calc(100% - 20px); }
     </style>
 </head>
 <body class="text-slate-700">
@@ -517,12 +518,12 @@
             <section id="overview" class="content-section magazine-overview">
                 <div class="overview-opening"><div><p class="editorial-kicker">這趟旅行</p><h2>先去海邊，<br>再走進曼谷。</h2><p class="overview-lead">四個人，八天七夜。從 LOF LAND、火舞和潑水節，玩到格蘭島，再把最後兩天留給曼谷。</p><p class="trip-dateline">2027.04.10 — 04.17 · 芭達雅 → 曼谷</p></div><figure class="opening-photo"><img src="images/koh-larn.jpg" alt="格蘭島的海岸與碧綠海水" width="1700" height="510" loading="lazy"><figcaption>4 月，把白天留給海。</figcaption></figure></div>
                 <div class="travel-pulse"><div><span class="editorial-kicker">距離出發</span><div id="countdown" class="countdown-editorial"><span><b id="days">00</b> 天</span><span><b id="hours">00</b> 時</span><span><b id="minutes">00</b> 分</span><span><b id="seconds">00</b> 秒</span></div></div><div><span class="editorial-kicker">現在的芭達雅</span><div id="weather-info" class="weather-editorial"><i id="weather-icon" class="fas fa-cloud-sun" aria-hidden="true"></i><span id="weather-temp">--°C</span><span id="weather-desc">讀取中…</span></div><p class="small-note">目前即時天氣，非旅遊日期預報。</p></div></div>
-                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">航班與第一天接送</span><h2>出發和回家，先記好。</h2></div><div class="flight-ledger"><article><span class="flight-direction">去程 · 4/10（六）</span><div class="flight-clock"><span>07:55 <small>TPE 桃園</small></span><i class="fas fa-plane" aria-hidden="true"></i><span>10:40 <small>BKK 曼谷</small></span></div><p>TG637 · 桃園第 1 航廈 · 飛行 3 小時 45 分鐘</p></article><article><span class="flight-direction">回程 · 4/17（六）</span><div class="flight-clock"><span>11:45 <small>BKK 曼谷</small></span><i class="fas fa-plane" aria-hidden="true"></i><span>16:15 <small>KHH 高雄</small></span></div><p>TG630 · 抵達高雄第 1 航廈 · 飛行 3 小時 30 分鐘</p></article></div><p class="small-note">航班皆為當地時間；泰國比台灣慢 1 小時。</p><div class="arrival-note"><strong>落地後的路線</strong><p>BKK → LOF LAND（停留兩小時）→ 海灘路民宿 → DAM 火舞 → 六巷。包車四人 <mark class="cost-tag">2,400 THB</mark>；LOF LAND 四人門票 <mark class="cost-tag">1,200 THB</mark>，各含一杯飲料。</p><p class="small-note">回程 4/17 約 07:00 從曼谷飯店出發，目標 08:30 前抵達 BKK。</p><button type="button" class="editorial-text-button jump-day" data-day="day1">看 4/10 的詳細時間 ↗</button></div></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">航班與第一天接送</span><h2>出發和回家，先記好。</h2></div><div class="flight-ledger"><article><span class="flight-direction">去程 · 4/10（六）</span><div class="flight-clock"><span>07:55 <small>TPE 桃園</small></span><i class="fas fa-plane" aria-hidden="true"></i><span>10:40 <small>BKK 曼谷</small></span></div><p>TG637 · 桃園第 1 航廈 · 飛行 3 小時 45 分鐘</p></article><article><span class="flight-direction">回程 · 4/17（六）</span><div class="flight-clock"><span>11:45 <small>BKK 曼谷</small></span><i class="fas fa-plane" aria-hidden="true"></i><span>16:15 <small>KHH 高雄</small></span></div><p>TG630 · 抵達高雄第 1 航廈 · 飛行 3 小時 30 分鐘</p></article></div><p class="small-note">航班皆為當地時間；泰國比台灣慢 1 小時。</p><div class="arrival-note"><strong>落地後的路線</strong><p>BKK → LOF LAND（停留兩小時）→ 海灘路民宿 → DAM 火舞 → 六巷。四人機場接送 1,300 THB＋LOF LAND 停留加價 500 THB，合計 <mark class="cost-tag">1,800 THB</mark>；LOF LAND 四人門票 <mark class="cost-tag">1,200 THB</mark>，各含一杯飲料。</p><p class="small-note">回程 4/17 約 07:00 從曼谷飯店出發，目標 08:30 前抵達 BKK。</p><button type="button" class="editorial-text-button jump-day" data-day="day1">看 4/10 的詳細時間 ↗</button></div></section>
                 <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">八天的節奏</span><h2>這趟想記住的畫面。</h2></div><div class="story-spread"><button class="story-photo jump-day" data-day="day1" type="button"><img src="images/dam-pattaya-fire-panorama.jpg" alt="DAM 海邊的火舞與金色火花" loading="lazy"><span><small>10 APR</small>海風裡看一場火舞 ↗</span></button><button class="story-photo jump-day" data-day="day3" type="button"><img src="images/sky-wide-exit.webp" alt="高空跳傘躍出機艙" loading="lazy"><span><small>12 APR</small>從空中看這片海 ↗</span></button><button class="story-photo jump-day" data-day="day4" type="button"><img src="images/songkran-water-splash.jpg" alt="潑水節的水花與水槍" loading="lazy"><span><small>13 APR</small>帶著水槍去過節 ↗</span></button></div></section>
                 <section class="overview-section travel-notes"><div class="section-heading"><span class="editorial-kicker">出門前翻一下</span><h2>行李裡，要有這些。</h2><p class="small-note">可以勾選，紀錄只保存在這台裝置。</p></div><div><div class="packing-list"><label><input type="checkbox" data-pack="documents"><span>護照、機票與住宿資料的離線備份</span></label><label><input type="checkbox" data-pack="waterproof"><span>防水袋、護目鏡與快乾衣</span></label><label><input type="checkbox" data-pack="temple"><span>真理寺用的遮肩、過膝乾爽衣物</span></label><label><input type="checkbox" data-pack="beach"><span>泳衣、防曬、帽子與替換衣物</span></label><label><input type="checkbox" data-pack="network"><span>行動網路、充電器與行動電源</span></label><label><input type="checkbox" data-pack="bookings"><span>跳傘、船班、DAM 與按摩預約憑證</span></label></div><p id="packing-status" class="small-note" aria-live="polite">尚未勾選</p></div></section>
                 <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">實用小抄</span><h2>到了當地，少找幾次資料。</h2></div><div class="field-notes"><article><h3>入境資料</h3><p>依現行規定，TDAC 需於抵達前三天內（含抵達日）提交，官方申請免費。先備好護照、航班與第一晚住宿地址。</p><a class="trip-link" href="https://tdac.immigration.go.th/" target="_blank" rel="noopener noreferrer">TDAC 官方入口<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://tdac.immigration.go.th/manual/en/faq.html" target="_blank" rel="noopener noreferrer">官方填寫說明<span aria-hidden="true">↗</span></a><p class="small-note">現行資訊查核於 2026/10/30；2027 出發前再確認規定。</p></article><article><h3>叫車與接送</h3><p>4/10 已有整段包車報價；其餘接送依各方案確認。先把海灘路民宿地址存進手機，節日期間預留叫車時間。</p><a class="trip-link" href="https://maps.app.goo.gl/FmaH19S7VuRyycdq8" target="_blank" rel="noopener noreferrer">LOF LAND 位置<span aria-hidden="true">↗</span></a></article><article><h3>下雨時怎麼調整</h3><p>室內逛街可改 Royal Garden Plaza 或 Terminal 21。跳傘、快艇與火舞則先聯絡業者，依天候及訂單規則調整。</p></article><article><h3>需要協助時</h3><p>旅遊警察 1155，警察緊急電話 191。先保存司機、民宿房東及活動業者的聯絡方式。</p><a class="trip-link" href="https://thailand.prd.go.th/en/content/category/detail/id/2078/iid/447104" target="_blank" rel="noopener noreferrer">官方旅遊協助電話<span aria-hidden="true">↗</span></a></article></div></section>
-                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">預約書籤</span><h2>會用到的入口，放一起。</h2></div><div class="booking-bookmarks"><a class="trip-link" href="https://www.lof-land.com/th/ticket" target="_blank" rel="noopener noreferrer">LOF LAND 門票<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/zh-TW/activity/186411-dam-beach-fireshow-pattaya/" target="_blank" rel="noopener noreferrer">DAM 四人前排<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/en-US/activity/338-khao-kheow-open-zoo-pattaya/" target="_blank" rel="noopener noreferrer">綠山動物園<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://thaiskyadventures.com/begin-your-booking/" target="_blank" rel="noopener noreferrer">Thai Sky Adventures<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/zh-TW/activity/106819-ocean-sky-cruise-with-show-in-pattaya/" target="_blank" rel="noopener noreferrer">日落郵輪<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sanctuaryoftruthmuseum.com/visit-us/" target="_blank" rel="noopener noreferrer">真理寺<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sky.theskygroupth.com/sky/customer/index.php?lang=en" target="_blank" rel="noopener noreferrer">The Sky Gallery 訂位<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://letsrelaxspa.com/branches/pattaya-beachfront/" target="_blank" rel="noopener noreferrer">Let’s Relax 海灘路店<span aria-hidden="true">↗</span></a></div><p class="small-note">書籤是預約入口，不代表已購票。日期、套餐與費用仍以實際訂單為準。</p></section>
-                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">費用手記</span><h2>確認的先記，其他慢慢補。</h2></div><dl class="known-costs"><div><dt>4/10 包車，含 LOF LAND 停留與春武里加價</dt><dd>2,400 THB <small>四人／每人 600 THB</small></dd></div><div><dt>LOF LAND 門票，含飲料</dt><dd>1,200 THB <small>四人／每人 300 THB</small></dd></div><div><dt>DAM 四人前排方案</dt><dd>NT$1,933 <small>四人／每人 NT$483.25</small></dd></div></dl><p class="small-note">4/10 已知費用：3,600 THB＋NT$1,933／四人；餐飲加點、晚間叫車另計。不同幣別分開記。</p><details class="budget-fold"><summary>查看每日人均預算圖 <span aria-hidden="true">＋</span></summary><p class="small-note">4/10 僅列已知泰銖費用每人 900 THB；4/11～4/14 暫留空，其他日期為粗估。不含機票、住宿與購物。</p><div class="chart-container"><canvas id="budgetChart"></canvas></div></details></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">預約書籤</span><h2>會用到的入口，放一起。</h2></div><div class="booking-bookmarks"><a class="trip-link" href="https://www.lof-land.com/th/ticket" target="_blank" rel="noopener noreferrer">LOF LAND 門票<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/zh-TW/activity/186411-dam-beach-fireshow-pattaya/" target="_blank" rel="noopener noreferrer">DAM 四人前排<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/en-US/activity/338-khao-kheow-open-zoo-pattaya/" target="_blank" rel="noopener noreferrer">綠山動物園<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://thaiskyadventures.com/begin-your-booking/" target="_blank" rel="noopener noreferrer">Thai Sky Adventures<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://maps.app.goo.gl/CcbW2fsZm1MdvMN9A" target="_blank" rel="noopener noreferrer">Seafood Station 地圖<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sanctuaryoftruthmuseum.com/visit-us/" target="_blank" rel="noopener noreferrer">真理寺<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sky.theskygroupth.com/sky/customer/index.php?lang=en" target="_blank" rel="noopener noreferrer">The Sky Gallery 訂位<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://letsrelaxspa.com/branches/pattaya-beachfront/" target="_blank" rel="noopener noreferrer">Let’s Relax 海灘路店<span aria-hidden="true">↗</span></a></div><p class="small-note">書籤是預約入口，不代表已購票。日期、套餐與費用仍以實際訂單為準。</p></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">費用手記</span><h2>確認的先記，其他慢慢補。</h2></div><dl class="known-costs"><div><dt>4/10 BKK → 芭達雅接送 1,300 THB＋LOF LAND 停留加價 500 THB</dt><dd>1,800 THB <small>四人／每人 450 THB</small></dd></div><div><dt>LOF LAND 門票，含飲料</dt><dd>1,200 THB <small>四人／每人 300 THB</small></dd></div><div><dt>DAM 四人前排方案</dt><dd>NT$1,933 <small>四人／每人 NT$483.25</small></dd></div></dl><p class="small-note">4/10 已知費用：3,000 THB＋NT$1,933／四人；餐飲加點、晚間叫車另計。不同幣別分開記。</p><details class="budget-fold"><summary>查看每日人均預算圖 <span aria-hidden="true">＋</span></summary><p class="small-note">4/10 僅列已知泰銖費用每人 750 THB；4/11～4/14 暫留空，其他日期為粗估。不含機票、住宿與購物。</p><div class="chart-container"><canvas id="budgetChart"></canvas></div></details></section>
             </section>
 
             <div id="daily-sections-container"></div>
@@ -628,7 +629,7 @@
                 "time": "12:30–13:30（估）",
                 "title": "BKK → 春武里 LOF LAND",
                 "summary": "出關後包車前往 LOF LAND，先抓約 1～1.5 小時車程。",
-                "details": "<div class=\"detail-copy\"><p>路線：BKK → LOF LAND 停留 2 小時 → 芭達雅海灘路附近民宿。</p><p><strong>四人包車總價 <mark class=\"cost-tag\">2,400 THB</mark>，平均每人 <mark class=\"cost-tag\">600 THB</mark>。</strong></p><ul><li>機場接送基本車資：<mark class=\"cost-tag\">1,600 THB</mark>／車。</li><li>LOF LAND 停留：<mark class=\"cost-tag\">300 THB</mark> × 2 小時＝<mark class=\"cost-tag\">600 THB</mark>。</li><li>前往春武里加價：<mark class=\"cost-tag\">200 THB</mark>。</li></ul><p>此為你提供的整段接送報價，含上述停留加價；LOF LAND 門票及晚間市區叫車另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/FmaH19S7VuRyycdq8\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"LOF LAND 地圖（另開分頁）\">LOF LAND 地圖<span aria-hidden=\"true\">↗</span></a></div>",
+                "details": "<div class=\"detail-copy\"><p>路線：BKK → LOF LAND 停留 2 小時 → 芭達雅海灘路附近民宿。</p><p><strong>四人包車總價 <mark class=\"cost-tag\">1,800 THB</mark>，平均每人 <mark class=\"cost-tag\">450 THB</mark>。</strong></p><ul><li>BKK → 芭達雅機場接送：<mark class=\"cost-tag\">1,300 THB</mark>／車（四人）。</li><li>LOF LAND 景點停留加價：<mark class=\"cost-tag\">500 THB</mark>。</li></ul><p>此為你提供的整段接送報價，含上述停留加價；LOF LAND 門票及晚間市區叫車另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/FmaH19S7VuRyycdq8\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"LOF LAND 地圖（另開分頁）\">LOF LAND 地圖<span aria-hidden=\"true\">↗</span></a></div>",
                 "kind": "transport",
                 "icon": "fa-car",
                 "notice": "以約 12:30 上車估算；出關或交通延後時，後續行程同步順延。",
@@ -642,13 +643,19 @@
                 "kind": "activity",
                 "icon": "fa-camera",
                 "notice": "門票以你提供的 300 THB 記錄；出發前確認預約方案與飲料兌換內容。",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/lof-land.jpg",
+                    "caption": "LOF LAND・未來感造景",
+                    "alt": "LOF LAND 巨型金屬標誌、岩壁瀑布與綠地",
+                    "scene": "day"
+                }
             },
             {
                 "time": "15:30–16:30／17:00（估）",
                 "title": "LOF LAND → 芭達雅海灘路",
                 "summary": "拍照後繼續搭原包車，前往海灘路附近民宿。",
-                "details": "<div class=\"detail-copy\"><p>此段車程抓約 1～1.5 小時，費用已計入整段包車 2,400 THB，不另重複加總。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>此段車程抓約 1～1.5 小時，費用已計入整段包車 1,800 THB，不另重複加總。</p></div>",
                 "kind": "transport",
                 "icon": "fa-car",
                 "notice": "",
@@ -738,12 +745,12 @@
                 "googleQuery": "Pattaya Beach Road Thailand"
             },
             {
-                "name": "DAM 海濱區域",
+                "name": "DAM Pattaya",
                 "lat": 12.99,
                 "lon": 100.912,
-                "note": "暫標กระทิงลาย北側海濱區域，店家精確入口待確認。",
+                "note": "以 Google Maps 的 DAM Pattaya 店家搜尋結果及訂位資訊確認入口。",
                 "approx": true,
-                "googleQuery": "DAM Pattaya Thailand"
+                "googleQuery": "DAM Pattaya Na Kluea Chon Buri Thailand"
             },
             {
                 "name": "Soi 6 六巷",
@@ -770,7 +777,7 @@
             },
             {
                 "icon": "fa-ticket",
-                "text": "IMAGINE 79 秀"
+                "text": "69 Pattaya Show"
             },
             {
                 "icon": "fa-moon",
@@ -817,7 +824,13 @@
                 "icon": "fa-paw",
                 "notice": "",
                 "kind": "activity",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/moo-deng.jpg",
+                    "caption": "Moo Deng・侏儒河馬",
+                    "alt": "綠山動物園侏儒河馬 Moo Deng 的幼年近照",
+                    "scene": "day"
+                }
             },
             {
                 "time": "09:40–10:20",
@@ -827,7 +840,13 @@
                 "icon": "fa-paw",
                 "notice": "企鵝 10:00、大象 11:00 為目前參考場次；入園後確認當日時刻。",
                 "kind": "activity",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/khao-kheow-penguin-parade.jpg",
+                    "caption": "綠山動物園・企鵝遊行",
+                    "alt": "綠山動物園企鵝沿步道排隊走向遊客",
+                    "scene": "day"
+                }
             },
             {
                 "time": "10:20–11:30",
@@ -837,7 +856,13 @@
                 "icon": "fa-water",
                 "notice": "",
                 "kind": "activity",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/khao-kheow-elephant.jpg",
+                    "caption": "綠山動物園・大象游泳",
+                    "alt": "綠山動物園大象在水中游泳的水下視角",
+                    "scene": "day"
+                }
             },
             {
                 "time": "11:30–12:15",
@@ -909,7 +934,7 @@
                 "time": "16:30–18:15",
                 "title": "返回海灘路・休息與晚餐",
                 "summary": "回民宿整理後就近用餐，Terminal 21 視體力再去。",
-                "details": "<div class=\"detail-copy\"><p>回程先留 30～45 分鐘，再休息、吃飯。避免為了逛街錯過 79 秀接送。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>回程先留 30～45 分鐘，再休息、吃飯。避免為了逛街錯過 69 Pattaya Show接送。</p></div>",
                 "icon": "fa-utensils",
                 "notice": "",
                 "kind": "dining",
@@ -917,7 +942,7 @@
             },
             {
                 "time": "18:15–19:00",
-                "title": "前往 79 秀",
+                "title": "前往 69 Pattaya Show",
                 "summary": "接送或叫車時間依方案確認。",
                 "details": "<div class=\"detail-copy\"><p>若方案含飯店接送，依憑證集合，不把接車時間當成開演時間。</p></div>",
                 "icon": "fa-car",
@@ -932,17 +957,17 @@
             },
             {
                 "time": "19:00–20:15",
-                "title": "IMAGINE 79 成人秀",
-                "summary": "保留約一輪演出及進出場時間。",
-                "details": "<div class=\"detail-copy\"><p>18+；攜帶可核驗年齡的證件，手機與攝影器材依場館規則寄存，場內不拍攝。方案依護照類別選擇，請向售票商確認台灣護照適用性。</p><p>待確認 2027/4/11 營運、時段與票價。預訂時確認方案名稱為 IMAGINE 79，並確認接送及護照適用條件。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.thailandactivitytickets.com/activity/imagine-79-show-pattaya-tickets\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"79 秀方案與預訂（另開分頁）\">79 秀方案與預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "title": "69 Pattaya Show",
+                "summary": "門票每人 700 THB，四人共 2,800 THB；保留演出與進出場時間。",
+                "details": "<div class=\"detail-copy\"><p><strong>門票 <mark class=\"cost-tag\">700 THB</mark>／人，四人共 <mark class=\"cost-tag\">2,800 THB</mark>。</strong>依你提供的價格記錄；接送是否包含另行確認。</p><p>地點改為 69 Pattaya Show，請使用下方地圖前往。19:00–20:15 為行程預留時間，實際開演與報到時間依訂票資訊確認。</p><p>入場年齡、證件與攝影器材規定依場館要求。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/g1RaXNKuRreucqLz7\" target=\"_blank\" rel=\"noopener noreferrer\">69 Pattaya Show 地圖<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-ticket",
-                "notice": "18+；先確認台灣護照適用方案，場內不拍攝，器材依規定寄存。",
+                "notice": "票價依你提供的 700 THB／人記錄；確認場次、報到時間與接送安排。",
                 "kind": "activity",
-                "disclosureLabel": "入場規則與訂票"
+                "disclosureLabel": "四人票價與場館位置"
             },
             {
                 "time": "20:15–20:45",
-                "title": "79 秀 → 六巷",
+                "title": "69 Pattaya Show → 六巷",
                 "summary": "預留叫車與移動時間，依演出結束時間順延。",
                 "details": "<div class=\"detail-copy\"><p>以叫車或已約定的接送為主；不先假設有固定 <mark class=\"cost-tag\">10 THB</mark> 雙條車直達。</p></div>",
                 "icon": "fa-car",
@@ -988,12 +1013,12 @@
                 "googleQuery": "House of Benedict Pattaya"
             },
             {
-                "name": "79 秀所在區域",
-                "lat": 12.907,
-                "lon": 100.89,
-                "note": "先標 Thep Prasit 一帶；入口依訂票憑證。",
-                "approx": true,
-                "googleQuery": "IMAGINE 79 SHOW Pattaya Thailand"
+                "name": "69 Pattaya Show",
+                "lat": 12.9537425,
+                "lon": 100.8918577,
+                "note": "依提供的 Google 地圖連結定位。",
+                "approx": false,
+                "googleQuery": "69 Pattaya Show Pattaya Thailand"
             },
             {
                 "name": "Soi 6 六巷",
@@ -1007,7 +1032,7 @@
         "photoCaption": "綠山動物園"
     },
     "day3": {
-        "title": "高空跳傘・海上晚餐與高空夜景",
+        "title": "高空跳傘・海鮮吃到飽與高空夜景",
         "themeImage": "images/sky-wide-exit.webp",
         "highlights": [
             {
@@ -1019,8 +1044,8 @@
                 "text": "Royal Garden Plaza"
             },
             {
-                "icon": "fa-ship",
-                "text": "亞特蘭蒂斯日落郵輪"
+                "icon": "fa-utensils",
+                "text": "Seafood Station 海鮮吃到飽"
             },
             {
                 "icon": "fa-moon",
@@ -1032,9 +1057,9 @@
                 "lat": 12.927,
                 "lon": 100.879
             },
-            "Bali Hai 碼頭區域": {
-                "lat": 12.92,
-                "lon": 100.867
+            "Seafood Station Pattaya": {
+                "lat": 12.9422872,
+                "lon": 100.9096122
             }
         },
         "items": [
@@ -1078,67 +1103,73 @@
                 "time": "13:00–16:00",
                 "title": "Royal Garden Plaza",
                 "summary": "午餐後逛街；Ripley’s 選一兩項體驗即可。",
-                "details": "<div class=\"detail-copy\"><p>位於海灘路，逛街本身不需門票；Ripley’s 展館與遊樂設施另購。最晚 16:00 結束，為郵輪報到留緩衝。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>位於海灘路，逛街本身不需門票；Ripley’s 展館與遊樂設施另購。約 16:00 結束，接著叫車前往 Seafood Station。</p></div>",
                 "icon": "fa-shopping-bag",
                 "notice": "",
                 "kind": "activity",
                 "disclosureLabel": ""
             },
             {
-                "time": "16:00–17:30",
-                "title": "前往集合點・郵輪報到",
-                "summary": "保留交通、找售票處與登船時間。",
-                "details": "<div class=\"detail-copy\"><p>目標約 17:00 前抵達憑證指定集合處；報到截止與接駁安排須先確認。集合地址、登船位置與接駁時刻以預訂憑證為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/zh-TW/activity/106819-ocean-sky-cruise-with-show-in-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"確認郵輪方案與集合點（另開分頁）\">確認郵輪方案與集合點<span aria-hidden=\"true\">↗</span></a></div>",
-                "icon": "fa-ticket",
-                "notice": "",
-                "kind": "activity",
+                "time": "16:00–17:00（估）",
+                "title": "前往 Seafood Station Pattaya",
+                "summary": "逛街後叫車前往餐廳，預留交通與候位時間。",
+                "details": "<div class=\"detail-copy\"><p>從 Royal Garden Plaza 叫車前往 Seafood Station Pattaya。以你提供的 Google 地圖位置為準，預留約一小時作交通與候位緩衝；車資另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/CcbW2fsZm1MdvMN9A\" target=\"_blank\" rel=\"noopener noreferrer\">Seafood Station 地圖<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-car",
+                "notice": "出發前確認營業時間及四人座位。",
+                "kind": "transport",
                 "disclosureLabel": "",
                 "chapter": {
                     "label": "傍晚",
                     "time": "16:00–19:45",
-                    "title": "報到、登船與日落晚餐"
+                    "title": "海鮮燒烤，慢慢吃晚餐"
                 }
             },
             {
-                "time": "18:00–19:45",
-                "title": "Ocean Sky 升級版・日落場",
-                "summary": "海上自助餐、歌舞與夜景，選日落場銜接下一站。",
-                "details": "<div class=\"detail-copy\"><p>Klook 現為「亞特蘭蒂斯海天 PLUS」，列日落場 18:00～19:45。預訂四人時確認自助餐與表演包含內容。</p><p>此安排以選到日落場為前提；20:00 晚餐場會與後續行程衝突。票價待選 2027/4/12 後填入。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/zh-TW/activity/106819-ocean-sky-cruise-with-show-in-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Klook 日落場預訂（另開分頁）\">Klook 日落場預訂<span aria-hidden=\"true\">↗</span></a></div>",
-                "icon": "fa-ship",
-                "notice": "集合處、報到截止與接駁位置以憑證為準。",
-                "kind": "activity",
-                "disclosureLabel": "郵輪方案與登船資訊",
+                "time": "17:00–18:30",
+                "title": "Seafood Station Pattaya・海鮮吃到飽",
+                "summary": "流水蝦、螃蟹與貝類自助燒烤；參考預算每人 499 THB，四人 1,996 THB。",
+                "details": "<div class=\"detail-copy\"><p>自助海鮮燒烤，主打流水蝦，另有蟹、貝類、熟食與甜點。</p><p><strong>參考價 <mark class=\"cost-tag\">499 THB</mark>／人，四人 <mark class=\"cost-tag\">1,996 THB</mark>；食記記載用餐 90 分鐘。</strong>食記另列加 <mark class=\"cost-tag\">100 THB</mark>／人可選啤酒喝到飽；若四人皆加購，合計 <mark class=\"cost-tag\">2,396 THB</mark>。</p><p>常見營業資訊為每日 16:00–22:00。一般飲料、稅費及其他附加費是否包含，尚未取得店家最新確認。</p><p class=\"small-note\">2026/11/6 查詢：混血珊莎 2025/3/20 食記列 499 THB／90 分鐘；Ryoii 另列 399 THB／不限時，資料有落差。此處先以 499 THB 編列參考預算，2027/4/12 的價格、用餐時限與加購規則須向店家確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/CcbW2fsZm1MdvMN9A\" target=\"_blank\" rel=\"noopener noreferrer\">Seafood Station 地圖<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://sansalife.tw/pattaya-buffet/\" target=\"_blank\" rel=\"noopener noreferrer\">499 THB 食記與收費說明<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.ryoiireview.com/restaurant/view/20814\" target=\"_blank\" rel=\"noopener noreferrer\">Ryoii 價格資料<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.facebook.com/seafoodstationatpattaya\" target=\"_blank\" rel=\"noopener noreferrer\">餐廳 Facebook・確認價格<span aria-hidden=\"true\">↗</span></a></div>",
+                "icon": "fa-utensils",
+                "notice": "參考預算，非店家最新報價；出發前確認價格、90 分鐘限制與飲料收費。",
+                "kind": "dining",
+                "disclosureLabel": "菜色、四人預算與價格來源",
                 "photo": {
-                    "file": "images/atlantis-ocean-sky.jpg",
-                    "caption": "亞特蘭蒂斯海天 PLUS・船上夜景",
-                    "alt": "亞特蘭蒂斯海天 PLUS 郵輪的開放甲板與燈光",
-                    "scene": "night"
+                    "file": "images/seafood-station.jpg",
+                    "caption": "Seafood Station・自助海鮮檯",
+                    "alt": "Seafood Station Pattaya 招牌與冰鎮海鮮自助檯",
+                    "scene": "day"
                 }
             },
             {
-                "time": "19:45–20:30",
-                "title": "下船・前往中天",
-                "summary": "預留約 45 分鐘，下船後叫車至 D Varee 飯店。",
-                "details": "<div class=\"detail-copy\"><p>19:45 是方案結束時間，不保證已到岸。依實際接駁下船與路況調整，晚到則縮短酒吧停留。</p></div>",
+                "time": "18:30–20:30（彈性）",
+                "title": "餐後休息・前往中天",
+                "summary": "飯後可先回住宿休息，再叫車至 D Varee 飯店。",
+                "details": "<div class=\"detail-copy\"><p>保留飯後休息、叫車與跨區移動時間，目標 20:30 抵達 D Varee Jomtien Beach 飯店。實際出發時間依路況與訂位調整；交通費另計。</p></div>",
                 "icon": "fa-car",
-                "notice": "選 18:00～19:45 日落場；20:00 晚餐場會影響後續行程。",
+                "notice": "若候位或晚餐延後，可省略返宿休息，直接前往酒吧。",
                 "kind": "transport",
                 "disclosureLabel": "",
                 "chapter": {
                     "label": "晚間",
-                    "time": "19:45–01:00",
-                    "title": "從海上轉往高空夜景"
+                    "time": "18:30–01:00",
+                    "title": "吃飽休息，再去看高空夜景"
                 }
             },
             {
                 "time": "20:30–21:45",
                 "title": "ZAMĀ Skybar・38 樓",
-                "summary": "中天海岸夜景與調酒，建議預約四人桌。",
-                "details": "<div class=\"detail-copy\"><p>位於 D Varee Jomtien Beach 飯店 38 樓；飲品與餐飲依現場菜單，訂位條件以官網為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://zama.asia/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ZAMĀ 官網訂位（另開分頁）\">ZAMĀ 官網訂位<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "中天海岸夜景與調酒；調酒參考 380–480 THB，另加服務費與 VAT。",
+                "details": "<div class=\"detail-copy\"><p>位於 D Varee Jomtien Beach 飯店 38 樓，建議預約四人桌。</p><p><strong>單點參考價：</strong>調酒約 <mark class=\"cost-tag\">380–480 THB</mark>／杯；Singha 啤酒約 <mark class=\"cost-tag\">300 THB</mark>／瓶，Asahi／Corona 約 <mark class=\"cost-tag\">350 THB</mark>／瓶；肋眼牛排約 <mark class=\"cost-tag\">1,250 THB</mark>／份。價格例子來源為 Ultimate Pattaya 的餐廳指南。</p><p><strong>官網菜單註明另加 10% 服務費及 7% VAT（++）。</strong>若依先加服務費再計 VAT 估算，一杯 380–480 THB 調酒實付約 <mark class=\"cost-tag\">447–565 THB</mark>；四人各一杯約 <mark class=\"cost-tag\">1,790–2,260 THB</mark>，餐點另計。此為試算，結帳以店家為準。</p><p>官網提供餐點菜單、飲品菜單與葡萄酒單，可點下方連結查看。一般訂位的低消、訂金及特殊座位條件請於預約時確認。</p><p class=\"small-note\">查詢日期 2026/11/6；以上為現有參考價格，2027/4/12 仍以當日菜單及訂位條件為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://zama.asia/menu.html\" target=\"_blank\" rel=\"noopener noreferrer\">官方完整菜單・餐點／飲品／酒單<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://drive.google.com/file/d/1jzMU3uEEQ4vQHHWBI0HLPc89-zteP4vh/view\" target=\"_blank\" rel=\"noopener noreferrer\">官方飲品菜單 PDF<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://drive.google.com/file/d/1RD_69JRMsGeykialGNYAVef3qd8oU68V/view\" target=\"_blank\" rel=\"noopener noreferrer\">官方餐點菜單 PDF<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://ultimatepattaya.com/venue/zama-skybar-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\">參考價格來源<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://zama.asia/\" target=\"_blank\" rel=\"noopener noreferrer\">ZAMĀ 官網訂位<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-moon",
-                "notice": "",
+                "notice": "菜單價格另加 10% 服務費與 7% VAT；訂位時確認低消及座位條件。",
                 "kind": "night",
-                "disclosureLabel": ""
+                "disclosureLabel": "飲品價格、稅費與官方菜單",
+                "photo": {
+                    "file": "images/zama-skybar.webp",
+                    "caption": "ZAMĀ Skybar・高空露台",
+                    "alt": "ZAMĀ Skybar 露台座席、雕塑與海景",
+                    "scene": "night"
+                }
             },
             {
                 "time": "21:45–22:30",
@@ -1161,7 +1192,7 @@
                 "disclosureLabel": ""
             }
         ],
-        "intro": "上午挑戰跳傘，午後逛街，傍晚出海吃飯，再到高空酒吧看夜景。",
+        "intro": "上午挑戰跳傘，午後逛街，傍晚吃 Seafood Station 海鮮燒烤，再到高空酒吧看夜景。",
         "route": [
             {
                 "name": "海灘路住宿區",
@@ -1188,20 +1219,20 @@
                 "googleQuery": "Royal Garden Plaza Pattaya"
             },
             {
-                "name": "南芭達雅碼頭區",
-                "lat": 12.9273,
-                "lon": 100.8677,
-                "note": "郵輪實際集合處依憑證，非確定登船點。",
-                "approx": true,
-                "googleQuery": "Bali Hai Pier Pattaya"
+                "name": "Seafood Station Pattaya",
+                "lat": 12.9422872,
+                "lon": 100.9096122,
+                "note": "依提供的 Google 地圖連結定位；餐後可先回住宿休息。",
+                "approx": false,
+                "googleQuery": "Seafood Station Pattaya"
             },
             {
-                "name": "中天海灘・ZAMĀ 所在區域",
+                "name": "ZAMĀ Skybar・D Varee 飯店",
                 "lat": 12.885,
                 "lon": 100.883,
-                "note": "先標海灘區域；D Varee 飯店入口依訂位資訊。",
+                "note": "38 樓；導航至 D Varee Jomtien Beach 飯店入口，再上樓。",
                 "approx": true,
-                "googleQuery": "D Varee Jomtien Beach Pattaya"
+                "googleQuery": "ZAMA Skybar D Varee Jomtien Beach Pattaya"
             },
             {
                 "name": "Soi 6 六巷",
@@ -1250,7 +1281,13 @@
                 "icon": "fa-faucet-drip",
                 "notice": "2027 年地方活動細節待公告，玩水範圍以當日安排為準。",
                 "kind": "activity",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/songkran-water-splash.jpg",
+                    "caption": "宋干節・海灘路玩水",
+                    "alt": "潑水節水花與水槍，節慶氣氛參考",
+                    "scene": "day"
+                }
             },
             {
                 "time": "13:00–14:00",
@@ -1301,12 +1338,18 @@
             {
                 "time": "17:15–19:30",
                 "title": "The Sky Gallery・日落晚餐",
-                "summary": "預約四人海景座位，晚餐與調酒依菜單點選。",
-                "details": "<div class=\"detail-copy\"><p>以海景及日落用餐為主，景觀席與鳥巢造型座位需向餐廳確認，不保證分配。費用依餐點、飲品及訂位條件，暫不列固定人均。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://sky.theskygroupth.com/sky/customer/index.php?lang=en\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"The Sky Gallery 訂位（另開分頁）\">The Sky Gallery 訂位<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.tourismthailand.org/Restaurant/the-sky-gallery-pattaya\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"餐廳位置與資訊（另開分頁）\">餐廳位置與資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "海景日落晚餐；單點參考：凱薩沙拉 175 THB、Club Sandwich 305 THB、炸鱸魚 555 THB。",
+                "details": "<div class=\"detail-copy\"><p>以海景及日落用餐為主，景觀席與鳥巢造型座位需向餐廳確認，不保證分配。</p><p><strong>Wongnai 菜單所列單點參考價：</strong>凱薩沙拉 <mark class=\"cost-tag\">175 THB</mark>／份；Club Sandwich <mark class=\"cost-tag\">305 THB</mark>／份；炸鱸魚佐魚露、芒果沙拉 <mark class=\"cost-tag\">555 THB</mark>／份。價格按菜色計算，並非固定人均或套餐價。</p><p>菜單包含泰式料理、海鮮、披薩、義大利麵、甜點及飲品；下方 Wongnai 連結可看菜色、標價與菜單照片。未找到可核實的官方完整價目菜單，先附第三方版本供挑選餐點。</p><p>目前無法確認上述價格是否已含稅與服務費，低消及景觀席條件也須訂位時確認；四人晚餐依實際點餐加總。</p><p class=\"small-note\">查詢日期 2026/11/6；Wongnai 資料可能較舊，2027/4/13 的價格以餐廳當日菜單為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.wongnai.com/restaurants/theskygallery/menu\" target=\"_blank\" rel=\"noopener noreferrer\">菜單與價格・Wongnai 參考<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://sky.theskygroupth.com/sky/customer/index.php?lang=en\" target=\"_blank\" rel=\"noopener noreferrer\">The Sky Gallery 官方訂位<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.facebook.com/theskygallerypattaya/\" target=\"_blank\" rel=\"noopener noreferrer\">餐廳 Facebook・詢問最新菜單<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-utensils",
-                "notice": "海景及鳥巢造型座位須向餐廳確認，不保證分配。",
+                "notice": "菜單與標價為第三方參考；訂位時確認稅費、低消及景觀席條件。",
                 "kind": "dining",
-                "disclosureLabel": ""
+                "disclosureLabel": "單點價格與菜單",
+                "photo": {
+                    "file": "images/sky-gallery-sunset.jpg",
+                    "caption": "The Sky Gallery・海景日落晚餐",
+                    "alt": "The Sky Gallery 戶外餐桌與海上日落",
+                    "scene": "day"
+                }
             },
             {
                 "time": "19:30–20:15",
@@ -1362,6 +1405,15 @@
                 "note": "商場區域示意；飛機夜市為替代方案，未另連線。",
                 "approx": true,
                 "googleQuery": "Terminal 21 Pattaya"
+            },
+            {
+                "name": "Runway 飛機夜市（擇一）",
+                "lat": 12.943,
+                "lon": 100.887,
+                "note": "與 Terminal 21 擇一；點選可查看夜市，整天開車路線不重複安排兩個選項。",
+                "approx": true,
+                "optional": true,
+                "googleQuery": "Runway Street Food Pattaya Thailand"
             }
         ],
         "photoCaption": "宋干節・水花與水槍"
@@ -1410,7 +1462,13 @@
                 "icon": "fa-ship",
                 "notice": "水上活動、午餐與躺椅依套票內容，不預設全部包含。",
                 "kind": "activity",
-                "disclosureLabel": "水上活動方案與預訂"
+                "disclosureLabel": "水上活動方案與預訂",
+                "photo": {
+                    "file": "images/koh-larn.jpg",
+                    "caption": "格蘭島・海岸與碧綠海水",
+                    "alt": "格蘭島沙灘與碧綠海水",
+                    "scene": "day"
+                }
             },
             {
                 "time": "16:30–18:30",
@@ -1432,10 +1490,10 @@
                 "kind": "dining",
                 "disclosureLabel": "",
                 "photo": {
-                    "file": "images/芭達雅海灣.jpg",
-                    "caption": "回到芭達雅・海灣的午後",
-                    "alt": "芭達雅海灣與城市海岸線",
-                    "scene": "day"
+                    "file": "images/runway-night-market.jpg",
+                    "caption": "Runway 飛機夜市・機身下的晚餐",
+                    "alt": "Runway 夜市的大型飛機與機身下用餐人潮",
+                    "scene": "night"
                 }
             },
             {
@@ -1498,6 +1556,15 @@
                 "note": "街區位置示意。",
                 "approx": true,
                 "googleQuery": "Soi 6 Pattaya Thailand"
+            },
+            {
+                "name": "Runway 飛機夜市（擇一）",
+                "lat": 12.943,
+                "lon": 100.887,
+                "note": "與 Terminal 21 擇一；點選可查看夜市，整天開車路線不重複安排兩個選項。",
+                "approx": true,
+                "optional": true,
+                "googleQuery": "Runway Street Food Pattaya Thailand"
             }
         ],
         "photoCaption": "格蘭島"
@@ -1542,7 +1609,13 @@
                 "summary": "退房後包車出發，參觀七珍佛山金色佛像。",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "photo": {
+                    "file": "images/七珍佛山.jpg",
+                    "caption": "七珍佛山・山壁金色佛像",
+                    "alt": "七珍佛山岩壁上的金色佛像",
+                    "scene": "day"
+                }
             },
             {
                 "time": "下午",
@@ -1964,24 +2037,26 @@
 
 
 
+            function mapQuery(point) {
+                return point.googleQuery || (point.lat + ',' + point.lon);
+            }
             function googlePointUrl(point, zoom = 15) {
-                return 'https://maps.google.com/maps?hl=zh-TW&q=' + encodeURIComponent(point.googleQuery || (point.lat + ',' + point.lon)) + '&z=' + zoom + '&output=embed';
+                return 'https://maps.google.com/maps?' + new URLSearchParams({hl:'zh-TW', q:mapQuery(point), z:String(zoom), output:'embed'});
+            }
+            function routeStops(dayId) {
+                return itineraryData[dayId].route.filter(point => !point.optional);
             }
             function googleRouteUrl(dayId) {
-                const stops = itineraryData[dayId].route;
-                // Island day: show the sea and both coasts, rather than a driving route across water.
+                const stops = routeStops(dayId);
                 if (dayId === 'day5') return 'https://maps.google.com/maps?hl=zh-TW&q=Ko%20Lan%20Pattaya%20Thailand&ll=12.927,100.835&z=12&output=embed';
-                const latitudes = stops.map(p=>p.lat), longitudes = stops.map(p=>p.lon);
-                const latitude = (Math.min(...latitudes)+Math.max(...latitudes))/2;
-                const longitude = (Math.min(...longitudes)+Math.max(...longitudes))/2;
-                const span = Math.max((Math.max(...latitudes)-Math.min(...latitudes))*111000,(Math.max(...longitudes)-Math.min(...longitudes))*108000);
-                const distance = Math.max(span * 6, 12000);
-                // Same route embed structure provided by Google's Share → Embed a map UI.
-                const pb = '!1m'+(16+4*stops.length)+'!1m12!1m3!1d'+distance+'!2d'+longitude+'!3d'+latitude+'!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m'+(1+4*stops.length)+'!3e0'+stops.map(p=>'!4m3!3m2!1d'+p.lat+'!2d'+p.lon).join('')+'!5e0!3m2!1szh-TW!2stw!5m2!1szh-TW!2stw';
-                return 'https://www.google.com/maps/embed?pb='+pb;
+                // Use location-based directions rather than hand-building Google's opaque pb data.
+                return 'https://maps.google.com/maps?' + new URLSearchParams({hl:'zh-TW', saddr:mapQuery(stops[0]), daddr:stops.slice(1).map(mapQuery).join(' to:'), dirflg:'d', output:'embed'});
+            }
+            function routeNote(dayId) {
+                return dayId === 'day5' ? '格蘭島行程以海島位置圖呈現；船程依一日團安排。點選左側景點可查看各站，使用地圖原生資訊卡開啟 Google 地圖。' : '點選景點可查看店家位置，使用地圖原生資訊卡的連結或路線按鈕開啟 Google 地圖。住宿及區域位置僅供參考。';
             }
             function renderDayRoute(dayId, dayData) {
-                return '<section class="day-route-spread" aria-label="當日 Google 地圖"><div class="route-copy"><p class="editorial-kicker">今日小路線</p><h3>今天的景點，放在同一張圖。</h3><p class="small-note">點選景點，在右側 Google 地圖定位。</p><ol class="route-stop-list">'+dayData.route.map((p,i)=>'<li><button type="button" class="route-stop" data-day="'+dayId+'" data-index="'+i+'" aria-pressed="false"><span>'+(i+1)+'</span>'+p.name+(p.approx?'<small>區域</small>':'')+'</button></li>').join('')+'</ol><p class="route-stop-note" id="route-note-'+dayId+'" aria-live="polite">'+(dayId==='day5'?'海島日先看格蘭島與芭達雅位置；各段船程依一日團安排。':'Google 路線僅供位置參考；區域標記不是民宿或店家精確入口。')+'</p><button class="route-reset" type="button" data-day="'+dayId+'">看整天路線 ↺</button></div><div class="route-visual google-route" id="route-visual-'+dayId+'"><iframe class="google-map-frame" id="route-map-'+dayId+'" title="4/'+(Number(dayId.slice(3))+9)+' 行程 Google 地圖" data-route-day="'+dayId+'" data-src="'+googleRouteUrl(dayId)+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p class="route-map-caption" id="map-caption-'+dayId+'">Google Maps · '+dayData.route.length+' 個停靠點</p></div></section>';
+                return '<section class="day-route-spread" aria-label="當日 Google 地圖"><div class="route-copy"><p class="editorial-kicker">今日小路線</p><h3>今天的景點，放在同一張圖。</h3><p class="small-note">點選景點，在右側 Google 地圖定位。</p><ol class="route-stop-list">'+dayData.route.map((p,i)=>'<li><button type="button" class="route-stop" data-day="'+dayId+'" data-index="'+i+'" aria-pressed="false"><span>'+(i+1)+'</span>'+p.name+(p.approx?'<small>區域</small>':'')+'</button></li>').join('')+'</ol><p class="route-stop-note" id="route-note-'+dayId+'" aria-live="polite">'+routeNote(dayId)+'</p><button class="route-reset" type="button" data-day="'+dayId+'">看整天路線 ↺</button></div><div class="route-visual google-route" id="route-visual-'+dayId+'"><iframe class="google-map-frame" id="route-map-'+dayId+'" title="4/'+(Number(dayId.slice(3))+9)+' 行程 Google 地圖" data-route-day="'+dayId+'" data-src="'+googleRouteUrl(dayId)+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p class="route-map-caption" id="map-caption-'+dayId+'">Google Maps · '+dayData.route.length+' 個地點</p></div></section>';
             }
             function setupDayRouteMap(dayId) {
                 const frame = document.getElementById('route-map-'+dayId);
@@ -2000,8 +2075,8 @@
                     const dayId=button.dataset.day;
                     document.getElementById('route-map-'+dayId).src=googleRouteUrl(dayId);
                     button.closest('.day-route-spread').querySelectorAll('.route-stop').forEach(control=>control.setAttribute('aria-pressed','false'));
-                    document.getElementById('route-note-'+dayId).textContent=dayId==='day5'?'海島日先看格蘭島與芭達雅位置；各段船程依一日團安排。':'Google 路線僅供位置參考；區域標記不是民宿或店家精確入口。';
-                    document.getElementById('map-caption-'+dayId).textContent='Google Maps · '+itineraryData[dayId].route.length+' 個停靠點';
+                    document.getElementById('route-note-'+dayId).textContent=routeNote(dayId);
+                    document.getElementById('map-caption-'+dayId).textContent='Google Maps · '+itineraryData[dayId].route.length+' 個地點';
                 }));
             }
 
@@ -2128,9 +2203,7 @@
                     lastArrow.disabled = dateStrip.scrollLeft >= max - 2;
                 }
                 function syncSizing() {
-                    const first = navButtons[0], last = navButtons[navButtons.length - 1];
-                    dateTrack.style.paddingLeft = Math.max(0, (dateStrip.clientWidth - first.getBoundingClientRect().width) / 2) + 'px';
-                    dateTrack.style.paddingRight = Math.max(0, (dateStrip.clientWidth - last.getBoundingClientRect().width) / 2) + 'px';
+                    const first = navButtons[0];
                     const active = document.querySelector('.nav-btn[aria-current="page"]') || first;
                     centerDateButton(active, 'auto');
                     updateEdges();
@@ -2215,7 +2288,7 @@
                         labels: ['4/10 (六)', '4/11 (日)', '4/12 (一)', '4/13 (二)', '4/14 (三)', '4/15 (四)', '4/16 (五)', '4/17 (六)'],
                         datasets: [{
                             label: '預估人均支出 (THB)',
-                            data: [900, null, null, null, null, 2500, 3500, 800],
+                            data: [750, null, null, null, null, 2500, 3500, 800],
                             backgroundColor: 'rgba(14, 165, 233, 0.6)',
                             borderColor: 'rgba(14, 165, 233, 1)',
                             borderWidth: 1, borderRadius: 5,
