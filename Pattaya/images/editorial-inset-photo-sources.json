@@ -48,5 +48,20 @@
     "file": "sky-gallery-sunset.jpg",
     "image": "https://tourimage.interpark.com/Spot/301/20256/202205/6378898512239695780.jpg",
     "source": "https://tour.interpark.com/freeya/Spot/View.aspx?SpotNo=134033"
+  },
+  {
+    "file": "phra-tamnak-viewpoint-day.jpg",
+    "source": "https://www.trazy.com/spot/3256/khao-pattaya-view-point",
+    "image": "https://trazy-spot-images.s3.amazonaws.com/8823-3459803285.jpg"
+  },
+  {
+    "file": "nong-nooch-garden.jpg",
+    "source": "https://www.nongnoochpattaya.com/en/FRENCH%20GARDEN",
+    "image": "https://www.nongnoochpattaya.com/uploads/images/202312/4c42df95bdf8c6396202c3b772f76ad7.jpg"
+  },
+  {
+    "file": "hua-takhe-cat-boat.webp",
+    "source": "https://visionthai.net/article/bangkok-cat-boat-si-yaek-huatakhe-cafe-guesthouse/",
+    "image": "https://visionthai.net/wp-content/uploads/2026/03/w260327_bangkok-cat-boat-si-yaek-huatakhe-cafe-guesthouse_05.webp"
   }
 ]
