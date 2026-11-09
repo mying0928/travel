@@ -9,10 +9,10 @@
 
     <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
     <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -475,6 +475,33 @@
         @media(max-width:767px){.travel-pages > nav.date-navigation{grid-template-columns:34px minmax(0,1fr) 34px;gap:4px;padding:8px;}.date-edge{width:34px;height:44px;}.date-track{gap:8px;}}
         @media(prefers-reduced-motion:reduce){.date-strip{scroll-behavior:auto;}}
         .google-route .route-map-caption { top:auto; bottom:10px; max-width:calc(100% - 20px); }
+        /* Reading effects: small movement, clear position, and an easy next step. */
+        .date-navigation::after { content:''; position:absolute; left:18px; right:18px; bottom:0; height:2px; border-radius:2px; background:#26786e; transform:scaleX(var(--reading-progress,0)); transform-origin:left; pointer-events:none; }
+        .itinerary-reading-heading .reading-status { margin-top:12px; color:#6d7b6b; font-size:.72rem; letter-spacing:.04em; font-variant-numeric:tabular-nums; }
+        .day-turner { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; margin:34px 0 16px; padding:28px 0; border:0; border-top:1px solid var(--rule); }
+        .day-turner a { min-width:0; display:block; padding:12px 0; color:#285c62; text-decoration:none; transition:color .2s; }
+        .day-turner a:last-child { text-align:right; }
+        .day-turner span { display:block; color:#9c6443; font-size:.75rem; margin-bottom:8px; }
+        .day-turner strong { display:block; font-family:'Noto Serif TC',serif; font-size:1rem; font-weight:500; line-height:1.8; }
+        .day-turner a:hover { color:#a45039; }
+        .day-editorial-heading h2:focus { outline:none; }
+        .day-editorial-heading h2:focus-visible { outline:2px solid #26786e; outline-offset:6px; }
+        .entry-reveal { animation:entry-reveal .5s cubic-bezier(.2,.7,.2,1) both; }
+        @keyframes entry-reveal { from { opacity:.3; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+        .itinerary-photo { transition:transform .35s ease,box-shadow .35s ease; }
+        .day-photo-image { transition:transform .65s cubic-bezier(.2,.7,.2,1); }
+        .daily-theme-card:hover { transform:none; }
+        @media(hover:hover) and (pointer:fine) {
+            .itinerary-photo:hover { transform:translateY(-4px) rotate(-.6deg); box-shadow:0 12px 24px -18px #2a4f4870; }
+            .daily-theme-card:hover .day-photo-image { transform:scale(1.025); }
+        }
+        @media(max-width:600px) { .day-turner { gap:16px; } .day-turner strong { font-size:.86rem; } }
+        @media(prefers-reduced-motion:reduce) {
+            .entry-reveal { animation:none; }
+            .itinerary-photo,.day-photo-image,.view-timeline-btn i,.date-strip { transition:none !important; scroll-behavior:auto; }
+            .itinerary-photo:hover,.daily-theme-card:hover .day-photo-image { transform:none; }
+            .hero-waterline path,.loader-wave div { animation:none !important; }
+        }
     </style>
 </head>
 <body class="text-slate-700">
@@ -539,10 +566,11 @@
     </button>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         document.addEventListener('DOMContentLoaded', function () {
+            const motionAvailable = Boolean(window.gsap && window.ScrollTrigger && window.ScrollToPlugin);
+            if (motionAvailable) gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
             // --- DOM Elements ---
             const navButtons = document.querySelectorAll('.nav-btn');
             const dateStrip = document.getElementById('date-strip');
@@ -2166,6 +2194,8 @@
                 setupDateNavigation();
                 setupTabSwitching();
                 setupScrollToTop();
+                setupReadingExperience();
+                setupDayShortcuts();
                 setupChart();
                 document.querySelectorAll('.jump-day').forEach(button => button.addEventListener('click', () => document.querySelector('[data-target="' + button.dataset.day + '"]').click()));
                 const packing = document.querySelectorAll('[data-pack]');
@@ -2176,11 +2206,17 @@
                 });
                 refreshPacking();
 
-                window.addEventListener('load', () => {
-                    document.querySelector('.preloader')?.classList.add('hidden');
-                    document.body.classList.add('loaded');
-                    isAnimating = true;
-                    switchTab('overview', false, () => { isAnimating = false; });
+                document.querySelector('.preloader')?.classList.add('hidden');
+                document.body.classList.add('loaded');
+                const requestedDay = location.hash.slice(1);
+                const firstView = Object.hasOwn(itineraryData, requestedDay) ? requestedDay : 'overview';
+                isAnimating = true;
+                switchTab(firstView, false, () => {
+                    isAnimating = false;
+                    if (firstView !== 'overview') {
+                        const section = document.getElementById(firstView);
+                        window.scrollTo({top:window.scrollY + section.getBoundingClientRect().top - document.querySelector('.date-navigation').offsetHeight - 32, behavior:'auto'});
+                    }
                 });
             }
 
@@ -2312,8 +2348,10 @@
                     hero.classList.remove('water-flash');
                     requestAnimationFrame(() => hero.classList.add('water-flash'));
                 });
-                const observer = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); });
-                observer.observe(hero);
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); });
+                    observer.observe(hero);
+                }
                 if (window.ResizeObserver) new ResizeObserver(resize).observe(hero);
                 else window.addEventListener('resize', resize);
                 document.addEventListener('visibilitychange', sync);
@@ -2324,6 +2362,7 @@
             }
 
             function setupAnimations() {
+                if (!motionAvailable) return;
                 const heroTitle = document.getElementById('hero-title');
                 const text = heroTitle.innerText;
                 heroTitle.innerHTML = text.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
@@ -2431,10 +2470,11 @@
                             </div>
                             ${renderDayRoute(dayId, dayData)}
                             <div id="timeline-${dayId}" class="timeline-container hidden relative pl-10 sm:pl-12">
-                                <div class="itinerary-reading-heading"><p class="editorial-kicker">今日行程</p><h3>照著時間，慢慢走。</h3><p>時間皆為泰國當地時間；需要的訂票與交通細節，再點開看。</p></div>
+                                <div class="itinerary-reading-heading"><p class="editorial-kicker">今日行程</p><h3>照著時間，慢慢走。</h3><p>時間皆為泰國當地時間；需要的訂票與交通細節，再點開看。</p><p class="reading-status" id="reading-status-${dayId}">共 ${dayData.items.length} 段行程 · 往下慢慢看</p></div>
                                 <div class="timeline-line"></div>
                                 <div class="timeline-line-progress"></div>
                                 ${timelineHtml}
+                                ${renderDayTurner(dayId)}
                             </div>
                         </section>`;
                 }).join('');
@@ -2446,7 +2486,10 @@
                         photo.style.setProperty('--water-y', ((event.clientY - rect.top) / rect.height * 100) + '%');
                     });
                 });
-                document.querySelectorAll('.trip-more').forEach(detail => detail.addEventListener('toggle', () => ScrollTrigger.refresh()));
+                document.querySelectorAll('.trip-more').forEach(detail => detail.addEventListener('toggle', () => {
+                    if (motionAvailable) ScrollTrigger.refresh();
+                    window.dispatchEvent(new Event('itinerary:layout'));
+                }));
 
                 document.querySelectorAll('.daily-theme-card').forEach(card => {
                     card.addEventListener('click', () => {
@@ -2456,26 +2499,31 @@
 
                         const isOpening = timeline.classList.contains('hidden');
                         button.setAttribute('aria-expanded', String(isOpening));
+                        if (!motionAvailable) {
+                            timeline.classList.toggle('hidden', !isOpening);
+                            timeline.style.opacity = '1';
+                            button.innerHTML = isOpening ? '收起今日行程 <i class="fas fa-arrow-up" aria-hidden="true"></i>' : '閱讀今日行程 <i class="fas fa-arrow-down" aria-hidden="true"></i>';
+                            window.dispatchEvent(new Event('itinerary:layout'));
+                            const destination = isOpening ? timeline : card;
+                            window.scrollTo({top:window.scrollY + destination.getBoundingClientRect().top - document.querySelector('nav').offsetHeight - 32, behavior:'auto'});
+                            return;
+                        }
 
                         document.querySelectorAll('.timeline-container:not(.hidden)').forEach(openTimeline => {
                             if (openTimeline !== timeline) {
                                 openTimeline.classList.add('hidden');
                                 const openButton = openTimeline.closest('.content-section').querySelector('.view-timeline-btn');
                                 if (openButton) openButton.setAttribute('aria-expanded', 'false');
-                                if (openButton) openButton.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                if (openButton) openButton.innerHTML = '閱讀今日行程 <i class="fas fa-arrow-down" aria-hidden="true"></i>';
                             }
                         });
 
                         if (isOpening) {
                             timeline.classList.remove('hidden');
-                            button.innerHTML = '隱藏詳細行程 <i class="fas fa-chevron-up ml-2"></i>';
+                            button.innerHTML = '收起今日行程 <i class="fas fa-arrow-up" aria-hidden="true"></i>';
                             setTimeout(() => {
                                 ScrollTrigger.refresh();
-                                gsap.from(timeline.querySelectorAll('.timeline-item'), { opacity: 0, x: -18, stagger: 0.055, duration: reduceMotion ? 0 : 0.45, ease: "power3.out" });
-                                gsap.to(timeline.querySelector('.timeline-line-progress'), {
-                                    scrollTrigger: { trigger: timeline, start: "top center", end: "bottom bottom", scrub: true },
-                                    height: "100%"
-                                });
+                                window.dispatchEvent(new Event('itinerary:layout'));
                                 gsap.to(window, { duration: reduceMotion ? 0 : 0.8, ease: 'power3.inOut', scrollTo: { y: timeline, offsetY: document.querySelector('nav').offsetHeight + 32 } });
                             }, 10);
                         } else {
@@ -2488,7 +2536,7 @@
                                         onComplete: () => {
                                             timeline.classList.add('hidden');
                                             timeline.style.opacity = 1;
-                                            button.innerHTML = '查看詳細行程 <i class="fas fa-chevron-down ml-2"></i>';
+                                            button.innerHTML = '閱讀今日行程 <i class="fas fa-arrow-down" aria-hidden="true"></i>';
                                         }
                                     });
                                 }
@@ -2496,6 +2544,84 @@
                         }
                     });
                 });
+            }
+
+            function renderDayTurner(dayId) {
+                const days = Object.keys(itineraryData);
+                const index = days.indexOf(dayId);
+                const previous = index === 0 ? 'overview' : days[index - 1];
+                const next = index === days.length - 1 ? 'overview' : days[index + 1];
+                const label = id => id === 'overview' ? '旅程總覽' : itineraryData[id].title;
+                const date = id => id === 'overview' ? '回到總覽' : '4/' + (Number(id.slice(3)) + 9);
+                return `<nav class="day-turner" aria-label="前後日期"><a href="#${previous}" data-turn-day="${previous}"><span>← ${date(previous)}</span><strong>${label(previous)}</strong></a><a href="#${next}" data-turn-day="${next}"><span>${date(next)} →</span><strong>${label(next)}</strong></a></nav>`;
+            }
+
+            function setupDayShortcuts() {
+                document.querySelectorAll('[data-turn-day]').forEach(link => link.addEventListener('click', event => {
+                    event.preventDefault();
+                    if (isAnimating) return;
+                    isAnimating = true;
+                    switchTab(link.dataset.turnDay, true, () => {
+                        isAnimating = false;
+                        document.getElementById(link.dataset.turnDay)?.querySelector('h2')?.focus({preventScroll:true});
+                    });
+                }));
+                document.querySelectorAll('.day-editorial-heading h2').forEach(heading => heading.setAttribute('tabindex','-1'));
+                navButtons.forEach((button,index) => button.addEventListener('keydown',event => {
+                    if (event.altKey || event.ctrlKey || event.metaKey) return;
+                    const targets = {ArrowLeft:index - 1, ArrowRight:index + 1, Home:0, End:navButtons.length - 1};
+                    if (!Object.hasOwn(targets,event.key)) return;
+                    event.preventDefault();
+                    if (isAnimating) return;
+                    const next = navButtons[Math.max(0,Math.min(navButtons.length - 1,targets[event.key]))];
+                    next.focus({preventScroll:true});
+                    next.click();
+                }));
+            }
+
+            function setupReadingExperience() {
+                const nav = document.querySelector('.date-navigation');
+                const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+                let frame = 0;
+                function update() {
+                    frame = 0;
+                    const section = document.getElementById(currentActiveSectionId);
+                    const timeline = section?.querySelector('.timeline-container');
+                    if (!timeline || timeline.classList.contains('hidden')) {
+                        nav.style.setProperty('--reading-progress','0');
+                        return;
+                    }
+                    const rect = timeline.getBoundingClientRect();
+                    const top = nav.getBoundingClientRect().bottom + 32;
+                    const total = Math.max(1,rect.height - (window.innerHeight - top));
+                    const progress = Math.min(1,Math.max(0,(top - rect.top) / total));
+                    nav.style.setProperty('--reading-progress',String(progress));
+                    const items = [...timeline.querySelectorAll('.timeline-item')];
+                    const read = items.filter(item => item.getBoundingClientRect().top < window.innerHeight * .65).length;
+                    const status = document.getElementById('reading-status-' + currentActiveSectionId);
+                    status.textContent = read ? '已讀到第 ' + read + '／' + items.length + ' 段 · ' + Math.round(progress * 100) + '%' : '共 ' + items.length + ' 段行程 · 往下慢慢看';
+                }
+                function schedule() { if (!frame) frame = requestAnimationFrame(update); }
+                window.addEventListener('scroll',schedule,{passive:true});
+                window.addEventListener('resize',schedule);
+                window.addEventListener('itinerary:layout',schedule);
+                // Animate only visible entries, once; content stays readable if observers or animation are unavailable.
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            if (!entry.isIntersecting) return;
+                            if (!motion.matches) entry.target.classList.add('entry-reveal');
+                            observer.unobserve(entry.target);
+                        });
+                    },{threshold:.08});
+                    document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
+                }
+                // Decode changes to image dimensions must also refresh reading progress.
+                document.querySelectorAll('.itinerary-photo img').forEach(img => img.addEventListener('load',schedule,{once:true}));
+                motion.addEventListener('change',() => {
+                    if (motion.matches) document.querySelectorAll('.entry-reveal').forEach(item => item.classList.remove('entry-reveal'));
+                });
+                schedule();
             }
 
             function centerDateButton(button, behavior = reduceMotion ? 'auto' : 'smooth') {
@@ -2548,11 +2674,38 @@
             function switchTab(targetId, shouldScroll = true, onCompleteCallback = () => {}) {
                 const oldSection = currentActiveSectionId ? document.getElementById(currentActiveSectionId) : null;
                 const newSection = document.getElementById(targetId);
-                if (!newSection) return;
+                if (!newSection) { onCompleteCallback(); return; }
 
-                const tl = gsap.timeline({ onComplete: () => { currentActiveSectionId = targetId; ScrollTrigger.refresh(); onCompleteCallback(); } });
+                const finishSwitch = () => {
+                    currentActiveSectionId = targetId;
+                    if (motionAvailable) ScrollTrigger.refresh();
+                    if (shouldScroll) {
+                        try { history.replaceState(null, '', '#' + targetId); } catch {}
+                    }
+                    window.dispatchEvent(new Event('itinerary:layout'));
+                    onCompleteCallback();
+                };
+                if (!motionAvailable) {
+                    if (oldSection && oldSection !== newSection) oldSection.style.display = 'none';
+                    newSection.style.display = 'block';
+                    newSection.style.opacity = '1';
+                    navButtons.forEach(btn => {
+                        const active = btn.dataset.target === targetId;
+                        if (active) { btn.setAttribute('aria-current','page'); centerDateButton(btn,'auto'); }
+                        else btn.removeAttribute('aria-current');
+                        btn.classList.toggle('bg-sky-500',active);
+                        btn.classList.toggle('text-white',active);
+                        btn.classList.toggle('bg-sky-100',!active);
+                        btn.classList.toggle('text-sky-800',!active);
+                    });
+                    setupDayRouteMap(targetId);
+                    if (shouldScroll) window.scrollTo({top:window.scrollY + newSection.getBoundingClientRect().top - document.querySelector('nav').offsetHeight - 32,behavior:'auto'});
+                    finishSwitch();
+                    return;
+                }
+                const tl = gsap.timeline({ onComplete: finishSwitch });
                 if (oldSection) {
-                    tl.to(oldSection, { duration: reduceMotion ? 0 : 0.3, opacity: 0, ease: 'power2.in', onComplete: () => { oldSection.style.display = 'none'; } });
+                    tl.to(oldSection, { duration: reduceMotion ? 0 : 0.18, opacity: 0, ease: 'power2.in', onComplete: () => { oldSection.style.display = 'none'; } });
                 }
 
                 tl.add(() => {
@@ -2571,12 +2724,12 @@
 
                 tl.set(newSection, { display: 'block', opacity: 0 })
                   .to(newSection, {
-                    duration: reduceMotion ? 0 : 0.4,
+                    duration: reduceMotion ? 0 : 0.28,
                     opacity: 1,
                     ease: 'power2.out',
                     onStart: () => {
                         requestAnimationFrame(() => setupDayRouteMap(targetId));
-                        gsap.from(newSection.querySelectorAll('.daily-theme-card'), { opacity: 0, y: 50, duration: reduceMotion ? 0 : 0.8, ease: 'power3.out', stagger: 0.1 });
+                        gsap.from(newSection.querySelectorAll('.daily-theme-card'), { opacity: 0, y: 16, duration: reduceMotion ? 0 : 0.45, ease: 'power3.out' });
                     }
                 });
 
@@ -2592,10 +2745,11 @@
                     btn.classList.toggle('opacity-0', !isVisible);
                     btn.classList.toggle('invisible', !isVisible);
                 });
-                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
             }
 
             function setupChart() {
+                if (!window.Chart) return;
                 const ctx = document.getElementById('budgetChart').getContext('2d');
                 const budgetChart = new Chart(ctx, {
                     type: 'bar',
@@ -2617,7 +2771,7 @@
                     }
                 });
                 document.querySelector('.budget-fold').addEventListener('toggle', event => { if (event.currentTarget.open) budgetChart.resize(); });
-                ScrollTrigger.create({
+                if (motionAvailable) ScrollTrigger.create({
                     trigger: "#budgetChart", start: "top 80%",
                     onEnter: () => { budgetChart.options.animation = { duration: reduceMotion ? 0 : 1500, easing: 'easeOutBounce' }; budgetChart.update(); },
                     once: true
