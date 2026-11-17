@@ -15,6 +15,7 @@
             let activeRoute = '';
             let restoringHistory = false;
             let navigationSerial = 0;
+            let frontCostsRendered = false;
             const mapTimers = {};
             const selectedRoutes = {};
             const itemLinkCache = new WeakMap();
@@ -339,10 +340,10 @@
             {
                 "time": "08:30–08:45",
                 "title": "換票・租四人球車",
-                "summary": "先換票，再確認租金、超時費與擔保方式。",
-                "details": "<div class=\"detail-copy\"><p>選非泰國居民門票；換票地點依憑證。球車依你提供的參考價：前 2 小時 <mark class=\"cost-tag\">500 THB</mark>＋保險 <mark class=\"cost-tag\">50 THB</mark>／車，四人基本均攤 <mark class=\"cost-tag\">137.5 THB</mark>／人。</p><p>08:45 租至 13:30 共 4 小時 45 分鐘，超出基本方案 2 小時 45 分鐘；超時費另計。護照、押金或其他擔保方式與可租數量須現場確認，早到不保證有車。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/en-US/activity/338-khao-kheow-open-zoo-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"動物園門票（另開分頁）\">動物園門票<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://khaokheowzoothailand.org/site/khaokheow.zoothailand.org/en/index.html\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"園方資訊（另開分頁）\">園方資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "外國成人門票 350 THB／人（四人 1,400）；另租四人球車，首 2 小時與保險先列 550 THB，超時另留預備金。",
+                "details": "<div class=\"detail-copy\"><p>選非泰國居民門票；換票地點依憑證。球車依你提供的參考價：前 2 小時 <mark class=\"cost-tag\">500 THB</mark>＋保險 <mark class=\"cost-tag\">50 THB</mark>／車，四人基本均攤 <mark class=\"cost-tag\">137.5 THB</mark>／人。</p><p>08:45 租至 13:30 共 4 小時 45 分鐘，超出基本方案 2 小時 45 分鐘；超時費另計。護照、押金或其他擔保方式與可租數量須現場確認，早到不保證有車。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.klook.com/en-US/activity/338-khao-kheow-open-zoo-pattaya/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"動物園門票（另開分頁）\">動物園門票<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://khaokheowzoothailand.org/site/khaokheow.zoothailand.org/en/index.html\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"園方資訊（另開分頁）\">園方資訊<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>園方票價與泰國觀光局均列外國成人 350 THB／人，四人 1,400 THB；園方列門票包含免費場次，不另重複加企鵝或大象表演門票。球車官方列四人座首 2 小時 500 THB／車；沿用原行程 50 THB 保險，共先列 550 THB。原安排租至 13:30，超出基本時數約 2 小時 45 分鐘；本次額外抓 600 THB 作超時預備金，這是保守估算，不是園方已核定的結帳額，實收級距請現場確認。若接送車進園，停車或車輛入園另計。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://khaokheow.zoothailand.org/en/ewt_news.php?c_id=34&n_id=173\" target=\"_blank\" rel=\"noopener noreferrer\">綠山動物園官方入場票價 ↗</a></div>",
                 "icon": "fa-ticket",
-                "notice": "球車共使用約 4 小時 45 分鐘，超時費另計；租金與擔保方式現場確認。",
+                "notice": "門票與球車分開計；08:45–13:30 租用超過基本 2 小時，不能只算首段租金。",
                 "kind": "activity",
                 "disclosureLabel": "門票與球車租借",
                 "id": "s-584c900b54",
@@ -480,10 +481,10 @@
             {
                 "time": "15:00–16:30",
                 "title": "House of Benedict",
-                "summary": "主題造景拍照、下午茶，停留約 90 分鐘。",
-                "details": "<div class=\"detail-copy\"><p>售票頁目前列外國成人 <mark class=\"cost-tag\">200 THB</mark>／人，四人 <mark class=\"cost-tag\">800 THB</mark>；餐飲另計。選 Non-Thai Adult，2027/4/11 可訂日期與實付價格依結帳頁。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://chillpainai.com/public/en/products/11257\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"House of Benedict 訂票（另開分頁）\">House of Benedict 訂票<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "主題造景拍照與下午茶；外國人入場參考 200 THB／人，四人 800 THB，餐飲兌換條件現場確認。",
+                "details": "<div class=\"detail-copy\"><p>售票頁目前列外國成人 <mark class=\"cost-tag\">200 THB</mark>／人，四人 <mark class=\"cost-tag\">800 THB</mark>；餐飲另計。選 Non-Thai Adult，2027/4/11 可訂日期與實付價格依結帳頁。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://chillpainai.com/public/en/products/11257\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"House of Benedict 訂票（另開分頁）\">House of Benedict 訂票<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>泰國觀光局日本站列入場 200 THB／人，四人 800 THB。不同售票說明對餐飲折抵條件不一，這裡只計入場費，額外加點依實際消費；若票券有折抵，請扣掉折抵部分，避免餐飲重複計入。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.thailandtravel.or.jp/house-of-benedict/\" target=\"_blank\" rel=\"noopener noreferrer\">泰國觀光局 House of Benedict 票價 ↗</a></div>",
                 "icon": "fa-camera",
-                "notice": "",
+                "notice": "泰國觀光局列 200 THB／人；票券是否可折抵餐飲、可抵多少及適用店家請依所購方案確認。",
                 "kind": "activity",
                 "disclosureLabel": "",
                 "photo": {
@@ -664,10 +665,10 @@
             {
                 "time": "07:00–12:00",
                 "title": "Thai Sky Adventures 雙人跳傘",
-                "summary": "預約上午第一批；接送、講習與候跳共抓半天。",
-                "details": "<div class=\"detail-copy\"><p>07:00 為希望安排的接送時間，須由業者確認。高度、攝影與飯店接送是否包含，以所選方案為準。官網目前基本方案參考 <mark class=\"cost-tag\">9,700 THB</mark>／人；若四人皆跳約 <mark class=\"cost-tag\">38,800 THB</mark>，2027 價格及附加費依結帳。</p><p>風況可能延誤，12:00 不保證返回市區。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://thaiskyadventures.com/begin-your-booking/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"跳傘官網預訂（另開分頁）\">跳傘官網預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "已選 Tandem Deluxe：15,650 THB／人，四人 62,600 THB；含影片、照片及開傘後教練拍攝。",
+                "details": "<div class=\"detail-copy\"><p>07:00 為希望安排的接送時間，須由業者確認。高度、攝影與飯店接送是否包含，以所選方案為準。本次改採你選定的 Deluxe 15,650 THB／人，四人 62,600 THB；9,700 THB 是未含本次拍攝方案的基本跳傘，不納入本次計算。</p><p>風況可能延誤，12:00 不保證返回市區。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://thaiskyadventures.com/begin-your-booking/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"跳傘官網預訂（另開分頁）\">跳傘官網預訂<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>採用官網 Tandem Deluxe Skydive，15,650 THB／人；四人 62,600 THB。包含自由落體影片、高解析照片，以及開傘後由教練拍攝的滑翔影片；14,650 THB 方案沒有這段額外開傘後影片，並非高度不同。官網列最高約 13,000 呎（約 4,000 公尺），不能解讀成獨家高於其他業者。芭達雅住宿來回接送列為包含，不另重複計車資；如超過 95 kg，另有重量加價。官網連結的 2026 年價目 PDF 另列刷卡 2.5%，且 PDF 與現行商品頁金額有落差，本次採商品頁價格；是否另加刷卡費以結帳總額確認。若整筆 62,600 THB 適用 2.5%，另約 1,565 THB，這筆尚未加進基本小計。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://thaiskyadventures.com/product/tandem-deluxe-skydive/\" target=\"_blank\" rel=\"noopener noreferrer\">Deluxe 官方方案與價格 ↗</a></div>",
                 "icon": "fa-plane",
-                "notice": "預約上午接送；天候與候跳可能延誤，午間返回時間不保證。",
+                "notice": "採你選定的 Deluxe 預算，尚未代訂。芭達雅來回接送依官網包含；重量加價與付款方式另確認。",
                 "kind": "activity",
                 "disclosureLabel": "跳傘方案與接送",
                 "chapter": {
@@ -1000,10 +1001,10 @@
             {
                 "time": "14:30–16:30",
                 "title": "真理寺・木雕工藝參觀",
-                "summary": "安排約 2 小時欣賞海濱木構建築與雕刻。",
-                "details": "<div class=\"detail-copy\"><p>先換票並依現場安排入場；穿著遮肩、過膝服飾，安全帽等要求依工作人員指示。門票選日間票，參觀與導覽時間以當日安排為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://sanctuaryoftruthmuseum.com/visit-us/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"真理寺參觀資訊・官網購票入口（另開分頁）\">真理寺參觀資訊・官網購票入口<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "日間成人票 500 THB／人，四人 2,000 THB；安排約 2 小時參觀木構建築與雕刻。",
+                "details": "<div class=\"detail-copy\"><p>先換票並依現場安排入場；穿著遮肩、過膝服飾，安全帽等要求依工作人員指示。門票選日間票，參觀與導覽時間以當日安排為準。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://sanctuaryoftruthmuseum.com/visit-us/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"真理寺參觀資訊・官網購票入口（另開分頁）\">真理寺參觀資訊・官網購票入口<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>官方售票頁列成人日間票 500 THB／人，四人 2,000 THB；成人夜間票 700 THB 與本次白天行程不同，不重複列入。馬車、船、騎乘、餐飲等選購活動不預設包含，是否參加再另加。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://sanctuaryoftruthmuseum.com/shop/sanctuary-of-truth-entrance-ticket/\" target=\"_blank\" rel=\"noopener noreferrer\">真理寺官方日間票 ↗</a></div>",
                 "icon": "fa-gopuram",
-                "notice": "遮肩、過膝、乾爽服裝；安全帽與入場規定依現場指示。",
+                "notice": "本日 14:30 參觀選日間票；不以 700 THB 夜間票計。",
                 "kind": "activity",
                 "disclosureLabel": "",
                 "photo": {
@@ -1204,10 +1205,10 @@
             {
                 "time": "08:30–16:30",
                 "title": "格蘭島・全天跳島與水上活動",
-                "summary": "飯店接送、快艇出海，沙灘放空搭配自選水上體驗。",
-                "details": "<div class=\"detail-copy\"><p>08:30 為規劃接送時間；碼頭、午餐、躺椅及返程以所選方案為準。拖曳傘、香蕉船、水上摩托車、浮潛或海底漫步，依套票內容選擇，不預設全部包含。</p><p>目標 16:30 前返抵芭達雅；海況或接送延後時，後續行程順延。四人套票費用待選方案後填入。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.pattayacoral.com/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"格蘭島方案與預訂（另開分頁）\">格蘭島方案與預訂<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "快艇出海與水上活動；先按 C1 參考方案 1,800 THB／人估，四人 7,200 THB，未代訂。",
+                "details": "<div class=\"detail-copy\"><p>08:30 為規劃接送時間；碼頭、午餐、躺椅及返程以所選方案為準。拖曳傘、香蕉船、水上摩托車、浮潛或海底漫步，依套票內容選擇，不預設全部包含。</p><p>目標 16:30 前返抵芭達雅；海況或接送延後時，後續行程順延。四人套票費用先按 C1 參考價 7,200 THB 編列，確定方案後替換。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.pattayacoral.com/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"格蘭島方案與預訂（另開分頁）\">格蘭島方案與預訂<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>Ticket2Attraction 當期 C1 方案列 1,800 THB／人起，四人先估 7,200 THB，頁面列快艇、午餐、拖曳傘、水上摩托車與香蕉船。接送範圍與完整包含以所選方案憑證為準；不另重複加同一套票中的午餐或接送。基本快艇午餐方案 750 THB 起，未含相同水上項目；含海底漫步的 A 方案 2,500 THB 起屬替代方案，不是把 2,500 再加到 C1。浮潛、海底漫步與其他活動是否另付，以最終選擇為準。本次只建立預算基準，未代為購買；2027/4/14 潑水節期間價格與場次仍待確認。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.ticket2attraction.com/discount-tickets/pattaya-coral-island-koh-larn-day-tour/\" target=\"_blank\" rel=\"noopener noreferrer\">格蘭島快艇與水上活動方案 ↗</a></div>",
                 "icon": "fa-ship",
-                "notice": "水上活動、午餐與躺椅依套票內容，不預設全部包含。",
+                "notice": "預算以 C1 快艇午餐＋拖曳傘、水上摩托車、香蕉船為基準；海底漫步與其他加購未計。",
                 "kind": "activity",
                 "disclosureLabel": "水上活動方案與預訂",
                 "photo": {
@@ -1226,7 +1227,7 @@
                 "time": "16:30–18:30",
                 "title": "回民宿盥洗・泰式 SPA",
                 "summary": "先換乾衣，再安排約 60 分鐘按摩。",
-                "details": "<div class=\"detail-copy\"><p>約 16:30～17:15 返回民宿、沖澡與移動；17:15～18:30 留給報到及 60 分鐘療程。此銜接以準時回程、店面靠近住宿為前提；晚到則按摩與晚餐順延。</p><p>優先選海灘路 Soi 12 的 Let’s Relax Beachfront，或民宿附近按摩店。四人同時段、療程與實付金額先確認；兩小時 SPA 需另延後晚餐。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://letsrelaxspa.com/branches/pattaya-beachfront/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Let’s Relax 海灘路店預約資訊（另開分頁）\">Let’s Relax 海灘路店預約資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "details": "<div class=\"detail-copy\"><p>約 16:30～17:15 返回民宿、沖澡與移動；17:15～18:30 留給報到及 60 分鐘療程。此銜接以準時回程、店面靠近住宿為前提；晚到則按摩與晚餐順延。</p><p>優先選海灘路 Soi 12 的 Let’s Relax Beachfront，或民宿附近按摩店。四人同時段、療程與實付金額先確認；兩小時 SPA 需另延後晚餐。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://letsrelaxspa.com/branches/pattaya-beachfront/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Let’s Relax 海灘路店預約資訊（另開分頁）\">Let’s Relax 海灘路店預約資訊<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p>2026/11/17 查 Let’s Relax Pattaya Beachfront 分店官網：60 分鐘足療 875 THB、肩頸背按摩 800 THB、芳療油壓 1,400 THB；傳統泰式為 120 分鐘 1,300 THB，和原本約 60 分鐘不同。療程尚未選定，因此費用表保留待填，不把 120 分鐘價格冒充 60 分鐘，也不先改你的時程。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://letsrelaxspa.com/branches/pattaya-beachfront/\" target=\"_blank\" rel=\"noopener noreferrer\">分店官方療程與價目 ↗</a></div>",
                 "icon": "fa-spa",
                 "notice": "以 60 分鐘按摩安排；返程延誤時，按摩與晚餐一併順延。",
                 "kind": "activity",
@@ -1401,11 +1402,11 @@
             {
                 "time": "09:00–12:30",
                 "title": "東芭樂園・花園、步道與午餐",
-                "summary": "以花園、天空步道及恐龍谷為主，園內安排午餐。",
-                "details": "<div class=\"detail-copy\"><p>抓約 3.5 小時含用餐，先選想看的區域，不追求全園走完。園區官網目前列每日 08:00–18:00；門票、遊園車及午餐依實際方案另計。</p><p>約 12:30 結束參觀、取行李並聯絡下午包車，目標 13:00 前出發，保留前往貓貓船的交通緩衝。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.nongnoochpattaya.com/en/beautiful-garden\" target=\"_blank\" rel=\"noopener noreferrer\">東芭樂園官方資訊<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "花園、步道與午餐；預算以外國成人門票＋遊園車 700 THB／人計，四人 2,800 THB，午餐另計。",
+                "details": "<div class=\"detail-copy\"><p>抓約 3.5 小時含用餐，先選想看的區域，不追求全園走完。園區官網目前列每日 08:00–18:00；門票、遊園車及午餐依實際方案另計。</p><p>約 12:30 結束參觀、取行李並聯絡下午包車，目標 13:00 前出發，保留前往貓貓船的交通緩衝。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.nongnoochpattaya.com/en/beautiful-garden\" target=\"_blank\" rel=\"noopener noreferrer\">東芭樂園官方資訊<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>目前售票商列外國成人「門票＋遊園車」標價 700 THB／人，四人 2,800 THB，本次用這個非低價促銷基準編列；Ticket2Attraction 同類方案另有 460 THB 起的網路折扣，純門票為 390 THB 起、所列原價 600 THB。所有「起」價都未確認 2027/4/15 是否適用。此預算以參觀花園與園內移動為主，不加秀、不含午餐或芭達雅至曼谷接送。若最後買純門票或含午餐套票，請替換本筆，勿將套票項目再次加總。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.gother.com/en-us/experiences/thailand/chonburi/nong-nooch-tropical-garden-pattaya-1776910986\" target=\"_blank\" rel=\"noopener noreferrer\">外國人門票＋遊園車方案 ↗</a></div>",
                 "icon": "fa-tree",
                 "kind": "activity",
-                "notice": "",
+                "notice": "這次預算採門票＋遊園車，不加文化秀或大象秀；午餐與進出園接送另計。",
                 "disclosureLabel": "",
                 "photo": {
                     "file": "images/nong-nooch-garden.jpg",
@@ -1442,11 +1443,11 @@
             {
                 "time": "16:00–17:30（場次待確認）",
                 "title": "Hua Takhe・貓貓船",
-                "summary": "Si Yaek Huatakhe 咖啡廳報到、遊河與逛老社區。",
-                "details": "<div class=\"detail-copy\"><p>貓貓船位於 Hua Takhe 老社區的 <strong>Si Yaek Huatakhe Cafe &amp; Guesthouse</strong>。先預留 16:00 到店、以 <strong>16:30 場次為預約目標</strong>，遊河約 50～60 分鐘。</p><p><strong>尚未預訂。</strong>提前向店家確認 2027/4/15 是否營業、實際場次、四人座位及費用；小船乘載有限，四人可能需分船，是否能同時出發以店家回覆為準。貓咪是否上船依現場狀況。</p><p>行李與停車、下車步行位置先和包車司機確認。若無合適船班、天候取消或嚴重塞車，改咖啡廳／老社區短停，或直接前往民宿。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.facebook.com/SiyaekHuatakhe\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船官方 Facebook・確認預約<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船地圖<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://visionthai.net/article/bangkok-cat-boat-si-yaek-huatakhe-cafe-guesthouse/\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船體驗說明<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "Si Yaek Huatakhe 貓貓船；媒體參考 200 THB／人，四人先估 800 THB，分船與場次待店家確認。",
+                "details": "<div class=\"detail-copy\"><p>貓貓船位於 Hua Takhe 老社區的 <strong>Si Yaek Huatakhe Cafe &amp; Guesthouse</strong>。先預留 16:00 到店、以 <strong>16:30 場次為預約目標</strong>，遊河約 50～60 分鐘。</p><p><strong>尚未預訂。</strong>提前向店家確認 2027/4/15 是否營業、實際場次、四人座位及費用；小船乘載有限，四人可能需分船，是否能同時出發以店家回覆為準。貓咪是否上船依現場狀況。</p><p>行李與停車、下車步行位置先和包車司機確認。若無合適船班、天候取消或嚴重塞車，改咖啡廳／老社區短停，或直接前往民宿。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.facebook.com/SiyaekHuatakhe\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船官方 Facebook・確認預約<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船地圖<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://visionthai.net/article/bangkok-cat-boat-si-yaek-huatakhe-cafe-guesthouse/\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船體驗說明<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>公開媒體及體驗文章記錄非住客搭船約 200 THB／人，四人先估 800 THB；這不是已取得的官方 2027 報價。需向 Si Yaek Huatakhe Cafe & Guesthouse 確認 2027/4/15 場次、四人分船、總價與天候規則，餐飲及包車等候不含。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://eastweek.stheadline.com/pets/15771/%E6%B3%B0%E5%9C%8B%E8%B2%93%E8%B2%93%E8%88%B9-%E8%B2%93%E8%B2%93%E9%A8%8E%E8%86%8A%E9%A6%AC%E9%99%AA%E9%81%8A%E8%88%B9%E6%B2%B350%E5%88%86%E9%90%98%E5%8F%AA%E9%9C%80200%E9%8A%96\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船媒體費用參考 ↗</a></div>",
                 "icon": "fa-cat",
                 "kind": "activity",
-                "notice": "需提前預約；16:30 是安排目標，不代表已取得船位。",
+                "notice": "200 THB 為媒體參考，未取得店家 2027 報價；四人可能分兩艘，先確認同時出發。",
                 "disclosureLabel": "",
                 "photo": {
                     "file": "images/hua-takhe-cat-boat.webp",
@@ -1785,11 +1786,11 @@
             {
                 "time": "19:30–21:30（沿用上次時段）",
                 "title": "Riverside Carnival・河畔嘉年華號",
-                "summary": "船上自助晚餐、歌舞表演與 DJ，欣賞湄南河沿岸夜景。",
-                "details": "<div class=\"detail-copy\"><p>依你上次曼谷行程，安排同款 <strong>Riverside Carnival Cruise 河畔嘉年華號</strong>：船上用晚餐、欣賞歌舞秀與音樂，沿河看曼谷夜景。這是上次檔案中的實際船名，並非芭達雅東方公主號。</p><p>飯店官網現有 Carnival 資訊列 <strong>19:30 開航、21:30 靠岸</strong>。此為本次排程參考，2027 日期、航線、表演、餐飲及飲品包含內容以所選方案為準。</p><p><strong>狀態：待預訂四人船票。</strong>上次檔案只寫已預訂，未列實付價格；不帶入舊訂單狀態，也不把官網已過期促銷價當成本次票價。船票費用待選定 2027/4/16 方案後填入。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.riversidebangkok.com/special-offers/\" target=\"_blank\" rel=\"noopener noreferrer\">Riverside 官方 Carnival 資訊<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.ticket2attraction.com/discount-tickets/riverside-carnival-cruise/\" target=\"_blank\" rel=\"noopener noreferrer\">河畔嘉年華號・方案查詢<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "河畔嘉年華號自助晚餐與表演；目前售票參考 1,400 THB／人，四人先估 5,600 THB。",
+                "details": "<div class=\"detail-copy\"><p>依你上次曼谷行程，安排同款 <strong>Riverside Carnival Cruise 河畔嘉年華號</strong>：船上用晚餐、欣賞歌舞秀與音樂，沿河看曼谷夜景。這是上次檔案中的實際船名，並非芭達雅東方公主號。</p><p>飯店官網現有 Carnival 資訊列 <strong>19:30 開航、21:30 靠岸</strong>。此為本次排程參考，2027 日期、航線、表演、餐飲及飲品包含內容以所選方案為準。</p><p><strong>狀態：待預訂四人船票。</strong>上次檔案只寫已預訂，未列實付價格；不帶入舊訂單狀態，也不把官網已過期促銷價當成本次票價。船票先按目前一般售票參考 1,400 THB／人估算，2027/4/16 方案與實付金額待確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.riversidebangkok.com/special-offers/\" target=\"_blank\" rel=\"noopener noreferrer\">Riverside 官方 Carnival 資訊<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.ticket2attraction.com/discount-tickets/riverside-carnival-cruise/\" target=\"_blank\" rel=\"noopener noreferrer\">河畔嘉年華號・方案查詢<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>目前售票商列 Riverside Carnival 成人 1,400 THB／人，四人先估 5,600 THB；採一般售票參考而非飯店已過期的 999 THB 活動。船餐屬此方案內容，不再另加一份正式晚餐預算。飲料、稅費、樓層與表演內容依最後所選訂單。近期售票資訊同時出現 Asiatique 18:15–20:30 與特定日期 Riverside Bangkok Hotel 19:30–21:30，不能以現有 2026 場次保證 2027/4/16。現行時序暫保留並標註依訂單確認；若換碼頭，交通段也要調整。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.bangkokchaophraya.com/bookingCheckAll-en.jsp\" target=\"_blank\" rel=\"noopener noreferrer\">Riverside Carnival 當期成人售價與碼頭說明 ↗</a></div>",
                 "icon": "fa-ship",
                 "kind": "dining",
-                "notice": "須選 4/16 新方案；碼頭、報到、開航與回程時間以訂單為準。",
+                "notice": "2027/4/16 是週五，不套用現有週一至週四四人同行促銷；出發碼頭與航班必須再核對。",
                 "disclosureLabel": "",
                 "chapter": {
                     "label": "晚間",
@@ -1981,7 +1982,7 @@
     }
 };
             const legacyItemIds = {"day1":["s-a2a077bc48","s-e692da9752","s-46680b4569","s-34d03e99d2","s-95e9a46204","s-7361eefacf","s-4da50a9e78","s-7d521d25bb","s-ead83eefec","s-b4bed3a682","s-5d050d926d","s-8aebcc324b"],"day2":["s-abc08fe317","s-584c900b54","s-b0f19d3a07","s-1d97b35d1e","s-7754be56d9","s-325e2588e9","s-dfcef3dbb1","s-79bef5c9df","s-341770ae90","s-bfbe0387ee","s-1b08c846c6","s-4284ae4d92","s-34d077ae20","s-bc98b5f00d","s-04f0c2f556"],"day3":["s-493b28dc98","s-1f2c4d6113","s-f11619f31f","s-2eefc5a3b4","s-9a638904f0","s-78c0b9bd7c","s-16c03a16f0","s-117798c4ea","s-60702fef4a","s-3646f15f55"],"day4":["s-d64df5b01f","s-3c1126f221","s-79ee2fc29a","s-5cee1245ae","s-99d3c9dabb","s-ca389d2a79","s-8ce8fd8982","s-93ef7b2925","s-6e0abec254","s-1c1d312f97"],"day5":["s-fde119d910","s-8b6d3a7c25","s-40189c4331","s-3a66b1cdc8"],"day6":["s-e1a02702ae","s-d914f7d158","s-c0ac557b28","s-5a71b2aac1","s-5958cd7dd1","s-bd13dbbdc4","s-9ab860bd03","s-9a9cdf8192","s-283b1e2b39","s-962a781a66","s-b009b79df9"],"day7":["s-28d1cd31d8","s-2fbbfb5fbe","s-54d347115d","s-e49aa8b368","s-a4ff7bcc58","s-4eca03218a","s-b1fbdd4fff","s-4047c582f1"],"day8":["s-06f970dc3f","s-c1a362f048","s-f99b8f90ab"]};
-            const defaultExpenses = [
+            const priorExpenseSeeds = [
     {
         "id": "quote-s-95e9a46204",
         "day": "day1",
@@ -2159,6 +2160,577 @@
         "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
     }
 ];
+            const expenseSeedRevision = "2026-11-17-tickets-deluxe";
+            const defaultExpenses = [
+    {
+        "id": "quote-s-95e9a46204",
+        "day": "day1",
+        "itemId": "s-95e9a46204",
+        "label": "BKK → 春武里 LOF LAND",
+        "amount": 1800,
+        "currency": "THB",
+        "basis": "group",
+        "status": "confirmed",
+        "note": "原行程的四人整段包車報價，含 LOF LAND 停留加價；後段車程不重複計入。"
+    },
+    {
+        "id": "quote-s-7361eefacf",
+        "day": "day1",
+        "itemId": "s-7361eefacf",
+        "label": "LOF LAND・拍照與飲料",
+        "amount": 300,
+        "currency": "THB",
+        "basis": "person",
+        "status": "confirmed",
+        "note": "原行程記錄：每人門票含一杯飲料，加點另計。"
+    },
+    {
+        "id": "quote-s-b4bed3a682",
+        "day": "day1",
+        "itemId": "s-b4bed3a682",
+        "label": "DAM 海濱晚餐",
+        "amount": 1933,
+        "currency": "TWD",
+        "basis": "group",
+        "status": "confirmed",
+        "note": "原行程四人前排方案報價；是否付款仍請自行確認。"
+    },
+    {
+        "id": "quote-s-584c900b54",
+        "day": "day2",
+        "itemId": "s-584c900b54",
+        "label": "綠山動物園・四人球車首 2 小時與保險",
+        "amount": 550,
+        "currency": "THB",
+        "basis": "group",
+        "status": "estimate",
+        "note": "園方首 2 小時 500／車，沿用保險 50；超時另列預備金，不含入場門票。"
+    },
+    {
+        "id": "quote-s-bfbe0387ee",
+        "day": "day2",
+        "itemId": "s-bfbe0387ee",
+        "label": "House of Benedict",
+        "amount": 200,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "泰國觀光局日本站 2026/11/17 查核，每人入場 200；餐飲兌換條件依票券確認。",
+        "sourceUrl": "https://www.thailandtravel.or.jp/house-of-benedict/",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "quote-s-34d077ae20",
+        "day": "day2",
+        "itemId": "s-34d077ae20",
+        "label": "69 Pattaya Show",
+        "amount": 700,
+        "currency": "THB",
+        "basis": "person",
+        "status": "confirmed",
+        "note": "你提供的票價；接送是否包含另行確認。"
+    },
+    {
+        "id": "quote-s-493b28dc98",
+        "day": "day3",
+        "itemId": "s-493b28dc98",
+        "label": "Thai Sky Adventures・Deluxe 跳傘與拍攝",
+        "amount": 15650,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "你選的 Deluxe；官網商品價查核 2026/11/17。含影片、照片、開傘後教練拍攝及芭達雅接送；重量加價與可能刷卡費未含。",
+        "sourceUrl": "https://thaiskyadventures.com/product/tandem-deluxe-skydive/",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "quote-s-78c0b9bd7c",
+        "day": "day3",
+        "itemId": "s-78c0b9bd7c",
+        "label": "Seafood Station Pattaya・海鮮吃到飽",
+        "amount": 499,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "沿用原行程參考預算，來源有價差，需向店家確認；未加啤酒。"
+    },
+    {
+        "id": "ticket-zoo",
+        "day": "day2",
+        "itemId": "s-584c900b54",
+        "label": "綠山動物園・外國成人門票",
+        "amount": 350,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "園方與泰國觀光局現行票價查核 2026/11/17；含免費場次，球車另外列。",
+        "sourceUrl": "https://khaokheow.zoothailand.org/en/ewt_news.php?c_id=34&n_id=173",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "cart-overtime",
+        "day": "day2",
+        "itemId": "s-584c900b54",
+        "label": "綠山動物園・球車超時預備金",
+        "amount": 600,
+        "currency": "THB",
+        "basis": "group",
+        "status": "estimate",
+        "note": "按原租借 4 小時 45 分鐘額外暫估，非園方核定總額；實際超時費依現場級距。"
+    },
+    {
+        "id": "ticket-truth",
+        "day": "day4",
+        "itemId": "s-5cee1245ae",
+        "label": "真理寺・成人日間票",
+        "amount": 500,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "官方售票頁查核 2026/11/17；14:30 日間參觀，不加夜間票或選購活動。",
+        "sourceUrl": "https://sanctuaryoftruthmuseum.com/shop/sanctuary-of-truth-entrance-ticket/",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "ticket-nongnooch",
+        "day": "day6",
+        "itemId": "s-d914f7d158",
+        "label": "東芭樂園・門票＋遊園車",
+        "amount": 700,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "外國成人方案參考：不以限時折扣價編列；未含秀、午餐或接送，2027 日期待確認。",
+        "sourceUrl": "https://www.gother.com/en-us/experiences/thailand/chonburi/nong-nooch-tropical-garden-pattaya-1776910986",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "ticket-catboat",
+        "day": "day6",
+        "itemId": "s-5a71b2aac1",
+        "label": "Hua Takhe・貓貓船",
+        "amount": 200,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "媒體參考價，非店家 2027 報價；四人可能分兩艘，須向店家確認。",
+        "sourceUrl": "https://eastweek.stheadline.com/pets/15771/%E6%B3%B0%E5%9C%8B%E8%B2%93%E8%B2%93%E8%88%B9-%E8%B2%93%E8%B2%93%E9%A8%8E%E8%86%8A%E9%A6%AC%E9%99%AA%E9%81%8A%E8%88%B9%E6%B2%B350%E5%88%86%E9%90%98%E5%8F%AA%E9%9C%80200%E9%8A%96",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "ticket-carnival",
+        "day": "day7",
+        "itemId": "s-b1fbdd4fff",
+        "label": "Riverside Carnival・晚餐遊船",
+        "amount": 1400,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "售票商當期成人參考 2026/11/17；含方案內晚餐，不套用過期或週一至四促銷，碼頭／班次待確認。",
+        "sourceUrl": "https://www.bangkokchaophraya.com/bookingCheckAll-en.jsp",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "tour-kohlarn",
+        "day": "day5",
+        "itemId": "s-fde119d910",
+        "label": "格蘭島・C1 快艇午餐與三項活動",
+        "amount": 1800,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "以 C1 公開起價編列參考，不是已預訂；含拖曳傘、水上摩托車、香蕉船，海底漫步未計。",
+        "sourceUrl": "https://www.ticket2attraction.com/discount-tickets/pattaya-coral-island-koh-larn-day-tour/",
+        "checkedAt": "2026-11-17"
+    },
+    {
+        "id": "pending-day1-0",
+        "day": "day1",
+        "itemId": "s-a2a077bc48",
+        "label": "來回機票（合併票只填一次）",
+        "amount": null,
+        "currency": "TWD",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day1-1",
+        "day": "day1",
+        "itemId": "s-7d521d25bb",
+        "label": "芭達雅住宿・第 1 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day1-2",
+        "day": "day1",
+        "itemId": "s-ead83eefec",
+        "label": "DAM／六巷市區叫車",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day1-3",
+        "day": "day1",
+        "itemId": "s-b4bed3a682",
+        "label": "DAM 額外加點與當日其他餐飲",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day1-4",
+        "day": "day1",
+        "itemId": "s-8aebcc324b",
+        "label": "六巷飲品與個人消費",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day2-0",
+        "day": "day2",
+        "itemId": "s-abc08fe317",
+        "label": "動物園與 House of Benedict 接送",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day2-1",
+        "day": "day2",
+        "itemId": "s-325e2588e9",
+        "label": "午餐、晚餐與額外飲料",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day2-2",
+        "day": "day2",
+        "itemId": "s-04f0c2f556",
+        "label": "六巷飲品與市區交通",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day2-3",
+        "day": "day2",
+        "itemId": "s-1b08c846c6",
+        "label": "芭達雅住宿・第 2 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day3-0",
+        "day": "day3",
+        "itemId": "s-1f2c4d6113",
+        "label": "午餐與額外餐飲",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day3-1",
+        "day": "day3",
+        "itemId": "s-2eefc5a3b4",
+        "label": "觀景台、中天與六巷叫車",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day3-2",
+        "day": "day3",
+        "itemId": "s-117798c4ea",
+        "label": "ZAMĀ 調酒與餐點・依點餐",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day3-3",
+        "day": "day3",
+        "itemId": "s-3646f15f55",
+        "label": "六巷飲品與個人消費",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day3-4",
+        "day": "day3",
+        "itemId": "s-1f2c4d6113",
+        "label": "芭達雅住宿・第 3 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day4-0",
+        "day": "day4",
+        "itemId": "s-3c1126f221",
+        "label": "午餐與其他餐飲",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day4-1",
+        "day": "day4",
+        "itemId": "s-ca389d2a79",
+        "label": "The Sky Gallery・四人單點晚餐",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day4-2",
+        "day": "day4",
+        "itemId": "s-79ee2fc29a",
+        "label": "真理寺、觀景台與六巷交通",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day4-3",
+        "day": "day4",
+        "itemId": "s-1c1d312f97",
+        "label": "六巷飲品與個人消費",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day4-4",
+        "day": "day4",
+        "itemId": "s-3c1126f221",
+        "label": "芭達雅住宿・第 4 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day5-0",
+        "day": "day5",
+        "itemId": "s-8b6d3a7c25",
+        "label": "SPA 療程・尚未選定",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day5-1",
+        "day": "day5",
+        "itemId": "s-40189c4331",
+        "label": "夜市晚餐與額外餐飲",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day5-2",
+        "day": "day5",
+        "itemId": "s-3a66b1cdc8",
+        "label": "六巷飲品、市區交通與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day5-3",
+        "day": "day5",
+        "itemId": "s-8b6d3a7c25",
+        "label": "芭達雅住宿・第 5 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day6-0",
+        "day": "day6",
+        "itemId": "s-e1a02702ae",
+        "label": "退房後打車至東芭樂園",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day6-1",
+        "day": "day6",
+        "itemId": "s-c0ac557b28",
+        "label": "包車東芭→貓貓船→Yu Sabay・含中停等候",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day6-2",
+        "day": "day6",
+        "itemId": "s-d914f7d158",
+        "label": "東芭午餐與當日其他餐飲",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day6-3",
+        "day": "day6",
+        "itemId": "s-9ab860bd03",
+        "label": "BTS、晚間交通與少量採買",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day6-4",
+        "day": "day6",
+        "itemId": "s-5958cd7dd1",
+        "label": "Yu Sabay 住宿・第 1 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day7-0",
+        "day": "day7",
+        "itemId": "s-28d1cd31d8",
+        "label": "Big C 採買與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day7-1",
+        "day": "day7",
+        "itemId": "s-28d1cd31d8",
+        "label": "民宿、超市、河畔與碼頭交通",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day7-2",
+        "day": "day7",
+        "itemId": "s-54d347115d",
+        "label": "午餐與額外餐飲（船餐已列）",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day7-3",
+        "day": "day7",
+        "itemId": "s-4047c582f1",
+        "label": "Yu Sabay 住宿・第 2 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day8-0",
+        "day": "day8",
+        "itemId": "s-06f970dc3f",
+        "label": "Yu Sabay → BKK 機場接送",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day8-1",
+        "day": "day8",
+        "itemId": "s-c1a362f048",
+        "label": "機場餐飲與個人消費",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-sky-surcharges",
+        "day": "day3",
+        "itemId": "s-493b28dc98",
+        "label": "跳傘可能加價・付款／重量／保險條件待確認",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "官網所連 2026 價目 PDF 列刷卡 2.5%；若整筆 62,600 適用，另約 1,565 THB，但是否收取須看結帳。超過 95 kg 重量加價、保險是否包含亦需確認，先不加進基本小計。",
+        "sourceUrl": "https://thaiskyadventures.com/wp-content/uploads/Price-list-TSA-April-2026.pdf",
+        "checkedAt": "2026-11-17"
+    }
+];
             const tripState = readTripState();
 
             // --- INITIALIZATION ---
@@ -2215,8 +2787,14 @@
             }
             function setupPlannerTools(){
                 if(!tripState.expenses)tripState.expenses=defaultExpenses.map(row=>({...row}));
+                else if(tripState.expenseRevision!==expenseSeedRevision)tripState.expenses=TripTools.reconcileExpenses(tripState.expenses,priorExpenseSeeds,defaultExpenses);
+                tripState.expenseRevision=expenseSeedRevision;writeTripState();
                 setupHistoryNavigation();setupSearch();setupBookings();setupExpenses();setupPrinting();setupOffline();
                 document.addEventListener('click',async event=>{
+                    const editDay=event.target.closest('[data-edit-day-budget]');
+                    if(editDay){document.getElementById('planner-desk').open=true;document.getElementById('expense-panel').open=true;document.getElementById('expense-day').value=editDay.dataset.editDayBudget;renderExpenses();scrollToPart(document.getElementById('expense-panel'));return;}
+                    const allCosts=event.target.closest('[data-ledger-action]');
+                    if(allCosts){document.querySelectorAll('.daily-ledger').forEach(detail=>detail.open=allCosts.dataset.ledgerAction==='open');layoutChanged();return;}
                     const locate=event.target.closest('[data-locate-day]');
                     if(locate){focusMapPoint(locate.dataset.locateDay,Number(locate.dataset.locateIndex));return;}
                     const target=event.target.closest('[data-go-day]');
@@ -2300,9 +2878,43 @@
             function costSummary(day){
                 const totals=TripTools.expenseTotals(tripState.expenses || [],day);
                 const line=status=>['THB','TWD'].map(currency=>`<span>${money(totals[status][currency],currency)}<small>四人合計 · 每人 ${money(totals[status][currency]/4,currency)}</small></span>`).join('');
-                return `<div class="cost-summary"><div><strong>已確認報價</strong>${line('confirmed')}</div><div><strong>參考估算・另列</strong>${line('estimate')}</div></div><p class="small-note">${totals.unknown} 筆待填，不以零元計入。已確認報價不代表已付款；兩種幣別分開加總。</p>`;
+                const planned=['THB','TWD'].map(currency=>`${money(totals.confirmed[currency]+totals.estimate[currency],currency)}（每人 ${money((totals.confirmed[currency]+totals.estimate[currency])/4,currency)}）`).join(' ＋ ');
+                return `<p class="planned-total"><strong>已列項目規劃小計・四人</strong><span>${planned}</span></p><div class="cost-summary"><div><strong>已確認報價</strong>${line('confirmed')}</div><div><strong>參考估算・另列</strong>${line('estimate')}</div></div><p class="small-note">${totals.unknown} 筆待填，不以零元計入。已確認報價不代表已付款；兩種幣別分開加總。</p>`;
             }
-            function renderDailyCosts(){document.querySelectorAll('[data-cost-summary]').forEach(box=>box.innerHTML=costSummary(box.dataset.costSummary));layoutChanged();}
+            function renderFrontCosts(){
+                const target=document.getElementById('daily-cost-breakdown');if(!target)return;
+                const openDays=new Set([...target.querySelectorAll('details[open]')].map(el=>el.dataset.ledgerDay));
+                if(!frontCostsRendered)openDays.add('day1');frontCostsRendered=true;
+                document.getElementById('trip-cost-totals').innerHTML=costSummary('all');
+                const statusNames={confirmed:'已確認報價',estimate:'參考估算',unknown:'待填'};
+                target.innerHTML=Object.entries(itineraryData).map(([day,data])=>{
+                    const rows=(tripState.expenses||[]).filter(row=>row.day===day),totals=TripTools.expenseTotals(rows,day);
+                    const known=totals.confirmed.THB+totals.estimate.THB,totalTwd=totals.confirmed.TWD+totals.estimate.TWD;
+                    const subtotal=known||totalTwd?[known?money(known,'THB'):'',totalTwd?money(totalTwd,'TWD'):''].filter(Boolean).join(' ＋ '):'金額待填';
+                    return `<details class="daily-ledger" data-ledger-day="${day}" ${openDays.has(day)?'open':''}><summary><span><strong>${dateLabel(day)}</strong> ${escapeHtml(data.title)}</span><span>${subtotal}<small>${totals.unknown} 項待填</small></span></summary><ol class="front-cost-list">${rows.map(row=>{
+                        const group=row.amount===null?null:Math.round(row.amount*100)*(row.basis==='person'?4:1);
+                        return `<li><div>${row.itemId?`<button type="button" data-go-day="${day}" data-go-item="${row.itemId}">${escapeHtml(row.label)} ↗</button>`:`<strong>${escapeHtml(row.label)}</strong>`}<p>${escapeHtml(row.note)}${row.sourceUrl?` <a href="${escapeHtml(row.sourceUrl)}" target="_blank" rel="noopener noreferrer">價格來源 ↗</a>`:''}</p></div><div class="front-cost-amount"><span>${row.amount===null?'單價待填':money(Math.round(row.amount*100),row.currency)+'／'+(row.basis==='person'?'人':'四人')}</span><strong>${group===null?'四人合計待填':'四人 '+money(group,row.currency)}</strong><small>${statusNames[row.status]}</small></div></li>`;
+                    }).join('')}</ol><div class="ledger-subtotal">${costSummary(day)}<button type="button" data-edit-day-budget="${day}">編輯 ${dateLabel(day)} 費用 ↗</button></div></details>`;
+                }).join('');
+                renderBudgetValues();
+            }
+            function renderBudgetValues(){
+                const body=document.getElementById('budget-values-body');if(!body)return;
+                body.innerHTML=Object.keys(itineraryData).map(day=>{
+                    const totals=TripTools.expenseTotals(tripState.expenses||[],day);
+                    return `<tr><th scope="row">${dateLabel(day)}</th><td>${money(totals.confirmed.THB/4,'THB')}</td><td>${money(totals.estimate.THB/4,'THB')}</td><td>${totals.unknown} 項</td></tr>`;
+                }).join('');
+                window.dispatchEvent(new Event('itinerary:costs'));
+            }
+            function budgetChartData(){
+                const days=Object.keys(itineraryData),totals=days.map(day=>TripTools.expenseTotals(tripState.expenses||[],day));
+                return {labels:days.map(dateLabel),datasets:[
+                    {label:'已確認報價／人（THB）',data:totals.map(total=>total.confirmed.THB/400),backgroundColor:'#26786eaa',borderRadius:4},
+                    {label:'參考估算／人（THB）',data:totals.map(total=>total.estimate.THB/400),backgroundColor:'#b58558aa',borderRadius:4}
+                ]};
+            }
+
+            function renderDailyCosts(){document.querySelectorAll('[data-cost-summary]').forEach(box=>box.innerHTML=costSummary(box.dataset.costSummary));renderFrontCosts();layoutChanged();}
             function renderExpenses(){
                 const day=document.getElementById('expense-day').value,list=document.getElementById('expense-list');
                 document.getElementById('expense-totals').innerHTML=costSummary(day);
@@ -2321,7 +2933,7 @@
                     event.preventDefault();if(!form.reportValidity())return;
                     const id=form.elements.expenseId.value || 'custom-'+(crypto.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
                     const prior=tripState.expenses.find(row=>row.id===id);
-                    const row=TripTools.validExpense({id,day:form.elements.day.value,itemId:prior?.itemId || null,label:form.elements.label.value.trim(),amount:amount.disabled?null:Number(amount.value),currency:form.elements.currency.value,basis:form.elements.basis.value,status:form.elements.status.value,note:form.elements.note.value.trim()});
+                    const row=TripTools.validExpense({id,day:form.elements.day.value,itemId:prior?.itemId || null,label:form.elements.label.value.trim(),amount:amount.disabled?null:Number(amount.value),currency:form.elements.currency.value,basis:form.elements.basis.value,status:form.elements.status.value,note:form.elements.note.value.trim(),sourceUrl:prior?.sourceUrl,checkedAt:prior?.checkedAt});
                     if(!row)return;
                     tripState.expenses=tripState.expenses.filter(value=>value.id!==id).concat(row);writeTripState();renderExpenses();reset();document.getElementById('expense-message').textContent='費用已儲存在這台裝置。';
                 });
@@ -3147,11 +3759,12 @@
                             });
                         }
                         if(!window.Chart)throw Error('unavailable');
-                        chart=new Chart(document.getElementById('budgetChart').getContext('2d'),{type:'bar',data:{labels:['4/10','4/11','4/12','4/13','4/14','4/15','4/16','4/17'],datasets:[{label:'原行程預估人均支出 (THB)',data:[750,null,null,null,null,2500,3500,800],backgroundColor:'#26786eaa',borderRadius:5}]},options:{animation:reduceMotion?false:{duration:250},responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}},plugins:{legend:{display:false}}}});
-                        status.textContent='原行程粗估圖；你編輯的費用，請看上方四人分攤工具。';document.getElementById('chart-retry').hidden=true;
+                        chart=new Chart(document.getElementById('budgetChart').getContext('2d'),{type:'bar',data:budgetChartData(),options:{animation:reduceMotion?false:{duration:250},responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true},y:{beginAtZero:true,stacked:true}},plugins:{legend:{display:true}}}});
+                        status.textContent='依目前費用明細同步更新，僅列泰銖人均；台幣與待填項目另見明細。';document.getElementById('chart-retry').hidden=true;
                     }catch{status.textContent='圖表暫時無法載入，仍可查看下方數值與費用工具。';document.getElementById('chart-retry').hidden=false;}
                     finally{loading=false;}
                 }
+                window.addEventListener('itinerary:costs',()=>{if(chart){chart.data=budgetChartData();chart.update();}});
                 fold.addEventListener('toggle',()=>{if(fold.open){draw();chart?.resize();}});document.getElementById('chart-retry').addEventListener('click',draw);
             }
 

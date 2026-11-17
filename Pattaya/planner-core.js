@@ -54,6 +54,7 @@
         const valid=position&&Object.hasOwn(data,position.day);
         const list=key=>Array.isArray(value[key])?value[key].map(migrateId).filter(Boolean):[];
         return {
+            expenseRevision:typeof value.expenseRevision==='string'?value.expenseRevision:'',
             quick:value.quick===true,expanded:list('expanded'),photos:list('photos'),
             timelines:value.timelines&&typeof value.timelines==='object'?Object.fromEntries(Object.entries(value.timelines).filter(([day,open])=>Object.hasOwn(data,day)&&typeof open==='boolean')):{},
             position:valid?{day:position.day,item:migrateId(position.item),anchor:typeof position.anchor==='string'?position.anchor:null,offset:Number.isFinite(position.offset)?position.offset:0}:null,
@@ -65,7 +66,21 @@
     function validExpense(value){
         if(!value||typeof value!=='object'||typeof value.id!=='string'||!/^[-a-zA-Z0-9]{1,100}$/.test(value.id)||!/^day[1-8]$/.test(value.day)||!currencies.includes(value.currency)||!['confirmed','estimate','unknown'].includes(value.status)||!['group','person'].includes(value.basis))return null;
         if(value.status!=='unknown'&&(typeof value.amount!=='number'||!Number.isFinite(value.amount)||value.amount<0||value.amount>1e8))return null;
-        return {id:value.id,day:value.day,itemId:typeof value.itemId==='string'?value.itemId:null,label:String(value.label||'未命名費用').slice(0,150),amount:value.status==='unknown'?null:value.amount,currency:value.currency,basis:value.basis,status:value.status,note:String(value.note||'').slice(0,1000)};
+        return {id:value.id,day:value.day,itemId:typeof value.itemId==='string'&&/^[-a-zA-Z0-9]+$/.test(value.itemId)?value.itemId:null,label:String(value.label||'未命名費用').slice(0,150),amount:value.status==='unknown'?null:value.amount,currency:value.currency,basis:value.basis,status:value.status,note:String(value.note||'').slice(0,1000),sourceUrl:typeof value.sourceUrl==='string'&&/^https:\/\//.test(value.sourceUrl)?value.sourceUrl:'',checkedAt:typeof value.checkedAt==='string'?value.checkedAt:''};
+    }
+    function reconcileExpenses(rows,prior,seeds){
+        const old=new Map(prior.map(row=>[row.id,row])),fresh=new Map(seeds.map(row=>[row.id,row]));
+        const existing=new Set(rows.map(row=>row.id));
+        const samePrice=(a,b)=>a.amount===b.amount&&a.currency===b.currency&&a.basis===b.basis&&a.status===b.status;
+        const result=rows.flatMap(row=>{
+            const previous=old.get(row.id),next=fresh.get(row.id);
+            if(!previous)return [row];
+            if(!next)return samePrice(row,previous)&&row.label===previous.label&&row.note===previous.note?[]:[row];
+            if(!samePrice(row,previous))return [row];
+            return [{...next,label:row.label===previous.label?next.label:row.label,note:row.note===previous.note?next.note:row.note+'；更新資料：'+next.note}];
+        });
+        for(const row of seeds)if(!existing.has(row.id)&&!old.has(row.id))result.push({...row});
+        return result;
     }
     function expenseTotals(rows,day){
         const totals={confirmed:{THB:0,TWD:0},estimate:{THB:0,TWD:0},unknown:0};
@@ -74,5 +89,5 @@
         }
         return totals;
     }
-    return {plain,normalize,search,routeHash,parseRoute,bangkokClock,timeRange,nextPlan,migrateState,validExpense,expenseTotals};
+    return {plain,normalize,search,routeHash,parseRoute,bangkokClock,timeRange,nextPlan,migrateState,validExpense,expenseTotals,reconcileExpenses};
 });

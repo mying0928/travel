@@ -1,0 +1,142 @@
+{
+  "checkedAt": "2026-11-17",
+  "travelDates": "2027-04-10 / 2027-04-17",
+  "party": "4 foreign adults",
+  "pricesAreNotBookings": true,
+  "chosenSkydive": {
+    "supplier": "Thai Sky Adventures",
+    "plan": "Tandem Deluxe Skydive",
+    "perPersonTHB": 15650,
+    "fourPeopleTHB": 62600,
+    "source": "https://thaiskyadventures.com/product/tandem-deluxe-skydive/",
+    "included": "Jump, freefall video and photos, instructor footage under canopy; Pattaya transfer as operator describes",
+    "excludedOrUnconfirmed": "Weight surcharges; whether credit-card surcharge applies; 2027 availability"
+  },
+  "newCostRows": [
+    {
+      "id": "quote-s-bfbe0387ee",
+      "day": "day2",
+      "itemId": "s-bfbe0387ee",
+      "label": "House of Benedict",
+      "amount": 200,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "泰國觀光局日本站 2026/11/17 查核，每人入場 200；餐飲兌換條件依票券確認。",
+      "sourceUrl": "https://www.thailandtravel.or.jp/house-of-benedict/",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "quote-s-493b28dc98",
+      "day": "day3",
+      "itemId": "s-493b28dc98",
+      "label": "Thai Sky Adventures・Deluxe 跳傘與拍攝",
+      "amount": 15650,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "你選的 Deluxe；官網商品價查核 2026/11/17。含影片、照片、開傘後教練拍攝及芭達雅接送；重量加價與可能刷卡費未含。",
+      "sourceUrl": "https://thaiskyadventures.com/product/tandem-deluxe-skydive/",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "ticket-zoo",
+      "day": "day2",
+      "itemId": "s-584c900b54",
+      "label": "綠山動物園・外國成人門票",
+      "amount": 350,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "園方與泰國觀光局現行票價查核 2026/11/17；含免費場次，球車另外列。",
+      "sourceUrl": "https://khaokheow.zoothailand.org/en/ewt_news.php?c_id=34&n_id=173",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "ticket-truth",
+      "day": "day4",
+      "itemId": "s-5cee1245ae",
+      "label": "真理寺・成人日間票",
+      "amount": 500,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "官方售票頁查核 2026/11/17；14:30 日間參觀，不加夜間票或選購活動。",
+      "sourceUrl": "https://sanctuaryoftruthmuseum.com/shop/sanctuary-of-truth-entrance-ticket/",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "ticket-nongnooch",
+      "day": "day6",
+      "itemId": "s-d914f7d158",
+      "label": "東芭樂園・門票＋遊園車",
+      "amount": 700,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "外國成人方案參考：不以限時折扣價編列；未含秀、午餐或接送，2027 日期待確認。",
+      "sourceUrl": "https://www.gother.com/en-us/experiences/thailand/chonburi/nong-nooch-tropical-garden-pattaya-1776910986",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "ticket-catboat",
+      "day": "day6",
+      "itemId": "s-5a71b2aac1",
+      "label": "Hua Takhe・貓貓船",
+      "amount": 200,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "媒體參考價，非店家 2027 報價；四人可能分兩艘，須向店家確認。",
+      "sourceUrl": "https://eastweek.stheadline.com/pets/15771/%E6%B3%B0%E5%9C%8B%E8%B2%93%E8%B2%93%E8%88%B9-%E8%B2%93%E8%B2%93%E9%A8%8E%E8%86%8A%E9%A6%AC%E9%99%AA%E9%81%8A%E8%88%B9%E6%B2%B350%E5%88%86%E9%90%98%E5%8F%AA%E9%9C%80200%E9%8A%96",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "ticket-carnival",
+      "day": "day7",
+      "itemId": "s-b1fbdd4fff",
+      "label": "Riverside Carnival・晚餐遊船",
+      "amount": 1400,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "售票商當期成人參考 2026/11/17；含方案內晚餐，不套用過期或週一至四促銷，碼頭／班次待確認。",
+      "sourceUrl": "https://www.bangkokchaophraya.com/bookingCheckAll-en.jsp",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "tour-kohlarn",
+      "day": "day5",
+      "itemId": "s-fde119d910",
+      "label": "格蘭島・C1 快艇午餐與三項活動",
+      "amount": 1800,
+      "currency": "THB",
+      "basis": "person",
+      "status": "estimate",
+      "note": "以 C1 公開起價編列參考，不是已預訂；含拖曳傘、水上摩托車、香蕉船，海底漫步未計。",
+      "sourceUrl": "https://www.ticket2attraction.com/discount-tickets/pattaya-coral-island-koh-larn-day-tour/",
+      "checkedAt": "2026-11-17"
+    },
+    {
+      "id": "pending-sky-surcharges",
+      "day": "day3",
+      "itemId": "s-493b28dc98",
+      "label": "跳傘可能加價・付款／重量／保險條件待確認",
+      "amount": null,
+      "currency": "THB",
+      "basis": "group",
+      "status": "unknown",
+      "note": "官網所連 2026 價目 PDF 列刷卡 2.5%；若整筆 62,600 適用，另約 1,565 THB，但是否收取須看結帳。超過 95 kg 重量加價、保險是否包含亦需確認，先不加進基本小計。",
+      "sourceUrl": "https://thaiskyadventures.com/wp-content/uploads/Price-list-TSA-April-2026.pdf",
+      "checkedAt": "2026-11-17"
+    }
+  ],
+  "scopeNotes": [
+    "Current public adult prices are reference estimates for the 2027 itinerary, not guaranteed future quotations.",
+    "Nong Nooch uses a garden plus sightseeing-bus budget; no show or lunch added.",
+    "Koh Larn uses C1 as a reference planning package; no purchase or final activity selection made.",
+    "Riverside cruise uses current general 1400 THB reference, not expired 999 or weekday four-for-three offers. 2027 pier and departure time remain unconfirmed.",
+    "Cat boat 200 THB is a media reference; confirm directly with cafe.",
+    "Cart overtime 600 THB is an allowance, not a verified official final charge."
+  ]
+}

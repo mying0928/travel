@@ -77,3 +77,30 @@ test('Offline preparation reports success only after the worker finishes; blocke
  const t=await boot({worker:true});try{t.d.getElementById('prepare-offline').click();await pause(60);assert(t.d.getElementById('offline-status').textContent.includes('已儲存'));assert.equal(t.errors.length,0,t.errors.join('\n'));}finally{t.close();}
  const blocked=await boot({blocked:true,hash:'#day1'});try{assert.equal(blocked.d.getElementById('day1').style.display,'block');blocked.d.querySelector('[data-direct-timeline="day1"]').click();assert(blocked.d.getElementById('storage-status').textContent.includes('無法保存'));assert.equal(blocked.errors.length,0,blocked.errors.join('\n'));}finally{blocked.close();}
 });
+
+test('Front statistics list eight days, quantities, sources and the exact selected Deluxe subtotal',async()=>{
+ const t=await boot();try{
+  const {d,w}=t;assert.equal(d.querySelectorAll('.daily-ledger').length,8);assert.equal(d.querySelectorAll('.front-cost-list li').length,50);
+  assert(d.getElementById('trip-cost-totals').textContent.includes('92,146 THB'));assert(d.getElementById('trip-cost-totals').textContent.includes('1,933 NT$'));
+  const sky=[...d.querySelectorAll('.front-cost-list li')].find(row=>row.textContent.includes('Deluxe 跳傘與拍攝'));assert(sky.textContent.includes('15,650 THB／人'));assert(sky.textContent.includes('62,600 THB'));assert(sky.querySelector('a[href*="tandem-deluxe"]'));
+  d.querySelector('[data-ledger-action="open"]').click();assert([...d.querySelectorAll('.daily-ledger')].every(el=>el.open));
+  d.querySelector('[data-ledger-action="close"]').click();assert([...d.querySelectorAll('.daily-ledger')].every(el=>!el.open));
+  d.querySelector('[data-edit-day-budget="day3"]').click();assert.equal(d.getElementById('expense-day').value,'day3');assert(d.getElementById('expense-panel').open);assert.equal(t.errors.length,0,t.errors.join('\n'));
+ }finally{t.close();}
+});
+test('Older saved budgets receive researched tickets once; personal amounts and later removals survive reload',async()=>{
+ const prior=JSON.parse(app.match(/const priorExpenseSeeds = (\[[\s\S]*?\n\]);/)[1]);
+ const t=await boot({state:{expenses:prior}});let state;try{
+  state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));assert.equal(state.expenses.find(row=>row.itemId===data.day3.items[0].id).amount,15650);assert(state.expenses.some(row=>row.id==='ticket-truth'));
+  t.d.querySelector('[data-remove-expense="ticket-truth"]').click();state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));
+ }finally{t.close();}
+ const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-17-tickets-deluxe');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
+});
+test('The lazily loaded chart and front daily figures update from the same editable rows',async()=>{
+ const t=await boot();try{
+  const {d,w}=t;let graph;w.Chart=class{constructor(ctx,options){this.data=options.data;graph=this;}resize(){}update(){this.updated=true;}};
+  d.querySelector('.budget-fold').open=true;await pause(30);assert.equal(graph.data.datasets[1].data[2],16149);
+  const form=d.getElementById('expense-form');form.elements.day.value='day8';form.elements.label.value='test reference fee';form.elements.status.value='estimate';form.elements.status.dispatchEvent(new w.Event('change'));form.elements.amount.value='100';form.elements.basis.value='group';form.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
+  assert(graph.updated);assert.equal(graph.data.datasets[1].data[7],25);assert(d.querySelector('.daily-ledger[data-ledger-day="day8"]').textContent.includes('四人 100 THB'));assert(d.getElementById('budget-values-body').lastElementChild.textContent.includes('25 THB'));assert.equal(t.errors.length,0,t.errors.join('\n'));
+ }finally{t.close();}
+});

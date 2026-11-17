@@ -580,3 +580,25 @@ button:active,.trip-link:active { transform:translateY(1px); }
     #print-view .detail-copy,#print-view .small-note,#print-view .cost-summary small { font-size:9pt; color:#222; }
     * { animation:none !important; transition:none !important; box-shadow:none !important; }
 }
+/* Daily costs are visible at the front, with quantities and uncertainty intact. */
+.front-budget { padding:4px 0 34px; margin-bottom:30px; border-bottom:1px solid var(--rule); }
+.front-budget h2 { font:600 clamp(1.5rem,3vw,2.1rem)/1.65 'Noto Serif TC',serif; color:var(--travel-ink); margin-bottom:12px; }
+.planned-total { border-bottom:1px solid var(--rule); padding:18px 0; color:var(--travel-ink); }
+.planned-total>strong { display:block; font-size:.78rem; margin-bottom:8px; color:#566c62; }
+.planned-total>span { display:block; font-size:clamp(.94rem,2vw,1.18rem); line-height:1.9; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.front-budget .desk-actions button,.daily-ledger button { color:var(--travel-teal); min-height:44px; font-size:.78rem; line-height:1.8; text-align:left; }
+.daily-ledger { border-top:1px solid var(--rule); }.daily-ledger:last-child {border-bottom:1px solid var(--rule);}
+.daily-ledger>summary { list-style:none; display:flex; gap:16px; align-items:center; justify-content:space-between; padding:18px 0; cursor:pointer; color:#315c55; font-size:.83rem; line-height:1.9; }
+.daily-ledger>summary::-webkit-details-marker {display:none;}
+.daily-ledger>summary>span:first-child { min-width:0; }.daily-ledger>summary strong {margin-right:14px;white-space:nowrap;}
+.daily-ledger>summary>span:last-child {text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums;}
+.daily-ledger>summary small {display:block;font-size:.68rem;color:#617264;}
+.daily-ledger>summary::after {content:'＋';font-size:1rem;}.daily-ledger[open]>summary::after {content:'−';}
+.front-cost-list {list-style:none;padding:0;margin:0;}
+.front-cost-list li {display:grid;grid-template-columns:minmax(0,1fr) minmax(170px,.37fr);gap:18px;padding:15px 0;border-top:1px dashed #cbd7cb;align-items:start;}
+.front-cost-list li>div:first-child>strong {display:block;font-size:.81rem;color:#315c55;line-height:1.8;}
+.front-cost-list p {font-size:.7rem;color:#617264;line-height:1.9;margin-top:6px;}.front-cost-list p a {color:var(--travel-teal);text-decoration:underline;text-underline-offset:3px;}
+.front-cost-amount {text-align:right;font-size:.75rem;line-height:1.9;font-variant-numeric:tabular-nums;}.front-cost-amount>* {display:block;}.front-cost-amount strong {color:#315c55;font-size:.85rem;}.front-cost-amount small {color:#8e6142;}
+.ledger-subtotal {padding:0 0 20px;}.ledger-subtotal .planned-total {padding-top:10px;}
+@media(max-width:767px){.daily-ledger>summary{gap:10px;flex-wrap:wrap;}.daily-ledger>summary>span:first-child{flex-basis:100%;}.daily-ledger>summary>span:last-child{text-align:left;}.daily-ledger>summary::after{margin-left:auto;}.front-cost-list li{grid-template-columns:minmax(0,1fr);gap:8px;}.front-cost-amount{text-align:left;display:flex;flex-wrap:wrap;gap:5px 16px;align-items:baseline;}.front-cost-list p{font-size:.72rem;}}
+@media print {.print-day .planned-total{padding:8pt 0;}.print-day .planned-total>span{font-size:10pt;}}
