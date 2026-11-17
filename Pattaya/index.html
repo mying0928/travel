@@ -9,8 +9,7 @@
 
     <link rel="preload" as="image" href="images/optimized/hero-pattaya-songkran-1920.webp" imagesrcset="images/optimized/hero-pattaya-songkran-640.webp 640w, images/optimized/hero-pattaya-songkran-1280.webp 1280w, images/optimized/hero-pattaya-songkran-1920.webp 1920w" imagesizes="100vw" fetchpriority="high">
     <!-- External Libraries -->
-    <link rel="stylesheet" href="utilities.css?v=64f96b3cfe">
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="utilities.css?v=385eb56c71">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
@@ -21,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet" href="styles.css?v=212f910d9d">
+    <link rel="stylesheet" href="styles.css?v=c9f67e49a5">
 </head>
 <body class="text-slate-700">
 
@@ -58,6 +57,22 @@
             <button id="date-last" class="date-edge" type="button" aria-label="日期列移到最右端" title="移到最右端" aria-controls="date-strip"><i class="fas fa-angles-right" aria-hidden="true"></i></button>
         </nav>
 
+        <section class="planner-tools" aria-label="搜尋與旅行工具">
+            <label for="trip-search" class="editorial-kicker">想找哪一站？</label>
+            <div class="search-field"><input id="trip-search" type="search" placeholder="搜尋景點、餐廳、按摩或 Big C" aria-describedby="search-status" aria-controls="search-results" autocomplete="off"><button id="clear-search" type="button">清除</button></div>
+            <p id="search-status" class="small-note" role="status"></p><ul id="search-results" class="search-results"></ul>
+            <p id="storage-status" class="small-note" role="status"></p>
+            <div id="offline-update-banner" class="desk-actions" hidden><p class="small-note">有新版行程可用；更新會重新載入頁面。</p><button id="offline-update" type="button" hidden>更新行程並重新載入</button></div>
+            <details id="planner-desk" class="planner-desk"><summary>預約、費用與離線工具 <span aria-hidden="true">＋</span></summary>
+                <div class="desk-actions"><button type="button" data-print-scope="current">列印目前日期／另存 PDF</button><button type="button" data-print-scope="all">列印全部八天／另存 PDF</button></div>
+                <details id="booking-panel" class="desk-panel"><summary>預約與待辦清單</summary><p class="small-note">請依實際訂單手動確認。狀態、集合資料與備註只保存在這台裝置，不會送出預約或同步給同行者。</p><div class="desk-heading"><p id="booking-count" role="status"></p><label>顯示<select id="booking-filter"><option value="all">全部</option><option value="todo">待處理</option><option value="confirmed">已確認</option><option value="not-needed">不需預約／略過</option></select></label></div><div id="booking-list"></div></details>
+                <details id="expense-panel" class="desk-panel"><summary>每天費用與四人分攤</summary><p class="small-note">初始金額沿用既有行程，未重新查價。報價、估算與待填分開記；請依實際方案修改，購物、加點與未定費用不會自動算入。</p><label class="expense-filter">顯示日期<select id="expense-day"></select></label><div id="expense-totals"></div><div id="expense-list"></div>
+                    <form id="expense-form" class="expense-form"><h3>新增或修改一筆費用</h3><input type="hidden" name="expenseId"><label>日期<select name="day"></select></label><label>項目<input name="label" required maxlength="150" placeholder="例如：晚餐或機場接送"></label><label>狀態<select name="status"><option value="unknown">待填</option><option value="estimate">參考估算</option><option value="confirmed">已確認報價</option></select></label><label>金額<input name="amount" type="number" min="0" max="100000000" step="0.01" inputmode="decimal"></label><label>幣別<select name="currency"><option value="THB">泰銖 THB</option><option value="TWD">台幣 NT$</option></select></label><label>金額單位<select name="basis"><option value="group">四人合計</option><option value="person">每人</option></select></label><label class="full-field">備註<input name="note" maxlength="1000" placeholder="包含項目、來源或尚未確認的附加費"></label><div class="full-field desk-actions"><button type="submit" id="expense-submit">新增費用</button><button type="button" id="expense-cancel">取消編輯</button><button type="button" id="expense-undo" hidden>復原上一筆移除</button></div><p id="expense-message" class="full-field small-note" role="status"></p></form>
+                </details>
+                <details id="offline-panel" class="desk-panel"><summary>儲存離線行程</summary><p id="network-state" class="small-note"></p><div class="desk-actions"><button id="prepare-offline" type="button">儲存／重新下載離線行程與圖片</button></div><p id="offline-status" class="small-note" role="status">第一次儲存時需要網路；瀏覽器清除網站資料後，需要重新下載。</p></details>
+            </details>
+        </section>
+
         <main>
             <section id="overview" class="content-section magazine-overview">
                 <div id="today-brief" class="today-brief" hidden></div>
@@ -69,7 +84,7 @@
                 <section class="overview-section travel-notes"><div class="section-heading"><span class="editorial-kicker">出門前翻一下</span><h2>行李裡，要有這些。</h2><p class="small-note">可以勾選，紀錄只保存在這台裝置。</p></div><div><div class="packing-list"><label><input type="checkbox" data-pack="documents"><span>護照、機票與住宿資料的離線備份</span></label><label><input type="checkbox" data-pack="waterproof"><span>防水袋、護目鏡與快乾衣</span></label><label><input type="checkbox" data-pack="temple"><span>真理寺用的遮肩、過膝乾爽衣物</span></label><label><input type="checkbox" data-pack="beach"><span>泳衣、防曬、帽子與替換衣物</span></label><label><input type="checkbox" data-pack="network"><span>行動網路、充電器與行動電源</span></label><label><input type="checkbox" data-pack="bookings"><span>跳傘、船班、DAM 與按摩預約憑證</span></label></div><p id="packing-status" class="small-note" aria-live="polite">尚未勾選</p></div></section>
                 <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">實用小抄</span><h2>到了當地，少找幾次資料。</h2></div><div class="field-notes"><article><h3>入境資料</h3><p>依現行規定，TDAC 需於抵達前三天內（含抵達日）提交，官方申請免費。先備好護照、航班與第一晚住宿地址。</p><a class="trip-link" href="https://tdac.immigration.go.th/" target="_blank" rel="noopener noreferrer">TDAC 官方入口<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://tdac.immigration.go.th/manual/en/faq.html" target="_blank" rel="noopener noreferrer">官方填寫說明<span aria-hidden="true">↗</span></a><p class="small-note">現行資訊查核於 2026/10/30；2027 出發前再確認規定。</p></article><article><h3>叫車與接送</h3><p>4/10 已有整段包車報價；其餘接送依各方案確認。先把海灘路民宿地址存進手機，節日期間預留叫車時間。</p><a class="trip-link" href="https://maps.app.goo.gl/FmaH19S7VuRyycdq8" target="_blank" rel="noopener noreferrer">LOF LAND 位置<span aria-hidden="true">↗</span></a></article><article><h3>下雨時怎麼調整</h3><p>室內逛街可改 Royal Garden Plaza 或 Terminal 21。跳傘、快艇與火舞則先聯絡業者，依天候及訂單規則調整。</p></article><article><h3>需要協助時</h3><p>旅遊警察 1155，警察緊急電話 191。先保存司機、民宿房東及活動業者的聯絡方式。</p><a class="trip-link" href="https://thailand.prd.go.th/en/content/category/detail/id/2078/iid/447104" target="_blank" rel="noopener noreferrer">官方旅遊協助電話<span aria-hidden="true">↗</span></a></article></div></section>
                 <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">預約書籤</span><h2>會用到的入口，放一起。</h2></div><div class="booking-bookmarks"><a class="trip-link" href="https://www.lof-land.com/th/ticket" target="_blank" rel="noopener noreferrer">LOF LAND 門票<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/zh-TW/activity/186411-dam-beach-fireshow-pattaya/" target="_blank" rel="noopener noreferrer">DAM 四人前排<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://www.klook.com/en-US/activity/338-khao-kheow-open-zoo-pattaya/" target="_blank" rel="noopener noreferrer">綠山動物園<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://thaiskyadventures.com/begin-your-booking/" target="_blank" rel="noopener noreferrer">Thai Sky Adventures<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://maps.app.goo.gl/CcbW2fsZm1MdvMN9A" target="_blank" rel="noopener noreferrer">Seafood Station 地圖<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sanctuaryoftruthmuseum.com/visit-us/" target="_blank" rel="noopener noreferrer">真理寺<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://sky.theskygroupth.com/sky/customer/index.php?lang=en" target="_blank" rel="noopener noreferrer">The Sky Gallery 訂位<span aria-hidden="true">↗</span></a><a class="trip-link" href="https://letsrelaxspa.com/branches/pattaya-beachfront/" target="_blank" rel="noopener noreferrer">Let’s Relax 海灘路店<span aria-hidden="true">↗</span></a></div><p class="small-note">書籤是預約入口，不代表已購票。日期、套餐與費用仍以實際訂單為準。</p></section>
-                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">費用手記</span><h2>確認的先記，其他慢慢補。</h2></div><dl class="known-costs"><div><dt>4/10 BKK → 芭達雅接送 1,300 THB＋LOF LAND 停留加價 500 THB</dt><dd>1,800 THB <small>四人／每人 450 THB</small></dd></div><div><dt>LOF LAND 門票，含飲料</dt><dd>1,200 THB <small>四人／每人 300 THB</small></dd></div><div><dt>DAM 四人前排方案</dt><dd>NT$1,933 <small>四人／每人 NT$483.25</small></dd></div></dl><p class="small-note">4/10 已知費用：3,000 THB＋NT$1,933／四人；餐飲加點、晚間叫車另計。不同幣別分開記。</p><details class="budget-fold"><summary>查看每日人均預算圖 <span aria-hidden="true">＋</span></summary><p class="small-note">4/10 僅列已知泰銖費用每人 750 THB；4/11～4/14 暫留空，其他日期為粗估。不含機票、住宿與購物。</p><div class="chart-container"><canvas id="budgetChart" role="img" aria-label="每日預估人均泰銖支出；部分日期尚未估算，詳見上方說明。"></canvas></div></details></section>
+                <section class="overview-section"><div class="section-heading"><span class="editorial-kicker">費用手記</span><h2>確認的先記，其他慢慢補。</h2></div><dl class="known-costs"><div><dt>4/10 BKK → 芭達雅接送 1,300 THB＋LOF LAND 停留加價 500 THB</dt><dd>1,800 THB <small>四人／每人 450 THB</small></dd></div><div><dt>LOF LAND 門票，含飲料</dt><dd>1,200 THB <small>四人／每人 300 THB</small></dd></div><div><dt>DAM 四人前排方案</dt><dd>NT$1,933 <small>四人／每人 NT$483.25</small></dd></div></dl><p class="small-note">4/10 已知費用：3,000 THB＋NT$1,933／四人；餐飲加點、晚間叫車另計。不同幣別分開記。</p><details class="budget-fold"><summary>查看每日人均預算圖 <span aria-hidden="true">＋</span></summary><p class="small-note">4/10 僅列已知泰銖費用每人 750 THB；4/11～4/14 暫留空，其他日期為粗估。不含機票、住宿與購物。</p><p id="chart-status" class="small-note" role="status"></p><button id="chart-retry" type="button" hidden>重試載入圖表</button><table class="budget-values"><caption>原行程人均泰銖粗估</caption><tbody><tr><th>4/10</th><td>750 THB，僅列已知泰銖</td></tr><tr><th>4/11—4/14</th><td>尚未估算</td></tr><tr><th>4/15</th><td>2,500 THB，粗估</td></tr><tr><th>4/16</th><td>3,500 THB，粗估</td></tr><tr><th>4/17</th><td>800 THB，粗估</td></tr></tbody></table><div class="chart-container"><canvas id="budgetChart" role="img" aria-label="每日預估人均泰銖支出；部分日期尚未估算，詳見上方說明。"></canvas></div></details></section>
             </section>
 
             <div id="daily-sections-container"></div>
@@ -85,6 +100,8 @@
         <i class="fas fa-arrow-up text-xl"></i>
     </button>
 
-    <script defer src="app.js?v=138fd4daf8"></script>
+    <section id="print-view" hidden aria-label="列印行程"></section>
+    <script defer src="planner-core.js?v=b158010f7e"></script>
+    <script defer src="app.js?v=0ec2b3d5e7"></script>
 </body>
 </html>

@@ -11,7 +11,10 @@
             const dailySectionsContainer = document.getElementById('daily-sections-container');
             let currentActiveSectionId = null;
             let isAnimating = false;
-            const tripState = readTripState();
+            let navigationAnimations = [];
+            let activeRoute = '';
+            let restoringHistory = false;
+            let navigationSerial = 0;
             const mapTimers = {};
             const selectedRoutes = {};
             const itemLinkCache = new WeakMap();
@@ -59,7 +62,12 @@
                 "summary": "07:55 起飛、10:40 抵達 BKK，抵達後改用泰國時間。",
                 "notice": "航班時間為各地當地時間；抵達曼谷後，行程一律使用泰國時間。",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-a2a077bc48",
+                "routeIndices": [
+                    0
+                ],
+                "startMinutes": 415
             },
             {
                 "time": "10:40–11:10",
@@ -69,7 +77,11 @@
                 "summary": "抵達後預留約 30 分鐘下機與步行。",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-e692da9752",
+                "routeIndices": [
+                    0
+                ]
             },
             {
                 "time": "11:10–12:10",
@@ -79,7 +91,11 @@
                 "summary": "約 60 分鐘辦理手續，整體出機場抓 1.5～2 小時。",
                 "notice": "抵達至出關約抓 1.5～2 小時，排隊與行李時間可能變動。",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-46680b4569",
+                "routeIndices": [
+                    0
+                ]
             },
             {
                 "time": "12:10–12:30",
@@ -89,7 +105,11 @@
                 "summary": "預計 12:30 上車，集合點依司機訊息。",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-34d03e99d2",
+                "routeIndices": [
+                    0
+                ]
             },
             {
                 "time": "12:30–13:30（估）",
@@ -99,7 +119,12 @@
                 "kind": "transport",
                 "icon": "fa-car",
                 "notice": "以約 12:30 上車估算；出關或交通延後時，後續行程同步順延。",
-                "disclosureLabel": "接送路線與包車費用"
+                "disclosureLabel": "接送路線與包車費用",
+                "id": "s-95e9a46204",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "13:30–15:30（估）",
@@ -115,7 +140,12 @@
                     "caption": "LOF LAND・未來感造景",
                     "alt": "LOF LAND 巨型金屬標誌、岩壁瀑布與綠地",
                     "scene": "day"
-                }
+                },
+                "id": "s-7361eefacf",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "15:30–16:30／17:00（估）",
@@ -125,7 +155,11 @@
                 "kind": "transport",
                 "icon": "fa-car",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-4da50a9e78",
+                "routeIndices": [
+                    2
+                ]
             },
             {
                 "time": "16:30／17:00–17:30",
@@ -135,7 +169,11 @@
                 "kind": "activity",
                 "icon": "fa-house",
                 "notice": "加入 LOF LAND 後，下午休息時間較短；若晚到，先放行李再前往晚餐。",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-7d521d25bb",
+                "routeIndices": [
+                    2
+                ]
             },
             {
                 "time": "17:30–18:15（估）",
@@ -145,7 +183,11 @@
                 "kind": "transport",
                 "icon": "fa-car",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-ead83eefec",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "18:15–19:30",
@@ -155,7 +197,12 @@
                 "summary": "四人海濱前排方案 NT$1,933，平均每人 NT$483.25。",
                 "notice": "第一排座位及套餐內容以訂單確認；餐飲加點另計。",
                 "kind": "dining",
-                "disclosureLabel": "套餐內容與訂票"
+                "disclosureLabel": "套餐內容與訂票",
+                "id": "s-b4bed3a682",
+                "routeIndices": [
+                    3
+                ],
+                "needsBooking": true
             },
             {
                 "time": "19:30–20:30",
@@ -171,7 +218,11 @@
                     "caption": "DAM・火焰在海風裡劃過",
                     "alt": "DAM Pattaya 火舞表演者揮動火焰的近景",
                     "scene": "night"
-                }
+                },
+                "id": "s-5d050d926d",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "20:30 後",
@@ -181,7 +232,11 @@
                 "details": "<div class=\"detail-copy\"><p>從 DAM Pattaya 叫車前往海灘路 Soi 6；20:30 為離開 DAM 的預計時間，抵達依叫車與路況調整。找間酒吧喝一杯、聊天或玩桌遊，結束後返回民宿。</p><p>交通、飲品與互動飲料另計，點單前確認菜單價格。</p></div>",
                 "notice": "",
                 "kind": "night",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-8aebcc324b",
+                "routeIndices": [
+                    4
+                ]
             }
         ],
         "intro": "落地後先到春武里 LOF LAND 拍照，再入住海灘路，晚上看火舞、去六巷小酌。",
@@ -192,7 +247,8 @@
                 "lon": 100.75,
                 "note": "航廈區域示意。",
                 "approx": true,
-                "googleQuery": "Suvarnabhumi Airport Thailand"
+                "googleQuery": "Suvarnabhumi Airport Thailand",
+                "itemId": "s-e692da9752"
             },
             {
                 "name": "LOF LAND",
@@ -200,7 +256,8 @@
                 "lon": 100.9798617,
                 "note": "依你提供的 Google Maps 定位。",
                 "approx": false,
-                "googleQuery": "LOF LAND Chonburi Thailand"
+                "googleQuery": "LOF LAND Chonburi Thailand",
+                "itemId": "s-7361eefacf"
             },
             {
                 "name": "海灘路住宿區",
@@ -208,7 +265,8 @@
                 "lon": 100.883,
                 "note": "民宿確切地址待提供，先標海灘路區域。",
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand"
+                "googleQuery": "Pattaya Beach Road Thailand",
+                "itemId": "s-7d521d25bb"
             },
             {
                 "name": "DAM Pattaya",
@@ -216,7 +274,8 @@
                 "lon": 100.912,
                 "note": "以 Google Maps 的 DAM Pattaya 店家搜尋結果及訂位資訊確認入口。",
                 "approx": true,
-                "googleQuery": "DAM Pattaya Na Kluea Chon Buri Thailand"
+                "googleQuery": "DAM Pattaya Na Kluea Chon Buri Thailand",
+                "itemId": "s-b4bed3a682"
             },
             {
                 "name": "Soi 6 六巷",
@@ -224,7 +283,8 @@
                 "lon": 100.885,
                 "note": "街區位置示意。",
                 "approx": true,
-                "googleQuery": "Soi 6 Pattaya Thailand"
+                "googleQuery": "Soi 6 Pattaya Thailand",
+                "itemId": "s-8aebcc324b"
             }
         ],
         "photoCaption": "DAM Pattaya・海濱火舞"
@@ -270,7 +330,11 @@
                     "label": "上午",
                     "time": "07:30–11:30",
                     "title": "動物園，先走想看的重點"
-                }
+                },
+                "id": "s-abc08fe317",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "08:30–08:45",
@@ -280,7 +344,12 @@
                 "icon": "fa-ticket",
                 "notice": "球車共使用約 4 小時 45 分鐘，超時費另計；租金與擔保方式現場確認。",
                 "kind": "activity",
-                "disclosureLabel": "門票與球車租借"
+                "disclosureLabel": "門票與球車租借",
+                "id": "s-584c900b54",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "08:45–09:40",
@@ -296,7 +365,11 @@
                     "caption": "Moo Deng・侏儒河馬",
                     "alt": "綠山動物園侏儒河馬 Moo Deng 的幼年近照",
                     "scene": "day"
-                }
+                },
+                "id": "s-b0f19d3a07",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "09:40–10:20",
@@ -312,7 +385,11 @@
                     "caption": "綠山動物園・企鵝遊行",
                     "alt": "綠山動物園企鵝沿步道排隊走向遊客",
                     "scene": "day"
-                }
+                },
+                "id": "s-1d97b35d1e",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "10:20–11:30",
@@ -328,7 +405,11 @@
                     "caption": "綠山動物園・大象游泳",
                     "alt": "綠山動物園大象在水中游泳的水下視角",
                     "scene": "day"
-                }
+                },
+                "id": "s-7754be56d9",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "11:30–12:15",
@@ -343,7 +424,11 @@
                     "label": "午間",
                     "time": "11:30–13:30",
                     "title": "午餐、補看與還車"
-                }
+                },
+                "id": "s-325e2588e9",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "12:15–13:00",
@@ -353,7 +438,11 @@
                 "icon": "fa-paw",
                 "notice": "",
                 "kind": "activity",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-dfcef3dbb1",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "13:00–13:30",
@@ -363,7 +452,11 @@
                 "icon": "fa-car",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-79bef5c9df",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "13:30–15:00",
@@ -378,7 +471,11 @@
                     "label": "午後",
                     "time": "13:30–18:15",
                     "title": "拍照，再回海灘路休息"
-                }
+                },
+                "id": "s-341770ae90",
+                "routeIndices": [
+                    2
+                ]
             },
             {
                 "time": "15:00–16:30",
@@ -394,7 +491,12 @@
                     "caption": "House of Benedict・午後拍照",
                     "alt": "House of Benedict 店內主題造景",
                     "scene": "day"
-                }
+                },
+                "id": "s-bfbe0387ee",
+                "routeIndices": [
+                    2
+                ],
+                "needsBooking": true
             },
             {
                 "time": "16:30–18:15",
@@ -404,7 +506,11 @@
                 "icon": "fa-utensils",
                 "notice": "",
                 "kind": "dining",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-1b08c846c6",
+                "routeIndices": [
+                    0
+                ]
             },
             {
                 "time": "18:15–19:00",
@@ -419,7 +525,11 @@
                     "label": "晚間",
                     "time": "18:15–23:00",
                     "title": "看秀與六巷小酌"
-                }
+                },
+                "id": "s-4284ae4d92",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "19:00–20:15",
@@ -429,7 +539,12 @@
                 "icon": "fa-ticket",
                 "notice": "票價依你提供的 700 THB／人記錄；確認場次、報到時間與接送安排。",
                 "kind": "activity",
-                "disclosureLabel": "四人票價與場館位置"
+                "disclosureLabel": "四人票價與場館位置",
+                "id": "s-34d077ae20",
+                "routeIndices": [
+                    3
+                ],
+                "needsBooking": true
             },
             {
                 "time": "20:15–20:45",
@@ -439,7 +554,11 @@
                 "icon": "fa-car",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-bc98b5f00d",
+                "routeIndices": [
+                    4
+                ]
             },
             {
                 "time": "20:45–23:00",
@@ -449,7 +568,11 @@
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-04f0c2f556",
+                "routeIndices": [
+                    4
+                ]
             }
         ],
         "intro": "提早出發看動物，午後留給拍照，晚餐後再接成人秀與夜生活。",
@@ -460,7 +583,8 @@
                 "lon": 100.883,
                 "note": "民宿確切地址待提供，先標海灘路區域。",
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand"
+                "googleQuery": "Pattaya Beach Road Thailand",
+                "itemId": "s-abc08fe317"
             },
             {
                 "name": "綠山動物園",
@@ -468,7 +592,8 @@
                 "lon": 101.0611659,
                 "note": "",
                 "approx": false,
-                "googleQuery": "Khao Kheow Open Zoo Thailand"
+                "googleQuery": "Khao Kheow Open Zoo Thailand",
+                "itemId": "s-584c900b54"
             },
             {
                 "name": "House of Benedict",
@@ -476,7 +601,8 @@
                 "lon": 100.904986,
                 "note": "",
                 "approx": false,
-                "googleQuery": "House of Benedict Pattaya"
+                "googleQuery": "House of Benedict Pattaya",
+                "itemId": "s-bfbe0387ee"
             },
             {
                 "name": "69 Pattaya Show",
@@ -484,7 +610,8 @@
                 "lon": 100.8918577,
                 "note": "依提供的 Google 地圖連結定位。",
                 "approx": false,
-                "googleQuery": "69 Pattaya Show Pattaya Thailand"
+                "googleQuery": "69 Pattaya Show Pattaya Thailand",
+                "itemId": "s-34d077ae20"
             },
             {
                 "name": "Soi 6 六巷",
@@ -492,7 +619,8 @@
                 "lon": 100.885,
                 "note": "街區位置示意。",
                 "approx": true,
-                "googleQuery": "Soi 6 Pattaya Thailand"
+                "googleQuery": "Soi 6 Pattaya Thailand",
+                "itemId": "s-04f0c2f556"
             }
         ],
         "photoCaption": "綠山動物園"
@@ -552,7 +680,12 @@
                     "caption": "高空跳傘・自由落體",
                     "alt": "Thai Sky Adventures 雙人跳傘與地面遠景",
                     "scene": "day"
-                }
+                },
+                "id": "s-493b28dc98",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "12:00–13:00",
@@ -567,7 +700,11 @@
                     "label": "午後",
                     "time": "12:00–16:00",
                     "title": "回到市區，吃飯逛街"
-                }
+                },
+                "id": "s-1f2c4d6113",
+                "routeIndices": [
+                    0
+                ]
             },
             {
                 "time": "13:00–14:30",
@@ -577,7 +714,11 @@
                 "icon": "fa-shopping-bag",
                 "notice": "跳傘若延後，縮短逛街；觀景台依剩餘時間調整。",
                 "kind": "activity",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-f11619f31f",
+                "routeIndices": [
+                    2
+                ]
             },
             {
                 "time": "14:30–15:30（含移動）",
@@ -593,7 +734,11 @@
                     "caption": "帕塔納克山觀景台・白天海灣全景",
                     "alt": "從帕塔納克山觀景台俯瞰芭達雅彎月形海灣、港口及沿岸城市",
                     "scene": "day"
-                }
+                },
+                "id": "s-2eefc5a3b4",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "15:30–17:00（估）",
@@ -608,7 +753,11 @@
                     "label": "傍晚",
                     "time": "15:30–18:30",
                     "title": "海鮮燒烤，慢慢吃晚餐"
-                }
+                },
+                "id": "s-9a638904f0",
+                "routeIndices": [
+                    4
+                ]
             },
             {
                 "time": "17:00–18:30",
@@ -624,7 +773,12 @@
                     "caption": "Seafood Station・自助海鮮檯",
                     "alt": "Seafood Station Pattaya 招牌與冰鎮海鮮自助檯",
                     "scene": "day"
-                }
+                },
+                "id": "s-78c0b9bd7c",
+                "routeIndices": [
+                    4
+                ],
+                "needsBooking": true
             },
             {
                 "time": "18:30–20:30（彈性）",
@@ -639,7 +793,11 @@
                     "label": "晚間",
                     "time": "18:30–01:00",
                     "title": "吃飽休息，再去看高空夜景"
-                }
+                },
+                "id": "s-16c03a16f0",
+                "routeIndices": [
+                    5
+                ]
             },
             {
                 "time": "20:30–21:45",
@@ -655,7 +813,12 @@
                     "caption": "ZAMĀ Skybar・高空露台",
                     "alt": "ZAMĀ Skybar 露台座席、雕塑與海景",
                     "scene": "night"
-                }
+                },
+                "id": "s-117798c4ea",
+                "routeIndices": [
+                    5
+                ],
+                "needsBooking": true
             },
             {
                 "time": "21:45–22:30",
@@ -665,7 +828,11 @@
                 "icon": "fa-car",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-60702fef4a",
+                "routeIndices": [
+                    6
+                ]
             },
             {
                 "time": "22:30–01:00（彈性）",
@@ -675,7 +842,11 @@
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-3646f15f55",
+                "routeIndices": [
+                    6
+                ]
             }
         ],
         "intro": "上午挑戰跳傘，午後逛街、上帕塔納克山看海灣，傍晚吃海鮮燒烤，再到高空酒吧看夜景。",
@@ -686,7 +857,8 @@
                 "lon": 100.883,
                 "note": "民宿確切地址待提供，先標海灘路區域。",
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand"
+                "googleQuery": "Pattaya Beach Road Thailand",
+                "itemId": "s-1f2c4d6113"
             },
             {
                 "name": "Thai Sky Adventures",
@@ -694,7 +866,8 @@
                 "lon": 101.0485811,
                 "note": "依業者官網的地圖連結定位。",
                 "approx": false,
-                "googleQuery": "Thai Sky Adventures Thailand"
+                "googleQuery": "Thai Sky Adventures Thailand",
+                "itemId": "s-493b28dc98"
             },
             {
                 "name": "Royal Garden Plaza",
@@ -702,7 +875,8 @@
                 "lon": 100.8780487,
                 "note": "",
                 "approx": false,
-                "googleQuery": "Royal Garden Plaza Pattaya"
+                "googleQuery": "Royal Garden Plaza Pattaya",
+                "itemId": "s-f11619f31f"
             },
             {
                 "name": "帕塔納克山觀景台・白天",
@@ -710,7 +884,8 @@
                 "lon": 100.867,
                 "note": "14:30～15:30 含上下山交通，停留約 20～30 分鐘；跳傘延誤可略過。山頂位置示意，以搜尋結果確認入口。",
                 "approx": true,
-                "googleQuery": "Phra Tamnak Mountain Viewpoint Pattaya Thailand"
+                "googleQuery": "Phra Tamnak Mountain Viewpoint Pattaya Thailand",
+                "itemId": "s-2eefc5a3b4"
             },
             {
                 "name": "Seafood Station Pattaya",
@@ -718,7 +893,8 @@
                 "lon": 100.9096122,
                 "note": "依提供的 Google 地圖連結定位；餐後可先回住宿休息。",
                 "approx": false,
-                "googleQuery": "Seafood Station Pattaya"
+                "googleQuery": "Seafood Station Pattaya",
+                "itemId": "s-78c0b9bd7c"
             },
             {
                 "name": "ZAMĀ Skybar・D Varee 飯店",
@@ -726,7 +902,8 @@
                 "lon": 100.883,
                 "note": "38 樓；導航至 D Varee Jomtien Beach 飯店入口，再上樓。",
                 "approx": true,
-                "googleQuery": "ZAMA Skybar D Varee Jomtien Beach Pattaya"
+                "googleQuery": "ZAMA Skybar D Varee Jomtien Beach Pattaya",
+                "itemId": "s-117798c4ea"
             },
             {
                 "name": "Soi 6 六巷",
@@ -734,7 +911,8 @@
                 "lon": 100.885,
                 "note": "街區位置示意。",
                 "approx": true,
-                "googleQuery": "Soi 6 Pattaya Thailand"
+                "googleQuery": "Soi 6 Pattaya Thailand",
+                "itemId": "s-3646f15f55"
             }
         ],
         "photoCaption": "Thai Sky Adventures・高空跳傘"
@@ -785,7 +963,11 @@
                     "caption": "宋干節・海灘路玩水",
                     "alt": "潑水節水花與水槍，節慶氣氛參考",
                     "scene": "day"
-                }
+                },
+                "id": "s-d64df5b01f",
+                "routeIndices": [
+                    0
+                ]
             },
             {
                 "time": "13:00–14:00",
@@ -795,7 +977,11 @@
                 "icon": "fa-house",
                 "notice": "",
                 "kind": "activity",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-3c1126f221",
+                "routeIndices": [
+                    0
+                ]
             },
             {
                 "time": "14:00–14:30",
@@ -805,7 +991,11 @@
                 "icon": "fa-car",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-79ee2fc29a",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "14:30–16:30",
@@ -821,7 +1011,12 @@
                     "caption": "真理寺・近看木雕屋簷",
                     "alt": "真理寺的木雕屋簷與建築",
                     "scene": "day"
-                }
+                },
+                "id": "s-5cee1245ae",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "16:30–17:15",
@@ -831,7 +1026,11 @@
                 "icon": "fa-car",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-99d3c9dabb",
+                "routeIndices": [
+                    2
+                ]
             },
             {
                 "time": "17:15–19:30",
@@ -847,7 +1046,12 @@
                     "caption": "The Sky Gallery・海景日落晚餐",
                     "alt": "The Sky Gallery 戶外餐桌與海上日落",
                     "scene": "day"
-                }
+                },
+                "id": "s-ca389d2a79",
+                "routeIndices": [
+                    2
+                ],
+                "needsBooking": true
             },
             {
                 "time": "19:30–19:45（估）",
@@ -857,7 +1061,11 @@
                 "icon": "fa-car",
                 "notice": "建議先約好觀景台下山的接送，車資另計。",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-8ce8fd8982",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "19:45–20:20",
@@ -872,7 +1080,11 @@
                     "label": "晚間",
                     "time": "19:30–23:00",
                     "title": "山頂看夜景，再到六巷小酌"
-                }
+                },
+                "id": "s-93ef7b2925",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "20:20–21:00（估）",
@@ -882,7 +1094,11 @@
                 "icon": "fa-car",
                 "notice": "",
                 "kind": "transport",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-6e0abec254",
+                "routeIndices": [
+                    4
+                ]
             },
             {
                 "time": "21:00–23:00（彈性）",
@@ -892,7 +1108,11 @@
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-1c1d312f97",
+                "routeIndices": [
+                    4
+                ]
             }
         ],
         "intro": "上午玩水，中午換裝，下午看真理寺，The Sky Gallery 日落晚餐後上山看海灣夜景，再到六巷小酌。",
@@ -903,7 +1123,8 @@
                 "lon": 100.883,
                 "note": "民宿確切地址待提供，先標海灘路區域。",
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand"
+                "googleQuery": "Pattaya Beach Road Thailand",
+                "itemId": "s-d64df5b01f"
             },
             {
                 "name": "真理寺",
@@ -911,7 +1132,8 @@
                 "lon": 100.889,
                 "note": "園區位置示意。",
                 "approx": true,
-                "googleQuery": "Sanctuary of Truth Pattaya"
+                "googleQuery": "Sanctuary of Truth Pattaya",
+                "itemId": "s-5cee1245ae"
             },
             {
                 "name": "The Sky Gallery",
@@ -919,7 +1141,8 @@
                 "lon": 100.8594453,
                 "note": "",
                 "approx": false,
-                "googleQuery": "The Sky Gallery Pattaya"
+                "googleQuery": "The Sky Gallery Pattaya",
+                "itemId": "s-ca389d2a79"
             },
             {
                 "name": "帕塔納克山觀景台",
@@ -927,7 +1150,8 @@
                 "lon": 100.867,
                 "note": "山頂位置示意；請以 Phra Tamnak Mountain Viewpoint 搜尋結果確認入口，不是山下 Pattaya City 字樣拍照點。",
                 "approx": true,
-                "googleQuery": "Phra Tamnak Mountain Viewpoint Pattaya Thailand"
+                "googleQuery": "Phra Tamnak Mountain Viewpoint Pattaya Thailand",
+                "itemId": "s-93ef7b2925"
             },
             {
                 "name": "Soi 6 六巷",
@@ -935,7 +1159,8 @@
                 "lon": 100.885,
                 "note": "街區位置示意。",
                 "approx": true,
-                "googleQuery": "Soi 6 Pattaya Thailand"
+                "googleQuery": "Soi 6 Pattaya Thailand",
+                "itemId": "s-1c1d312f97"
             }
         ],
         "photoCaption": "宋干節・水花與水槍"
@@ -990,7 +1215,12 @@
                     "caption": "格蘭島・海岸與碧綠海水",
                     "alt": "格蘭島沙灘與碧綠海水",
                     "scene": "day"
-                }
+                },
+                "id": "s-fde119d910",
+                "routeIndices": [
+                    2
+                ],
+                "needsBooking": true
             },
             {
                 "time": "16:30–18:30",
@@ -1000,7 +1230,12 @@
                 "icon": "fa-spa",
                 "notice": "以 60 分鐘按摩安排；返程延誤時，按摩與晚餐一併順延。",
                 "kind": "activity",
-                "disclosureLabel": "按摩療程與預約"
+                "disclosureLabel": "按摩療程與預約",
+                "id": "s-8b6d3a7c25",
+                "routeIndices": [
+                    3
+                ],
+                "needsBooking": true
             },
             {
                 "time": "18:30–20:30",
@@ -1016,7 +1251,12 @@
                     "caption": "Runway 飛機夜市・機身下的晚餐",
                     "alt": "Runway 夜市的大型飛機與機身下用餐人潮",
                     "scene": "night"
-                }
+                },
+                "id": "s-40189c4331",
+                "routeIndices": [
+                    4,
+                    6
+                ]
             },
             {
                 "time": "20:30–23:30",
@@ -1026,7 +1266,11 @@
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-3a66b1cdc8",
+                "routeIndices": [
+                    5
+                ]
             }
         ],
         "intro": "把白天留給格蘭島，回來洗澡按摩，晚餐與逛街依體力安排。",
@@ -1037,7 +1281,8 @@
                 "lon": 100.883,
                 "note": "民宿確切地址待提供，先標海灘路區域。",
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand"
+                "googleQuery": "Pattaya Beach Road Thailand",
+                "itemId": "s-8b6d3a7c25"
             },
             {
                 "name": "Bali Hai 碼頭區",
@@ -1045,7 +1290,8 @@
                 "lon": 100.8677,
                 "note": "實際出發點依一日團憑證。",
                 "approx": true,
-                "googleQuery": "Bali Hai Pier Pattaya"
+                "googleQuery": "Bali Hai Pier Pattaya",
+                "itemId": "s-fde119d910"
             },
             {
                 "name": "格蘭島",
@@ -1053,7 +1299,8 @@
                 "lon": 100.78,
                 "note": "只標島嶼位置，不代表實際停靠沙灘或海上航線。",
                 "approx": true,
-                "googleQuery": "Ko Lan Pattaya Thailand"
+                "googleQuery": "Ko Lan Pattaya Thailand",
+                "itemId": "s-fde119d910"
             },
             {
                 "name": "海灘路盥洗・SPA 區域",
@@ -1061,7 +1308,8 @@
                 "lon": 100.88,
                 "note": "按摩店及民宿確切位置待確認。",
                 "approx": true,
-                "googleQuery": "Lets Relax Spa Pattaya Beachfront"
+                "googleQuery": "Lets Relax Spa Pattaya Beachfront",
+                "itemId": "s-8b6d3a7c25"
             },
             {
                 "name": "Terminal 21",
@@ -1069,7 +1317,8 @@
                 "lon": 100.888,
                 "note": "商場區域示意；飛機夜市為替代方案，未另連線。",
                 "approx": true,
-                "googleQuery": "Terminal 21 Pattaya"
+                "googleQuery": "Terminal 21 Pattaya",
+                "itemId": "s-40189c4331"
             },
             {
                 "name": "Soi 6 六巷",
@@ -1077,7 +1326,8 @@
                 "lon": 100.885,
                 "note": "街區位置示意。",
                 "approx": true,
-                "googleQuery": "Soi 6 Pattaya Thailand"
+                "googleQuery": "Soi 6 Pattaya Thailand",
+                "itemId": "s-3a66b1cdc8"
             },
             {
                 "name": "Runway 飛機夜市（擇一）",
@@ -1086,7 +1336,8 @@
                 "note": "與 Terminal 21 擇一；點選可查看夜市，整天開車路線不重複安排兩個選項。",
                 "approx": true,
                 "optional": true,
-                "googleQuery": "Runway Street Food Pattaya Thailand"
+                "googleQuery": "Runway Street Food Pattaya Thailand",
+                "itemId": "s-40189c4331"
             }
         ],
         "photoCaption": "格蘭島"
@@ -1140,7 +1391,12 @@
                     "label": "上午",
                     "time": "08:00–12:30",
                     "title": "退房後，逛東芭樂園"
-                }
+                },
+                "id": "s-e1a02702ae",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "09:00–12:30",
@@ -1156,7 +1412,12 @@
                     "caption": "東芭樂園・法式花園與造景",
                     "alt": "東芭樂園法式花園、幾何綠籬與恐龍造景",
                     "scene": "day"
-                }
+                },
+                "id": "s-d914f7d158",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "12:30–16:00（交通預留）",
@@ -1171,7 +1432,12 @@
                     "label": "午後",
                     "time": "12:30–17:30",
                     "title": "離開芭達雅，中途坐貓貓船"
-                }
+                },
+                "id": "s-c0ac557b28",
+                "routeIndices": [
+                    2
+                ],
+                "needsBooking": true
             },
             {
                 "time": "16:00–17:30（場次待確認）",
@@ -1187,7 +1453,12 @@
                     "caption": "Hua Takhe・貓咪陪伴的運河遊船",
                     "alt": "Hua Takhe 運河小船上的貓咪與河畔木屋",
                     "scene": "day"
-                }
+                },
+                "id": "s-5a71b2aac1",
+                "routeIndices": [
+                    2
+                ],
+                "needsBooking": true
             },
             {
                 "time": "17:30–19:00（估）",
@@ -1202,7 +1473,12 @@
                     "label": "傍晚",
                     "time": "17:30–20:15",
                     "title": "進曼谷，入住後吃晚餐"
-                }
+                },
+                "id": "s-5958cd7dd1",
+                "routeIndices": [
+                    3
+                ],
+                "needsBooking": true
             },
             {
                 "time": "19:00–20:15（彈性）",
@@ -1212,7 +1488,11 @@
                 "icon": "fa-utensils",
                 "kind": "dining",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-bd13dbbdc4",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "20:15–20:45（估）",
@@ -1227,7 +1507,11 @@
                     "label": "晚間",
                     "time": "20:15–23:45（彈性）",
                     "title": "先逛 Big C，再從娜娜走回民宿"
-                }
+                },
+                "id": "s-9ab860bd03",
+                "routeIndices": [
+                    4
+                ]
             },
             {
                 "time": "20:45–21:15（順路選去）",
@@ -1237,7 +1521,11 @@
                 "icon": "fa-basket-shopping",
                 "kind": "activity",
                 "notice": "這站非必去；大量採購已排 4/16 上午 Big C Extra Rama IV。",
-                "disclosureLabel": "分店差別與採買安排"
+                "disclosureLabel": "分店差別與採買安排",
+                "id": "s-9a9cdf8192",
+                "routeIndices": [
+                    5
+                ]
             },
             {
                 "time": "21:15–21:30（估）",
@@ -1247,7 +1535,11 @@
                 "icon": "fa-person-walking",
                 "kind": "transport",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-283b1e2b39",
+                "routeIndices": [
+                    6
+                ]
             },
             {
                 "time": "21:30–22:30（彈性）",
@@ -1257,7 +1549,11 @@
                 "icon": "fa-moon",
                 "kind": "night",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-962a781a66",
+                "routeIndices": [
+                    6
+                ]
             },
             {
                 "time": "22:30–23:45（彈性）",
@@ -1267,7 +1563,11 @@
                 "icon": "fa-person-walking",
                 "kind": "night",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-b009b79df9",
+                "routeIndices": [
+                    7
+                ]
             }
         ],
         "intro": "上午逛東芭，午後坐貓貓船，入住曼谷後吃飯、逛娜娜，再沿素坤逸路散步。",
@@ -1278,7 +1578,8 @@
                 "lon": 100.883,
                 "googleQuery": "Pattaya Beach Road Thailand",
                 "note": "芭達雅住宿區示意；退房後先叫單程車。",
-                "approx": true
+                "approx": true,
+                "itemId": "s-e1a02702ae"
             },
             {
                 "name": "東芭樂園",
@@ -1286,7 +1587,8 @@
                 "lon": 100.932,
                 "googleQuery": "Nong Nooch Tropical Garden Thailand",
                 "note": "上午叫車抵達，下午跨城包車從園區接人。",
-                "approx": true
+                "approx": true,
+                "itemId": "s-d914f7d158"
             },
             {
                 "name": "Hua Takhe 貓貓船",
@@ -1294,7 +1596,8 @@
                 "lon": 100.7897698,
                 "googleQuery": "Si Yaek Huatakhe Cafe & Guesthouse Bangkok",
                 "note": "包車中停；四人船位及 4/15 場次須提前確認。",
-                "approx": false
+                "approx": false,
+                "itemId": "s-5a71b2aac1"
             },
             {
                 "name": "Yu Sabay 阿Ben的曼谷民宿",
@@ -1302,7 +1605,8 @@
                 "lon": 100.5705319,
                 "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
                 "note": "依提供的 Google 地圖定位。",
-                "approx": false
+                "approx": false,
+                "itemId": "s-5958cd7dd1"
             },
             {
                 "name": "BTS Phloen Chit・夜遊起點",
@@ -1311,7 +1615,8 @@
                 "googleQuery": "BTS Phloen Chit Bangkok",
                 "note": "晚餐後搭 BTS 到這裡，先逛 Big C Mahatun Plaza，再往娜娜廣場步行。",
                 "approx": true,
-                "mapOnly": true
+                "mapOnly": true,
+                "itemId": "s-9ab860bd03"
             },
             {
                 "name": "Big C Foodplace Mahatun Plaza",
@@ -1320,7 +1625,8 @@
                 "googleQuery": "Big C Foodplace Mahatun Plaza Bangkok",
                 "note": "Phloen Chit 下車後先採買，再步行去娜娜廣場；小型 Foodplace，並非 CentralWorld 對面的 Big C Ratchadamri。街區位置示意，以店家搜尋結果確認入口。",
                 "approx": true,
-                "mapOnly": true
+                "mapOnly": true,
+                "itemId": "s-9a9cdf8192"
             },
             {
                 "name": "Nana Plaza 娜娜廣場",
@@ -1329,7 +1635,8 @@
                 "googleQuery": "Nana Plaza Bangkok",
                 "note": "今晚主要停留點；步行段，未列入跨城開車路線。",
                 "approx": true,
-                "mapOnly": true
+                "mapOnly": true,
+                "itemId": "s-962a781a66"
             },
             {
                 "name": "BTS Phrom Phong・步行回程",
@@ -1338,7 +1645,8 @@
                 "googleQuery": "BTS Phrom Phong Bangkok",
                 "note": "娜娜經 Asok 步行回 Phrom Phong，再回民宿。",
                 "approx": true,
-                "mapOnly": true
+                "mapOnly": true,
+                "itemId": "s-b009b79df9"
             }
         ],
         "photoCaption": "東芭樂園・法式花園"
@@ -1388,7 +1696,11 @@
                     "label": "上午",
                     "time": "09:30–12:00",
                     "title": "先把伴手禮買好，再輕鬆逛街"
-                }
+                },
+                "id": "s-28d1cd31d8",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "11:30–12:00（估）",
@@ -1398,7 +1710,11 @@
                 "icon": "fa-house",
                 "kind": "transport",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-2fbbfb5fbe",
+                "routeIndices": [
+                    2
+                ]
             },
             {
                 "time": "12:00–13:00（估）",
@@ -1413,7 +1729,11 @@
                     "label": "午後",
                     "time": "12:00–16:30",
                     "title": "把下午留給河畔散步"
-                }
+                },
+                "id": "s-54d347115d",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "13:00–16:30",
@@ -1423,7 +1743,11 @@
                 "icon": "fa-water",
                 "kind": "activity",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-e49aa8b368",
+                "routeIndices": [
+                    3
+                ]
             },
             {
                 "time": "16:30–18:00（交通預留）",
@@ -1438,7 +1762,11 @@
                     "label": "傍晚",
                     "time": "16:30–19:30",
                     "title": "先到碼頭，換票登船"
-                }
+                },
+                "id": "s-a4ff7bcc58",
+                "routeIndices": [
+                    4
+                ]
             },
             {
                 "time": "18:00–19:30（依方案確認）",
@@ -1448,7 +1776,11 @@
                 "icon": "fa-ticket",
                 "kind": "activity",
                 "notice": "舊行程的已預訂狀態不沿用；本次四人票券、場次與座位仍待確認。",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-4eca03218a",
+                "routeIndices": [
+                    4
+                ]
             },
             {
                 "time": "19:30–21:30（沿用上次時段）",
@@ -1469,7 +1801,12 @@
                     "caption": "Riverside Carnival・晚餐遊船",
                     "alt": "Riverside Bangkok 遊船的露天甲板與河畔燈光",
                     "scene": "night"
-                }
+                },
+                "id": "s-b1fbdd4fff",
+                "routeIndices": [
+                    4
+                ],
+                "needsBooking": true
             },
             {
                 "time": "21:30–22:30（估）",
@@ -1479,7 +1816,11 @@
                 "icon": "fa-house",
                 "kind": "transport",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-4047c582f1",
+                "routeIndices": [
+                    5
+                ]
             }
         ],
         "intro": "上午買伴手禮、回民宿放好，午後逛 ICONSIAM 河畔，傍晚報到搭嘉年華號，船上吃晚餐、看秀與夜景。",
@@ -1490,7 +1831,8 @@
                 "lon": 100.5705319,
                 "note": "採買出發點，買完先回來放購物袋。",
                 "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿"
+                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "itemId": "s-2fbbfb5fbe"
             },
             {
                 "name": "Big C Extra Rama IV",
@@ -1498,7 +1840,8 @@
                 "lon": 100.574,
                 "note": "拉瑪四路店，2929 Rama IV Road；街區位置示意，以提供的 Google 地圖確認入口。",
                 "approx": true,
-                "googleQuery": "Big C Extra Rama IV Bangkok"
+                "googleQuery": "Big C Extra Rama IV Bangkok",
+                "itemId": "s-28d1cd31d8"
             },
             {
                 "name": "回 Yu Sabay・放購物袋",
@@ -1506,7 +1849,8 @@
                 "lon": 100.5705319,
                 "note": "採買出發點，買完先回來放購物袋。",
                 "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿"
+                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "itemId": "s-2fbbfb5fbe"
             },
             {
                 "name": "ICONSIAM",
@@ -1514,7 +1858,8 @@
                 "lon": 100.510294,
                 "note": "下午逛河畔與商場，16:30 左右離開前往遊船報到碼頭。",
                 "approx": false,
-                "googleQuery": "ICONSIAM Bangkok"
+                "googleQuery": "ICONSIAM Bangkok",
+                "itemId": "s-e49aa8b368"
             },
             {
                 "name": "Riverside Bangkok Hotel・嘉年華號碼頭",
@@ -1522,7 +1867,8 @@
                 "lon": 100.4995,
                 "googleQuery": "Riverside Bangkok Hotel 195 Ratchawithi 21 Bangkok",
                 "note": "暫依上次飯店碼頭方案；2027/4/16 若憑證改列 Asiatique，交通與地圖需同步調整。",
-                "approx": true
+                "approx": true,
+                "itemId": "s-4eca03218a"
             },
             {
                 "name": "回 Yu Sabay・休息備返台",
@@ -1530,7 +1876,8 @@
                 "lon": 100.5705319,
                 "note": "遊船結束後返宿，整理行李，隔天退房前往 BKK。",
                 "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿"
+                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "itemId": "s-4047c582f1"
             }
         ],
         "photoCaption": "河畔嘉年華號・湄南河晚餐遊船"
@@ -1567,7 +1914,12 @@
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "目的地為 BKK 蘇凡納布機場；出發時間以能在 09:45 前抵達為準。",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-06f970dc3f",
+                "routeIndices": [
+                    1
+                ],
+                "needsBooking": true
             },
             {
                 "time": "09:45–11:45",
@@ -1583,7 +1935,11 @@
                     "caption": "BKK・國際線出境報到大廳",
                     "alt": "蘇凡納布機場航廈內的國際線報到櫃檯與旅客",
                     "scene": "day"
-                }
+                },
+                "id": "s-c1a362f048",
+                "routeIndices": [
+                    1
+                ]
             },
             {
                 "time": "11:45 → 16:15（當地時間）",
@@ -1593,7 +1949,11 @@
                 "icon": "fa-plane-departure",
                 "kind": "transport",
                 "notice": "",
-                "disclosureLabel": ""
+                "disclosureLabel": "",
+                "id": "s-f99b8f90ab",
+                "routeIndices": [
+                    1
+                ]
             }
         ],
         "intro": "退房後直接前往 BKK，起飛前兩小時抵達機場，辦理報到、搭機返回高雄。",
@@ -1604,7 +1964,8 @@
                 "lon": 100.5705319,
                 "note": "曼谷住宿，依提供的地圖定位。",
                 "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿"
+                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "itemId": "s-06f970dc3f"
             },
             {
                 "name": "BKK 蘇凡納布機場",
@@ -1612,12 +1973,193 @@
                 "lon": 100.75,
                 "note": "航廈區域示意。",
                 "approx": true,
-                "googleQuery": "Suvarnabhumi Airport Thailand"
+                "googleQuery": "Suvarnabhumi Airport Thailand",
+                "itemId": "s-c1a362f048"
             }
         ],
         "photoCaption": "BKK 蘇凡納布機場・出境報到大廳"
     }
 };
+            const legacyItemIds = {"day1":["s-a2a077bc48","s-e692da9752","s-46680b4569","s-34d03e99d2","s-95e9a46204","s-7361eefacf","s-4da50a9e78","s-7d521d25bb","s-ead83eefec","s-b4bed3a682","s-5d050d926d","s-8aebcc324b"],"day2":["s-abc08fe317","s-584c900b54","s-b0f19d3a07","s-1d97b35d1e","s-7754be56d9","s-325e2588e9","s-dfcef3dbb1","s-79bef5c9df","s-341770ae90","s-bfbe0387ee","s-1b08c846c6","s-4284ae4d92","s-34d077ae20","s-bc98b5f00d","s-04f0c2f556"],"day3":["s-493b28dc98","s-1f2c4d6113","s-f11619f31f","s-2eefc5a3b4","s-9a638904f0","s-78c0b9bd7c","s-16c03a16f0","s-117798c4ea","s-60702fef4a","s-3646f15f55"],"day4":["s-d64df5b01f","s-3c1126f221","s-79ee2fc29a","s-5cee1245ae","s-99d3c9dabb","s-ca389d2a79","s-8ce8fd8982","s-93ef7b2925","s-6e0abec254","s-1c1d312f97"],"day5":["s-fde119d910","s-8b6d3a7c25","s-40189c4331","s-3a66b1cdc8"],"day6":["s-e1a02702ae","s-d914f7d158","s-c0ac557b28","s-5a71b2aac1","s-5958cd7dd1","s-bd13dbbdc4","s-9ab860bd03","s-9a9cdf8192","s-283b1e2b39","s-962a781a66","s-b009b79df9"],"day7":["s-28d1cd31d8","s-2fbbfb5fbe","s-54d347115d","s-e49aa8b368","s-a4ff7bcc58","s-4eca03218a","s-b1fbdd4fff","s-4047c582f1"],"day8":["s-06f970dc3f","s-c1a362f048","s-f99b8f90ab"]};
+            const defaultExpenses = [
+    {
+        "id": "quote-s-95e9a46204",
+        "day": "day1",
+        "itemId": "s-95e9a46204",
+        "label": "BKK → 春武里 LOF LAND",
+        "amount": 1800,
+        "currency": "THB",
+        "basis": "group",
+        "status": "confirmed",
+        "note": "原行程的四人整段包車報價，含 LOF LAND 停留加價；後段車程不重複計入。"
+    },
+    {
+        "id": "quote-s-7361eefacf",
+        "day": "day1",
+        "itemId": "s-7361eefacf",
+        "label": "LOF LAND・拍照與飲料",
+        "amount": 300,
+        "currency": "THB",
+        "basis": "person",
+        "status": "confirmed",
+        "note": "原行程記錄：每人門票含一杯飲料，加點另計。"
+    },
+    {
+        "id": "quote-s-b4bed3a682",
+        "day": "day1",
+        "itemId": "s-b4bed3a682",
+        "label": "DAM 海濱晚餐",
+        "amount": 1933,
+        "currency": "TWD",
+        "basis": "group",
+        "status": "confirmed",
+        "note": "原行程四人前排方案報價；是否付款仍請自行確認。"
+    },
+    {
+        "id": "quote-s-584c900b54",
+        "day": "day2",
+        "itemId": "s-584c900b54",
+        "label": "換票・租四人球車",
+        "amount": 550,
+        "currency": "THB",
+        "basis": "group",
+        "status": "estimate",
+        "note": "原行程球車基本 2 小時 500＋保險 50；不含超時、門票或擔保。"
+    },
+    {
+        "id": "quote-s-bfbe0387ee",
+        "day": "day2",
+        "itemId": "s-bfbe0387ee",
+        "label": "House of Benedict",
+        "amount": 200,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "原行程售票頁參考；非 2027 實付保證價，餐飲另計。"
+    },
+    {
+        "id": "quote-s-34d077ae20",
+        "day": "day2",
+        "itemId": "s-34d077ae20",
+        "label": "69 Pattaya Show",
+        "amount": 700,
+        "currency": "THB",
+        "basis": "person",
+        "status": "confirmed",
+        "note": "你提供的票價；接送是否包含另行確認。"
+    },
+    {
+        "id": "quote-s-493b28dc98",
+        "day": "day3",
+        "itemId": "s-493b28dc98",
+        "label": "Thai Sky Adventures 雙人跳傘",
+        "amount": 9700,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "沿用原行程官網基本方案參考，不含未確認的攝影或其他加購。"
+    },
+    {
+        "id": "quote-s-78c0b9bd7c",
+        "day": "day3",
+        "itemId": "s-78c0b9bd7c",
+        "label": "Seafood Station Pattaya・海鮮吃到飽",
+        "amount": 499,
+        "currency": "THB",
+        "basis": "person",
+        "status": "estimate",
+        "note": "沿用原行程參考預算，來源有價差，需向店家確認；未加啤酒。"
+    },
+    {
+        "id": "unknown-day1",
+        "day": "day1",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "unknown-day2",
+        "day": "day2",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "unknown-day3",
+        "day": "day3",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "unknown-day4",
+        "day": "day4",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "unknown-day5",
+        "day": "day5",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "unknown-day6",
+        "day": "day6",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "unknown-day7",
+        "day": "day7",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "unknown-day8",
+        "day": "day8",
+        "itemId": null,
+        "label": "其他餐飲、交通、未定門票與購物",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    }
+];
+            const tripState = readTripState();
 
             // --- INITIALIZATION ---
 
@@ -1633,6 +2175,7 @@
                 setupTabSwitching();
                 setupScrollToTop();
                 setupPracticalMode();
+                setupPlannerTools();
                 setupTodayBrief();
                 setupDayAtmosphere();
                 setupReadingExperience();
@@ -1649,43 +2192,221 @@
 
                 document.querySelector('.preloader')?.classList.add('hidden');
                 document.body.classList.add('loaded');
-                const requestedDay = location.hash.slice(1);
-                const firstView = Object.hasOwn(itineraryData, requestedDay) ? requestedDay : 'overview';
-                const saved = tripState.position ? {...tripState.position} : null;
-                isAnimating = true;
-                switchTab(firstView, false, () => {
-                    isAnimating = false;
-                    if (firstView !== 'overview') {
-                        if (saved?.day === firstView) restoreReading(saved);
-                        else if (tripState.quick || tripDayAt() === firstView) {
-                            setTimeline(firstView,true);
-                            scrollToPart(document.getElementById('timeline-'+firstView),true);
-                        } else scrollToPart(document.getElementById(firstView),true);
-                    }
-                });
+                const route=TripTools.parseRoute(location.hash,itineraryData) || {day:'overview',item:null};
+                const saved=tripState.position?.day===route.day&&!route.item?{...tripState.position}:null;
+                navigateDay(route.day,{item:route.item,history:false,instant:true,resume:saved});
             }
 
             setupPage();
 
             // --- SETUP FUNCTIONS ---
+            function itemFromId(day,id){return itineraryData[day]?.items.find(item=>item.id===id);}
+            function itemElement(day,id){return document.getElementById(day+'-item-'+id);}
+            function dateLabel(day){return '4/'+(Number(day.slice(3))+9);}
+            function mainMapLink(item){return itemLinks(item).mapUrl || '';}
+            function itemMapActions(day,item){
+                return `<div class="item-actions">${item.routeIndices.map(index=>`<button type="button" data-locate-day="${day}" data-locate-index="${index}">${item.routeIndices.length>1?escapeHtml(itineraryData[day].route[index].name):'在今日地圖定位'} ↗</button>`).join('')}<button type="button" data-share-day="${day}" data-share-item="${item.id}">複製景點連結</button><span class="share-status" role="status"></span></div>`;
+            }
+            function focusMapPoint(day,index){
+                const point=itineraryData[day].route[index];
+                document.querySelector(`#${day} .route-stop[data-index="${index}"]`)?.click();
+                scrollToPart(document.querySelector('#'+day+' .day-route-spread'));
+                document.getElementById('route-note-'+day).textContent=point.note||point.name;
+            }
+            function setupPlannerTools(){
+                if(!tripState.expenses)tripState.expenses=defaultExpenses.map(row=>({...row}));
+                setupHistoryNavigation();setupSearch();setupBookings();setupExpenses();setupPrinting();setupOffline();
+                document.addEventListener('click',async event=>{
+                    const locate=event.target.closest('[data-locate-day]');
+                    if(locate){focusMapPoint(locate.dataset.locateDay,Number(locate.dataset.locateIndex));return;}
+                    const target=event.target.closest('[data-go-day]');
+                    if(target){navigateDay(target.dataset.goDay,{item:target.dataset.goItem,focus:true});return;}
+                    const share=event.target.closest('[data-share-item]');
+                    if(share){
+                        const url=new URL(location.href);url.hash=TripTools.routeHash(share.dataset.shareDay,share.dataset.shareItem);
+                        const status=share.parentElement.querySelector('.share-status');
+                        try{if(!navigator.clipboard?.writeText)throw Error('clipboard');await navigator.clipboard.writeText(url.href);status.textContent='景點連結已複製';}
+                        catch{
+                            status.textContent='可手動複製：';let input=status.querySelector('input');
+                            if(!input){input=document.createElement('input');input.readOnly=true;input.setAttribute('aria-label','景點分享連結');status.append(input);}
+                            input.value=url.href;input.focus();input.select();
+                        }
+                    }
+                });
+                document.querySelectorAll('[data-open-planner]').forEach(button=>button.addEventListener('click',()=>{
+                    document.getElementById('planner-desk').open=true;
+                    document.getElementById(button.dataset.openPlanner).open=true;
+                    if(button.dataset.costDay){document.getElementById('expense-day').value=button.dataset.costDay;renderExpenses();}
+                    scrollToPart(document.getElementById(button.dataset.openPlanner));
+                }));
+                document.querySelectorAll('.planner-desk,.desk-panel,.daily-costs').forEach(detail=>detail.addEventListener('toggle',layoutChanged));
+                renderDailyCosts();
+            }
+            function setupSearch(){
+                const input=document.getElementById('trip-search'),results=document.getElementById('search-results'),status=document.getElementById('search-status');
+                let limit=15;
+                function render(){
+                    const rows=TripTools.search(itineraryData,input.value);
+                    results.replaceChildren();
+                    if(!input.value.trim()){status.textContent='搜尋景點、餐廳或活動，直接跳到那段行程。';layoutChanged();return;}
+                    status.textContent=rows.length?`找到 ${rows.length} 段行程${rows.length>limit?'，先顯示 '+limit+' 段':''}`:'沒有符合的行程，試試「海鮮」「按摩」或「Big C」。';
+                    rows.slice(0,limit).forEach(row=>{
+                        const li=document.createElement('li'),button=document.createElement('button');button.type='button';
+                        button.dataset.goDay=row.day;button.dataset.goItem=row.item.id;
+                        const title=document.createElement('strong');title.textContent=dateLabel(row.day)+' · '+row.item.title;
+                        const copy=document.createElement('span');copy.textContent=row.item.time+' · '+row.item.summary;
+                        button.append(title,copy);li.append(button);results.append(li);
+                    });
+                    if(rows.length>limit){const li=document.createElement('li'),button=document.createElement('button');button.type='button';button.textContent='顯示更多結果';button.addEventListener('click',()=>{limit+=15;render();});li.append(button);results.append(li);}
+                    layoutChanged();
+                }
+                input.addEventListener('input',()=>{limit=15;render();});
+                input.addEventListener('keydown',event=>{if(event.key==='Escape'){input.value='';render();}if(event.key==='ArrowDown'){event.preventDefault();results.querySelector('button')?.focus();}if(event.key==='Enter'){event.preventDefault();results.querySelector('[data-go-day]')?.click();}});
+                document.getElementById('clear-search').addEventListener('click',()=>{input.value='';render();input.focus();});render();
+            }
+            function safeBookingValue(key){
+                const row=tripState.bookings?.[key];
+                return {status:['todo','confirmed','not-needed'].includes(row?.status)?row.status:'todo',meeting:typeof row?.meeting==='string'?row.meeting:'',note:typeof row?.note==='string'?row.note:''};
+            }
+            function bookingLink(item){
+                const template=document.createElement('template');template.innerHTML=item.details;
+                const links=[...template.content.querySelectorAll('a[href]')];
+                const link=links.find(a=>/訂票|預訂|訂位|方案查詢|門票|官網/.test(a.textContent)&&!a.href.includes('maps.'));
+                return link?.getAttribute('href') || mainMapLink(item);
+            }
+            function setupBookings(){
+                const list=document.getElementById('booking-list'),filter=document.getElementById('booking-filter');
+                const rows=Object.entries(itineraryData).flatMap(([day,data])=>data.items.filter(item=>item.needsBooking).map(item=>({day,item,key:day+'/'+item.id})));
+                function totals(){
+                    const confirmed=rows.filter(row=>safeBookingValue(row.key).status==='confirmed').length;
+                    const pending=rows.filter(row=>safeBookingValue(row.key).status==='todo').length;
+                    document.getElementById('booking-count').textContent=`${pending} 項待處理 · ${confirmed} 項已確認；狀態由你手動記錄。`;
+                }
+                function render(){
+                    list.innerHTML=rows.filter(row=>filter.value==='all'||safeBookingValue(row.key).status===filter.value).map(({day,item,key})=>{
+                        const saved=safeBookingValue(key),url=bookingLink(item),locationName=itineraryData[day].route[item.routeIndices[0]]?.name || '';
+                        return `<article class="booking-row" data-booking-key="${key}"><header><button type="button" data-go-day="${day}" data-go-item="${item.id}">${dateLabel(day)} · ${escapeHtml(item.title)} ↗</button><span>${escapeHtml(item.time)}</span></header><p class="small-note">${escapeHtml(item.summary)}</p><div class="booking-fields"><label>處理狀態<select data-booking-field="status" aria-label="${escapeHtml(item.title)} 預約狀態"><option value="todo" ${saved.status==='todo'?'selected':''}>待處理</option><option value="confirmed" ${saved.status==='confirmed'?'selected':''}>已確認</option><option value="not-needed" ${saved.status==='not-needed'?'selected':''}>不需預約／略過</option></select></label><label>集合地點／時間<input data-booking-field="meeting" maxlength="250" value="${escapeHtml(saved.meeting)}" placeholder="${escapeHtml(locationName)}" aria-label="${escapeHtml(item.title)} 集合地點與時間"></label></div><label class="booking-note">訂單或聯絡備註<textarea data-booking-field="note" maxlength="1000" rows="2" aria-label="${escapeHtml(item.title)} 備註">${escapeHtml(saved.note)}</textarea></label>${url?`<a class="trip-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">查看預約或店家資訊 ↗</a>`:''}</article>`;
+                    }).join('')||'<p class="small-note">這個分類目前沒有項目。</p>';totals();layoutChanged();
+                }
+                function save(event){
+                    const field=event.target.dataset.bookingField;if(!field)return;
+                    const key=event.target.closest('[data-booking-key]').dataset.bookingKey;
+                    tripState.bookings[key]={...safeBookingValue(key),[field]:event.target.value};writeTripState();totals();
+                    if(field==='status'&&filter.value!=='all')render();
+                }
+                list.addEventListener('input',save);list.addEventListener('change',save);filter.addEventListener('change',render);render();
+            }
+            function money(cents,currency){return (cents/100).toLocaleString('zh-TW',{maximumFractionDigits:2})+' '+(currency==='TWD'?'NT$':'THB');}
+            function costSummary(day){
+                const totals=TripTools.expenseTotals(tripState.expenses || [],day);
+                const line=status=>['THB','TWD'].map(currency=>`<span>${money(totals[status][currency],currency)}<small>四人合計 · 每人 ${money(totals[status][currency]/4,currency)}</small></span>`).join('');
+                return `<div class="cost-summary"><div><strong>已確認報價</strong>${line('confirmed')}</div><div><strong>參考估算・另列</strong>${line('estimate')}</div></div><p class="small-note">${totals.unknown} 筆待填，不以零元計入。已確認報價不代表已付款；兩種幣別分開加總。</p>`;
+            }
+            function renderDailyCosts(){document.querySelectorAll('[data-cost-summary]').forEach(box=>box.innerHTML=costSummary(box.dataset.costSummary));layoutChanged();}
+            function renderExpenses(){
+                const day=document.getElementById('expense-day').value,list=document.getElementById('expense-list');
+                document.getElementById('expense-totals').innerHTML=costSummary(day);
+                const labels={confirmed:'已確認報價',estimate:'參考估算',unknown:'待填'};
+                list.innerHTML=(tripState.expenses || []).filter(row=>day==='all'||row.day===day).map(row=>`<article class="expense-row"><div><strong>${dateLabel(row.day)} · ${escapeHtml(row.label)}</strong><span>${labels[row.status]} · ${row.amount===null?'金額待填':escapeHtml(row.amount.toLocaleString('zh-TW'))+' '+(row.currency==='TWD'?'NT$':'THB')+'／'+(row.basis==='person'?'人':'四人')}</span><p class="small-note">${escapeHtml(row.note)}</p></div><div><button type="button" data-edit-expense="${row.id}">編輯</button><button type="button" data-remove-expense="${row.id}">移除</button></div></article>`).join('')||'<p class="small-note">尚未新增費用。</p>';
+                renderDailyCosts();
+            }
+            function setupExpenses(){
+                const filter=document.getElementById('expense-day'),form=document.getElementById('expense-form'),amount=form.elements.amount;
+                let undo=null;
+                const dates=Object.keys(itineraryData).map(day=>`<option value="${day}">${dateLabel(day)}</option>`).join('');filter.innerHTML='<option value="all">全部八天</option>'+dates;form.elements.day.innerHTML=dates;
+                function amountMode(){amount.disabled=form.elements.status.value==='unknown';amount.required=!amount.disabled;}
+                function reset(){form.reset();form.elements.expenseId.value='';document.getElementById('expense-submit').textContent='新增費用';amountMode();}
+                filter.addEventListener('change',renderExpenses);form.elements.status.addEventListener('change',amountMode);document.getElementById('expense-cancel').addEventListener('click',reset);
+                form.addEventListener('submit',event=>{
+                    event.preventDefault();if(!form.reportValidity())return;
+                    const id=form.elements.expenseId.value || 'custom-'+(crypto.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
+                    const prior=tripState.expenses.find(row=>row.id===id);
+                    const row=TripTools.validExpense({id,day:form.elements.day.value,itemId:prior?.itemId || null,label:form.elements.label.value.trim(),amount:amount.disabled?null:Number(amount.value),currency:form.elements.currency.value,basis:form.elements.basis.value,status:form.elements.status.value,note:form.elements.note.value.trim()});
+                    if(!row)return;
+                    tripState.expenses=tripState.expenses.filter(value=>value.id!==id).concat(row);writeTripState();renderExpenses();reset();document.getElementById('expense-message').textContent='費用已儲存在這台裝置。';
+                });
+                document.getElementById('expense-list').addEventListener('click',event=>{
+                    const edit=event.target.closest('[data-edit-expense]'),remove=event.target.closest('[data-remove-expense]');
+                    if(edit){const row=tripState.expenses.find(value=>value.id===edit.dataset.editExpense);for(const key of ['day','label','amount','currency','basis','status','note'])form.elements[key].value=row[key]??'';form.elements.expenseId.value=row.id;document.getElementById('expense-submit').textContent='儲存修改';amountMode();form.elements.label.focus();}
+                    if(remove){undo=tripState.expenses.find(value=>value.id===remove.dataset.removeExpense);tripState.expenses=tripState.expenses.filter(value=>value!==undo);writeTripState();renderExpenses();document.getElementById('expense-undo').hidden=false;document.getElementById('expense-message').textContent='已移除一筆費用，可復原。';}
+                });
+                document.getElementById('expense-undo').addEventListener('click',()=>{if(!undo)return;tripState.expenses.push(undo);undo=null;writeTripState();renderExpenses();document.getElementById('expense-undo').hidden=true;});reset();renderExpenses();
+            }
+            function printBooking(day,item){
+                if(!item.needsBooking)return '';
+                const saved=safeBookingValue(day+'/'+item.id);
+                if(saved.status==='todo'&&!saved.meeting&&!saved.note)return '';
+                const status={todo:'待處理',confirmed:'已確認', 'not-needed':'不需預約／略過'}[saved.status];
+                return `<p class="print-booking">本機預約紀錄：${status}${saved.meeting?' · '+escapeHtml(saved.meeting):''}${saved.note?'<br>'+escapeHtml(saved.note):''}</p>`;
+            }
+            function setupPrinting(){
+                let scope=null;
+                function render(){
+                    const selected=scope || (itineraryData[currentActiveSectionId]?currentActiveSectionId:'all');
+                    const days=selected==='all'?Object.keys(itineraryData):[selected];
+                    document.getElementById('print-view').innerHTML='<h1>芭達雅・曼谷旅行手帳</h1><p>2027/4/10—4/17 · 四人 · 時間依各段註記，抵達後採泰國當地時間。</p>'+days.map(day=>{
+                        const data=itineraryData[day];return `<section class="print-day"><h2>${dateLabel(day)} · ${escapeHtml(data.title)}</h2><p>${escapeHtml(data.intro)}</p><p>地點：${data.route.map(point=>escapeHtml(point.name)).join(' → ')}</p>${costSummary(day)}${data.items.map(item=>`<article><h3>${escapeHtml(item.time)} · ${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${item.notice?`<p>提醒：${escapeHtml(item.notice)}</p>`:''}${item.details}${printBooking(day,item)}</article>`).join('')}</section>`;
+                    }).join('');
+                }
+                document.querySelectorAll('[data-print-scope]').forEach(button=>button.addEventListener('click',()=>{
+                    scope=button.dataset.printScope==='all'?'all':itineraryData[currentActiveSectionId]?currentActiveSectionId:tripDayAt() || 'day1';render();window.print();
+                }));
+                window.addEventListener('beforeprint',render);window.addEventListener('afterprint',()=>{scope=null;document.getElementById('print-view').replaceChildren();});
+            }
+            function setupOffline(){
+                const button=document.getElementById('prepare-offline'),status=document.getElementById('offline-status'),update=document.getElementById('offline-update');
+                let registration=null,requesting=false;
+                function deadline(promise,ms){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('timeout')),ms);promise.then(value=>{clearTimeout(timer);resolve(value);},error=>{clearTimeout(timer);reject(error);});});}
+                function savedStatus(worker){
+                    if(!worker)return;
+                    const channel=new MessageChannel(),timer=setTimeout(()=>channel.port1.close(),4000);
+                    channel.port1.onmessage=event=>{clearTimeout(timer);channel.port1.close();if(event.data.type==='STATUS'&&!registration?.waiting){status.textContent=event.data.done===event.data.total?'這一版的文字與基本圖片已完整儲存；可重新下載確認。':`已保留文字行程與 ${event.data.done}／${event.data.total} 張基本圖片，可繼續下載。`;}};
+                    worker.postMessage({type:'STATUS'},[channel.port2]);
+                }
+                const network=()=>document.getElementById('network-state').textContent=navigator.onLine===false?'目前離線 · 地圖、即時天氣與外部訂票頁需要網路。':'離線儲存只保留本機行程；地圖、即時資訊與外部頁面需要網路。';
+                window.addEventListener('online',network);window.addEventListener('offline',network);network();
+                if(!('serviceWorker'in navigator)||!window.isSecureContext || location.protocol==='file:'){
+                    status.textContent='離線儲存需要 HTTPS 或 localhost 預覽；直接開啟檔案時可先列印／另存 PDF。';button.disabled=true;return;
+                }
+                function waiting(){if(registration?.waiting){update.hidden=false;document.getElementById('offline-update-banner').hidden=false;status.textContent='有新版行程可用；按下更新後重新載入。';}}
+                button.addEventListener('click',async()=>{
+                    if(requesting)return;requesting=true;button.disabled=true;
+                    try{
+                        registration=registration || await deadline(navigator.serviceWorker.register('sw.js',{scope:'./',updateViaCache:'none'}),20000);
+                        registration.addEventListener('updatefound',()=>registration.installing?.addEventListener('statechange',waiting));
+                        waiting();if(registration.waiting)return;const ready=await deadline(navigator.serviceWorker.ready,20000);
+                        const worker=registration.active || ready.active;
+                        if(!worker)throw Error('worker unavailable');
+                        status.textContent='正在儲存文字與圖片，請保持此頁開啟…';
+                        await new Promise((resolve,reject)=>{
+                            const channel=new MessageChannel();const timer=setTimeout(()=>{channel.port1.close();reject(Error('timeout'));},120000);
+                            channel.port1.onmessage=event=>{
+                                const data=event.data;
+                                if(data.type==='PROGRESS')status.textContent=`正在儲存離線圖片 ${data.done}／${data.total}…`;
+                                if(data.type==='DONE'){clearTimeout(timer);channel.port1.close();resolve();}
+                                if(data.type==='ERROR'){clearTimeout(timer);channel.port1.close();reject(Error(data.message));}
+                            };
+                            worker.postMessage({type:'PREPARE'},[channel.port2]);
+                        });
+                        status.textContent='本版文字、地址與基本圖片已儲存。請在瀏覽器中重新開啟此網址使用離線行程；不是地圖的離線下載。';
+                    }catch{status.textContent='未能完整儲存，可能是網路或儲存空間不足。請重試，或列印／另存 PDF。';}
+                    finally{requesting=false;button.disabled=false;}
+                });
+                update.addEventListener('click',()=>{registration?.waiting?.postMessage({type:'ACTIVATE'});});
+                navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!update.hidden)location.reload();});
+                navigator.serviceWorker.getRegistration('./').then(value=>{registration=value;waiting();if(value){savedStatus(value.active);value.update().catch(()=>{});value.addEventListener('updatefound',()=>value.installing?.addEventListener('statechange',waiting));}}).catch(()=>{});
+            }
+
             // Shared reading state stays on this device; URLs remain shareable by date.
             function readTripState() {
                 try {
-                    const value = JSON.parse(localStorage.getItem('pattaya-reading-v2') || '{}');
-                    if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
-                    const position=value.position;
-                    const valid=position && typeof position==='object' && /^day[1-8]$/.test(position.day);
-                    return {
-                        quick:value.quick===true,
-                        expanded:Array.isArray(value.expanded)?value.expanded.filter(x=>typeof x==='string'):[],
-                        photos:Array.isArray(value.photos)?value.photos.filter(x=>typeof x==='string'):[],
-                        timelines:value.timelines && typeof value.timelines==='object'?Object.fromEntries(Object.entries(value.timelines).filter(([day,open])=>/^day[1-8]$/.test(day)&&typeof open==='boolean')):{},
-                        position:valid?{day:position.day,item:typeof position.item==='string'?position.item:null,anchor:typeof position.anchor==='string'?position.anchor:null,offset:Number.isFinite(position.offset)?position.offset:0}:null
-                    };
-                } catch { return {}; }
+                    const raw=localStorage.getItem('pattaya-reading-v3') || localStorage.getItem('pattaya-reading-v2') || '{}';
+                    return TripTools.migrateState(JSON.parse(raw),itineraryData,legacyItemIds);
+                }catch{return TripTools.migrateState({},itineraryData,legacyItemIds);}
             }
             function writeTripState() {
-                try { localStorage.setItem('pattaya-reading-v2', JSON.stringify(tripState)); } catch {}
+                try {localStorage.setItem('pattaya-reading-v3',JSON.stringify(tripState));}
+                catch {const status=document.getElementById('storage-status');if(status)status.textContent='此瀏覽器目前無法保存資料；操作仍可用，但關閉後可能遺失。';}
             }
             function tripDayAt(now = new Date()) {
                 const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Bangkok',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now).map(p=>[p.type,p.value]));
@@ -1717,21 +2438,6 @@
                 writeTripState();
                 layoutChanged();
             }
-            function navigateDay(day, options = {}) {
-                if (isAnimating || !document.getElementById(day)) return;
-                window.dispatchEvent(new Event('itinerary:save'));
-                isAnimating = true;
-                switchTab(day,true,()=>{
-                    isAnimating = false;
-                    if (options.resume) restoreReading(options.resume);
-                    else if (options.timeline || tripState.quick || tripDayAt() === day) {
-                        setTimeline(day,true);
-                        scrollToPart(document.getElementById('timeline-'+day));
-                    }
-                    if (options.focus) document.getElementById(day)?.querySelector('h2')?.focus({preventScroll:true});
-                    layoutChanged();
-                });
-            }
             function restoreReading(saved) {
                 if (saved.day !== currentActiveSectionId) return;
                 const section = document.getElementById(saved.day);
@@ -1740,7 +2446,9 @@
                 if (item) setTimeline(saved.day,true);
                 const anchor=saved.anchor?.startsWith(saved.day)?document.getElementById(saved.anchor):null;
                 const target = item || anchor || section;
+                const serial=navigationSerial;
                 requestAnimationFrame(()=>{
+                    if(serial!==navigationSerial)return;
                     const offset = Number.isFinite(saved.offset) ? Math.max(-2000,Math.min(5000,saved.offset)) : -document.querySelector('.date-navigation').offsetHeight-48;
                     window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top+offset),behavior:'auto'});
                     layoutChanged();
@@ -1752,7 +2460,7 @@
                 const valid = saved && Object.hasOwn(itineraryData,saved.day);
                 button.hidden = !valid;
                 if (valid) {
-                    const item = itineraryData[saved.day].items.find((_,i)=>saved.item === saved.day+'-item-'+i);
+                    const item = itineraryData[saved.day].items.find(item=>saved.item === saved.day+'-item-'+item.id);
                     button.textContent = '繼續看 4/' + (Number(saved.day.slice(3))+9) + (item ? ' · '+item.title : ' 的行程') + ' ↗';
                 }
             }
@@ -1821,35 +2529,29 @@
                 document.addEventListener('visibilitychange',()=>{if(document.hidden)window.dispatchEvent(new Event('itinerary:save'));});
                 document.addEventListener('click',event=>{if(event.target.closest('a[target="_blank"]'))window.dispatchEvent(new Event('itinerary:save'));});
                 window.addEventListener('pageshow',event=>{if(event.persisted){isAnimating=false;layoutChanged();}});
-                window.addEventListener('hashchange',()=>{
-                    const day=location.hash.slice(1);
-                    if((day==='overview'||Object.hasOwn(itineraryData,day)) && day!==currentActiveSectionId)navigateDay(day);
-                });
+
             }
             function todayBrief(day) {
-                if (!day || !itineraryData[day]) return '';
-                const data=itineraryData[day];
-                const first=data.items[0];
-                const stay=Number(day.slice(3)) < 6 ? '芭達雅海灘路住宿' : 'Yu Sabay 阿Ben的曼谷民宿';
-                return `<p class="editorial-kicker">今天的小抄 · 泰國時間</p><h2>4/${Number(day.slice(3))+9} · ${data.title}</h2><p>${day==='day8'?'今日重點：退房、機場接送與回程航班。':`${first.time} · ${first.title}`}</p><p class="small-note">${day==='day8'?'退房住宿':'今晚住宿'}：${stay}</p><button type="button" class="editorial-text-button" data-today-day="${day}">打開今天時間表 ↗</button><a class="trip-link" href="${externalDayMap(day)}" target="_blank" rel="noopener noreferrer">今日地圖 ↗</a>`;
+                if(!day||!itineraryData[day])return '';
+                const data=itineraryData[day],clock=TripTools.bangkokClock(),plan=TripTools.nextPlan(data.items,clock.minutes,tripState.manualNext[day]);
+                const stay=Number(day.slice(3))<6?'芭達雅海灘路住宿':'Yu Sabay 阿Ben的曼谷民宿';
+                const label={manual:'手動選擇的下一站',current:'時間表參考・目前預定',next:'時間表參考・接下來',finished:'今天的時間表已到最後一段'}[plan.mode];
+                const map=plan.item?mainMapLink(plan.item)||externalDayMap(day):externalDayMap(day);
+                return `<p class="editorial-kicker">今天的小抄 · 泰國 ${clock.time}</p><h2>${dateLabel(day)} · ${escapeHtml(data.title)}</h2><p>${label}${plan.item?'：'+escapeHtml(plan.item.time)+' · '+escapeHtml(plan.item.title):''}</p><p class="small-note">${day==='day8'?'退房住宿':'今晚住宿'}：${stay}${day==='day8'?' · 目標 09:45 前抵達 BKK，11:45 起飛。':''}</p><p class="small-note">依原定時間表顯示，並非即時定位；延誤或調整時可手動選下一站。</p><label class="next-plan-label">下一站<select id="manual-next-plan"><option value="">依泰國時間自動顯示</option>${data.items.map(item=>`<option value="${item.id}" ${plan.mode==='manual'&&plan.item.id===item.id?'selected':''}>${escapeHtml(item.time)} · ${escapeHtml(item.title)}</option>`).join('')}</select></label><button type="button" class="editorial-text-button" data-go-day="${day}" ${plan.item?`data-go-item="${plan.item.id}"`:''}>${plan.item?'查看這段行程':'打開今天時間表'} ↗</button><a class="trip-link" href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer">${plan.item?'這一站':'今日'}地圖 ↗</a>`;
             }
             function setupTodayBrief() {
-                let previous;
-                function refresh() {
-                    const day=tripDayAt();
-                    if(day===previous)return;
-                    previous=day;
+                let previous='';
+                function refresh(force=false){
+                    const clock=TripTools.bangkokClock(),day=clock.day,key=clock.date+clock.time+(day?tripState.manualNext[day]:'');
                     const panel=document.getElementById('today-brief');
-                    panel.hidden=!day;
-                    panel.innerHTML=todayBrief(day);
-                    panel.querySelector('button')?.addEventListener('click',()=>navigateDay(day,{timeline:true}));
+                    if(!force&&(previous===key||panel.contains(document.activeElement)))return;previous=key;panel.hidden=!day;panel.innerHTML=todayBrief(day);
+                    panel.querySelector('select')?.addEventListener('change',event=>{tripState.manualNext[day]=event.target.value;writeTripState();refresh(true);document.getElementById('manual-next-plan')?.focus({preventScroll:true});});
                     navButtons.forEach(button=>{
-                        const today=button.dataset.target===day;
-                        button.classList.toggle('is-today',today);
+                        const today=button.dataset.target===day;button.classList.toggle('is-today',today);
                         if(today)button.setAttribute('title','泰國當地日期 · 今天');else button.removeAttribute('title');
-                    });
-                    layoutChanged();
+                    });layoutChanged();
                 }
+                document.getElementById('today-brief').addEventListener('focusout',()=>setTimeout(()=>refresh(),0));
                 refresh();setInterval(refresh,60000);
             }
             function externalDayMap(day) {
@@ -1883,6 +2585,9 @@
                     status.textContent='地圖載入較久，可重試或直接在 Google 地圖開啟。';
                 },12000);
                 selectedRoutes[day]=index;
+                const jump=document.getElementById('map-itinerary-'+day);
+                jump.hidden=!point;
+                if(point){jump.dataset.goDay=day;jump.dataset.goItem=point.itemId;jump.textContent='查看 '+point.name+' 的行程 ↗';}
             }
             function syncDateIndicator(animate = true) {
                 const button=document.querySelector('.nav-btn[aria-current="page"]');
@@ -2100,7 +2805,7 @@
                 return dayId === 'day5' ? '格蘭島行程以海島位置圖呈現；船程依一日團安排。點選左側景點可查看各站，使用地圖原生資訊卡開啟 Google 地圖。' : '點選景點可查看店家位置，使用地圖原生資訊卡的連結或路線按鈕開啟 Google 地圖。住宿及區域位置僅供參考。';
             }
             function renderDayRoute(dayId, dayData) {
-                return '<section id="'+dayId+'-map-anchor" class="day-route-spread" aria-label="當日 Google 地圖"><div class="route-copy"><p class="editorial-kicker">今日小路線</p><h3>今天的景點，放在同一張圖。</h3><p class="small-note">點選景點，在右側 Google 地圖定位。</p><ol class="route-stop-list">'+dayData.route.map((p,i)=>'<li><button type="button" class="route-stop" data-day="'+dayId+'" data-index="'+i+'" aria-pressed="false"><span>'+(i+1)+'</span>'+p.name+(p.mapOnly?'<small>夜遊</small>':p.optional?'<small>備選</small>':p.approx?'<small>區域</small>':'')+'</button></li>').join('')+'</ol><p class="route-stop-note" id="route-note-'+dayId+'" aria-live="polite">'+routeNote(dayId)+'</p><button class="route-reset" type="button" data-day="'+dayId+'">看整天路線 ↺</button></div><div class="route-visual google-route" id="route-visual-'+dayId+'"><iframe class="google-map-frame" id="route-map-'+dayId+'" title="4/'+(Number(dayId.slice(3))+9)+' 行程 Google 地圖" data-route-day="'+dayId+'" data-src="'+googleRouteUrl(dayId)+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p class="route-map-caption" id="map-caption-'+dayId+'">Google Maps · '+dayData.route.length+' 個地點</p></div><div class="map-feedback"><p id="map-status-'+dayId+'" role="status">點選景點，查看位置。</p><a id="map-external-'+dayId+'" href="'+externalDayMap(dayId)+'" target="_blank" rel="noopener noreferrer">在 Google 地圖中開啟 ↗</a><button type="button" data-map-retry="'+dayId+'">重新載入地圖</button></div></section>';
+                return '<section id="'+dayId+'-map-anchor" class="day-route-spread" aria-label="當日 Google 地圖"><div class="route-copy"><p class="editorial-kicker">今日小路線</p><h3>今天的景點，放在同一張圖。</h3><p class="small-note">點選景點，在右側 Google 地圖定位。</p><ol class="route-stop-list">'+dayData.route.map((p,i)=>'<li><button type="button" class="route-stop" data-day="'+dayId+'" data-index="'+i+'" aria-pressed="false"><span>'+(i+1)+'</span>'+p.name+(p.mapOnly?'<small>夜遊</small>':p.optional?'<small>備選</small>':p.approx?'<small>區域</small>':'')+'</button></li>').join('')+'</ol><p class="route-stop-note" id="route-note-'+dayId+'" aria-live="polite">'+routeNote(dayId)+'</p><button class="route-reset" type="button" data-day="'+dayId+'">看整天路線 ↺</button></div><div class="route-visual google-route" id="route-visual-'+dayId+'"><iframe class="google-map-frame" id="route-map-'+dayId+'" title="4/'+(Number(dayId.slice(3))+9)+' 行程 Google 地圖" data-route-day="'+dayId+'" data-src="'+googleRouteUrl(dayId)+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p class="route-map-caption" id="map-caption-'+dayId+'">Google Maps · '+dayData.route.length+' 個地點</p></div><div class="map-feedback"><p id="map-status-'+dayId+'" role="status">點選景點，查看位置。</p><a id="map-external-'+dayId+'" href="'+externalDayMap(dayId)+'" target="_blank" rel="noopener noreferrer">在 Google 地圖中開啟 ↗</a><button type="button" data-map-retry="'+dayId+'">重新載入地圖</button><button type="button" id="map-itinerary-'+dayId+'" hidden>查看這段行程 ↗</button></div></section>';
             }
             function setupDayRouteMap(dayId) {
                 const frame=document.getElementById('route-map-'+dayId);
@@ -2129,7 +2834,7 @@
                 const map=template.content.querySelector('a[href*="google.com/maps"],a[href*="maps.app.goo.gl"],a[href*="maps.google.com"]');
                 const primary=map?map.cloneNode(true):null;
                 if(primary){primary.className='trip-link primary-map-link';map.remove();}
-                const result={details:template.innerHTML,primary:primary?.outerHTML || ''};
+                const result={details:template.innerHTML,primary:primary?.outerHTML || '',mapUrl:primary?.getAttribute('href') || ''};
                 itemLinkCache.set(item,result);return result;
             }
             function renderItemDetails(item) { return itemLinks(item).details; }
@@ -2144,14 +2849,14 @@
                     const dayData = itineraryData[dayId];
                     const timelineHtml = dayData.items.map((item,index) => `
                         ${item.chapter ? `<header class="day-chapter"><div><span>${item.chapter.label}</span><small>${item.chapter.time}</small></div><h3>${item.chapter.title}</h3></header>` : ''}
-                        <article id="${dayId}-item-${index}" data-kind="${item.kind}" class="timeline-item relative mb-8 type-${item.kind}">
+                        <article tabindex="-1" id="${dayId}-item-${item.id}" data-kind="${item.kind}" class="timeline-item relative mb-8 type-${item.kind}">
                             <div class="itinerary-margin"><span class="trip-time">${item.time}</span><span class="trip-type">${({transport:'交通・移動',dining:'用餐',night:'晚間活動',activity:'景點・體驗'})[item.kind]}</span></div>
                             <div class="trip-card ${item.photo ? 'trip-with-photo' : ''}">
                                 <div class="trip-copy"><div class="trip-card-heading">
-                                    <h3>${item.title}</h3><p class="trip-summary">${markPrice(item.summary || '')}</p>${renderPrimaryAction(item)}${item.notice ? `<aside class="trip-notice"><strong><i class="fas fa-circle-exclamation" aria-hidden="true"></i> 注意事項</strong><p>${item.notice}</p></aside>` : ''}
+                                    <h3>${item.title}</h3><p class="trip-summary">${markPrice(item.summary || '')}</p>${renderPrimaryAction(item)}${itemMapActions(dayId,item)}${item.notice ? `<aside class="trip-notice"><strong><i class="fas fa-circle-exclamation" aria-hidden="true"></i> 注意事項</strong><p>${item.notice}</p></aside>` : ''}
                                 </div>
-                                ${item.disclosureLabel ? `<details class="trip-more" id="${dayId}-details-${index}"><summary>${item.disclosureLabel} <span aria-hidden="true">＋</span></summary><div class="trip-details">${renderItemDetails(item)}</div></details>` : `<div class="trip-inline">${renderItemDetails(item)}</div>`}</div>
-                                ${item.photo ? `<figure class="itinerary-photo scene-${item.photo.scene}" id="${dayId}-photo-${index}"><button type="button" class="photo-expand" aria-expanded="false" aria-controls="${dayId}-image-${index}" aria-label="${escapeHtml(item.photo.alt)}；展開或收回照片">${responsiveImage(item.photo.file,item.photo.alt, '(max-width:900px) 320px, 320px',`id="${dayId}-image-${index}"`)}<span class="photo-action">展開照片</span></button><figcaption>${item.photo.caption}</figcaption></figure>` : ''}
+                                ${item.disclosureLabel ? `<details class="trip-more" id="${dayId}-details-${item.id}"><summary>${item.disclosureLabel} <span aria-hidden="true">＋</span></summary><div class="trip-details">${renderItemDetails(item)}</div></details>` : `<div class="trip-inline">${renderItemDetails(item)}</div>`}</div>
+                                ${item.photo ? `<figure class="itinerary-photo scene-${item.photo.scene}" id="${dayId}-photo-${item.id}"><button type="button" class="photo-expand" aria-expanded="false" aria-controls="${dayId}-image-${item.id}" aria-label="${escapeHtml(item.photo.alt)}；展開或收回照片">${responsiveImage(item.photo.file,item.photo.alt, '(max-width:900px) 320px, 320px',`id="${dayId}-image-${item.id}"`)}<span class="photo-action">展開照片</span></button><figcaption>${item.photo.caption}</figcaption></figure>` : ''}
                             </div>
                         </article>
                     `).join('');
@@ -2163,6 +2868,7 @@
                             <div class="daily-theme-card water-photo cursor-pointer relative overflow-hidden mb-12 scene-${dayId==='day5'?'sea':dayId==='day4'?'water':['day1','day7'].includes(dayId)?'night':'day'}"><div class="day-photo-image" style="--photo-position:${dayId==='day3'?'center 55%':'center'}" aria-hidden="true">${responsiveImage(dayData.themeImage,'','(max-width:767px) 100vw, 1180px')}</div>
                                 <span class="photo-day-caption">${dayData.photoCaption}</span><button aria-expanded="false" aria-controls="timeline-${dayId}" class="view-timeline-btn">閱讀今日行程 <i class="fas fa-arrow-down" aria-hidden="true"></i></button>
                             </div>
+                            <details class="daily-costs"><summary>當日費用與四人分攤</summary><div data-cost-summary="${dayId}"></div><button type="button" data-open-planner="expense-panel" data-cost-day="${dayId}">編輯這天費用 ↗</button></details>
                             ${renderDayRoute(dayId, dayData)}
                             <div id="timeline-${dayId}" class="timeline-container hidden relative pl-10 sm:pl-12">
                                 <div class="itinerary-reading-heading"><p class="editorial-kicker">今日行程</p><h3>照著時間，慢慢走。</h3><p>時間皆為泰國當地時間；需要的訂票與交通細節，再點開看。</p><p class="reading-status" id="reading-status-${dayId}">共 ${dayData.items.length} 段行程 · 往下慢慢看</p></div>
@@ -2219,7 +2925,6 @@
                     const targets = {ArrowLeft:index - 1, ArrowRight:index + 1, Home:0, End:navButtons.length - 1};
                     if (!Object.hasOwn(targets,event.key)) return;
                     event.preventDefault();
-                    if (isAnimating) return;
                     const next = navButtons[Math.max(0,Math.min(navButtons.length - 1,targets[event.key]))];
                     next.focus({preventScroll:true});
                     next.click();
@@ -2239,11 +2944,12 @@
                     const y=window.scrollY;
                     const rect=timeline.getBoundingClientRect();
                     const items=[...timeline.querySelectorAll('.timeline-item')].map(el=>({el,top:el.getBoundingClientRect().top+y}));
-                    cache={top:rect.top+y,height:rect.height,navHeight:nav.offsetHeight,items,status:document.getElementById('reading-status-'+currentActiveSectionId)};
+                    cache={day:currentActiveSectionId,top:rect.top+y,height:rect.height,navHeight:nav.offsetHeight,items,status:document.getElementById('reading-status-'+currentActiveSectionId)};
                 }
                 function save() {
                     clearTimeout(saveTimer);
                     if(isAnimating || !Object.hasOwn(itineraryData,currentActiveSectionId))return;
+                    if(needsMeasure || cache?.day!==currentActiveSectionId){measure();needsMeasure=false;}
                     const readingTimeline=cache && window.scrollY+cache.navHeight+160>=cache.top;
                     const selected=readingTimeline?cache?.items.find(item=>item.el===active):null;
                     const section=document.getElementById(currentActiveSectionId);
@@ -2251,7 +2957,7 @@
                     const anchor=!selected && map.getBoundingClientRect().top<window.innerHeight*.4 ? map : section;
                     const top=selected?selected.top:window.scrollY+anchor.getBoundingClientRect().top;
                     tripState.position={day:currentActiveSectionId,item:selected?.el.id || null,anchor:anchor.id,offset:window.scrollY-top};
-                    writeTripState();updateResumeLink();
+                    writeTripState();updateResumeLink();rememberHistoryPosition();
                 }
                 function update() {
                     frame=0;
@@ -2294,6 +3000,7 @@
                 }
                 document.querySelectorAll('img').forEach(img=>img.addEventListener('load',()=>schedule(true),{once:true}));
                 document.fonts?.ready.then(()=>schedule(true));
+                if(window.ResizeObserver){const observer=new ResizeObserver(()=>schedule(true));observer.observe(dailySectionsContainer);observer.observe(document.querySelector('.planner-tools'));}
                 motion.addEventListener('change',()=>{if(motion.matches)document.querySelectorAll('.entry-reveal').forEach(item=>item.classList.remove('entry-reveal'));});
                 schedule(true);
             }
@@ -2336,79 +3043,81 @@
             function setupTabSwitching() {
                 navButtons.forEach(button=>button.addEventListener('click',()=>{
                     const target=button.dataset.target;
-                    if(!isAnimating && target!==currentActiveSectionId)navigateDay(target);
+                    if(target!==currentActiveSectionId)navigateDay(target);
                 }));
             }
 
+            function routeForCurrent() {
+                return {day:currentActiveSectionId || 'overview',item:TripTools.parseRoute(location.hash,itineraryData)?.item || null};
+            }
+            function rememberHistoryPosition() {
+                if(restoringHistory || !currentActiveSectionId)return;
+                const route=routeForCurrent();
+                const position=tripState.position?.day===route.day?{...tripState.position}:null;
+                try{history.replaceState({trip:true,...route,position,scrollY:window.scrollY},'',location.href);}catch{}
+            }
+            function navigateDay(day, options = {}) {
+                if(!document.getElementById(day))return;
+                const serial=++navigationSerial;
+                const item=options.item?itineraryData[day]?.items.find(x=>x.id===options.item):null;
+                if(options.item&&!item)return;
+                restoringHistory=options.history===false;
+                window.dispatchEvent(new Event('itinerary:save'));
+                if(!restoringHistory)rememberHistoryPosition();
+                const hash=TripTools.routeHash(day,item?.id);
+                if(options.history!==false && hash!==location.hash){
+                    try{history.pushState({trip:true,day,item:item?.id || null},'',hash);}catch{}
+                }
+                activeRoute=hash;
+                switchTab(day,false,()=>{
+                    const section=document.getElementById(day);
+                    let destination=section;
+                    if(options.resume){restoreReading(options.resume);destination=null;}
+                    else if(item){setTimeline(day,true);destination=document.getElementById(day+'-item-'+item.id);}
+                    else if(options.timeline || tripState.quick || tripDayAt()===day){setTimeline(day,true);destination=document.getElementById('timeline-'+day);}
+                    if(options.scrollY!==undefined && !options.resume){window.scrollTo({top:Math.max(0,options.scrollY),behavior:'auto'});destination=null;}
+                    if(destination)scrollToPart(destination,Boolean(options.instant));
+                    if(options.focus) (item?destination:section.querySelector('h2'))?.focus({preventScroll:true});
+                    layoutChanged();
+                    requestAnimationFrame(()=>{if(serial!==navigationSerial)return;restoringHistory=false;rememberHistoryPosition();});
+                });
+            }
+            function setupHistoryNavigation() {
+                try{history.scrollRestoration='manual';}catch{}
+                function restore(){
+                    const route=TripTools.parseRoute(location.hash,itineraryData)||{day:'overview',item:null};
+                    const hash=TripTools.routeHash(route.day,route.item);
+                    if(hash===activeRoute)return;
+                    const saved=history.state?.trip?history.state:null;
+                    navigateDay(route.day,{item:route.item,history:false,instant:true,resume:saved?.position || null,scrollY:saved?.scrollY});
+                }
+                window.addEventListener('popstate',restore);
+                window.addEventListener('hashchange',restore);
+            }
             function switchTab(targetId, shouldScroll = true, onCompleteCallback = () => {}) {
-                const oldSection = currentActiveSectionId ? document.getElementById(currentActiveSectionId) : null;
-                const newSection = document.getElementById(targetId);
-                if (!newSection) { onCompleteCallback(); return; }
-
-                const finishSwitch = () => {
-                    currentActiveSectionId = targetId;
-                    syncDateIndicator(false);
-                    if (motionAvailable) ScrollTrigger.refresh();
-                    if (shouldScroll) {
-                        try { history.replaceState(null, '', '#' + targetId); } catch {}
-                    }
-                    window.dispatchEvent(new Event('itinerary:layout'));
-                    onCompleteCallback();
-                };
-                if (!motionAvailable) {
-                    if (oldSection && oldSection !== newSection) oldSection.style.display = 'none';
-                    newSection.style.display = 'block';
-                    newSection.style.opacity = '1';
-                    navButtons.forEach(btn => {
-                        const active = btn.dataset.target === targetId;
-                        if (active) { btn.setAttribute('aria-current','page'); centerDateButton(btn,'auto'); }
-                        else btn.removeAttribute('aria-current');
-                        btn.classList.toggle('bg-sky-500',active);
-                        btn.classList.toggle('text-white',active);
-                        btn.classList.toggle('bg-sky-100',!active);
-                        btn.classList.toggle('text-sky-800',!active);
-                    });
-                    syncDateIndicator();
-                    setupDayRouteMap(targetId);
-                    if (shouldScroll) window.scrollTo({top:window.scrollY + newSection.getBoundingClientRect().top - document.querySelector('nav').offsetHeight - 32,behavior:'auto'});
-                    finishSwitch();
-                    return;
-                }
-                const tl = gsap.timeline({ onComplete: finishSwitch });
-                if (oldSection) {
-                    tl.to(oldSection, { duration: reduceMotion ? 0 : 0.12, opacity: 0, ease: 'power2.in', onComplete: () => { oldSection.style.display = 'none'; } });
-                }
-
-                tl.add(() => {
-                    navButtons.forEach(btn => {
-                        const isTarget = btn.dataset.target === targetId;
-                        if (isTarget) {
-                            btn.setAttribute('aria-current', 'page');
-                            centerDateButton(btn, shouldScroll && !reduceMotion ? 'smooth' : 'auto');
-                        } else btn.removeAttribute('aria-current');
-                        btn.classList.toggle('bg-sky-500', isTarget);
-                        btn.classList.toggle('text-white', isTarget);
-                        btn.classList.toggle('bg-sky-100', !isTarget);
-                        btn.classList.toggle('text-sky-800', !isTarget);
-                    });
-                    syncDateIndicator();
+                const section=document.getElementById(targetId);
+                if(!section){onCompleteCallback();return;}
+                navigationAnimations.forEach(animation=>animation.cancel());navigationAnimations=[];
+                document.querySelectorAll('.content-section').forEach(other=>{
+                    other.style.display=other===section?'block':'none';other.style.opacity=other===section?'1':'0';
                 });
-
-                tl.set(newSection, { display: 'block', opacity: 0 })
-                  .to(newSection, {
-                    duration: reduceMotion ? 0 : 0.22,
-                    opacity: 1,
-                    ease: 'power2.out',
-                    onStart: () => {
-                        if(!reduceMotion && newSection.querySelector('.day-editorial-heading')?.animate)newSection.querySelector('.day-editorial-heading').animate([{opacity:.3,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});
-                        requestAnimationFrame(() => setupDayRouteMap(targetId));
-                        gsap.from(newSection.querySelectorAll('.daily-theme-card'), { opacity: 0, y: 16, duration: reduceMotion ? 0 : 0.3, ease: 'power3.out' });
-                    }
+                currentActiveSectionId=targetId;isAnimating=false;
+                navButtons.forEach(button=>{
+                    const selected=button.dataset.target===targetId;
+                    if(selected)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
+                    button.classList.toggle('bg-sky-500',selected);button.classList.toggle('text-white',selected);
+                    button.classList.toggle('bg-sky-100',!selected);button.classList.toggle('text-sky-800',!selected);
                 });
-
-                if (shouldScroll) {
-                    tl.to(window, { duration: reduceMotion ? 0 : 0.35, ease: 'power2.inOut', scrollTo: { y: newSection, offsetY: document.querySelector('nav').offsetHeight + 32 } }, "-=0.2");
+                const selected=document.querySelector('.nav-btn[aria-current="page"]');centerDateButton(selected);syncDateIndicator();
+                setupDayRouteMap(targetId);
+                if(!reduceMotion){
+                    for(const element of section.querySelectorAll('.day-editorial-heading,.daily-theme-card')){
+                        if(element.animate)navigationAnimations.push(element.animate([{opacity:.35,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:260,easing:'cubic-bezier(.2,.7,.2,1)'}));
+                    }
                 }
+                if(shouldScroll)scrollToPart(section);
+                if(motionAvailable)ScrollTrigger.refresh();
+                onCompleteCallback();
             }
 
             function setupScrollToTop() {
@@ -2422,32 +3131,28 @@
             }
 
             function setupChart() {
-                if (!window.Chart) return;
-                const ctx = document.getElementById('budgetChart').getContext('2d');
-                const budgetChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['4/10 (六)', '4/11 (日)', '4/12 (一)', '4/13 (二)', '4/14 (三)', '4/15 (四)', '4/16 (五)', '4/17 (六)'],
-                        datasets: [{
-                            label: '預估人均支出 (THB)',
-                            data: [750, null, null, null, null, 2500, 3500, 800],
-                            backgroundColor: 'rgba(14, 165, 233, 0.6)',
-                            borderColor: 'rgba(14, 165, 233, 1)',
-                            borderWidth: 1, borderRadius: 5,
-                            hoverBackgroundColor: 'rgba(2, 132, 199, 0.8)'
-                        }]
-                    },
-                    options: {
-                        animation: false, responsive: true, maintainAspectRatio: false,
-                        scales: { y: { beginAtZero: true }, x: { grid: { display: false } } },
-                        plugins: { legend: { display: false } }
-                    }
-                });
-                document.querySelector('.budget-fold').addEventListener('toggle', event => { if (event.currentTarget.open) budgetChart.resize(); });
-                if (motionAvailable) ScrollTrigger.create({
-                    trigger: "#budgetChart", start: "top 80%",
-                    onEnter: () => { budgetChart.options.animation = { duration: reduceMotion ? 0 : 1500, easing: 'easeOutBounce' }; budgetChart.update(); },
-                    once: true
-                });
+                const fold=document.querySelector('.budget-fold');
+                let chart=null,loading=false;
+                async function draw(){
+                    if(chart||loading||!fold.open)return;loading=true;
+                    const status=document.getElementById('chart-status');
+                    try{
+                        if(!window.Chart){
+                            status.textContent='正在載入預算圖…';
+                            await new Promise((resolve,reject)=>{
+                                let script=document.getElementById('chart-library');
+                                if(script)script.remove();script=document.createElement('script');script.id='chart-library';script.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js';
+                                const timer=setTimeout(()=>{script.remove();reject(Error('timeout'));},10000);
+                                script.onload=()=>{clearTimeout(timer);resolve();};script.onerror=()=>{clearTimeout(timer);script.remove();reject(Error('load'));};document.head.append(script);
+                            });
+                        }
+                        if(!window.Chart)throw Error('unavailable');
+                        chart=new Chart(document.getElementById('budgetChart').getContext('2d'),{type:'bar',data:{labels:['4/10','4/11','4/12','4/13','4/14','4/15','4/16','4/17'],datasets:[{label:'原行程預估人均支出 (THB)',data:[750,null,null,null,null,2500,3500,800],backgroundColor:'#26786eaa',borderRadius:5}]},options:{animation:reduceMotion?false:{duration:250},responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}},plugins:{legend:{display:false}}}});
+                        status.textContent='原行程粗估圖；你編輯的費用，請看上方四人分攤工具。';document.getElementById('chart-retry').hidden=true;
+                    }catch{status.textContent='圖表暫時無法載入，仍可查看下方數值與費用工具。';document.getElementById('chart-retry').hidden=false;}
+                    finally{loading=false;}
+                }
+                fold.addEventListener('toggle',()=>{if(fold.open){draw();chart?.resize();}});document.getElementById('chart-retry').addEventListener('click',draw);
             }
-        });
+
+        }, {once:true});
