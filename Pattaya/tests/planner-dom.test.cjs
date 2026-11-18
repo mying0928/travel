@@ -51,10 +51,10 @@ test('Old reading/detail/photo memory is migrated and a stable direct URL overri
 });
 test('Manual booking status and notes persist without sending orders',async()=>{
  const t=await boot();let state;try{
-  const {d,w}=t,row=d.querySelector('.booking-row'),select=row.querySelector('select'),input=row.querySelector('input');select.value='confirmed';select.dispatchEvent(new w.Event('change',{bubbles:true}));input.value='18:00 飯店大廳';input.dispatchEvent(new w.Event('input',{bubbles:true}));
+  t.d.getElementById('booking-panel').open=true;await pause(20);const {d,w}=t,row=d.querySelector('.booking-row'),select=row.querySelector('select'),input=row.querySelector('input');select.value='confirmed';select.dispatchEvent(new w.Event('change',{bubbles:true}));input.value='18:00 飯店大廳';input.dispatchEvent(new w.Event('input',{bubbles:true}));
   state=JSON.parse(w.localStorage.getItem('pattaya-reading-v3'));assert.equal(state.bookings[row.dataset.bookingKey].status,'confirmed');assert.equal(state.bookings[row.dataset.bookingKey].meeting,'18:00 飯店大廳');
  }finally{t.close();}
- const restored=await boot({state});try{assert.equal(restored.d.querySelector('.booking-row select').value,'confirmed');assert.equal(restored.d.querySelector('.booking-row input').value,'18:00 飯店大廳');assert.equal(restored.errors.length,0,restored.errors.join('\n'));}finally{restored.close();}
+ const restored=await boot({state});try{restored.d.getElementById('booking-panel').open=true;await pause(20);assert.equal(restored.d.querySelector('.booking-row select').value,'confirmed');assert.equal(restored.d.querySelector('.booking-row input').value,'18:00 飯店大廳');assert.equal(restored.errors.length,0,restored.errors.join('\n'));}finally{restored.close();}
 });
 test('Expense create/edit/remove/undo updates daily split and keeps currencies separate',async()=>{
  const t=await boot();try{
@@ -80,7 +80,7 @@ test('Offline preparation reports success only after the worker finishes; blocke
 
 test('Front statistics list eight days, quantities, sources and the exact selected Deluxe subtotal',async()=>{
  const t=await boot();try{
-  const {d,w}=t;assert.equal(d.querySelectorAll('.daily-ledger').length,8);assert.equal(d.querySelectorAll('.front-cost-list li').length,50);
+  const {d,w}=t;assert.equal(d.querySelectorAll('.daily-ledger').length,0);d.getElementById('overview-costs').open=true;await pause(20);assert.equal(d.querySelectorAll('.daily-ledger').length,8);assert.equal(d.querySelectorAll('.front-cost-list li').length,50);
   assert(d.getElementById('trip-cost-totals').textContent.includes('92,146 THB'));assert(d.getElementById('trip-cost-totals').textContent.includes('1,933 NT$'));
   const sky=[...d.querySelectorAll('.front-cost-list li')].find(row=>row.textContent.includes('Deluxe 跳傘與拍攝'));assert(sky.textContent.includes('15,650 THB／人'));assert(sky.textContent.includes('62,600 THB'));assert(sky.querySelector('a[href*="tandem-deluxe"]'));
   d.querySelector('[data-ledger-action="open"]').click();assert([...d.querySelectorAll('.daily-ledger')].every(el=>el.open));
@@ -92,15 +92,22 @@ test('Older saved budgets receive researched tickets once; personal amounts and 
  const prior=JSON.parse(app.match(/const priorExpenseSeeds = (\[[\s\S]*?\n\]);/)[1]);
  const t=await boot({state:{expenses:prior}});let state;try{
   state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));assert.equal(state.expenses.find(row=>row.itemId===data.day3.items[0].id).amount,15650);assert(state.expenses.some(row=>row.id==='ticket-truth'));
-  t.d.querySelector('[data-remove-expense="ticket-truth"]').click();state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));
+  t.d.getElementById('expense-panel').open=true;await pause(20);t.d.querySelector('[data-remove-expense="ticket-truth"]').click();state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));
  }finally{t.close();}
  const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-17-tickets-deluxe');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
 });
 test('The lazily loaded chart and front daily figures update from the same editable rows',async()=>{
  const t=await boot();try{
-  const {d,w}=t;let graph;w.Chart=class{constructor(ctx,options){this.data=options.data;graph=this;}resize(){}update(){this.updated=true;}};
+  const {d,w}=t;d.getElementById('overview-costs').open=true;await pause(20);let graph;w.Chart=class{constructor(ctx,options){this.data=options.data;graph=this;}resize(){}update(){this.updated=true;}};
   d.querySelector('.budget-fold').open=true;await pause(30);assert.equal(graph.data.datasets[1].data[2],16149);
   const form=d.getElementById('expense-form');form.elements.day.value='day8';form.elements.label.value='test reference fee';form.elements.status.value='estimate';form.elements.status.dispatchEvent(new w.Event('change'));form.elements.amount.value='100';form.elements.basis.value='group';form.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
   assert(graph.updated);assert.equal(graph.data.datasets[1].data[7],25);assert(d.querySelector('.daily-ledger[data-ledger-day="day8"]').textContent.includes('四人 100 THB'));assert(d.getElementById('budget-values-body').lastElementChild.textContent.includes('25 THB'));assert.equal(t.errors.length,0,t.errors.join('\n'));
+ }finally{t.close();}
+});
+
+test('Overview defers supporting content, forms and weather until requested',async()=>{
+ const t=await boot();try{const {d,w}=t;assert.equal(d.querySelectorAll('.overview-fold[open]').length,0);assert.equal(d.querySelectorAll('.booking-row,.expense-row,.front-cost-list li').length,0);assert(!d.querySelector('script[src*="gsap"]'));assert(d.querySelector('.overview-total').textContent.includes('23,036.5'));
+ d.getElementById('expense-panel').open=true;await pause(20);assert.equal(d.querySelectorAll('.expense-row').length,50);
+ d.getElementById('overview-live').open=true;await pause(20);assert(d.getElementById('weather-info').textContent.includes('無法載入'));d.getElementById('overview-live').open=false;assert.equal(t.errors.length,0,t.errors.join('\n'));
  }finally{t.close();}
 });

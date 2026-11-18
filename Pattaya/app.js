@@ -2,8 +2,6 @@
         window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',event=>{reduceMotion=event.matches;});
 
         document.addEventListener('DOMContentLoaded', function () {
-            const motionAvailable = Boolean(window.gsap && window.ScrollTrigger && window.ScrollToPlugin);
-            if (motionAvailable) gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
             // --- DOM Elements ---
             const navButtons = document.querySelectorAll('.nav-btn');
             const dateStrip = document.getElementById('date-strip');
@@ -2739,8 +2737,7 @@
                 setupAnimations();
                 setupSongkranWater();
                 document.getElementById('begin-trip').addEventListener('click', () => document.querySelector('[data-target="day1"]').click());
-                setupCountdown();
-                setupWeather();
+                setupOverviewFolds();
                 generateDailySections();
                 setupRouteControls();
                 setupDateNavigation();
@@ -2794,7 +2791,7 @@
                     const editDay=event.target.closest('[data-edit-day-budget]');
                     if(editDay){document.getElementById('planner-desk').open=true;document.getElementById('expense-panel').open=true;document.getElementById('expense-day').value=editDay.dataset.editDayBudget;renderExpenses();scrollToPart(document.getElementById('expense-panel'));return;}
                     const allCosts=event.target.closest('[data-ledger-action]');
-                    if(allCosts){document.querySelectorAll('.daily-ledger').forEach(detail=>detail.open=allCosts.dataset.ledgerAction==='open');layoutChanged();return;}
+                    if(allCosts){document.getElementById('overview-costs').open=true;renderFrontCosts(true);document.querySelectorAll('.daily-ledger').forEach(detail=>detail.open=allCosts.dataset.ledgerAction==='open');layoutChanged();return;}
                     const locate=event.target.closest('[data-locate-day]');
                     if(locate){focusMapPoint(locate.dataset.locateDay,Number(locate.dataset.locateIndex));return;}
                     const target=event.target.closest('[data-go-day]');
@@ -2826,7 +2823,7 @@
                 function render(){
                     const rows=TripTools.search(itineraryData,input.value);
                     results.replaceChildren();
-                    if(!input.value.trim()){status.textContent='搜尋景點、餐廳或活動，直接跳到那段行程。';layoutChanged();return;}
+                    if(!input.value.trim()){status.textContent='';layoutChanged();return;}
                     status.textContent=rows.length?`找到 ${rows.length} 段行程${rows.length>limit?'，先顯示 '+limit+' 段':''}`:'沒有符合的行程，試試「海鮮」「按摩」或「Big C」。';
                     rows.slice(0,limit).forEach(row=>{
                         const li=document.createElement('li'),button=document.createElement('button');button.type='button';
@@ -2872,7 +2869,7 @@
                     tripState.bookings[key]={...safeBookingValue(key),[field]:event.target.value};writeTripState();totals();
                     if(field==='status'&&filter.value!=='all')render();
                 }
-                list.addEventListener('input',save);list.addEventListener('change',save);filter.addEventListener('change',render);render();
+                list.addEventListener('input',save);list.addEventListener('change',save);filter.addEventListener('change',render);totals();document.getElementById('booking-panel').addEventListener('toggle',()=>{if(document.getElementById('booking-panel').open&&!list.childElementCount)render();});
             }
             function money(cents,currency){return (cents/100).toLocaleString('zh-TW',{maximumFractionDigits:2})+' '+(currency==='TWD'?'NT$':'THB');}
             function costSummary(day){
@@ -2881,11 +2878,14 @@
                 const planned=['THB','TWD'].map(currency=>`${money(totals.confirmed[currency]+totals.estimate[currency],currency)}（每人 ${money((totals.confirmed[currency]+totals.estimate[currency])/4,currency)}）`).join(' ＋ ');
                 return `<p class="planned-total"><strong>已列項目規劃小計・四人</strong><span>${planned}</span></p><div class="cost-summary"><div><strong>已確認報價</strong>${line('confirmed')}</div><div><strong>參考估算・另列</strong>${line('estimate')}</div></div><p class="small-note">${totals.unknown} 筆待填，不以零元計入。已確認報價不代表已付款；兩種幣別分開加總。</p>`;
             }
-            function renderFrontCosts(){
+            function renderFrontCosts(force=false){
                 const target=document.getElementById('daily-cost-breakdown');if(!target)return;
                 const openDays=new Set([...target.querySelectorAll('details[open]')].map(el=>el.dataset.ledgerDay));
-                if(!frontCostsRendered)openDays.add('day1');frontCostsRendered=true;
-                document.getElementById('trip-cost-totals').innerHTML=costSummary('all');
+                const total=TripTools.expenseTotals(tripState.expenses||[],'all');
+                document.getElementById('trip-cost-totals').innerHTML='<div class="overview-total">'+['THB','TWD'].map(currency=>{const amount=total.confirmed[currency]+total.estimate[currency];return `<div><strong>${money(amount,currency)}</strong><span>四人小計 · 每人 ${money(amount/4,currency)}</span></div>`;}).join('')+`</div><p class="small-note">已報價＋參考估算；另有 ${total.unknown} 筆待填，尚非全趟總價。</p>`;
+                renderBudgetValues();
+                if(!force&&!document.getElementById('overview-costs').open){frontCostsRendered=false;return;}
+                frontCostsRendered=true;
                 const statusNames={confirmed:'已確認報價',estimate:'參考估算',unknown:'待填'};
                 target.innerHTML=Object.entries(itineraryData).map(([day,data])=>{
                     const rows=(tripState.expenses||[]).filter(row=>row.day===day),totals=TripTools.expenseTotals(rows,day);
@@ -2896,7 +2896,6 @@
                         return `<li><div>${row.itemId?`<button type="button" data-go-day="${day}" data-go-item="${row.itemId}">${escapeHtml(row.label)} ↗</button>`:`<strong>${escapeHtml(row.label)}</strong>`}<p>${escapeHtml(row.note)}${row.sourceUrl?` <a href="${escapeHtml(row.sourceUrl)}" target="_blank" rel="noopener noreferrer">價格來源 ↗</a>`:''}</p></div><div class="front-cost-amount"><span>${row.amount===null?'單價待填':money(Math.round(row.amount*100),row.currency)+'／'+(row.basis==='person'?'人':'四人')}</span><strong>${group===null?'四人合計待填':'四人 '+money(group,row.currency)}</strong><small>${statusNames[row.status]}</small></div></li>`;
                     }).join('')}</ol><div class="ledger-subtotal">${costSummary(day)}<button type="button" data-edit-day-budget="${day}">編輯 ${dateLabel(day)} 費用 ↗</button></div></details>`;
                 }).join('');
-                renderBudgetValues();
             }
             function renderBudgetValues(){
                 const body=document.getElementById('budget-values-body');if(!body)return;
@@ -2942,7 +2941,7 @@
                     if(edit){const row=tripState.expenses.find(value=>value.id===edit.dataset.editExpense);for(const key of ['day','label','amount','currency','basis','status','note'])form.elements[key].value=row[key]??'';form.elements.expenseId.value=row.id;document.getElementById('expense-submit').textContent='儲存修改';amountMode();form.elements.label.focus();}
                     if(remove){undo=tripState.expenses.find(value=>value.id===remove.dataset.removeExpense);tripState.expenses=tripState.expenses.filter(value=>value!==undo);writeTripState();renderExpenses();document.getElementById('expense-undo').hidden=false;document.getElementById('expense-message').textContent='已移除一筆費用，可復原。';}
                 });
-                document.getElementById('expense-undo').addEventListener('click',()=>{if(!undo)return;tripState.expenses.push(undo);undo=null;writeTripState();renderExpenses();document.getElementById('expense-undo').hidden=true;});reset();renderExpenses();
+                document.getElementById('expense-undo').addEventListener('click',()=>{if(!undo)return;tripState.expenses.push(undo);undo=null;writeTripState();renderExpenses();document.getElementById('expense-undo').hidden=true;});reset();document.getElementById('expense-panel').addEventListener('toggle',()=>{if(document.getElementById('expense-panel').open)renderExpenses();});
             }
             function printBooking(day,item){
                 if(!item.needsBooking)return '';
@@ -3369,21 +3368,30 @@
             }
 
             function setupAnimations() {
-                if (!motionAvailable) return;
-                const heroTitle = document.getElementById('hero-title');
-                const text = heroTitle.innerText;
-                heroTitle.innerHTML = text.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-                gsap.from(heroTitle.querySelectorAll('.char'), { duration: reduceMotion ? 0 : 1.2, y: 100, autoAlpha: 0, stagger: 0.05, ease: "back.out(1.7)" });
-                gsap.from("#hero-subtitle", { duration: reduceMotion ? 0 : 1, y: 30, opacity: 0, ease: "power3.out", delay: 1 });
+                if(reduceMotion)return;
+                for(const id of ['hero-title','hero-subtitle'])document.getElementById(id)?.animate?.([{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:650,easing:'ease-out'});
+            }
+            function setupOverviewFolds(){
+                const costs=document.getElementById('overview-costs'),live=document.getElementById('overview-live');
+                costs.addEventListener('toggle',()=>{if(costs.open&&!frontCostsRendered)renderFrontCosts(true);});
+                let timer=null,weatherStarted=false;
+                const sync=()=>{
+                    clearInterval(timer);timer=null;
+                    if(live.open&&!document.hidden){
+                        const update=setupCountdown();update();timer=setInterval(update,1000);
+                        if(!weatherStarted){weatherStarted=true;setupWeather();}
+                    }
+                };
+                live.addEventListener('toggle',sync);document.addEventListener('visibilitychange',sync);
+                document.querySelectorAll('.overview-fold').forEach(fold=>fold.addEventListener('toggle',layoutChanged));
             }
 
             function setupCountdown() {
                 const targetDate = new Date('2027-04-10T07:55:00+08:00').getTime();
-                const interval = setInterval(() => {
+                return () => {
                     const now = new Date().getTime();
                     const distance = targetDate - now;
                     if (distance < 0) {
-                        clearInterval(interval);
                         document.getElementById('countdown').innerHTML = "<div class='col-span-4 text-2xl font-bold text-sky-600'>旅程已開始！</div>";
                         return;
                     }
@@ -3391,7 +3399,7 @@
                     document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
                     document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
                     document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-                }, 1000);
+                };
             }
 
 
@@ -3503,7 +3511,6 @@
                     });
                 });
                 document.querySelectorAll('.trip-more').forEach(detail => detail.addEventListener('toggle', () => {
-                    if (motionAvailable) ScrollTrigger.refresh();
                     window.dispatchEvent(new Event('itinerary:layout'));
                 }));
 
@@ -3728,7 +3735,6 @@
                     }
                 }
                 if(shouldScroll)scrollToPart(section);
-                if(motionAvailable)ScrollTrigger.refresh();
                 onCompleteCallback();
             }
 

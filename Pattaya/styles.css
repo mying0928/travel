@@ -7,8 +7,7 @@
             font-family: 'Noto Sans TC', sans-serif;
             background-color: #f0f9ff;
             background-image: url('images/background-pattern.svg');
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
+            opacity: 1;
         }
         body.loaded { opacity: 1; }
         .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #f0f9ff; display: flex; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.75s ease, visibility 0.75s ease; }
@@ -602,3 +601,27 @@ button:active,.trip-link:active { transform:translateY(1px); }
 .ledger-subtotal {padding:0 0 20px;}.ledger-subtotal .planned-total {padding-top:10px;}
 @media(max-width:767px){.daily-ledger>summary{gap:10px;flex-wrap:wrap;}.daily-ledger>summary>span:first-child{flex-basis:100%;}.daily-ledger>summary>span:last-child{text-align:left;}.daily-ledger>summary::after{margin-left:auto;}.front-cost-list li{grid-template-columns:minmax(0,1fr);gap:8px;}.front-cost-amount{text-align:left;display:flex;flex-wrap:wrap;gap:5px 16px;align-items:baseline;}.front-cost-list p{font-size:.72rem;}}
 @media print {.print-day .planned-total{padding:8pt 0;}.print-day .planned-total>span{font-size:10pt;}}
+/* Overview: keep the essentials visible and disclose supporting information on demand. */
+.overview-total {display:flex;flex-wrap:wrap;gap:16px 48px;padding:12px 0;}
+.overview-total>div {display:grid;gap:7px;}
+.overview-total strong {font:600 clamp(1.45rem,3vw,2rem)/1.4 'Noto Serif TC',serif;color:var(--travel-ink);font-variant-numeric:tabular-nums;}
+.overview-total span {font-size:.78rem;color:#617264;}
+.overview-fold {border-top:1px solid var(--rule);margin:0;}
+.overview-fold:last-child {border-bottom:1px solid var(--rule);}
+.overview-fold>summary {display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;min-height:82px;padding:18px 4px;color:var(--travel-ink);}
+.overview-fold>summary::-webkit-details-marker {display:none;}
+.overview-fold>summary strong {font-size:1rem;font-weight:500;}
+.overview-fold>summary small {display:block;margin-top:5px;font-size:.76rem;line-height:1.8;color:#617264;}
+.overview-fold>summary::after {content:'＋';flex-shrink:0;font-size:1.25rem;color:var(--travel-teal);}
+.overview-fold[open]>summary::after {content:'−';}
+.overview-fold>summary:hover {color:var(--travel-teal);}
+.overview-fold>summary:focus-visible {outline:2px solid var(--travel-teal);outline-offset:3px;border-radius:6px;}
+.overview-fold-body {padding:6px 4px 28px;}
+.overview-fold-body .section-heading {display:none;}
+.overview-fold-body .travel-pulse {margin:0;}
+.overview-fold-body .travel-notes {display:block;}
+.front-budget {padding-bottom:12px;margin-bottom:20px;}
+.front-budget .overview-fold {margin-top:14px;}
+.magazine-overview .reading-preferences {margin-bottom:24px;}
+#search-status:empty,#storage-status:empty,#search-results:empty {display:none;}
+@media(max-width:767px){.overview-total{gap:18px 26px;}.overview-fold>summary{min-height:78px;}.overview-opening{padding-bottom:30px;}.overview-fold-body .flight-clock{gap:12px;}}
