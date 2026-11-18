@@ -625,3 +625,8 @@ button:active,.trip-link:active { transform:translateY(1px); }
 .magazine-overview .reading-preferences {margin-bottom:24px;}
 #search-status:empty,#storage-status:empty,#search-results:empty {display:none;}
 @media(max-width:767px){.overview-total{gap:18px 26px;}.overview-fold>summary{min-height:78px;}.overview-opening{padding-bottom:30px;}.overview-fold-body .flight-clock{gap:12px;}}
+
+/* Photos keep their compact footprint until explicitly expanded. */
+.trip-with-photo {grid-template-columns:minmax(0,1fr) 180px;}
+.itinerary-photo:not(.photo-expanded) {width:min(180px,100%);justify-self:end;}
+@media(max-width:900px){.trip-with-photo{grid-template-columns:minmax(0,1fr);}.itinerary-photo:not(.photo-expanded){width:min(180px,100%);}}

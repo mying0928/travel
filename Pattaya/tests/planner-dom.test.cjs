@@ -25,14 +25,17 @@ async function boot({hash='',state,legacy,now,blocked=false,worker=false}={}){
  if(w.document.readyState!=='complete')await new Promise(resolve=>w.addEventListener('load',resolve,{once:true}));w.eval(core);w.eval(app);w.document.dispatchEvent(new w.Event('DOMContentLoaded'));await pause(50);
  return {w,d:w.document,dom,errors,scrolls,printed:()=>printed,close(){dom.window.close();}};
 }
-test('Quick mode scrolls once, last date wins, back/forward restore dates and reading position',async()=>{
- const t=await boot({state:{quick:true}});try{
+test('Dates default closed, ignore old quick/timeline memory and close the previous day',async()=>{
+ const t=await boot({state:{quick:true,timelines:{day2:true}}});try{
   const {d,w}=t;const click=day=>d.querySelector(`[data-target="${day}"]`).click();
-  t.scrolls.length=0;click('day2');assert.equal(t.scrolls.length,1);assert(!d.getElementById('timeline-day2').classList.contains('hidden'));
-  click('day3');click('day7');assert.equal(d.querySelector('.nav-btn[aria-current]').dataset.target,'day7');await pause(60);
-  w.scrollTo({top:1520});await pause(500);assert.equal(w.history.state.position.day,'day7');
-  click('day8');await pause(40);w.history.back();await pause(100);assert.equal(d.querySelector('.nav-btn[aria-current]').dataset.target,'day7');assert.equal(w.scrollY,1520);
-  w.history.forward();await pause(100);assert.equal(d.querySelector('.nav-btn[aria-current]').dataset.target,'day8');assert.equal(t.errors.length,0,t.errors.join('\n'));
+  assert([...d.querySelectorAll('.timeline-container')].every(el=>el.classList.contains('hidden')));
+  t.scrolls.length=0;click('day2');assert.equal(t.scrolls.length,1);assert(d.getElementById('timeline-day2').classList.contains('hidden'));
+  d.querySelector('[data-direct-timeline="day2"]').click();assert(!d.getElementById('timeline-day2').classList.contains('hidden'));
+  click('day3');assert(d.getElementById('timeline-day2').classList.contains('hidden'));assert(d.getElementById('timeline-day3').classList.contains('hidden'));
+  d.querySelector('#day3 .view-timeline-btn').click();assert(!d.getElementById('timeline-day3').classList.contains('hidden'));
+  click('day2');assert(d.getElementById('timeline-day3').classList.contains('hidden'));assert(d.getElementById('timeline-day2').classList.contains('hidden'));
+  w.history.back();await pause(100);assert.equal(d.querySelector('.nav-btn[aria-current]').dataset.target,'day3');assert(d.getElementById('timeline-day3').classList.contains('hidden'));
+  assert.equal(t.errors.length,0,t.errors.join('\n'));
  }finally{t.close();}
 });
 test('Search and direct links open a stable item; maps connect in both directions; copy fallback is usable',async()=>{
@@ -46,7 +49,7 @@ test('Search and direct links open a stable item; maps connect in both direction
 });
 test('Old reading/detail/photo memory is migrated and a stable direct URL overrides the old position',async()=>{
  const item=data.day3.items[5],t=await boot({hash:'#day3/'+item.id,legacy:{position:{day:'day2',item:'day2-item-3',offset:20},expanded:['day3-details-5'],photos:['day3-photo-5']}});try{
-  assert(t.d.getElementById('day3-details-'+item.id).open);assert(t.d.getElementById('day3-photo-'+item.id).classList.contains('photo-expanded'));assert.equal(t.d.querySelector('.nav-btn[aria-current]').dataset.target,'day3');assert.equal(t.errors.length,0,t.errors.join('\n'));
+  assert(t.d.getElementById('day3-details-'+item.id).open);assert(!t.d.getElementById('day3-photo-'+item.id).classList.contains('photo-expanded'));assert.equal(t.d.querySelector('.nav-btn[aria-current]').dataset.target,'day3');assert.equal(t.errors.length,0,t.errors.join('\n'));
  }finally{t.close();}
 });
 test('Manual booking status and notes persist without sending orders',async()=>{
@@ -109,5 +112,15 @@ test('Overview defers supporting content, forms and weather until requested',asy
  const t=await boot();try{const {d,w}=t;assert.equal(d.querySelectorAll('.overview-fold[open]').length,0);assert.equal(d.querySelectorAll('.booking-row,.expense-row,.front-cost-list li').length,0);assert(!d.querySelector('script[src*="gsap"]'));assert(d.querySelector('.overview-total').textContent.includes('23,036.5'));
  d.getElementById('expense-panel').open=true;await pause(20);assert.equal(d.querySelectorAll('.expense-row').length,50);
  d.getElementById('overview-live').open=true;await pause(20);assert(d.getElementById('weather-info').textContent.includes('無法載入'));d.getElementById('overview-live').open=false;assert.equal(t.errors.length,0,t.errors.join('\n'));
+ }finally{t.close();}
+});
+
+test('Photos start small, details never enlarge them, explicit expansion resets on date changes',async()=>{
+ const item=data.day3.items[5],t=await boot({hash:'#day3',state:{photos:['day3-photo-'+item.id]}});try{
+ const {d,w}=t;assert([...d.querySelectorAll('.photo-expand')].every(button=>button.getAttribute('aria-expanded')==='false'));
+ d.querySelector('#day3 .view-timeline-btn').click();const figure=d.querySelector('#day3 .itinerary-photo'),button=figure.querySelector('.photo-expand');
+ const detail=figure.closest('.trip-card').querySelector('.trip-more');if(detail){detail.open=true;await pause(20);}assert(!figure.classList.contains('photo-expanded'));assert.equal(button.querySelector('img').sizes,'180px');
+ button.click();assert(figure.classList.contains('photo-expanded'));assert.equal(button.getAttribute('aria-expanded'),'true');button.click();assert(!figure.classList.contains('photo-expanded'));
+ button.click();d.querySelector('[data-target="day4"]').click();assert(!figure.classList.contains('photo-expanded'));d.querySelector('[data-target="day3"]').click();assert.equal(button.getAttribute('aria-expanded'),'false');assert(d.getElementById('timeline-day3').classList.contains('hidden'));assert.equal(t.errors.length,0,t.errors.join('\n'));
  }finally{t.close();}
 });

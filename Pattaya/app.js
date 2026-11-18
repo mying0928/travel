@@ -3045,8 +3045,6 @@
                 const button = section.querySelector('.view-timeline-btn');
                 button.setAttribute('aria-expanded',String(open));
                 button.innerHTML = open ? '收起今日行程 <i class="fas fa-arrow-up" aria-hidden="true"></i>' : '閱讀今日行程 <i class="fas fa-arrow-down" aria-hidden="true"></i>';
-                tripState.timelines = {...tripState.timelines,[day]:open};
-                writeTripState();
                 layoutChanged();
             }
             function restoreReading(saved) {
@@ -3076,28 +3074,14 @@
                 }
             }
             function setupPracticalMode() {
-                document.querySelectorAll('[data-quick-mode]').forEach(input=>{
-                    input.checked = Boolean(tripState.quick);
-                    input.addEventListener('change',()=>{
-                        tripState.quick = input.checked;
-                        document.querySelectorAll('[data-quick-mode]').forEach(other=>other.checked=input.checked);
-                        document.body.classList.toggle('quick-mode',input.checked);
-                        writeTripState();
-                        if (input.checked && itineraryData[currentActiveSectionId]) {
-                            setTimeline(currentActiveSectionId,true);
-                            scrollToPart(document.getElementById('timeline-'+currentActiveSectionId));
-                        }
-                        layoutChanged();
-                    });
-                });
-                document.body.classList.toggle('quick-mode',Boolean(tripState.quick));
+                tripState.quick=false;tripState.photos=[];tripState.timelines={};writeTripState();
                 document.querySelectorAll('[data-direct-timeline]').forEach(button=>button.addEventListener('click',()=>{
                     setTimeline(button.dataset.directTimeline,true);
                     scrollToPart(document.getElementById('timeline-'+button.dataset.directTimeline));
                 }));
                 document.getElementById('resume-reading').addEventListener('click',()=>{
                     const saved = {...tripState.position};
-                    navigateDay(saved.day,{resume:saved});
+                    navigateDay(saved.day,{resume:saved,restoreReading:true});
                 });
                 updateResumeLink();
                 document.getElementById('mobile-timeline').addEventListener('click',()=>{
@@ -3125,15 +3109,14 @@
                         figure.classList.toggle('photo-expanded',open);
                         button.setAttribute('aria-expanded',String(open));
                         button.querySelector('.photo-action').textContent=open?'收回照片':'展開照片';
-                        button.querySelector('img').sizes=open?'(max-width:900px) 90vw, 850px':'(max-width:900px) 320px, 320px';
+                        button.querySelector('img').sizes=open?'(max-width:900px) 90vw, 850px':'180px';
                     };
-                    apply((tripState.photos || []).includes(figure.id));
+                    apply(false);
                     button.addEventListener('click',()=>{
                         const open=button.getAttribute('aria-expanded')!=='true';apply(open);
                         const img=button.querySelector('img');
                         if(!reduceMotion && img.animate)img.animate([{opacity:.5},{opacity:1}],{duration:220,easing:'ease-out'});
-                        const ids=new Set(tripState.photos || []);if(open)ids.add(figure.id);else ids.delete(figure.id);
-                        tripState.photos=[...ids];writeTripState();layoutChanged();
+                        layoutChanged();
                     });
                 });
                 window.addEventListener('pagehide',()=>window.dispatchEvent(new Event('itinerary:save')));
@@ -3476,7 +3459,7 @@
                                     <h3>${item.title}</h3><p class="trip-summary">${markPrice(item.summary || '')}</p>${renderPrimaryAction(item)}${itemMapActions(dayId,item)}${item.notice ? `<aside class="trip-notice"><strong><i class="fas fa-circle-exclamation" aria-hidden="true"></i> 注意事項</strong><p>${item.notice}</p></aside>` : ''}
                                 </div>
                                 ${item.disclosureLabel ? `<details class="trip-more" id="${dayId}-details-${item.id}"><summary>${item.disclosureLabel} <span aria-hidden="true">＋</span></summary><div class="trip-details">${renderItemDetails(item)}</div></details>` : `<div class="trip-inline">${renderItemDetails(item)}</div>`}</div>
-                                ${item.photo ? `<figure class="itinerary-photo scene-${item.photo.scene}" id="${dayId}-photo-${item.id}"><button type="button" class="photo-expand" aria-expanded="false" aria-controls="${dayId}-image-${item.id}" aria-label="${escapeHtml(item.photo.alt)}；展開或收回照片">${responsiveImage(item.photo.file,item.photo.alt, '(max-width:900px) 320px, 320px',`id="${dayId}-image-${item.id}"`)}<span class="photo-action">展開照片</span></button><figcaption>${item.photo.caption}</figcaption></figure>` : ''}
+                                ${item.photo ? `<figure class="itinerary-photo scene-${item.photo.scene}" id="${dayId}-photo-${item.id}"><button type="button" class="photo-expand" aria-expanded="false" aria-controls="${dayId}-image-${item.id}" aria-label="${escapeHtml(item.photo.alt)}；展開或收回照片">${responsiveImage(item.photo.file,item.photo.alt, '180px',`id="${dayId}-image-${item.id}"`)}<span class="photo-action">展開照片</span></button><figcaption>${item.photo.caption}</figcaption></figure>` : ''}
                             </div>
                         </article>
                     `).join('');
@@ -3484,7 +3467,7 @@
                     return `
                         <section id="${dayId}" class="content-section" style="display: none; opacity: 0;">
                             <div class="day-editorial-heading"><div class="day-folio"><span>Day</span><b>${String(Number(dayId.slice(3))).padStart(2,'0')}</b></div><div><p class="day-date">2027/4/${Number(dayId.slice(3)) + 9} · 週${['六','日','一','二','三','四','五','六'][Number(dayId.slice(3)) - 1]}</p><h2>${dayData.title}</h2><p class="day-description">${dayData.intro}</p><div class="day-places">${dayData.highlights.map(h => `<span>${h.text}</span>`).join('')}</div></div></div>
-                            <div class="day-tools"><button type="button" data-direct-timeline="${dayId}">直接看時間表 ↓</button><label class="reading-preferences" style="border:0;margin:0;padding:0"><input type="checkbox" data-quick-mode>快速查行程</label></div>
+                            <div class="day-tools"><button type="button" data-direct-timeline="${dayId}">展開今日行程 ↓</button></div>
                             <div class="daily-theme-card water-photo cursor-pointer relative overflow-hidden mb-12 scene-${dayId==='day5'?'sea':dayId==='day4'?'water':['day1','day7'].includes(dayId)?'night':'day'}"><div class="day-photo-image" style="--photo-position:${dayId==='day3'?'center 55%':'center'}" aria-hidden="true">${responsiveImage(dayData.themeImage,'','(max-width:767px) 100vw, 1180px')}</div>
                                 <span class="photo-day-caption">${dayData.photoCaption}</span><button aria-expanded="false" aria-controls="timeline-${dayId}" class="view-timeline-btn">閱讀今日行程 <i class="fas fa-arrow-down" aria-hidden="true"></i></button>
                             </div>
@@ -3500,9 +3483,6 @@
                         </section>`;
                 }).join('');
                 dailySectionsContainer.innerHTML = allSectionsHtml;
-                Object.keys(itineraryData).forEach(day=>{
-                    if(tripState.timelines?.[day] || tripState.quick || tripDayAt()===day)setTimeline(day,true);
-                });
                 document.querySelectorAll('.water-photo').forEach(photo => {
                     photo.addEventListener('pointermove', event => {
                         const rect = photo.getBoundingClientRect();
@@ -3678,6 +3658,10 @@
             function navigateDay(day, options = {}) {
                 if(!document.getElementById(day))return;
                 const serial=++navigationSerial;
+                if(day!==currentActiveSectionId){
+                    document.querySelectorAll('.timeline-container:not(.hidden)').forEach(timeline=>setTimeline(timeline.closest('.content-section').id,false));
+                    document.querySelectorAll('.photo-expand[aria-expanded="true"]').forEach(button=>button.click());
+                }
                 const item=options.item?itineraryData[day]?.items.find(x=>x.id===options.item):null;
                 if(options.item&&!item)return;
                 restoringHistory=options.history===false;
@@ -3691,9 +3675,9 @@
                 switchTab(day,false,()=>{
                     const section=document.getElementById(day);
                     let destination=section;
-                    if(options.resume){restoreReading(options.resume);destination=null;}
+                    if(options.resume&&options.restoreReading){restoreReading(options.resume);destination=null;}
                     else if(item){setTimeline(day,true);destination=document.getElementById(day+'-item-'+item.id);}
-                    else if(options.timeline || tripState.quick || tripDayAt()===day){setTimeline(day,true);destination=document.getElementById('timeline-'+day);}
+                    else if(options.timeline){setTimeline(day,true);destination=document.getElementById('timeline-'+day);}
                     if(options.scrollY!==undefined && !options.resume){window.scrollTo({top:Math.max(0,options.scrollY),behavior:'auto'});destination=null;}
                     if(destination)scrollToPart(destination,Boolean(options.instant));
                     if(options.focus) (item?destination:section.querySelector('h2'))?.focus({preventScroll:true});
