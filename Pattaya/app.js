@@ -57,7 +57,7 @@
                 "time": "07:55 → 10:40",
                 "title": "桃園飛曼谷",
                 "icon": "fa-plane-departure",
-                "details": "<div class=\"detail-copy\"><p>4/10（六）TG637 自桃園第 1 航廈出發，飛行 3 小時 45 分鐘；台灣比泰國快 1 小時。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>4/10（六）TG637 自桃園第 1 航廈出發，飛行 3 小時 45 分鐘；台灣比泰國快 1 小時。</p></div><div class=\"detail-copy\"><p>機票費用：每人 NT$12,294；四人 NT$49,176，整趟只計一次。</p></div>",
                 "summary": "07:55 起飛、10:40 抵達 BKK，抵達後改用泰國時間。",
                 "notice": "航班時間為各地當地時間；抵達曼谷後，行程一律使用泰國時間。",
                 "kind": "transport",
@@ -164,7 +164,7 @@
                 "time": "16:30／17:00–17:30",
                 "title": "入住・盥洗換裝",
                 "summary": "抵達後先放行李、簡單整理，再出發去 DAM。",
-                "details": "<div class=\"detail-copy\"><p>依民宿約定辦理入住。這段約 30～60 分鐘，優先留給盥洗換裝；午餐可在機場上車前簡單解決或先準備輕食。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>依民宿約定辦理入住。這段約 30～60 分鐘，優先留給盥洗換裝；午餐可在機場上車前簡單解決或先準備輕食。</p></div><div class=\"detail-copy\"><p><strong>芭達雅住宿：4/10 入住、4/15 退房，共 5 晚。</strong>每人 NT$3,968，四人 NT$15,872。</p><p>地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">住宿地址地圖</a></div>",
                 "kind": "activity",
                 "icon": "fa-house",
                 "notice": "加入 LOF LAND 後，下午休息時間較短；若晚到，先放行李再前往晚餐。",
@@ -1355,7 +1355,7 @@
             },
             {
                 "icon": "fa-house",
-                "text": "Yu Sabay 民宿"
+                "text": "彩虹雲霄酒店"
             },
             {
                 "icon": "fa-person-walking",
@@ -1371,9 +1371,9 @@
                 "lat": 13.7241522,
                 "lon": 100.7897698
             },
-            "Yu Sabay 阿Ben的曼谷民宿": {
-                "lat": 13.7307398,
-                "lon": 100.5705319
+            "彩虹雲霄酒店 (Baiyoke Sky Hotel)": {
+                "lat": 13.754,
+                "lon": 100.54
             }
         },
         "items": [
@@ -1421,8 +1421,8 @@
             {
                 "time": "12:30–16:00（交通預留）",
                 "title": "包車前往曼谷・中停 Hua Takhe",
-                "summary": "東芭樂園上車，先去貓貓船，再送 Yu Sabay 民宿。",
-                "details": "<div class=\"detail-copy\"><p><strong>包車路線：東芭樂園 → Si Yaek Huatakhe Cafe &amp; Guesthouse（停留約 1.5 小時）→ Yu Sabay 阿Ben的曼谷民宿。</strong></p><p>這不是單純芭達雅 → 曼谷直達接送，詢價需明列中停、等候、四人行李、過路費與最晚服務時間。費用待業者報價。</p><p>本段是排程預留，非即時導航車程。目標約 16:00 抵達、銜接希望預約的 16:30 船班；若店家確認其他時段，整段接送與東芭離園時間同步調整。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船位置<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://maps.app.goo.gl/QR3cw1xd5JoHagU59\" target=\"_blank\" rel=\"noopener noreferrer\">包車終點・Yu Sabay 民宿<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "東芭樂園上車，先去貓貓船，再送 彩虹雲霄酒店。",
+                "details": "<div class=\"detail-copy\"><p><strong>包車路線：東芭樂園 → Si Yaek Huatakhe Cafe &amp; Guesthouse（停留約 1.5 小時）→ 彩虹雲霄酒店 (Baiyoke Sky Hotel)。</strong></p><p>這不是單純芭達雅 → 曼谷直達接送，詢價需明列中停、等候、四人行李、過路費與最晚服務時間。費用待業者報價。</p><p>本段是排程預留，非即時導航車程。目標約 16:00 抵達、銜接希望預約的 16:30 船班；若店家確認其他時段，整段接送與東芭離園時間同步調整。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船位置<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">包車終點・彩虹雲霄酒店<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "宋干節交通需留彈性；訂車前先確認貓貓船場次及停留等候費。",
@@ -1442,7 +1442,7 @@
                 "time": "16:00–17:30（場次待確認）",
                 "title": "Hua Takhe・貓貓船",
                 "summary": "Si Yaek Huatakhe 貓貓船；媒體參考 200 THB／人，四人先估 800 THB，分船與場次待店家確認。",
-                "details": "<div class=\"detail-copy\"><p>貓貓船位於 Hua Takhe 老社區的 <strong>Si Yaek Huatakhe Cafe &amp; Guesthouse</strong>。先預留 16:00 到店、以 <strong>16:30 場次為預約目標</strong>，遊河約 50～60 分鐘。</p><p><strong>尚未預訂。</strong>提前向店家確認 2027/4/15 是否營業、實際場次、四人座位及費用；小船乘載有限，四人可能需分船，是否能同時出發以店家回覆為準。貓咪是否上船依現場狀況。</p><p>行李與停車、下車步行位置先和包車司機確認。若無合適船班、天候取消或嚴重塞車，改咖啡廳／老社區短停，或直接前往民宿。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.facebook.com/SiyaekHuatakhe\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船官方 Facebook・確認預約<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船地圖<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://visionthai.net/article/bangkok-cat-boat-si-yaek-huatakhe-cafe-guesthouse/\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船體驗說明<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>公開媒體及體驗文章記錄非住客搭船約 200 THB／人，四人先估 800 THB；這不是已取得的官方 2027 報價。需向 Si Yaek Huatakhe Cafe & Guesthouse 確認 2027/4/15 場次、四人分船、總價與天候規則，餐飲及包車等候不含。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://eastweek.stheadline.com/pets/15771/%E6%B3%B0%E5%9C%8B%E8%B2%93%E8%B2%93%E8%88%B9-%E8%B2%93%E8%B2%93%E9%A8%8E%E8%86%8A%E9%A6%AC%E9%99%AA%E9%81%8A%E8%88%B9%E6%B2%B350%E5%88%86%E9%90%98%E5%8F%AA%E9%9C%80200%E9%8A%96\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船媒體費用參考 ↗</a></div>",
+                "details": "<div class=\"detail-copy\"><p>貓貓船位於 Hua Takhe 老社區的 <strong>Si Yaek Huatakhe Cafe &amp; Guesthouse</strong>。先預留 16:00 到店、以 <strong>16:30 場次為預約目標</strong>，遊河約 50～60 分鐘。</p><p><strong>尚未預訂。</strong>提前向店家確認 2027/4/15 是否營業、實際場次、四人座位及費用；小船乘載有限，四人可能需分船，是否能同時出發以店家回覆為準。貓咪是否上船依現場狀況。</p><p>行李與停車、下車步行位置先和包車司機確認。若無合適船班、天候取消或嚴重塞車，改咖啡廳／老社區短停，或直接前往飯店。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.facebook.com/SiyaekHuatakhe\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船官方 Facebook・確認預約<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船地圖<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://visionthai.net/article/bangkok-cat-boat-si-yaek-huatakhe-cafe-guesthouse/\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船體驗說明<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>公開媒體及體驗文章記錄非住客搭船約 200 THB／人，四人先估 800 THB；這不是已取得的官方 2027 報價。需向 Si Yaek Huatakhe Cafe & Guesthouse 確認 2027/4/15 場次、四人分船、總價與天候規則，餐飲及包車等候不含。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://eastweek.stheadline.com/pets/15771/%E6%B3%B0%E5%9C%8B%E8%B2%93%E8%B2%93%E8%88%B9-%E8%B2%93%E8%B2%93%E9%A8%8E%E8%86%8A%E9%A6%AC%E9%99%AA%E9%81%8A%E8%88%B9%E6%B2%B350%E5%88%86%E9%90%98%E5%8F%AA%E9%9C%80200%E9%8A%96\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船媒體費用參考 ↗</a></div>",
                 "icon": "fa-cat",
                 "kind": "activity",
                 "notice": "200 THB 為媒體參考，未取得店家 2027 報價；四人可能分兩艘，先確認同時出發。",
@@ -1461,9 +1461,9 @@
             },
             {
                 "time": "17:30–19:00（估）",
-                "title": "前往 Yu Sabay・辦理入住",
-                "summary": "由原包車送往 Yu Sabay 阿Ben的曼谷民宿。",
-                "details": "<div class=\"detail-copy\"><p>依你提供的地圖前往 <strong>Yu Sabay 阿Ben的曼谷民宿</strong>，放行李、check-in 並稍作整理。抵達時間依貓貓船結束時間與市區路況。</p><p>先告知房東預估傍晚至晚間抵達，確認入住方式、接待時間及司機可停車下客的位置。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/QR3cw1xd5JoHagU59\" target=\"_blank\" rel=\"noopener noreferrer\">Yu Sabay 阿Ben的曼谷民宿<span aria-hidden=\"true\">↗</span></a></div>",
+                "title": "前往彩虹雲霄酒店・辦理入住",
+                "summary": "由原包車送往 彩虹雲霄酒店 (Baiyoke Sky Hotel)。",
+                "details": "<div class=\"detail-copy\"><p>依你提供的地圖前往 <strong>彩虹雲霄酒店 (Baiyoke Sky Hotel)</strong>，放行李、check-in 並稍作整理。抵達時間依貓貓船結束時間與市區路況。</p><p>先告知飯店預估傍晚至晚間抵達，確認入住方式、接待時間及司機可停車下客的位置。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">彩虹雲霄酒店 (Baiyoke Sky Hotel)<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy\"><p><strong>4/15 入住、4/17 退房，共 2 晚。</strong>豪華房（Space Zone）／Deluxe Space Zone；四人合計 NT$9,870，每人 NT$2,467.50。</p><p>飯店地址：222 Soi Ratchaprarop 3, Ratchaprarop Road, Ratchathewi, Bangkok 10400 Thailand。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://baiyokesky.baiyokehotel.com/contact.php\" target=\"_blank\" rel=\"noopener noreferrer\">飯店官方地址與聯絡資訊</a></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "",
@@ -1481,8 +1481,8 @@
             },
             {
                 "time": "19:00–20:15（彈性）",
-                "title": "民宿附近・隨意晚餐",
-                "summary": "先在 Phrom Phong 或民宿附近找方便的餐廳。",
+                "title": "飯店附近・隨意晚餐",
+                "summary": "先在彩虹雲霄酒店附近找方便的餐廳。",
                 "details": "<div class=\"detail-copy\"><p>不固定餐廳，依入住時間與食慾選泰式料理、商場餐廳或路邊小吃；餐費依實際消費。若抵達較晚，夜遊同步順延或縮短。</p></div>",
                 "icon": "fa-utensils",
                 "kind": "dining",
@@ -1495,9 +1495,9 @@
             },
             {
                 "time": "20:15–20:45（估）",
-                "title": "搭 BTS 到 Phloen Chit",
-                "summary": "從 Phrom Phong 站搭往市中心方向，在 Phloen Chit 下車。",
-                "details": "<div class=\"detail-copy\"><p>晚餐後前往 BTS Phrom Phong，搭往 Siam／Khu Khot 方向，依序經 Asok、Nana，到 <strong>Phloen Chit</strong> 下車。此段時間含步行到站與候車，票價依當日公告。</p></div>",
+                "title": "飯店 → Phloen Chit",
+                "summary": "從彩虹雲霄酒店叫車到 Phloen Chit，接續 Big C 與娜娜夜遊。",
+                "details": "<div class=\"detail-copy\"><p>晚餐後從彩虹雲霄酒店叫車前往 Phloen Chit；車資待填。時間依當晚路況彈性順延。</p></div>",
                 "icon": "fa-train-subway",
                 "kind": "transport",
                 "notice": "",
@@ -1505,7 +1505,7 @@
                 "chapter": {
                     "label": "晚間",
                     "time": "20:15–23:45（彈性）",
-                    "title": "先逛 Big C，再從娜娜走回民宿"
+                    "title": "先逛 Big C，再到娜娜散步"
                 },
                 "id": "s-9ab860bd03",
                 "routeIndices": [
@@ -1556,9 +1556,9 @@
             },
             {
                 "time": "22:30–23:45（彈性）",
-                "title": "Nana → Asok → Phrom Phong・步行回民宿",
-                "summary": "逛完沿素坤逸路往東走，經 Asok 回 Phrom Phong，再回 Yu Sabay。",
-                "details": "<div class=\"detail-copy\"><p>步行路線：<strong>娜娜廣場 → 素坤逸路 → BTS Nana → Asok → Phrom Phong → Yu Sabay 民宿</strong>。預留散步及沿路停留時間；累了可從 Nana／Asok 搭 BTS 回 Phrom Phong，或直接叫車。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/dir/?api=1&origin=BTS+Phloen+Chit+Bangkok&destination=BTS+Phrom+Phong+Bangkok&waypoints=Big+C+Foodplace+Mahatun+Plaza+Bangkok%7CNana+Plaza+Bangkok%7CBTS+Asok+Bangkok&travelmode=walking\" target=\"_blank\" rel=\"noopener noreferrer\">今晚步行路線<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://maps.app.goo.gl/QR3cw1xd5JoHagU59\" target=\"_blank\" rel=\"noopener noreferrer\">回 Yu Sabay 民宿<span aria-hidden=\"true\">↗</span></a></div>",
+                "title": "娜娜廣場 → 彩虹雲霄酒店",
+                "summary": "夜遊後叫車返回彩虹雲霄酒店。",
+                "details": "<div class=\"detail-copy\"><p>結束娜娜廣場行程後，叫 Grab／計程車返回彩虹雲霄酒店，車資另計；依當晚精神與路況調整回程時間。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">返回飯店地圖</a></div>",
                 "icon": "fa-person-walking",
                 "kind": "night",
                 "notice": "",
@@ -1599,12 +1599,12 @@
                 "itemId": "s-5a71b2aac1"
             },
             {
-                "name": "Yu Sabay 阿Ben的曼谷民宿",
-                "lat": 13.7307398,
-                "lon": 100.5705319,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
-                "note": "依提供的 Google 地圖定位。",
-                "approx": false,
+                "name": "彩虹雲霄酒店 (Baiyoke Sky Hotel)",
+                "lat": 13.754,
+                "lon": 100.54,
+                "googleQuery": "Baiyoke Sky Hotel Bangkok",
+                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
+                "approx": true,
                 "itemId": "s-5958cd7dd1"
             },
             {
@@ -1638,11 +1638,11 @@
                 "itemId": "s-962a781a66"
             },
             {
-                "name": "BTS Phrom Phong・步行回程",
-                "lat": 13.73,
-                "lon": 100.569,
-                "googleQuery": "BTS Phrom Phong Bangkok",
-                "note": "娜娜經 Asok 步行回 Phrom Phong，再回民宿。",
+                "name": "彩虹雲霄酒店・夜遊回程",
+                "lat": 13.754,
+                "lon": 100.54,
+                "googleQuery": "Baiyoke Sky Hotel Bangkok",
+                "note": "夜遊後叫車回飯店；位置示意。",
                 "approx": true,
                 "mapOnly": true,
                 "itemId": "s-b009b79df9"
@@ -1685,8 +1685,8 @@
             {
                 "time": "09:30–11:30（估）",
                 "title": "Big C Extra Rama IV・上午購物",
-                "summary": "從 Yu Sabay 打車前往大型 Big C Extra，集中採買零食、伴手禮與日用品。",
-                "details": "<div class=\"detail-copy\"><p>前往你提供的 <strong>Big C Extra Rama IV（拉瑪四路店）</strong>，地址為 2929 Rama IV Road。這家是大型量販店，和前一晚 Phloen Chit 的小型 Foodplace 不同，也不是 CentralWorld 對面的 Ratchadamri 分店。</p><p>預留約兩小時含交通、挑選與結帳，集中購買想帶回台灣的零食、調味料與日用品；品牌、規格、庫存及價格以現場為準。若時間不夠，可縮短午後河畔逛街時間，不必趕著買。</p><p>建議從民宿叫車往返，採買完先回 Yu Sabay 放東西，再開始下午行程。營業時間出發前依 2027/4/16 店家公告確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/C4zUFLfaZt7VQ48bA\" target=\"_blank\" rel=\"noopener noreferrer\">Big C Extra Rama IV 地圖<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "從 彩虹雲霄酒店 打車前往大型 Big C Extra，集中採買零食、伴手禮與日用品。",
+                "details": "<div class=\"detail-copy\"><p>前往你提供的 <strong>Big C Extra Rama IV（拉瑪四路店）</strong>，地址為 2929 Rama IV Road。這家是大型量販店，和前一晚 Phloen Chit 的小型 Foodplace 不同，也不是 CentralWorld 對面的 Ratchadamri 分店。</p><p>預留約兩小時含交通、挑選與結帳，集中購買想帶回台灣的零食、調味料與日用品；品牌、規格、庫存及價格以現場為準。若時間不夠，可縮短午後河畔逛街時間，不必趕著買。</p><p>建議從飯店叫車往返，採買完先回彩虹雲霄酒店 放東西，再開始下午行程。營業時間出發前依 2027/4/16 店家公告確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/C4zUFLfaZt7VQ48bA\" target=\"_blank\" rel=\"noopener noreferrer\">Big C Extra Rama IV 地圖<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-cart-shopping",
                 "kind": "activity",
                 "notice": "採買後先回民宿放東西；車資與購物費依實際消費。",
@@ -1703,9 +1703,9 @@
             },
             {
                 "time": "11:30–12:00（估）",
-                "title": "回 Yu Sabay・放購物袋",
-                "summary": "叫車回民宿，把採買物品放好後再出門。",
-                "details": "<div class=\"detail-copy\"><p>將購物袋送回 Yu Sabay 阿Ben的曼谷民宿，稍作整理、喝水休息。下午出門只帶隨身用品，避免一路提著伴手禮逛街。</p></div>",
+                "title": "回彩虹雲霄酒店・放購物袋",
+                "summary": "叫車回飯店，把採買物品放好後再出門。",
+                "details": "<div class=\"detail-copy\"><p>將購物袋送回彩虹雲霄酒店 (Baiyoke Sky Hotel)，稍作整理、喝水休息。下午出門只帶隨身用品，避免一路提著伴手禮逛街。</p></div>",
                 "icon": "fa-house",
                 "kind": "transport",
                 "notice": "",
@@ -1718,8 +1718,8 @@
             {
                 "time": "12:00–13:00（估）",
                 "title": "前往 ICONSIAM・午餐",
-                "summary": "從 Yu Sabay 出發，到 ICONSIAM 找午餐、開始河畔行程。",
-                "details": "<div class=\"detail-copy\"><p>採買物品已先放回民宿，輕裝前往 ICONSIAM。可依當日路況選搭 BTS 轉 Gold Line 至 Charoen Nakhon，或直接叫車；午餐在商場安排，不固定餐廳。</p></div>",
+                "summary": "從彩虹雲霄酒店出發，到 ICONSIAM 找午餐、開始河畔行程。",
+                "details": "<div class=\"detail-copy\"><p>採買物品已先放回飯店，輕裝前往 ICONSIAM。可依當日路況選搭 BTS 轉 Gold Line 至 Charoen Nakhon，或直接叫車；午餐在商場安排，不固定餐廳。</p></div>",
                 "icon": "fa-train-subway",
                 "kind": "transport",
                 "notice": "",
@@ -1809,9 +1809,9 @@
             },
             {
                 "time": "21:30–22:30（估）",
-                "title": "下船・返回 Yu Sabay",
-                "summary": "靠岸後叫車回阿Ben的曼谷民宿，整理行李準備隔日返台。",
-                "details": "<div class=\"detail-copy\"><p>遊船結束後，依實際靠岸碼頭叫 Grab／計程車返回 <strong>Yu Sabay 阿Ben的曼谷民宿</strong>。今晚不再另外排夜生活，回房整理戰利品、行李與機場資料。</p><p>4/17 約 08:00 從民宿出發，09:45 前抵達 BKK（起飛前兩小時），11:45 搭機返台；出發時間依預約接送與路況確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/QR3cw1xd5JoHagU59\" target=\"_blank\" rel=\"noopener noreferrer\">返回 Yu Sabay 民宿<span aria-hidden=\"true\">↗</span></a></div>",
+                "title": "下船・返回彩虹雲霄酒店",
+                "summary": "靠岸後叫車回彩虹雲霄酒店 (Baiyoke Sky Hotel)，整理行李準備隔日返台。",
+                "details": "<div class=\"detail-copy\"><p>遊船結束後，依實際靠岸碼頭叫 Grab／計程車返回 <strong>彩虹雲霄酒店 (Baiyoke Sky Hotel)</strong>。今晚不再另外排夜生活，回房整理戰利品、行李與機場資料。</p><p>4/17 約 08:00 從飯店出發，09:45 前抵達 BKK（起飛前兩小時），11:45 搭機返台；出發時間依預約接送與路況確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">返回彩虹雲霄酒店<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-house",
                 "kind": "transport",
                 "notice": "",
@@ -1825,12 +1825,12 @@
         "intro": "上午買伴手禮、回民宿放好，午後逛 ICONSIAM 河畔，傍晚報到搭嘉年華號，船上吃晚餐、看秀與夜景。",
         "route": [
             {
-                "name": "Yu Sabay 阿Ben的曼谷民宿",
-                "lat": 13.7307398,
-                "lon": 100.5705319,
-                "note": "採買出發點，買完先回來放購物袋。",
-                "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "name": "彩虹雲霄酒店 (Baiyoke Sky Hotel)",
+                "lat": 13.754,
+                "lon": 100.54,
+                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
+                "approx": true,
+                "googleQuery": "Baiyoke Sky Hotel Bangkok",
                 "itemId": "s-2fbbfb5fbe"
             },
             {
@@ -1843,12 +1843,12 @@
                 "itemId": "s-28d1cd31d8"
             },
             {
-                "name": "回 Yu Sabay・放購物袋",
-                "lat": 13.7307398,
-                "lon": 100.5705319,
-                "note": "採買出發點，買完先回來放購物袋。",
-                "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "name": "回彩虹雲霄酒店・放購物袋",
+                "lat": 13.754,
+                "lon": 100.54,
+                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
+                "approx": true,
+                "googleQuery": "Baiyoke Sky Hotel Bangkok",
                 "itemId": "s-2fbbfb5fbe"
             },
             {
@@ -1870,12 +1870,12 @@
                 "itemId": "s-4eca03218a"
             },
             {
-                "name": "回 Yu Sabay・休息備返台",
-                "lat": 13.7307398,
-                "lon": 100.5705319,
-                "note": "遊船結束後返宿，整理行李，隔天退房前往 BKK。",
-                "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "name": "回彩虹雲霄酒店・休息備返台",
+                "lat": 13.754,
+                "lon": 100.54,
+                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
+                "approx": true,
+                "googleQuery": "Baiyoke Sky Hotel Bangkok",
                 "itemId": "s-4047c582f1"
             }
         ],
@@ -1908,8 +1908,8 @@
             {
                 "time": "07:30–09:45（含接送）",
                 "title": "退房・前往 BKK 蘇凡納布機場",
-                "summary": "07:30 整理退房，約 08:00 從 Yu Sabay 出發，目標 09:45 前到機場。",
-                "details": "<div class=\"detail-copy\"><p>前一晚整理好行李，早上從 <strong>Yu Sabay 阿Ben的曼谷民宿</strong>辦理退房，約 <strong>08:00</strong> 搭預約接送或計程車直接前往 <strong>BKK 蘇凡納布機場國際線出境大廳</strong>。</p><p>以 <strong>09:45 前抵達機場</strong>為目標，也就是原紀錄 11:45 航班起飛前兩小時。08:00 是接送規劃時間，實際依司機建議與當日路況提前調整。</p></div>",
+                "summary": "07:30 整理退房，約 08:00 從彩虹雲霄酒店出發，目標 09:45 前到機場。",
+                "details": "<div class=\"detail-copy\"><p>前一晚整理好行李，早上從 <strong>彩虹雲霄酒店 (Baiyoke Sky Hotel)</strong>辦理退房，約 <strong>08:00</strong> 搭預約接送或計程車直接前往 <strong>BKK 蘇凡納布機場國際線出境大廳</strong>。</p><p>以 <strong>09:45 前抵達機場</strong>為目標，也就是原紀錄 11:45 航班起飛前兩小時。08:00 是接送規劃時間，實際依司機建議與當日路況提前調整。</p></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "目的地為 BKK 蘇凡納布機場；出發時間以能在 09:45 前抵達為準。",
@@ -1958,12 +1958,12 @@
         "intro": "退房後直接前往 BKK，起飛前兩小時抵達機場，辦理報到、搭機返回高雄。",
         "route": [
             {
-                "name": "Yu Sabay 阿Ben的曼谷民宿",
-                "lat": 13.7307398,
-                "lon": 100.5705319,
-                "note": "曼谷住宿，依提供的地圖定位。",
-                "approx": false,
-                "googleQuery": "Yu Sabay 阿Ben的曼谷民宿",
+                "name": "彩虹雲霄酒店 (Baiyoke Sky Hotel)",
+                "lat": 13.754,
+                "lon": 100.54,
+                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
+                "approx": true,
+                "googleQuery": "Baiyoke Sky Hotel Bangkok",
                 "itemId": "s-06f970dc3f"
             },
             {
@@ -2156,9 +2156,119 @@
         "basis": "group",
         "status": "unknown",
         "note": "尚未填寫，不以 0 元計入。酒吧飲品、單點餐點及加購依實際選擇新增。"
+    },
+    {
+        "id": "pending-day1-0",
+        "day": "day1",
+        "itemId": "s-a2a077bc48",
+        "label": "來回機票（合併票只填一次）",
+        "amount": null,
+        "currency": "TWD",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day1-1",
+        "day": "day1",
+        "itemId": "s-7d521d25bb",
+        "label": "芭達雅住宿・第 1 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day2-3",
+        "day": "day2",
+        "itemId": "s-1b08c846c6",
+        "label": "芭達雅住宿・第 2 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day3-4",
+        "day": "day3",
+        "itemId": "s-1f2c4d6113",
+        "label": "芭達雅住宿・第 3 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day4-4",
+        "day": "day4",
+        "itemId": "s-3c1126f221",
+        "label": "芭達雅住宿・第 4 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day5-3",
+        "day": "day5",
+        "itemId": "s-8b6d3a7c25",
+        "label": "芭達雅住宿・第 5 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day6-1",
+        "day": "day6",
+        "itemId": "s-c0ac557b28",
+        "label": "包車東芭→貓貓船→Yu Sabay・含中停等候",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day6-4",
+        "day": "day6",
+        "itemId": "s-5958cd7dd1",
+        "label": "Yu Sabay 住宿・第 1 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day7-3",
+        "day": "day7",
+        "itemId": "s-4047c582f1",
+        "label": "Yu Sabay 住宿・第 2 晚",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+    },
+    {
+        "id": "pending-day8-0",
+        "day": "day8",
+        "itemId": "s-06f970dc3f",
+        "label": "Yu Sabay → BKK 機場接送",
+        "amount": null,
+        "currency": "THB",
+        "basis": "group",
+        "status": "unknown",
+        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     }
 ];
-            const expenseSeedRevision = "2026-11-17-tickets-deluxe";
+            const expenseSeedRevision = "2026-11-26-flights-stays";
             const defaultExpenses = [
     {
         "id": "quote-s-95e9a46204",
@@ -2345,23 +2455,23 @@
         "id": "pending-day1-0",
         "day": "day1",
         "itemId": "s-a2a077bc48",
-        "label": "來回機票（合併票只填一次）",
-        "amount": null,
+        "label": "來回機票",
+        "amount": 12294,
         "currency": "TWD",
-        "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+        "basis": "person",
+        "status": "confirmed",
+        "note": "你提供的機票費用：每人 NT$12,294；四人 NT$49,176，整趟只計一次。"
     },
     {
         "id": "pending-day1-1",
         "day": "day1",
         "itemId": "s-7d521d25bb",
-        "label": "芭達雅住宿・第 1 晚",
-        "amount": null,
-        "currency": "THB",
-        "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+        "label": "芭達雅住宿・4/10–4/15（5 晚）",
+        "amount": 3968,
+        "currency": "TWD",
+        "basis": "person",
+        "status": "confirmed",
+        "note": "你提供的整段住宿費：每人 NT$3,968；四人 NT$15,872。地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國。整段列在入住日，不逐晚重複計價。"
     },
     {
         "id": "pending-day1-2",
@@ -2430,17 +2540,6 @@
         "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     },
     {
-        "id": "pending-day2-3",
-        "day": "day2",
-        "itemId": "s-1b08c846c6",
-        "label": "芭達雅住宿・第 2 晚",
-        "amount": null,
-        "currency": "THB",
-        "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
-    },
-    {
         "id": "pending-day3-0",
         "day": "day3",
         "itemId": "s-1f2c4d6113",
@@ -2478,17 +2577,6 @@
         "day": "day3",
         "itemId": "s-3646f15f55",
         "label": "六巷飲品與個人消費",
-        "amount": null,
-        "currency": "THB",
-        "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
-    },
-    {
-        "id": "pending-day3-4",
-        "day": "day3",
-        "itemId": "s-1f2c4d6113",
-        "label": "芭達雅住宿・第 3 晚",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -2540,17 +2628,6 @@
         "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     },
     {
-        "id": "pending-day4-4",
-        "day": "day4",
-        "itemId": "s-3c1126f221",
-        "label": "芭達雅住宿・第 4 晚",
-        "amount": null,
-        "currency": "THB",
-        "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
-    },
-    {
         "id": "pending-day5-0",
         "day": "day5",
         "itemId": "s-8b6d3a7c25",
@@ -2584,17 +2661,6 @@
         "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     },
     {
-        "id": "pending-day5-3",
-        "day": "day5",
-        "itemId": "s-8b6d3a7c25",
-        "label": "芭達雅住宿・第 5 晚",
-        "amount": null,
-        "currency": "THB",
-        "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
-    },
-    {
         "id": "pending-day6-0",
         "day": "day6",
         "itemId": "s-e1a02702ae",
@@ -2609,7 +2675,7 @@
         "id": "pending-day6-1",
         "day": "day6",
         "itemId": "s-c0ac557b28",
-        "label": "包車東芭→貓貓船→Yu Sabay・含中停等候",
+        "label": "包車東芭→貓貓船→彩虹雲霄酒店・含中停等候",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -2631,7 +2697,7 @@
         "id": "pending-day6-3",
         "day": "day6",
         "itemId": "s-9ab860bd03",
-        "label": "BTS、晚間交通與少量採買",
+        "label": "晚間叫車與少量採買",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -2642,12 +2708,12 @@
         "id": "pending-day6-4",
         "day": "day6",
         "itemId": "s-5958cd7dd1",
-        "label": "Yu Sabay 住宿・第 1 晚",
-        "amount": null,
-        "currency": "THB",
+        "label": "彩虹雲霄酒店・4/15–4/17（2 晚）",
+        "amount": 9870,
+        "currency": "TWD",
         "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+        "status": "confirmed",
+        "note": "你提供的住宿總價 NT$9,870 ÷ 4＝每人 NT$2,467.50；豪華房（Space Zone）／Deluxe Space Zone。整段列在入住日，不逐晚重複計價。"
     },
     {
         "id": "pending-day7-0",
@@ -2683,21 +2749,10 @@
         "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     },
     {
-        "id": "pending-day7-3",
-        "day": "day7",
-        "itemId": "s-4047c582f1",
-        "label": "Yu Sabay 住宿・第 2 晚",
-        "amount": null,
-        "currency": "THB",
-        "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
-    },
-    {
         "id": "pending-day8-0",
         "day": "day8",
         "itemId": "s-06f970dc3f",
-        "label": "Yu Sabay → BKK 機場接送",
+        "label": "彩虹雲霄酒店 → BKK 機場接送",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -3128,7 +3183,7 @@
             function todayBrief(day) {
                 if(!day||!itineraryData[day])return '';
                 const data=itineraryData[day],clock=TripTools.bangkokClock(),plan=TripTools.nextPlan(data.items,clock.minutes,tripState.manualNext[day]);
-                const stay=Number(day.slice(3))<6?'芭達雅海灘路住宿':'Yu Sabay 阿Ben的曼谷民宿';
+                const stay=Number(day.slice(3))<6?'芭達雅海灘路住宿':'彩虹雲霄酒店 (Baiyoke Sky Hotel)';
                 const label={manual:'手動選擇的下一站',current:'時間表參考・目前預定',next:'時間表參考・接下來',finished:'今天的時間表已到最後一段'}[plan.mode];
                 const map=plan.item?mainMapLink(plan.item)||externalDayMap(day):externalDayMap(day);
                 return `<p class="editorial-kicker">今天的小抄 · 泰國 ${clock.time}</p><h2>${dateLabel(day)} · ${escapeHtml(data.title)}</h2><p>${label}${plan.item?'：'+escapeHtml(plan.item.time)+' · '+escapeHtml(plan.item.title):''}</p><p class="small-note">${day==='day8'?'退房住宿':'今晚住宿'}：${stay}${day==='day8'?' · 目標 09:45 前抵達 BKK，11:45 起飛。':''}</p><p class="small-note">依原定時間表顯示，並非即時定位；延誤或調整時可手動選下一站。</p><label class="next-plan-label">下一站<select id="manual-next-plan"><option value="">依泰國時間自動顯示</option>${data.items.map(item=>`<option value="${item.id}" ${plan.mode==='manual'&&plan.item.id===item.id?'selected':''}>${escapeHtml(item.time)} · ${escapeHtml(item.title)}</option>`).join('')}</select></label><button type="button" class="editorial-text-button" data-go-day="${day}" ${plan.item?`data-go-item="${plan.item.id}"`:''}>${plan.item?'查看這段行程':'打開今天時間表'} ↗</button><a class="trip-link" href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer">${plan.item?'這一站':'今日'}地圖 ↗</a>`;
@@ -3404,7 +3459,7 @@
                 return 'https://maps.google.com/maps?' + new URLSearchParams({hl:'zh-TW', saddr:mapQuery(stops[0]), daddr:stops.slice(1).map(mapQuery).join(' to:'), dirflg:'d', output:'embed'});
             }
             function routeNote(dayId) {
-                if (dayId === 'day6') return '整天路線顯示住宿區 → 東芭樂園 → 貓貓船 → Yu Sabay；晚上另搭 BTS 到 Phloen Chit，先逛 Big C Mahatun Plaza，經娜娜步行回 Phrom Phong。夜遊點可單獨點選定位，步行連結在晚間行程內。';
+                if (dayId === 'day6') return '整天路線顯示住宿區 → 東芭樂園 → 貓貓船 → 彩虹雲霄酒店；晚上叫車到 Phloen Chit，先逛 Big C Mahatun Plaza，再到娜娜散步、叫車回飯店。夜遊點可單獨點選定位，步行連結在晚間行程內。';
                 return dayId === 'day5' ? '格蘭島行程以海島位置圖呈現；船程依一日團安排。點選左側景點可查看各站，使用地圖原生資訊卡開啟 Google 地圖。' : '點選景點可查看店家位置，使用地圖原生資訊卡的連結或路線按鈕開啟 Google 地圖。住宿及區域位置僅供參考。';
             }
             function renderDayRoute(dayId, dayData) {

@@ -83,8 +83,8 @@ test('Offline preparation reports success only after the worker finishes; blocke
 
 test('Front statistics list eight days, quantities, sources and the exact selected Deluxe subtotal',async()=>{
  const t=await boot();try{
-  const {d,w}=t;assert.equal(d.querySelectorAll('.daily-ledger').length,0);d.getElementById('overview-costs').open=true;await pause(20);assert.equal(d.querySelectorAll('.daily-ledger').length,8);assert.equal(d.querySelectorAll('.front-cost-list li').length,50);
-  assert(d.getElementById('trip-cost-totals').textContent.includes('92,146 THB'));assert(d.getElementById('trip-cost-totals').textContent.includes('1,933 NT$'));
+  const {d,w}=t;assert.equal(d.querySelectorAll('.daily-ledger').length,0);d.getElementById('overview-costs').open=true;await pause(20);assert.equal(d.querySelectorAll('.daily-ledger').length,8);assert.equal(d.querySelectorAll('.front-cost-list li').length,45);
+  assert(d.getElementById('trip-cost-totals').textContent.includes('92,146 THB'));assert(d.getElementById('trip-cost-totals').textContent.includes('76,851 NT$'));
   const sky=[...d.querySelectorAll('.front-cost-list li')].find(row=>row.textContent.includes('Deluxe 跳傘與拍攝'));assert(sky.textContent.includes('15,650 THB／人'));assert(sky.textContent.includes('62,600 THB'));assert(sky.querySelector('a[href*="tandem-deluxe"]'));
   d.querySelector('[data-ledger-action="open"]').click();assert([...d.querySelectorAll('.daily-ledger')].every(el=>el.open));
   d.querySelector('[data-ledger-action="close"]').click();assert([...d.querySelectorAll('.daily-ledger')].every(el=>!el.open));
@@ -97,7 +97,7 @@ test('Older saved budgets receive researched tickets once; personal amounts and 
   state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));assert.equal(state.expenses.find(row=>row.itemId===data.day3.items[0].id).amount,15650);assert(state.expenses.some(row=>row.id==='ticket-truth'));
   t.d.getElementById('expense-panel').open=true;await pause(20);t.d.querySelector('[data-remove-expense="ticket-truth"]').click();state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));
  }finally{t.close();}
- const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-17-tickets-deluxe');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
+ const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-26-flights-stays');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
 });
 test('The lazily loaded chart and front daily figures update from the same editable rows',async()=>{
  const t=await boot();try{
@@ -110,7 +110,7 @@ test('The lazily loaded chart and front daily figures update from the same edita
 
 test('Overview defers supporting content, forms and weather until requested',async()=>{
  const t=await boot();try{const {d,w}=t;assert.equal(d.querySelectorAll('.overview-fold[open]').length,0);assert.equal(d.querySelectorAll('.booking-row,.expense-row,.front-cost-list li').length,0);assert(!d.querySelector('script[src*="gsap"]'));assert(d.querySelector('.overview-total').textContent.includes('23,036.5'));
- d.getElementById('expense-panel').open=true;await pause(20);assert.equal(d.querySelectorAll('.expense-row').length,50);
+ d.getElementById('expense-panel').open=true;await pause(20);assert.equal(d.querySelectorAll('.expense-row').length,45);
  d.getElementById('overview-live').open=true;await pause(20);assert(d.getElementById('weather-info').textContent.includes('無法載入'));d.getElementById('overview-live').open=false;assert.equal(t.errors.length,0,t.errors.join('\n'));
  }finally{t.close();}
 });
