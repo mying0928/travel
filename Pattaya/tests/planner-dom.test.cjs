@@ -97,7 +97,7 @@ test('Older saved budgets receive researched tickets once; personal amounts and 
   state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));assert.equal(state.expenses.find(row=>row.itemId===data.day3.items[0].id).amount,13100);assert(state.expenses.some(row=>row.id==='ticket-truth'));
   t.d.getElementById('expense-panel').open=true;await pause(20);t.d.querySelector('[data-remove-expense="ticket-truth"]').click();state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));
  }finally{t.close();}
- const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-26-home-skydive');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
+ const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-26-city-link');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
 });
 test('The lazily loaded chart and front daily figures update from the same editable rows',async()=>{
  const t=await boot();try{

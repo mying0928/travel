@@ -17,7 +17,7 @@
             const mapTimers = {};
             const selectedRoutes = {};
             const itemLinkCache = new WeakMap();
-            const imageAssets = {"images/bkk-departure-hall.jpg":{"width":2048,"height":1536,"variants":[{"file":"images/optimized/bkk-departure-hall-640.webp","width":640},{"file":"images/optimized/bkk-departure-hall-1280.webp","width":1280},{"file":"images/optimized/bkk-departure-hall-1920.webp","width":1920}]},"images/dam-option-4.jpg":{"width":1366,"height":683,"variants":[{"file":"images/optimized/dam-option-4-640.webp","width":640},{"file":"images/optimized/dam-option-4-1280.webp","width":1280},{"file":"images/optimized/dam-option-4-1366.webp","width":1366}]},"images/dam-pattaya-fire-panorama.jpg":{"width":1295,"height":862,"variants":[{"file":"images/optimized/dam-pattaya-fire-panorama-640.webp","width":640},{"file":"images/optimized/dam-pattaya-fire-panorama-1280.webp","width":1280},{"file":"images/optimized/dam-pattaya-fire-panorama-1295.webp","width":1295}]},"images/hero-pattaya-songkran.jpg":{"width":2048,"height":1151,"variants":[{"file":"images/optimized/hero-pattaya-songkran-640.webp","width":640},{"file":"images/optimized/hero-pattaya-songkran-1280.webp","width":1280},{"file":"images/optimized/hero-pattaya-songkran-1920.webp","width":1920}]},"images/house-of-benedict.jpg":{"width":1200,"height":800,"variants":[{"file":"images/optimized/house-of-benedict-640.webp","width":640},{"file":"images/optimized/house-of-benedict-1200.webp","width":1200}]},"images/hua-takhe-cat-boat.webp":{"width":2000,"height":1333,"variants":[{"file":"images/optimized/hua-takhe-cat-boat-640.webp","width":640},{"file":"images/optimized/hua-takhe-cat-boat-1280.webp","width":1280},{"file":"images/optimized/hua-takhe-cat-boat-1920.webp","width":1920}]},"images/khao-kheow-elephant.jpg":{"width":750,"height":469,"variants":[{"file":"images/optimized/khao-kheow-elephant-640.webp","width":640},{"file":"images/optimized/khao-kheow-elephant-750.webp","width":750}]},"images/khao-kheow-penguin-parade.jpg":{"width":1200,"height":900,"variants":[{"file":"images/optimized/khao-kheow-penguin-parade-640.webp","width":640},{"file":"images/optimized/khao-kheow-penguin-parade-1200.webp","width":1200}]},"images/khao-kheow-zoo.jpg":{"width":800,"height":533,"variants":[{"file":"images/optimized/khao-kheow-zoo-640.webp","width":640},{"file":"images/optimized/khao-kheow-zoo-800.webp","width":800}]},"images/koh-larn.jpg":{"width":1700,"height":510,"variants":[{"file":"images/optimized/koh-larn-640.webp","width":640},{"file":"images/optimized/koh-larn-1280.webp","width":1280},{"file":"images/optimized/koh-larn-1700.webp","width":1700}]},"images/lof-land.jpg":{"width":640,"height":960,"variants":[{"file":"images/optimized/lof-land-640.webp","width":640}]},"images/moo-deng.jpg":{"width":771,"height":1024,"variants":[{"file":"images/optimized/moo-deng-640.webp","width":640},{"file":"images/optimized/moo-deng-771.webp","width":771}]},"images/nong-nooch-garden.jpg":{"width":2048,"height":1535,"variants":[{"file":"images/optimized/nong-nooch-garden-640.webp","width":640},{"file":"images/optimized/nong-nooch-garden-1280.webp","width":1280},{"file":"images/optimized/nong-nooch-garden-1920.webp","width":1920}]},"images/phra-tamnak-viewpoint-day.jpg":{"width":700,"height":600,"variants":[{"file":"images/optimized/phra-tamnak-viewpoint-day-640.webp","width":640},{"file":"images/optimized/phra-tamnak-viewpoint-day-700.webp","width":700}]},"images/riverside-carnival-cruise.jpg":{"width":1500,"height":1001,"variants":[{"file":"images/optimized/riverside-carnival-cruise-640.webp","width":640},{"file":"images/optimized/riverside-carnival-cruise-1280.webp","width":1280},{"file":"images/optimized/riverside-carnival-cruise-1500.webp","width":1500}]},"images/runway-night-market.jpg":{"width":900,"height":650,"variants":[{"file":"images/optimized/runway-night-market-640.webp","width":640},{"file":"images/optimized/runway-night-market-900.webp","width":900}]},"images/seafood-station.jpg":{"width":1536,"height":2048,"variants":[{"file":"images/optimized/seafood-station-640.webp","width":640},{"file":"images/optimized/seafood-station-1280.webp","width":1280},{"file":"images/optimized/seafood-station-1536.webp","width":1536}]},"images/sky-gallery-sunset.jpg":{"width":1200,"height":800,"variants":[{"file":"images/optimized/sky-gallery-sunset-640.webp","width":640},{"file":"images/optimized/sky-gallery-sunset-1200.webp","width":1200}]},"images/sky-wide-exit.webp":{"width":1295,"height":971,"variants":[{"file":"images/optimized/sky-wide-exit-640.webp","width":640},{"file":"images/optimized/sky-wide-exit-1280.webp","width":1280},{"file":"images/optimized/sky-wide-exit-1295.webp","width":1295}]},"images/sky-wide-tandem.webp":{"width":1295,"height":971,"variants":[{"file":"images/optimized/sky-wide-tandem-640.webp","width":640},{"file":"images/optimized/sky-wide-tandem-1280.webp","width":1280},{"file":"images/optimized/sky-wide-tandem-1295.webp","width":1295}]},"images/songkran-water-splash.jpg":{"width":1920,"height":1080,"variants":[{"file":"images/optimized/songkran-water-splash-640.webp","width":640},{"file":"images/optimized/songkran-water-splash-1280.webp","width":1280},{"file":"images/optimized/songkran-water-splash-1920.webp","width":1920}]},"images/zama-skybar.webp":{"width":1200,"height":801,"variants":[{"file":"images/optimized/zama-skybar-640.webp","width":640},{"file":"images/optimized/zama-skybar-1200.webp","width":1200}]},"images/真理寺.jpg":{"width":1600,"height":1147,"variants":[{"file":"images/optimized/真理寺-640.webp","width":640},{"file":"images/optimized/真理寺-1280.webp","width":1280},{"file":"images/optimized/真理寺-1600.webp","width":1600}]},"images/baiyoke-deluxe-space-zone.jpg":{"width":1920,"height":1280,"variants":[{"file":"images/optimized/baiyoke-deluxe-space-zone-640.webp","width":640},{"file":"images/optimized/baiyoke-deluxe-space-zone-1280.webp","width":1280}]}};
+            const imageAssets = {"images/bkk-departure-hall.jpg":{"width":2048,"height":1536,"variants":[{"file":"images/optimized/bkk-departure-hall-640.webp","width":640},{"file":"images/optimized/bkk-departure-hall-1280.webp","width":1280},{"file":"images/optimized/bkk-departure-hall-1920.webp","width":1920}]},"images/dam-option-4.jpg":{"width":1366,"height":683,"variants":[{"file":"images/optimized/dam-option-4-640.webp","width":640},{"file":"images/optimized/dam-option-4-1280.webp","width":1280},{"file":"images/optimized/dam-option-4-1366.webp","width":1366}]},"images/dam-pattaya-fire-panorama.jpg":{"width":1295,"height":862,"variants":[{"file":"images/optimized/dam-pattaya-fire-panorama-640.webp","width":640},{"file":"images/optimized/dam-pattaya-fire-panorama-1280.webp","width":1280},{"file":"images/optimized/dam-pattaya-fire-panorama-1295.webp","width":1295}]},"images/hero-pattaya-songkran.jpg":{"width":2048,"height":1151,"variants":[{"file":"images/optimized/hero-pattaya-songkran-640.webp","width":640},{"file":"images/optimized/hero-pattaya-songkran-1280.webp","width":1280},{"file":"images/optimized/hero-pattaya-songkran-1920.webp","width":1920}]},"images/house-of-benedict.jpg":{"width":1200,"height":800,"variants":[{"file":"images/optimized/house-of-benedict-640.webp","width":640},{"file":"images/optimized/house-of-benedict-1200.webp","width":1200}]},"images/hua-takhe-cat-boat.webp":{"width":2000,"height":1333,"variants":[{"file":"images/optimized/hua-takhe-cat-boat-640.webp","width":640},{"file":"images/optimized/hua-takhe-cat-boat-1280.webp","width":1280},{"file":"images/optimized/hua-takhe-cat-boat-1920.webp","width":1920}]},"images/khao-kheow-elephant.jpg":{"width":750,"height":469,"variants":[{"file":"images/optimized/khao-kheow-elephant-640.webp","width":640},{"file":"images/optimized/khao-kheow-elephant-750.webp","width":750}]},"images/khao-kheow-penguin-parade.jpg":{"width":1200,"height":900,"variants":[{"file":"images/optimized/khao-kheow-penguin-parade-640.webp","width":640},{"file":"images/optimized/khao-kheow-penguin-parade-1200.webp","width":1200}]},"images/khao-kheow-zoo.jpg":{"width":800,"height":533,"variants":[{"file":"images/optimized/khao-kheow-zoo-640.webp","width":640},{"file":"images/optimized/khao-kheow-zoo-800.webp","width":800}]},"images/koh-larn.jpg":{"width":1700,"height":510,"variants":[{"file":"images/optimized/koh-larn-640.webp","width":640},{"file":"images/optimized/koh-larn-1280.webp","width":1280},{"file":"images/optimized/koh-larn-1700.webp","width":1700}]},"images/lof-land.jpg":{"width":640,"height":960,"variants":[{"file":"images/optimized/lof-land-640.webp","width":640}]},"images/moo-deng.jpg":{"width":771,"height":1024,"variants":[{"file":"images/optimized/moo-deng-640.webp","width":640},{"file":"images/optimized/moo-deng-771.webp","width":771}]},"images/nong-nooch-garden.jpg":{"width":2048,"height":1535,"variants":[{"file":"images/optimized/nong-nooch-garden-640.webp","width":640},{"file":"images/optimized/nong-nooch-garden-1280.webp","width":1280},{"file":"images/optimized/nong-nooch-garden-1920.webp","width":1920}]},"images/phra-tamnak-viewpoint-day.jpg":{"width":700,"height":600,"variants":[{"file":"images/optimized/phra-tamnak-viewpoint-day-640.webp","width":640},{"file":"images/optimized/phra-tamnak-viewpoint-day-700.webp","width":700}]},"images/riverside-carnival-cruise.jpg":{"width":1500,"height":1001,"variants":[{"file":"images/optimized/riverside-carnival-cruise-640.webp","width":640},{"file":"images/optimized/riverside-carnival-cruise-1280.webp","width":1280},{"file":"images/optimized/riverside-carnival-cruise-1500.webp","width":1500}]},"images/runway-night-market.jpg":{"width":900,"height":650,"variants":[{"file":"images/optimized/runway-night-market-640.webp","width":640},{"file":"images/optimized/runway-night-market-900.webp","width":900}]},"images/seafood-station.jpg":{"width":1536,"height":2048,"variants":[{"file":"images/optimized/seafood-station-640.webp","width":640},{"file":"images/optimized/seafood-station-1280.webp","width":1280},{"file":"images/optimized/seafood-station-1536.webp","width":1536}]},"images/sky-gallery-sunset.jpg":{"width":1200,"height":800,"variants":[{"file":"images/optimized/sky-gallery-sunset-640.webp","width":640},{"file":"images/optimized/sky-gallery-sunset-1200.webp","width":1200}]},"images/sky-wide-exit.webp":{"width":1295,"height":971,"variants":[{"file":"images/optimized/sky-wide-exit-640.webp","width":640},{"file":"images/optimized/sky-wide-exit-1280.webp","width":1280},{"file":"images/optimized/sky-wide-exit-1295.webp","width":1295}]},"images/sky-wide-tandem.webp":{"width":1295,"height":971,"variants":[{"file":"images/optimized/sky-wide-tandem-640.webp","width":640},{"file":"images/optimized/sky-wide-tandem-1280.webp","width":1280},{"file":"images/optimized/sky-wide-tandem-1295.webp","width":1295}]},"images/songkran-water-splash.jpg":{"width":1920,"height":1080,"variants":[{"file":"images/optimized/songkran-water-splash-640.webp","width":640},{"file":"images/optimized/songkran-water-splash-1280.webp","width":1280},{"file":"images/optimized/songkran-water-splash-1920.webp","width":1920}]},"images/zama-skybar.webp":{"width":1200,"height":801,"variants":[{"file":"images/optimized/zama-skybar-640.webp","width":640},{"file":"images/optimized/zama-skybar-1200.webp","width":1200}]},"images/真理寺.jpg":{"width":1600,"height":1147,"variants":[{"file":"images/optimized/真理寺-640.webp","width":640},{"file":"images/optimized/真理寺-1280.webp","width":1280},{"file":"images/optimized/真理寺-1600.webp","width":1600}]},"images/bangkok-city-link-deluxe-king.jpg":{"width":1500,"height":1000,"variants":[{"file":"images/optimized/bangkok-city-link-deluxe-king-640.webp","width":640},{"file":"images/optimized/bangkok-city-link-deluxe-king-1280.webp","width":1280}]}};
 
             // --- DATA ---
             const itineraryData = {
@@ -1406,7 +1406,7 @@
             },
             {
                 "icon": "fa-house",
-                "text": "彩虹雲霄酒店"
+                "text": "曼谷城市連結酒店"
             },
             {
                 "icon": "fa-person-walking",
@@ -1422,9 +1422,9 @@
                 "lat": 13.7241522,
                 "lon": 100.7897698
             },
-            "彩虹雲霄酒店 (Baiyoke Sky Hotel)": {
-                "lat": 13.754,
-                "lon": 100.54
+            "曼谷城市連結酒店 (Bangkok City Link Hotel)": {
+                "lat": 13.75717831,
+                "lon": 100.54322815
             }
         },
         "items": [
@@ -1473,8 +1473,8 @@
             {
                 "time": "12:30–16:00（交通預留）",
                 "title": "包車前往曼谷・中停 Hua Takhe",
-                "summary": "東芭樂園上車，先去貓貓船，再送 彩虹雲霄酒店。",
-                "details": "<div class=\"detail-copy\"><p><strong>包車路線：東芭樂園 → Si Yaek Huatakhe Cafe &amp; Guesthouse（停留約 1.5 小時）→ 彩虹雲霄酒店 (Baiyoke Sky Hotel)。</strong></p><p>這不是單純芭達雅 → 曼谷直達接送，詢價需明列中停、等候、四人行李、過路費與最晚服務時間。費用待業者報價。</p><p>本段是排程預留，非即時導航車程。目標約 16:00 抵達、銜接希望預約的 16:30 船班；若店家確認其他時段，整段接送與東芭離園時間同步調整。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船位置<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">包車終點・彩虹雲霄酒店<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "東芭樂園上車，先去貓貓船，再送 曼谷城市連結酒店。",
+                "details": "<div class=\"detail-copy\"><p><strong>包車路線：東芭樂園 → Si Yaek Huatakhe Cafe &amp; Guesthouse（停留約 1.5 小時）→ 曼谷城市連結酒店 (Bangkok City Link Hotel)。</strong></p><p>這不是單純芭達雅 → 曼谷直達接送，詢價需明列中停、等候、四人行李、過路費與最晚服務時間。費用待業者報價。</p><p>本段是排程預留，非即時導航車程。目標約 16:00 抵達、銜接希望預約的 16:30 船班；若店家確認其他時段，整段接送與東芭離園時間同步調整。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/xf26zboBgnm63tdK7\" target=\"_blank\" rel=\"noopener noreferrer\">貓貓船位置<span aria-hidden=\"true\">↗</span></a><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Bangkok+City+Link+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">包車終點・曼谷城市連結酒店<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "宋干節交通需留彈性；訂車前先確認貓貓船場次及停留等候費。",
@@ -1513,9 +1513,9 @@
             },
             {
                 "time": "17:30–19:00（估）",
-                "title": "前往彩虹雲霄酒店・辦理入住",
-                "summary": "由原包車送往 彩虹雲霄酒店 (Baiyoke Sky Hotel)。",
-                "details": "<div class=\"detail-copy\"><p>依你提供的地圖前往 <strong>彩虹雲霄酒店 (Baiyoke Sky Hotel)</strong>，放行李、check-in 並稍作整理。抵達時間依貓貓船結束時間與市區路況。</p><p>先告知飯店預估傍晚至晚間抵達，確認入住方式、接待時間及司機可停車下客的位置。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">彩虹雲霄酒店 (Baiyoke Sky Hotel)<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy\"><p><strong>4/15 入住、4/17 退房，共 2 晚。</strong>豪華房（Space Zone）／Deluxe Space Zone；四人合計 NT$9,870，每人 NT$2,467.50。</p><p>飯店地址：222 Soi Ratchaprarop 3, Ratchaprarop Road, Ratchathewi, Bangkok 10400 Thailand。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://baiyokesky.baiyokehotel.com/contact.php\" target=\"_blank\" rel=\"noopener noreferrer\">飯店官方地址與聯絡資訊</a></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://baiyokesky.baiyokehotel.com/deluxe-bangkok-hotel.html\" target=\"_blank\" rel=\"noopener noreferrer\">官方房型介紹與照片來源</a></div>",
+                "title": "前往曼谷城市連結酒店・辦理入住",
+                "summary": "由原包車送往 曼谷城市連結酒店 (Bangkok City Link Hotel)。",
+                "details": "<div class=\"detail-copy\"><p>搭原包車前往 <strong>曼谷城市連結酒店 (Bangkok City Link Hotel)</strong>，辦理入住、放行李並稍作整理。抵達時間依貓貓船結束時間與市區路況。</p><p><strong>4/15 入住、4/17 退房，共 2 晚。</strong>房型：豪華特大雙人床房（Deluxe King Room），1 張特大雙人床。照片為飯店訂房系統的房型示意。</p><p>地址：345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400, Thailand。</p><p>住宿費暫沿用原預算：四人 NT$9,870，每人 NT$2,467.50；新飯店實際訂單金額待確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=Bangkok+City+Link+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">曼谷城市連結酒店地圖</a><a class=\"trip-link\" href=\"https://hotels.cloudbeds.com/reservation/7W2mRP?rid=195267\" target=\"_blank\" rel=\"noopener noreferrer\">飯店房型介紹與照片來源</a></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "",
@@ -1531,16 +1531,16 @@
                 ],
                 "needsBooking": true,
                 "photo": {
-                    "file": "images/baiyoke-deluxe-space-zone.jpg",
-                    "caption": "Deluxe Space Zone・官方雙床房示意",
-                    "alt": "彩虹雲霄酒店 Deluxe Space Zone 雙床房，兩張單人床與窗邊空間",
+                    "file": "images/bangkok-city-link-deluxe-king.jpg",
+                    "caption": "曼谷城市連結酒店・Deluxe King Room 房型示意",
+                    "alt": "曼谷城市連結酒店豪華特大雙人床房，一張大床、木地板與玻璃隔間浴室",
                     "scene": "day"
                 }
             },
             {
                 "time": "19:00–20:15（彈性）",
                 "title": "飯店附近・隨意晚餐",
-                "summary": "先在彩虹雲霄酒店附近找方便的餐廳。",
+                "summary": "先在曼谷城市連結酒店附近找方便的餐廳。",
                 "details": "<div class=\"detail-copy\"><p>不固定餐廳，依入住時間與食慾選泰式料理、商場餐廳或路邊小吃；餐費依實際消費。若抵達較晚，夜遊同步順延或縮短。</p></div>",
                 "icon": "fa-utensils",
                 "kind": "dining",
@@ -1554,8 +1554,8 @@
             {
                 "time": "20:15–20:45（估）",
                 "title": "飯店 → Phloen Chit",
-                "summary": "從彩虹雲霄酒店叫車到 Phloen Chit，接續 Big C 與娜娜夜遊。",
-                "details": "<div class=\"detail-copy\"><p>晚餐後從彩虹雲霄酒店叫車前往 Phloen Chit；車資待填。時間依當晚路況彈性順延。</p></div>",
+                "summary": "從曼谷城市連結酒店叫車到 Phloen Chit，接續 Big C 與娜娜夜遊。",
+                "details": "<div class=\"detail-copy\"><p>晚餐後從曼谷城市連結酒店叫車前往 Phloen Chit；車資待填。時間依當晚路況彈性順延。</p></div>",
                 "icon": "fa-train-subway",
                 "kind": "transport",
                 "notice": "",
@@ -1614,9 +1614,9 @@
             },
             {
                 "time": "22:30–23:45（彈性）",
-                "title": "娜娜廣場 → 彩虹雲霄酒店",
-                "summary": "夜遊後叫車返回彩虹雲霄酒店。",
-                "details": "<div class=\"detail-copy\"><p>結束娜娜廣場行程後，叫 Grab／計程車返回彩虹雲霄酒店，車資另計；依當晚精神與路況調整回程時間。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">返回飯店地圖</a></div>",
+                "title": "娜娜廣場 → 曼谷城市連結酒店",
+                "summary": "夜遊後叫車返回曼谷城市連結酒店。",
+                "details": "<div class=\"detail-copy\"><p>結束娜娜廣場行程後，叫 Grab／計程車返回曼谷城市連結酒店，車資另計；依當晚精神與路況調整回程時間。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Bangkok+City+Link+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">返回飯店地圖</a></div>",
                 "icon": "fa-person-walking",
                 "kind": "night",
                 "notice": "",
@@ -1657,12 +1657,12 @@
                 "itemId": "s-5a71b2aac1"
             },
             {
-                "name": "彩虹雲霄酒店 (Baiyoke Sky Hotel)",
-                "lat": 13.754,
-                "lon": 100.54,
-                "googleQuery": "Baiyoke Sky Hotel Bangkok",
-                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
-                "approx": true,
+                "name": "曼谷城市連結酒店 (Bangkok City Link Hotel)",
+                "lat": 13.75717831,
+                "lon": 100.54322815,
+                "googleQuery": "Bangkok City Link Hotel Bangkok",
+                "note": "曼谷城市連結酒店；345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400。位置依飯店訂房系統。",
+                "approx": false,
                 "itemId": "s-5958cd7dd1"
             },
             {
@@ -1696,12 +1696,12 @@
                 "itemId": "s-962a781a66"
             },
             {
-                "name": "彩虹雲霄酒店・夜遊回程",
-                "lat": 13.754,
-                "lon": 100.54,
-                "googleQuery": "Baiyoke Sky Hotel Bangkok",
-                "note": "夜遊後叫車回飯店；位置示意。",
-                "approx": true,
+                "name": "曼谷城市連結酒店・夜遊回程",
+                "lat": 13.75717831,
+                "lon": 100.54322815,
+                "googleQuery": "Bangkok City Link Hotel Bangkok",
+                "note": "曼谷城市連結酒店；345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400。位置依飯店訂房系統。",
+                "approx": false,
                 "mapOnly": true,
                 "itemId": "s-b009b79df9"
             }
@@ -1743,8 +1743,8 @@
             {
                 "time": "09:30–11:30（估）",
                 "title": "Big C Extra Rama IV・上午購物",
-                "summary": "從 彩虹雲霄酒店 打車前往大型 Big C Extra，集中採買零食、伴手禮與日用品。",
-                "details": "<div class=\"detail-copy\"><p>前往你提供的 <strong>Big C Extra Rama IV（拉瑪四路店）</strong>，地址為 2929 Rama IV Road。這家是大型量販店，和前一晚 Phloen Chit 的小型 Foodplace 不同，也不是 CentralWorld 對面的 Ratchadamri 分店。</p><p>預留約兩小時含交通、挑選與結帳，集中購買想帶回台灣的零食、調味料與日用品；品牌、規格、庫存及價格以現場為準。若時間不夠，可縮短午後河畔逛街時間，不必趕著買。</p><p>建議從飯店叫車往返，採買完先回彩虹雲霄酒店 放東西，再開始下午行程。營業時間出發前依 2027/4/16 店家公告確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/C4zUFLfaZt7VQ48bA\" target=\"_blank\" rel=\"noopener noreferrer\">Big C Extra Rama IV 地圖<span aria-hidden=\"true\">↗</span></a></div>",
+                "summary": "從 曼谷城市連結酒店 打車前往大型 Big C Extra，集中採買零食、伴手禮與日用品。",
+                "details": "<div class=\"detail-copy\"><p>前往你提供的 <strong>Big C Extra Rama IV（拉瑪四路店）</strong>，地址為 2929 Rama IV Road。這家是大型量販店，和前一晚 Phloen Chit 的小型 Foodplace 不同，也不是 CentralWorld 對面的 Ratchadamri 分店。</p><p>預留約兩小時含交通、挑選與結帳，集中購買想帶回台灣的零食、調味料與日用品；品牌、規格、庫存及價格以現場為準。若時間不夠，可縮短午後河畔逛街時間，不必趕著買。</p><p>建議從飯店叫車往返，採買完先回曼谷城市連結酒店 放東西，再開始下午行程。營業時間出發前依 2027/4/16 店家公告確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://maps.app.goo.gl/C4zUFLfaZt7VQ48bA\" target=\"_blank\" rel=\"noopener noreferrer\">Big C Extra Rama IV 地圖<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-cart-shopping",
                 "kind": "activity",
                 "notice": "採買後先回民宿放東西；車資與購物費依實際消費。",
@@ -1761,9 +1761,9 @@
             },
             {
                 "time": "11:30–12:00（估）",
-                "title": "回彩虹雲霄酒店・放購物袋",
+                "title": "回曼谷城市連結酒店・放購物袋",
                 "summary": "叫車回飯店，把採買物品放好後再出門。",
-                "details": "<div class=\"detail-copy\"><p>將購物袋送回彩虹雲霄酒店 (Baiyoke Sky Hotel)，稍作整理、喝水休息。下午出門只帶隨身用品，避免一路提著伴手禮逛街。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>將購物袋送回曼谷城市連結酒店 (Bangkok City Link Hotel)，稍作整理、喝水休息。下午出門只帶隨身用品，避免一路提著伴手禮逛街。</p></div>",
                 "icon": "fa-house",
                 "kind": "transport",
                 "notice": "",
@@ -1776,7 +1776,7 @@
             {
                 "time": "12:00–13:00（估）",
                 "title": "前往 ICONSIAM・午餐",
-                "summary": "從彩虹雲霄酒店出發，到 ICONSIAM 找午餐、開始河畔行程。",
+                "summary": "從曼谷城市連結酒店出發，到 ICONSIAM 找午餐、開始河畔行程。",
                 "details": "<div class=\"detail-copy\"><p>採買物品已先放回飯店，輕裝前往 ICONSIAM。可依當日路況選搭 BTS 轉 Gold Line 至 Charoen Nakhon，或直接叫車；午餐在商場安排，不固定餐廳。</p></div>",
                 "icon": "fa-train-subway",
                 "kind": "transport",
@@ -1867,9 +1867,9 @@
             },
             {
                 "time": "21:30–22:30（估）",
-                "title": "下船・返回彩虹雲霄酒店",
-                "summary": "靠岸後叫車回彩虹雲霄酒店 (Baiyoke Sky Hotel)，整理行李準備隔日返台。",
-                "details": "<div class=\"detail-copy\"><p>遊船結束後，依實際靠岸碼頭叫 Grab／計程車返回 <strong>彩虹雲霄酒店 (Baiyoke Sky Hotel)</strong>。今晚不再另外排夜生活，回房整理戰利品、行李與機場資料。</p><p>4/17 約 08:00 從飯店出發，09:45 前抵達 BKK（起飛前兩小時），11:45 搭機返台；出發時間依預約接送與路況確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Baiyoke+Sky+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">返回彩虹雲霄酒店<span aria-hidden=\"true\">↗</span></a></div>",
+                "title": "下船・返回曼谷城市連結酒店",
+                "summary": "靠岸後叫車回曼谷城市連結酒店 (Bangkok City Link Hotel)，整理行李準備隔日返台。",
+                "details": "<div class=\"detail-copy\"><p>遊船結束後，依實際靠岸碼頭叫 Grab／計程車返回 <strong>曼谷城市連結酒店 (Bangkok City Link Hotel)</strong>。今晚不再另外排夜生活，回房整理戰利品、行李與機場資料。</p><p>4/17 約 08:00 從飯店出發，09:45 前抵達 BKK（起飛前兩小時），11:45 搭機返台；出發時間依預約接送與路況確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&query=Bangkok+City+Link+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">返回曼谷城市連結酒店<span aria-hidden=\"true\">↗</span></a></div>",
                 "icon": "fa-house",
                 "kind": "transport",
                 "notice": "",
@@ -1883,12 +1883,12 @@
         "intro": "上午買伴手禮、回民宿放好，午後逛 ICONSIAM 河畔，傍晚報到搭嘉年華號，船上吃晚餐、看秀與夜景。",
         "route": [
             {
-                "name": "彩虹雲霄酒店 (Baiyoke Sky Hotel)",
-                "lat": 13.754,
-                "lon": 100.54,
-                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
-                "approx": true,
-                "googleQuery": "Baiyoke Sky Hotel Bangkok",
+                "name": "曼谷城市連結酒店 (Bangkok City Link Hotel)",
+                "lat": 13.75717831,
+                "lon": 100.54322815,
+                "note": "曼谷城市連結酒店；345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400。位置依飯店訂房系統。",
+                "approx": false,
+                "googleQuery": "Bangkok City Link Hotel Bangkok",
                 "itemId": "s-2fbbfb5fbe"
             },
             {
@@ -1901,12 +1901,12 @@
                 "itemId": "s-28d1cd31d8"
             },
             {
-                "name": "回彩虹雲霄酒店・放購物袋",
-                "lat": 13.754,
-                "lon": 100.54,
-                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
-                "approx": true,
-                "googleQuery": "Baiyoke Sky Hotel Bangkok",
+                "name": "回曼谷城市連結酒店・放購物袋",
+                "lat": 13.75717831,
+                "lon": 100.54322815,
+                "note": "曼谷城市連結酒店；345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400。位置依飯店訂房系統。",
+                "approx": false,
+                "googleQuery": "Bangkok City Link Hotel Bangkok",
                 "itemId": "s-2fbbfb5fbe"
             },
             {
@@ -1928,12 +1928,12 @@
                 "itemId": "s-4eca03218a"
             },
             {
-                "name": "回彩虹雲霄酒店・休息備返台",
-                "lat": 13.754,
-                "lon": 100.54,
-                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
-                "approx": true,
-                "googleQuery": "Baiyoke Sky Hotel Bangkok",
+                "name": "回曼谷城市連結酒店・休息備返台",
+                "lat": 13.75717831,
+                "lon": 100.54322815,
+                "note": "曼谷城市連結酒店；345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400。位置依飯店訂房系統。",
+                "approx": false,
+                "googleQuery": "Bangkok City Link Hotel Bangkok",
                 "itemId": "s-4047c582f1"
             }
         ],
@@ -1966,8 +1966,8 @@
             {
                 "time": "07:30–09:45（含接送）",
                 "title": "退房・前往 BKK 蘇凡納布機場",
-                "summary": "07:30 整理退房，約 08:00 從彩虹雲霄酒店出發，目標 09:45 前到機場。",
-                "details": "<div class=\"detail-copy\"><p>前一晚整理好行李，早上從 <strong>彩虹雲霄酒店 (Baiyoke Sky Hotel)</strong>辦理退房，約 <strong>08:00</strong> 搭預約接送或計程車直接前往 <strong>BKK 蘇凡納布機場國際線出境大廳</strong>。</p><p>以 <strong>09:45 前抵達機場</strong>為目標，也就是原紀錄 11:45 航班起飛前兩小時。08:00 是接送規劃時間，實際依司機建議與當日路況提前調整。</p></div>",
+                "summary": "07:30 整理退房，約 08:00 從曼谷城市連結酒店出發，目標 09:45 前到機場。",
+                "details": "<div class=\"detail-copy\"><p>前一晚整理好行李，早上從 <strong>曼谷城市連結酒店 (Bangkok City Link Hotel)</strong>辦理退房，約 <strong>08:00</strong> 搭預約接送或計程車直接前往 <strong>BKK 蘇凡納布機場國際線出境大廳</strong>。</p><p>以 <strong>09:45 前抵達機場</strong>為目標，也就是原紀錄 11:45 航班起飛前兩小時。08:00 是接送規劃時間，實際依司機建議與當日路況提前調整。</p></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "目的地為 BKK 蘇凡納布機場；出發時間以能在 09:45 前抵達為準。",
@@ -2016,12 +2016,12 @@
         "intro": "退房後直接前往 BKK，起飛前兩小時抵達機場，辦理報到、搭機返回高雄。",
         "route": [
             {
-                "name": "彩虹雲霄酒店 (Baiyoke Sky Hotel)",
-                "lat": 13.754,
-                "lon": 100.54,
-                "note": "彩虹雲霄酒店；街區位置示意，請開啟 Google 地圖確認入口。",
-                "approx": true,
-                "googleQuery": "Baiyoke Sky Hotel Bangkok",
+                "name": "曼谷城市連結酒店 (Bangkok City Link Hotel)",
+                "lat": 13.75717831,
+                "lon": 100.54322815,
+                "note": "曼谷城市連結酒店；345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400。位置依飯店訂房系統。",
+                "approx": false,
+                "googleQuery": "Bangkok City Link Hotel Bangkok",
                 "itemId": "s-06f970dc3f"
             },
             {
@@ -2287,7 +2287,7 @@
         "id": "pending-day6-1",
         "day": "day6",
         "itemId": "s-c0ac557b28",
-        "label": "包車東芭→貓貓船→Yu Sabay・含中停等候",
+        "label": "包車東芭→貓貓船→彩虹雲霄酒店・含中停等候",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -2298,12 +2298,12 @@
         "id": "pending-day6-4",
         "day": "day6",
         "itemId": "s-5958cd7dd1",
-        "label": "Yu Sabay 住宿・第 1 晚",
-        "amount": null,
-        "currency": "THB",
+        "label": "彩虹雲霄酒店・4/15–4/17（2 晚）",
+        "amount": 9870,
+        "currency": "TWD",
         "basis": "group",
-        "status": "unknown",
-        "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
+        "status": "confirmed",
+        "note": "你提供的住宿總價 NT$9,870 ÷ 4＝每人 NT$2,467.50；豪華房（Space Zone）／Deluxe Space Zone。整段列在入住日，不逐晚重複計價。"
     },
     {
         "id": "pending-day7-3",
@@ -2320,7 +2320,7 @@
         "id": "pending-day8-0",
         "day": "day8",
         "itemId": "s-06f970dc3f",
-        "label": "Yu Sabay → BKK 機場接送",
+        "label": "彩虹雲霄酒店 → BKK 機場接送",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -2328,7 +2328,7 @@
         "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     }
 ];
-            const expenseSeedRevision = "2026-11-26-home-skydive";
+            const expenseSeedRevision = "2026-11-26-city-link";
             const defaultExpenses = [
     {
         "id": "quote-s-95e9a46204",
@@ -2735,7 +2735,7 @@
         "id": "pending-day6-1",
         "day": "day6",
         "itemId": "s-c0ac557b28",
-        "label": "包車東芭→貓貓船→彩虹雲霄酒店・含中停等候",
+        "label": "包車東芭→貓貓船→曼谷城市連結酒店・含中停等候",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -2768,12 +2768,12 @@
         "id": "pending-day6-4",
         "day": "day6",
         "itemId": "s-5958cd7dd1",
-        "label": "彩虹雲霄酒店・4/15–4/17（2 晚）",
+        "label": "曼谷城市連結酒店・4/15–4/17（2 晚）",
         "amount": 9870,
         "currency": "TWD",
         "basis": "group",
-        "status": "confirmed",
-        "note": "你提供的住宿總價 NT$9,870 ÷ 4＝每人 NT$2,467.50；豪華房（Space Zone）／Deluxe Space Zone。整段列在入住日，不逐晚重複計價。"
+        "status": "estimate",
+        "note": "新飯店豪華特大雙人床房（Deluxe King Room），4/15–4/17 共 2 晚。暫沿用原住宿預算 NT$9,870 ÷ 4＝每人 NT$2,467.50；本飯店實際訂單總額待確認。"
     },
     {
         "id": "pending-day7-0",
@@ -2812,7 +2812,7 @@
         "id": "pending-day8-0",
         "day": "day8",
         "itemId": "s-06f970dc3f",
-        "label": "彩虹雲霄酒店 → BKK 機場接送",
+        "label": "曼谷城市連結酒店 → BKK 機場接送",
         "amount": null,
         "currency": "THB",
         "basis": "group",
@@ -3243,7 +3243,7 @@
             function todayBrief(day) {
                 if(!day||!itineraryData[day])return '';
                 const data=itineraryData[day],clock=TripTools.bangkokClock(),plan=TripTools.nextPlan(data.items,clock.minutes,tripState.manualNext[day]);
-                const stay=Number(day.slice(3))<6?'芭達雅海灘路住宿':'彩虹雲霄酒店 (Baiyoke Sky Hotel)';
+                const stay=Number(day.slice(3))<6?'芭達雅海灘路住宿':'曼谷城市連結酒店 (Bangkok City Link Hotel)';
                 const label={manual:'手動選擇的下一站',current:'時間表參考・目前預定',next:'時間表參考・接下來',finished:'今天的時間表已到最後一段'}[plan.mode];
                 const map=plan.item?mainMapLink(plan.item)||externalDayMap(day):externalDayMap(day);
                 return `<p class="editorial-kicker">今天的小抄 · 泰國 ${clock.time}</p><h2>${dateLabel(day)} · ${escapeHtml(data.title)}</h2><p>${label}${plan.item?'：'+escapeHtml(plan.item.time)+' · '+escapeHtml(plan.item.title):''}</p><p class="small-note">${day==='day8'?'退房住宿':'今晚住宿'}：${stay}${day==='day8'?' · 目標 09:45 前抵達 BKK，11:45 起飛。':''}</p><p class="small-note">依原定時間表顯示，並非即時定位；延誤或調整時可手動選下一站。</p><label class="next-plan-label">下一站<select id="manual-next-plan"><option value="">依泰國時間自動顯示</option>${data.items.map(item=>`<option value="${item.id}" ${plan.mode==='manual'&&plan.item.id===item.id?'selected':''}>${escapeHtml(item.time)} · ${escapeHtml(item.title)}</option>`).join('')}</select></label><button type="button" class="editorial-text-button" data-go-day="${day}" ${plan.item?`data-go-item="${plan.item.id}"`:''}>${plan.item?'查看這段行程':'打開今天時間表'} ↗</button><a class="trip-link" href="${escapeHtml(map)}" target="_blank" rel="noopener noreferrer">${plan.item?'這一站':'今日'}地圖 ↗</a>`;
@@ -3519,7 +3519,7 @@
                 return 'https://maps.google.com/maps?' + new URLSearchParams({hl:'zh-TW', saddr:mapQuery(stops[0]), daddr:stops.slice(1).map(mapQuery).join(' to:'), dirflg:'d', output:'embed'});
             }
             function routeNote(dayId) {
-                if (dayId === 'day6') return '整天路線顯示住宿區 → 東芭樂園 → 貓貓船 → 彩虹雲霄酒店；晚上叫車到 Phloen Chit，先逛 Big C Mahatun Plaza，再到娜娜散步、叫車回飯店。夜遊點可單獨點選定位，步行連結在晚間行程內。';
+                if (dayId === 'day6') return '整天路線顯示住宿區 → 東芭樂園 → 貓貓船 → 曼谷城市連結酒店；晚上叫車到 Phloen Chit，先逛 Big C Mahatun Plaza，再到娜娜散步、叫車回飯店。夜遊點可單獨點選定位，步行連結在晚間行程內。';
                 return dayId === 'day5' ? '格蘭島行程以海島位置圖呈現；船程依一日團安排。點選左側景點可查看各站，使用地圖原生資訊卡開啟 Google 地圖。' : '點選景點可查看店家位置，使用地圖原生資訊卡的連結或路線按鈕開啟 Google 地圖。住宿及區域位置僅供參考。';
             }
             function renderDayRoute(dayId, dayData) {

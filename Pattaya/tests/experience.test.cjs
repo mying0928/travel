@@ -65,6 +65,6 @@ test('Price updates refresh unchanged seeds, preserve custom figures, and do not
  const edited=prior.map(row=>row.id===skyId?{...row,amount:16000,note:'my custom quote'}:row).filter(row=>row.id!==prior[0].id);
  const result=tools.reconcileExpenses(edited,prior,costs);assert.equal(result.find(row=>row.id===skyId).amount,16000);assert.equal(result.find(row=>row.id===skyId).note,'my custom quote');assert(!result.some(row=>row.id===prior[0].id));
  assert.equal(new Set(result.map(row=>row.id)).size,result.length);
- const stays=untouched.filter(row=>/住宿|酒店/.test(row.label)&&row.status==='confirmed');assert.equal(stays.length,2);assert.equal(tools.expenseTotals(stays).confirmed.TWD,2574200);
+ const stays=untouched.filter(row=>/住宿|酒店/.test(row.label)&&row.amount!==null);assert.equal(stays.length,2);assert.equal(tools.expenseTotals(stays).confirmed.TWD+tools.expenseTotals(stays).estimate.TWD,2574200);
  const custom=prior.map(row=>row.id==='pending-day1-1'?{...row,amount:4000,status:'confirmed',currency:'TWD',basis:'person'}:row);assert.equal(tools.reconcileExpenses(custom,prior,costs).find(row=>row.id==='pending-day1-1').amount,4000);
 });
