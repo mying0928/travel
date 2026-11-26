@@ -1,0 +1,346 @@
+{
+  "LOF LAND Chonburi": [],
+  "DAM Pattaya": [
+    {
+      "place_id": 255487978,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 1073465685,
+      "lat": "12.9350442",
+      "lon": "100.8915065",
+      "category": "amenity",
+      "type": "restaurant",
+      "place_rank": 30,
+      "importance": 5.996261539630758e-05,
+      "addresstype": "amenity",
+      "name": "แดงดำ",
+      "display_name": "แดงดำ, พัทยากลาง 10, เมืองพัทยา, หนองปลาไหล, อำเภอบางละมุง, จังหวัดชลบุรี, 20150, ประเทศไทย",
+      "boundingbox": [
+        "12.9349942",
+        "12.9350942",
+        "100.8914565",
+        "100.8915565"
+      ]
+    }
+  ],
+  "House of Benedict Pattaya": [
+    {
+      "place_id": 255279608,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1246961366,
+      "lat": "12.8606473",
+      "lon": "100.9049860",
+      "category": "amenity",
+      "type": "food_court",
+      "place_rank": 30,
+      "importance": 5.996261539630758e-05,
+      "addresstype": "amenity",
+      "name": "House of Benedict Pattaya",
+      "display_name": "House of Benedict Pattaya, 91, ชัยพฤกษ์ 3, ชุมชนชายทะเล, บ้านนาจอมเทียน, เมืองพัทยา, นาจอมเทียน, อำเภอสัตหีบ, จังหวัดชลบุรี, 20150, ประเทศไทย",
+      "boundingbox": [
+        "12.8605173",
+        "12.8607771",
+        "100.9046946",
+        "100.9052773"
+      ]
+    }
+  ],
+  "IMAGINE 79 Pattaya": [],
+  "Thai Sky Adventures": [
+    {
+      "place_id": 258031929,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 941440565,
+      "lat": "13.1438515",
+      "lon": "101.1042128",
+      "category": "building",
+      "type": "office",
+      "place_rank": 30,
+      "importance": 5.000152590214416e-05,
+      "addresstype": "building",
+      "name": "Thai Sky Adventures",
+      "display_name": "Thai Sky Adventures, ถนนศรีราชา - มาบเอียง, ตำบลหนองขาม, ตำบลเขาคันทรง, เจ้าพระยาสุรศักดิ์, อำเภอศรีราชา, จังหวัดชลบุรี, ประเทศไทย",
+      "boundingbox": [
+        "13.1437488",
+        "13.1439541",
+        "101.1041166",
+        "101.1043090"
+      ]
+    },
+    {
+      "place_id": 258167657,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 4946926822,
+      "lat": "13.1425132",
+      "lon": "101.0485576",
+      "category": "tourism",
+      "type": "attraction",
+      "place_rank": 30,
+      "importance": 5.000152590214416e-05,
+      "addresstype": "tourism",
+      "name": "Thai Sky Adventures",
+      "display_name": "Thai Sky Adventures, ชบ.4098, ตำบลหนองขาม, บางพระ, อำเภอศรีราชา, จังหวัดชลบุรี, ประเทศไทย",
+      "boundingbox": [
+        "13.1424632",
+        "13.1425632",
+        "101.0485076",
+        "101.0486076"
+      ]
+    }
+  ],
+  "Royal Garden Plaza Pattaya": [
+    {
+      "place_id": 258883608,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 27486202,
+      "lat": "12.9293076",
+      "lon": "100.8780487",
+      "category": "shop",
+      "type": "mall",
+      "place_rank": 30,
+      "importance": 5.996261539630758e-05,
+      "addresstype": "shop",
+      "name": "Royal Garden Plaza",
+      "display_name": "Royal Garden Plaza, ถนนพัทยาสายหนึ่ง, เมืองพัทยา, หนองปลาไหล, อำเภอบางละมุง, จังหวัดชลบุรี, 20210, ประเทศไทย",
+      "boundingbox": [
+        "12.9284388",
+        "12.9301686",
+        "100.8774439",
+        "100.8788592"
+      ]
+    }
+  ],
+  "Bali Hai Pier Pattaya": [
+    {
+      "place_id": 426416119,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 754202333,
+      "lat": "12.9277442",
+      "lon": "100.8679231",
+      "category": "highway",
+      "type": "footway",
+      "place_rank": 27,
+      "importance": 0.04005996261539634,
+      "addresstype": "road",
+      "name": "ท่าเรือแหลมบาลีฮาย",
+      "display_name": "ท่าเรือแหลมบาลีฮาย, เมืองพัทยา, หนองปลาไหล, อำเภอบางละมุง, จังหวัดชลบุรี, 20210, ประเทศไทย",
+      "boundingbox": [
+        "12.9256295",
+        "12.9292955",
+        "100.8668456",
+        "100.8679791"
+      ]
+    },
+    {
+      "place_id": 426416107,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 14141905838,
+      "lat": "12.9272867",
+      "lon": "100.8677322",
+      "category": "amenity",
+      "type": "ferry_terminal",
+      "place_rank": 30,
+      "importance": 5.996261539630758e-05,
+      "addresstype": "amenity",
+      "name": "ท่าเรือแหลมบาลีฮาย",
+      "display_name": "ท่าเรือแหลมบาลีฮาย, เมืองพัทยา, หนองปลาไหล, อำเภอบางละมุง, จังหวัดชลบุรี, 20210, ประเทศไทย",
+      "boundingbox": [
+        "12.9272367",
+        "12.9273367",
+        "100.8676822",
+        "100.8677822"
+      ]
+    }
+  ],
+  "D Varee Jomtien Beach": [],
+  "The Sky Gallery Pattaya": [
+    {
+      "place_id": 258091536,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 375840697,
+      "lat": "12.9215465",
+      "lon": "100.8594453",
+      "category": "amenity",
+      "type": "restaurant",
+      "place_rank": 30,
+      "importance": 5.996261539630758e-05,
+      "addresstype": "amenity",
+      "name": "The Sky Gallery",
+      "display_name": "The Sky Gallery, ถนนเกษตรสิน, เมืองพัทยา, หนองปลาไหล, อำเภอบางละมุง, จังหวัดชลบุรี, 20210, ประเทศไทย",
+      "boundingbox": [
+        "12.9212826",
+        "12.9218460",
+        "100.8592205",
+        "100.8596667"
+      ]
+    }
+  ],
+  "Khao Kheow Open Zoo": [
+    {
+      "place_id": 257410585,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 132599367,
+      "lat": "13.2134628",
+      "lon": "101.0611659",
+      "category": "tourism",
+      "type": "zoo",
+      "place_rank": 30,
+      "importance": 0.2782362227145218,
+      "addresstype": "tourism",
+      "name": "สวนสัตว์เปิดเขาเขียว",
+      "display_name": "สวนสัตว์เปิดเขาเขียว, 235, หมู่ที่ 7, ตำบลบางพระ, บางพระ, อำเภอศรีราชา, จังหวัดชลบุรี, 20110, ประเทศไทย",
+      "boundingbox": [
+        "13.2066914",
+        "13.2204642",
+        "101.0521529",
+        "101.0670942"
+      ]
+    }
+  ],
+  "Khao Chi Chan": [
+    {
+      "place_id": 257666288,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 7962807639,
+      "lat": "12.7758008",
+      "lon": "100.9460793",
+      "category": "place",
+      "type": "municipality",
+      "place_rank": 14,
+      "importance": 0.2133833348592355,
+      "addresstype": "municipality",
+      "name": "เขาชีจรรย์",
+      "display_name": "เขาชีจรรย์, อำเภอสัตหีบ, จังหวัดชลบุรี, 20250, ประเทศไทย",
+      "boundingbox": [
+        "12.6158008",
+        "12.9358008",
+        "100.7860793",
+        "101.1060793"
+      ]
+    }
+  ],
+  "Nong Nooch Tropical Garden": [],
+  "Lets Relax Pattaya Beachfront": [],
+  "Siam Paragon": [
+    {
+      "place_id": 257402876,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 781138575,
+      "lat": "13.7467785",
+      "lon": "100.5349540",
+      "category": "shop",
+      "type": "mall",
+      "place_rank": 30,
+      "importance": 0.4154641181832737,
+      "addresstype": "shop",
+      "name": "Siam Paragon",
+      "display_name": "Siam Paragon, 991, ถนนพระรามที่ 1, สยาม, แขวงปทุมวัน, เขตปทุมวัน, กรุงเทพมหานคร, 10330, ประเทศไทย",
+      "boundingbox": [
+        "13.7456078",
+        "13.7479935",
+        "100.5339508",
+        "100.5359243"
+      ]
+    }
+  ],
+  "CentralWorld": [
+    {
+      "place_id": 255942670,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 157482067,
+      "lat": "13.7465769",
+      "lon": "100.5390414",
+      "category": "shop",
+      "type": "mall",
+      "place_rank": 30,
+      "importance": 0.39022041580958405,
+      "addresstype": "shop",
+      "name": "centralwOrld",
+      "display_name": "centralwOrld, 999/9, ถนนราชดำริ, แขวงปทุมวัน, เขตปทุมวัน, กรุงเทพมหานคร, 10330, ประเทศไทย",
+      "boundingbox": [
+        "13.7449062",
+        "13.7481360",
+        "100.5379037",
+        "100.5401094"
+      ]
+    },
+    {
+      "place_id": 255947603,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 835042493,
+      "lat": "13.7466415",
+      "lon": "100.5390822",
+      "category": "landuse",
+      "type": "retail",
+      "place_rank": 24,
+      "importance": 0.08007662546730751,
+      "addresstype": "retail",
+      "name": "centralwOrld",
+      "display_name": "centralwOrld, แขวงปทุมวัน, เขตปทุมวัน, กรุงเทพมหานคร, 10330, ประเทศไทย",
+      "boundingbox": [
+        "13.7447351",
+        "13.7484940",
+        "100.5375958",
+        "100.5405812"
+      ]
+    }
+  ],
+  "Big C Ratchadamri": [
+    {
+      "place_id": 257501227,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 1941424867,
+      "lat": "13.7470321",
+      "lon": "100.5407658",
+      "category": "highway",
+      "type": "bus_stop",
+      "place_rank": 30,
+      "importance": 7.662546730750007e-05,
+      "addresstype": "highway",
+      "name": "บิ๊กซีราชดำริ",
+      "display_name": "บิ๊กซีราชดำริ, R Walk, แขวงลุมพินี, เขตปทุมวัน, กรุงเทพมหานคร, 10330, ประเทศไทย",
+      "boundingbox": [
+        "13.7469821",
+        "13.7470821",
+        "100.5407158",
+        "100.5408158"
+      ]
+    }
+  ],
+  "ICONSIAM": [
+    {
+      "place_id": 257800366,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 680735864,
+      "lat": "13.7268227",
+      "lon": "100.5102940",
+      "category": "shop",
+      "type": "mall",
+      "place_rank": 30,
+      "importance": 7.662546730750007e-05,
+      "addresstype": "shop",
+      "name": "ICONSIAM",
+      "display_name": "ICONSIAM, 168;259;289;299, ถนนเจริญนคร, แขวงคลองต้นไทร, เขตคลองสาน, กรุงเทพมหานคร, 10600, ประเทศไทย",
+      "boundingbox": [
+        "13.7258670",
+        "13.7277842",
+        "100.5092525",
+        "100.5113977"
+      ]
+    }
+  ]
+}

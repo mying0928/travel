@@ -1,0 +1,23 @@
+{
+  "dam": {
+    "source": "https://maps.app.goo.gl/pkeWTtHEcjMbB9m29",
+    "url": "https://www.google.com/maps/place/19+%E0%B9%81%E0%B8%94%E0%B8%A1+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2+10+%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%88+1+%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2+%E0%B8%AD%E0%B8%B3%E0%B9%80%E0%B8%A0%E0%B8%AD%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%B8%E0%B8%87+%E0%B8%8A%E0%B8%A5%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5+20150/data=!4m2!3m1!1s0x3102bfd95b5ce4db:0x134c195d1f774ee1?utm_source=mstt_1&entry=gps&lucs=47062702&g_ep=CAESCTExLjcwLjMwNBgAIIgnKgg0NzA2MjcwMkICVEg%3D",
+    "coords": null
+  },
+  "sky_official_1": {
+    "source": "https://maps.app.goo.gl/VZQCccibK3gMKko49",
+    "url": "https://www.google.com/maps/place/Thai+Sky+Adventures+Bangkok+Pick-Up+%26+Transfer/@13.7443408,100.5349589,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29fe3a534e519:0xd712f3b9fec9fd63!8m2!3d13.7443408!4d100.5349589!16s%2Fg%2F11w49bvt6s?coh=219816&entry=tts&g_ep=EgoyMDI0MDgwNy4wKgBIAVAD",
+    "coords": [
+      13.7443408,
+      100.5349589
+    ]
+  },
+  "sky_official_2": {
+    "source": "https://maps.app.goo.gl/42dRVq3z6h2wjQRBA",
+    "url": "https://www.google.com/maps/place/Thai+Sky+Adventures+Co.,+Ltd./@13.1424231,101.0485811,17z/data=!3m1!4b1!4m6!3m5!1s0x3102b8658c70cac1:0x5180e596a005d9ac!8m2!3d13.1424231!4d101.0485811!16s%2Fg%2F1tg65jzy?coh=277535&entry=tts&g_ep=EgoyMDI2MDIwMS4wIPu8ASoKLDEwMDc5MjA3M0gBUAM%3D&skid=4fa1d7bf-2c1c-41c2-905a-e3afec245b6c",
+    "coords": [
+      13.1424231,
+      101.0485811
+    ]
+  }
+}
