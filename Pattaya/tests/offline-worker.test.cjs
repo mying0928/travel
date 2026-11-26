@@ -12,8 +12,8 @@ function worker(){
  return {event,messages,stores,setOffline(value){offline=value;},failImages(){failImage=true;},async message(type){messages.length=0;await event('message',{data:{type},ports:[{postMessage(value){messages.push(value);}}]});return messages;}};
 }
 test('Install saves a complete versioned local shell, and explicit download saves basic photos',async()=>{
- const w=worker();await w.event('install');await w.message('PREPARE');assert.equal(w.messages.at(-1).type,'DONE');const progress=w.messages.filter(message=>message.type==='PROGRESS');assert.equal(progress.length,23);assert.equal(progress.at(-1).done,23);
- await w.message('STATUS');assert.equal(w.messages[0].done,23);assert.equal(w.messages[0].total,23);
+ const w=worker();await w.event('install');await w.message('PREPARE');assert.equal(w.messages.at(-1).type,'DONE');const progress=w.messages.filter(message=>message.type==='PROGRESS');assert.equal(progress.length,24);assert.equal(progress.at(-1).done,24);
+ await w.message('STATUS');assert.equal(w.messages[0].done,24);assert.equal(w.messages[0].total,24);
 });
 test('Offline navigation uses its own cached document; high-resolution photos fall back to cached basics',async()=>{
  const w=worker();await w.event('install');await w.message('PREPARE');w.setOffline(true);
