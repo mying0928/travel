@@ -84,7 +84,7 @@ test('Offline preparation reports success only after the worker finishes; blocke
 test('Front statistics list eight days, quantities, sources and the exact selected Deluxe subtotal',async()=>{
  const t=await boot();try{
   const {d,w}=t;assert.equal(d.querySelectorAll('.daily-ledger').length,0);d.getElementById('overview-costs').open=true;await pause(20);assert.equal(d.querySelectorAll('.daily-ledger').length,8);assert.equal(d.querySelectorAll('.front-cost-list li').length,45);
-  assert(d.getElementById('trip-cost-totals').textContent.includes('81,946 THB'));assert(d.getElementById('trip-cost-totals').textContent.includes('76,851 NT$'));
+  assert(d.getElementById('trip-cost-totals').textContent.includes('81,946 THB'));assert(d.getElementById('trip-cost-totals').textContent.includes('71,004 NT$'));
   const sky=[...d.querySelectorAll('.front-cost-list li')].find(row=>row.textContent.includes('Thai Sky Adventures・雙人跳傘'));assert(sky.textContent.includes('13,100 THB／人'));assert(sky.textContent.includes('52,400 THB'));assert(sky.textContent.includes('你提供的報價'));
   d.querySelector('[data-ledger-action="open"]').click();assert([...d.querySelectorAll('.daily-ledger')].every(el=>el.open));
   d.querySelector('[data-ledger-action="close"]').click();assert([...d.querySelectorAll('.daily-ledger')].every(el=>!el.open));
@@ -97,7 +97,7 @@ test('Older saved budgets receive researched tickets once; personal amounts and 
   state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));assert.equal(state.expenses.find(row=>row.itemId===data.day3.items[0].id).amount,13100);assert(state.expenses.some(row=>row.id==='ticket-truth'));
   t.d.getElementById('expense-panel').open=true;await pause(20);t.d.querySelector('[data-remove-expense="ticket-truth"]').click();state=JSON.parse(t.w.localStorage.getItem('pattaya-reading-v3'));
  }finally{t.close();}
- const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-26-city-link');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
+ const again=await boot({state});try{const stored=JSON.parse(again.w.localStorage.getItem('pattaya-reading-v3'));assert(!stored.expenses.some(row=>row.id==='ticket-truth'));assert.equal(stored.expenseRevision,'2026-11-26-city-link-4023');assert.equal(again.errors.length,0,again.errors.join('\n'));}finally{again.close();}
 });
 test('The lazily loaded chart and front daily figures update from the same editable rows',async()=>{
  const t=await boot();try{

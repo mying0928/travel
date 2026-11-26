@@ -1515,7 +1515,7 @@
                 "time": "17:30–19:00（估）",
                 "title": "前往曼谷城市連結酒店・辦理入住",
                 "summary": "由原包車送往 曼谷城市連結酒店 (Bangkok City Link Hotel)。",
-                "details": "<div class=\"detail-copy\"><p>搭原包車前往 <strong>曼谷城市連結酒店 (Bangkok City Link Hotel)</strong>，辦理入住、放行李並稍作整理。抵達時間依貓貓船結束時間與市區路況。</p><p><strong>4/15 入住、4/17 退房，共 2 晚。</strong>房型：豪華特大雙人床房（Deluxe King Room），1 張特大雙人床。照片為飯店訂房系統的房型示意。</p><p>地址：345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400, Thailand。</p><p>住宿費暫沿用原預算：四人 NT$9,870，每人 NT$2,467.50；新飯店實際訂單金額待確認。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=Bangkok+City+Link+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">曼谷城市連結酒店地圖</a><a class=\"trip-link\" href=\"https://hotels.cloudbeds.com/reservation/7W2mRP?rid=195267\" target=\"_blank\" rel=\"noopener noreferrer\">飯店房型介紹與照片來源</a></div>",
+                "details": "<div class=\"detail-copy\"><p>搭原包車前往 <strong>曼谷城市連結酒店 (Bangkok City Link Hotel)</strong>，辦理入住、放行李並稍作整理。抵達時間依貓貓船結束時間與市區路況。</p><p><strong>4/15 入住、4/17 退房，共 2 晚。</strong>房型：豪華特大雙人床房（Deluxe King Room），1 張特大雙人床。照片為飯店訂房系統的房型示意。</p><p>地址：345 Ratchaprarop 12 Alley, Makkasan, Ratchathewi, Bangkok 10400, Thailand。</p><p>依你提供的住宿費：兩晚四人共 NT$4,023，每人 NT$1,005.75。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=Bangkok+City+Link+Hotel+Bangkok\" target=\"_blank\" rel=\"noopener noreferrer\">曼谷城市連結酒店地圖</a><a class=\"trip-link\" href=\"https://hotels.cloudbeds.com/reservation/7W2mRP?rid=195267\" target=\"_blank\" rel=\"noopener noreferrer\">飯店房型介紹與照片來源</a></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "",
@@ -2298,12 +2298,12 @@
         "id": "pending-day6-4",
         "day": "day6",
         "itemId": "s-5958cd7dd1",
-        "label": "彩虹雲霄酒店・4/15–4/17（2 晚）",
+        "label": "曼谷城市連結酒店・4/15–4/17（2 晚）",
         "amount": 9870,
         "currency": "TWD",
         "basis": "group",
-        "status": "confirmed",
-        "note": "你提供的住宿總價 NT$9,870 ÷ 4＝每人 NT$2,467.50；豪華房（Space Zone）／Deluxe Space Zone。整段列在入住日，不逐晚重複計價。"
+        "status": "estimate",
+        "note": "新飯店豪華特大雙人床房（Deluxe King Room），4/15–4/17 共 2 晚。暫沿用原住宿預算 NT$9,870 ÷ 4＝每人 NT$2,467.50；本飯店實際訂單總額待確認。"
     },
     {
         "id": "pending-day7-3",
@@ -2328,7 +2328,7 @@
         "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     }
 ];
-            const expenseSeedRevision = "2026-11-26-city-link";
+            const expenseSeedRevision = "2026-11-26-city-link-4023";
             const defaultExpenses = [
     {
         "id": "quote-s-95e9a46204",
@@ -2769,11 +2769,11 @@
         "day": "day6",
         "itemId": "s-5958cd7dd1",
         "label": "曼谷城市連結酒店・4/15–4/17（2 晚）",
-        "amount": 9870,
+        "amount": 4023,
         "currency": "TWD",
         "basis": "group",
-        "status": "estimate",
-        "note": "新飯店豪華特大雙人床房（Deluxe King Room），4/15–4/17 共 2 晚。暫沿用原住宿預算 NT$9,870 ÷ 4＝每人 NT$2,467.50；本飯店實際訂單總額待確認。"
+        "status": "confirmed",
+        "note": "你提供的曼谷城市連結酒店住宿總價：4/15–4/17 共 2 晚，四人 NT$4,023 ÷ 4＝每人 NT$1,005.75；豪華特大雙人床房（Deluxe King Room）。整段列在入住日，只計一次。"
     },
     {
         "id": "pending-day7-0",
