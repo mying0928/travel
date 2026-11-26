@@ -5,12 +5,12 @@
   "pricesAreNotBookings": true,
   "chosenSkydive": {
     "supplier": "Thai Sky Adventures",
-    "plan": "Tandem Deluxe Skydive",
-    "perPersonTHB": 15650,
-    "fourPeopleTHB": 62600,
-    "source": "https://thaiskyadventures.com/product/tandem-deluxe-skydive/",
-    "included": "Jump, freefall video and photos, instructor footage under canopy; Pattaya transfer as operator describes",
-    "excludedOrUnconfirmed": "Weight surcharges; whether credit-card surcharge applies; 2027 availability"
+    "plan": "雙人跳傘・使用者報價",
+    "perPersonTHB": 13100,
+    "fourPeopleTHB": 52400,
+    "source": "使用者提供，2026-11-26",
+    "included": "攝影及接送是否包含以實際訂單確認",
+    "excludedOrUnconfirmed": "付款、重量、保險及其他加價依訂單確認"
   },
   "newCostRows": [
     {
@@ -30,14 +30,14 @@
       "id": "quote-s-493b28dc98",
       "day": "day3",
       "itemId": "s-493b28dc98",
-      "label": "Thai Sky Adventures・Deluxe 跳傘與拍攝",
-      "amount": 15650,
+      "label": "Thai Sky Adventures・雙人跳傘",
+      "amount": 13100,
       "currency": "THB",
       "basis": "person",
-      "status": "estimate",
-      "note": "你選的 Deluxe；官網商品價查核 2026/11/17。含影片、照片、開傘後教練拍攝及芭達雅接送；重量加價與可能刷卡費未含。",
-      "sourceUrl": "https://thaiskyadventures.com/product/tandem-deluxe-skydive/",
-      "checkedAt": "2026-11-17"
+      "status": "confirmed",
+      "note": "你提供的報價：13,100 THB／人，四人 52,400 THB；拍攝、接送與額外加價條件依實際訂單確認。",
+      "sourceUrl": "",
+      "checkedAt": "2026-11-26"
     },
     {
       "id": "ticket-zoo",
@@ -126,9 +126,9 @@
       "currency": "THB",
       "basis": "group",
       "status": "unknown",
-      "note": "官網所連 2026 價目 PDF 列刷卡 2.5%；若整筆 62,600 適用，另約 1,565 THB，但是否收取須看結帳。超過 95 kg 重量加價、保險是否包含亦需確認，先不加進基本小計。",
-      "sourceUrl": "https://thaiskyadventures.com/wp-content/uploads/Price-list-TSA-April-2026.pdf",
-      "checkedAt": "2026-11-17"
+      "note": "付款方式、重量、保險及接送是否另收費，以本次 13,100 THB 方案的實際訂單確認；尚未報價，未計入小計。",
+      "sourceUrl": "",
+      "checkedAt": "2026-11-26"
     }
   ],
   "scopeNotes": [

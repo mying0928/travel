@@ -214,13 +214,14 @@
                 "title": "Soi 6・六巷小酌",
                 "summary": "火舞與拍照結束後叫車前往六巷，依體力決定停留時間。",
                 "icon": "fa-moon",
-                "details": "<div class=\"detail-copy\"><p>從 DAM Pattaya 叫車前往海灘路 Soi 6；20:30 為離開 DAM 的預計時間，抵達依叫車與路況調整。找間酒吧喝一杯、聊天或玩桌遊，結束後返回民宿。</p><p>交通、飲品與互動飲料另計，點單前確認菜單價格。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>從 DAM Pattaya 叫車前往海灘路 Soi 6；20:30 為離開 DAM 的預計時間，抵達依叫車與路況調整。找間酒吧喝一杯、聊天或玩桌遊，結束後返回民宿。</p><p>交通、飲品與互動飲料另計，點單前確認菜單價格。</p></div><div class=\"detail-copy\"><p>晚間行程結束後返回同一間芭達雅民宿；回程叫車以住宿地址為目的地，車資另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">返回民宿地圖</a></div>",
                 "notice": "",
                 "kind": "night",
                 "disclosureLabel": "",
                 "id": "s-8aebcc324b",
                 "routeIndices": [
-                    4
+                    4,
+                    5
                 ]
             }
         ],
@@ -245,12 +246,12 @@
                 "itemId": "s-7361eefacf"
             },
             {
-                "name": "海灘路住宿區",
-                "lat": 12.936,
-                "lon": 100.883,
-                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "name": "芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand",
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-7d521d25bb"
             },
             {
@@ -269,6 +270,15 @@
                 "note": "街區位置示意。",
                 "approx": true,
                 "googleQuery": "Soi 6 Pattaya Thailand",
+                "itemId": "s-8aebcc324b"
+            },
+            {
+                "name": "返回芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
+                "approx": true,
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-8aebcc324b"
             }
         ],
@@ -306,7 +316,7 @@
                 "time": "07:30–08:30",
                 "title": "海灘路 → 綠山動物園",
                 "summary": "預留約 1 小時車程，提前安排回程接送。",
-                "details": "<div class=\"detail-copy\"><p>車程按 45～60 分鐘規劃，依海灘路實際上車點與路況調整。建議包車等候或約定 13:30 接回，今日車資另詢價。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>車程按 45～60 分鐘規劃，依海灘路實際上車點與路況調整。建議包車等候或約定 13:30 接回，今日車資另詢價。</p></div><div class=\"detail-copy\"><p>出發地點：芭達雅民宿，88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國。</p></div>",
                 "icon": "fa-car",
                 "notice": "",
                 "kind": "transport",
@@ -318,6 +328,7 @@
                 },
                 "id": "s-abc08fe317",
                 "routeIndices": [
+                    0,
                     1
                 ]
             },
@@ -549,26 +560,27 @@
                 "time": "20:45–23:00",
                 "title": "Soi 6 酒吧街",
                 "summary": "找間喜歡的酒吧小酌、聊天與玩桌遊。",
-                "details": "<div class=\"detail-copy\"><p>飲品、互動飲料與交通另計，點單前看菜單。店家營業時間各異，結束後返回海灘路民宿。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>飲品、互動飲料與交通另計，點單前看菜單。店家營業時間各異，結束後返回海灘路民宿。</p></div><div class=\"detail-copy\"><p>晚間行程結束後返回同一間芭達雅民宿；回程叫車以住宿地址為目的地，車資另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">返回民宿地圖</a></div>",
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
                 "disclosureLabel": "",
                 "id": "s-04f0c2f556",
                 "routeIndices": [
-                    4
+                    4,
+                    5
                 ]
             }
         ],
         "intro": "提早出發看動物，午後留給拍照，晚餐後再接成人秀與夜生活。",
         "route": [
             {
-                "name": "海灘路住宿區",
-                "lat": 12.936,
-                "lon": 100.883,
-                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "name": "芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand",
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-abc08fe317"
             },
             {
@@ -605,6 +617,15 @@
                 "note": "街區位置示意。",
                 "approx": true,
                 "googleQuery": "Soi 6 Pattaya Thailand",
+                "itemId": "s-04f0c2f556"
+            },
+            {
+                "name": "返回芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
+                "approx": true,
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-04f0c2f556"
             }
         ],
@@ -649,10 +670,10 @@
             {
                 "time": "07:00–12:00",
                 "title": "Thai Sky Adventures 雙人跳傘",
-                "summary": "已選 Tandem Deluxe：15,650 THB／人，四人 62,600 THB；含影片、照片及開傘後教練拍攝。",
-                "details": "<div class=\"detail-copy\"><p>07:00 為希望安排的接送時間，須由業者確認。高度、攝影與飯店接送是否包含，以所選方案為準。本次改採你選定的 Deluxe 15,650 THB／人，四人 62,600 THB；9,700 THB 是未含本次拍攝方案的基本跳傘，不納入本次計算。</p><p>風況可能延誤，12:00 不保證返回市區。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://thaiskyadventures.com/begin-your-booking/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"跳傘官網預訂（另開分頁）\">跳傘官網預訂<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>採用官網 Tandem Deluxe Skydive，15,650 THB／人；四人 62,600 THB。包含自由落體影片、高解析照片，以及開傘後由教練拍攝的滑翔影片；14,650 THB 方案沒有這段額外開傘後影片，並非高度不同。官網列最高約 13,000 呎（約 4,000 公尺），不能解讀成獨家高於其他業者。芭達雅住宿來回接送列為包含，不另重複計車資；如超過 95 kg，另有重量加價。官網連結的 2026 年價目 PDF 另列刷卡 2.5%，且 PDF 與現行商品頁金額有落差，本次採商品頁價格；是否另加刷卡費以結帳總額確認。若整筆 62,600 THB 適用 2.5%，另約 1,565 THB，這筆尚未加進基本小計。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://thaiskyadventures.com/product/tandem-deluxe-skydive/\" target=\"_blank\" rel=\"noopener noreferrer\">Deluxe 官方方案與價格 ↗</a></div>",
+                "summary": "跳傘費用 13,100 THB／人，四人共 52,400 THB；依你提供的價格記錄。",
+                "details": "<div class=\"detail-copy\"><p><strong>跳傘費用：13,100 THB／人，四人共 52,400 THB。</strong>依你提供的報價更新；拍攝、民宿來回接送、付款與重量加價條件以實際訂單確認。</p><p>07:00 為希望安排的民宿接送時間，須由業者確認。出發與返回地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國。</p><p>風況可能延誤，12:00 不保證返回市區。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://thaiskyadventures.com/begin-your-booking/\" target=\"_blank\" rel=\"noopener noreferrer\">跳傘官網預訂</a></div>",
                 "icon": "fa-plane",
-                "notice": "採你選定的 Deluxe 預算，尚未代訂。芭達雅來回接送依官網包含；重量加價與付款方式另確認。",
+                "notice": "依你提供的報價編列，尚未代訂；拍攝、接送及加價條件以訂單確認。",
                 "kind": "activity",
                 "disclosureLabel": "跳傘方案與接送",
                 "chapter": {
@@ -668,6 +689,7 @@
                 },
                 "id": "s-493b28dc98",
                 "routeIndices": [
+                    0,
                     1
                 ],
                 "needsBooking": true
@@ -823,26 +845,27 @@
                 "time": "22:30–01:00（彈性）",
                 "title": "六巷續攤・依營業情況",
                 "summary": "看店家與體力決定停留時間，隨時可回民宿。",
-                "details": "<div class=\"detail-copy\"><p>01:00 為最晚預留時間，不保證每家店營業至此；若六巷已收店就直接返宿。飲品含互動飲料先看菜單，不固定以 <mark class=\"cost-tag\">200 THB</mark> 計。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>01:00 為最晚預留時間，不保證每家店營業至此；若六巷已收店就直接返宿。飲品含互動飲料先看菜單，不固定以 <mark class=\"cost-tag\">200 THB</mark> 計。</p></div><div class=\"detail-copy\"><p>晚間行程結束後返回同一間芭達雅民宿；回程叫車以住宿地址為目的地，車資另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">返回民宿地圖</a></div>",
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
                 "disclosureLabel": "",
                 "id": "s-3646f15f55",
                 "routeIndices": [
-                    6
+                    6,
+                    7
                 ]
             }
         ],
         "intro": "上午挑戰跳傘，午後逛街、上帕塔納克山看海灣，傍晚吃海鮮燒烤，再到高空酒吧看夜景。",
         "route": [
             {
-                "name": "海灘路住宿區",
-                "lat": 12.936,
-                "lon": 100.883,
-                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "name": "芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand",
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-1f2c4d6113"
             },
             {
@@ -898,6 +921,15 @@
                 "approx": true,
                 "googleQuery": "Soi 6 Pattaya Thailand",
                 "itemId": "s-3646f15f55"
+            },
+            {
+                "name": "返回芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
+                "approx": true,
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
+                "itemId": "s-3646f15f55"
             }
         ],
         "photoCaption": "Thai Sky Adventures・高空跳傘"
@@ -951,7 +983,8 @@
                 },
                 "id": "s-d64df5b01f",
                 "routeIndices": [
-                    0
+                    0,
+                    6
                 ]
             },
             {
@@ -1089,26 +1122,27 @@
                 "time": "21:00–23:00（彈性）",
                 "title": "Soi 6・六巷小酌",
                 "summary": "看完夜景再喝一杯，依店家營業與體力決定停留時間。",
-                "details": "<div class=\"detail-copy\"><p>飲品及回民宿交通另計，點單前先看菜單。若玩水、真理寺與晚餐後已累，可從觀景台直接返宿。Terminal 21／Runway 飛機夜市留在 4/14 的原安排。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>飲品及回民宿交通另計，點單前先看菜單。若玩水、真理寺與晚餐後已累，可從觀景台直接返宿。Terminal 21／Runway 飛機夜市留在 4/14 的原安排。</p></div><div class=\"detail-copy\"><p>晚間行程結束後返回同一間芭達雅民宿；回程叫車以住宿地址為目的地，車資另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">返回民宿地圖</a></div>",
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
                 "disclosureLabel": "",
                 "id": "s-1c1d312f97",
                 "routeIndices": [
-                    4
+                    4,
+                    5
                 ]
             }
         ],
         "intro": "上午玩水，中午換裝，下午看真理寺，The Sky Gallery 日落晚餐後上山看海灣夜景，再到六巷小酌。",
         "route": [
             {
-                "name": "海灘路住宿區",
-                "lat": 12.936,
-                "lon": 100.883,
-                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "name": "芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand",
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-d64df5b01f"
             },
             {
@@ -1146,6 +1180,25 @@
                 "approx": true,
                 "googleQuery": "Soi 6 Pattaya Thailand",
                 "itemId": "s-1c1d312f97"
+            },
+            {
+                "name": "返回芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
+                "approx": true,
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
+                "itemId": "s-1c1d312f97"
+            },
+            {
+                "name": "海灘路・潑水節",
+                "lat": 12.936,
+                "lon": 100.883,
+                "approx": true,
+                "googleQuery": "Pattaya Beach Road Thailand",
+                "note": "海灘路活動區域示意。",
+                "itemId": "s-d64df5b01f",
+                "mapOnly": true
             }
         ],
         "photoCaption": "宋干節・水花與水槍"
@@ -1190,7 +1243,7 @@
                 "time": "08:30–16:30",
                 "title": "格蘭島・全天跳島與水上活動",
                 "summary": "快艇出海與水上活動；先按 C1 參考方案 1,800 THB／人估，四人 7,200 THB，未代訂。",
-                "details": "<div class=\"detail-copy\"><p>08:30 為規劃接送時間；碼頭、午餐、躺椅及返程以所選方案為準。拖曳傘、香蕉船、水上摩托車、浮潛或海底漫步，依套票內容選擇，不預設全部包含。</p><p>目標 16:30 前返抵芭達雅；海況或接送延後時，後續行程順延。四人套票費用先按 C1 參考價 7,200 THB 編列，確定方案後替換。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.pattayacoral.com/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"格蘭島方案與預訂（另開分頁）\">格蘭島方案與預訂<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>Ticket2Attraction 當期 C1 方案列 1,800 THB／人起，四人先估 7,200 THB，頁面列快艇、午餐、拖曳傘、水上摩托車與香蕉船。接送範圍與完整包含以所選方案憑證為準；不另重複加同一套票中的午餐或接送。基本快艇午餐方案 750 THB 起，未含相同水上項目；含海底漫步的 A 方案 2,500 THB 起屬替代方案，不是把 2,500 再加到 C1。浮潛、海底漫步與其他活動是否另付，以最終選擇為準。本次只建立預算基準，未代為購買；2027/4/14 潑水節期間價格與場次仍待確認。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.ticket2attraction.com/discount-tickets/pattaya-coral-island-koh-larn-day-tour/\" target=\"_blank\" rel=\"noopener noreferrer\">格蘭島快艇與水上活動方案 ↗</a></div>",
+                "details": "<div class=\"detail-copy\"><p>08:30 為規劃接送時間；碼頭、午餐、躺椅及返程以所選方案為準。拖曳傘、香蕉船、水上摩托車、浮潛或海底漫步，依套票內容選擇，不預設全部包含。</p><p>目標 16:30 前返抵芭達雅；海況或接送延後時，後續行程順延。四人套票費用先按 C1 參考價 7,200 THB 編列，確定方案後替換。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.pattayacoral.com/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"格蘭島方案與預訂（另開分頁）\">格蘭島方案與預訂<span aria-hidden=\"true\">↗</span></a></div><div class=\"detail-copy ticket-price-note\"><p><strong>票價／費用查核 2026/11/17</strong></p><p>Ticket2Attraction 當期 C1 方案列 1,800 THB／人起，四人先估 7,200 THB，頁面列快艇、午餐、拖曳傘、水上摩托車與香蕉船。接送範圍與完整包含以所選方案憑證為準；不另重複加同一套票中的午餐或接送。基本快艇午餐方案 750 THB 起，未含相同水上項目；含海底漫步的 A 方案 2,500 THB 起屬替代方案，不是把 2,500 再加到 C1。浮潛、海底漫步與其他活動是否另付，以最終選擇為準。本次只建立預算基準，未代為購買；2027/4/14 潑水節期間價格與場次仍待確認。</p><p>以上是目前可核實的報價或參考資料，未保證 2027 當日票價與可訂狀況；四人均按外國成人計算。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.ticket2attraction.com/discount-tickets/pattaya-coral-island-koh-larn-day-tour/\" target=\"_blank\" rel=\"noopener noreferrer\">格蘭島快艇與水上活動方案 ↗</a></div><div class=\"detail-copy\"><p>出發地點：芭達雅民宿，88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國。</p></div>",
                 "icon": "fa-ship",
                 "notice": "預算以 C1 快艇午餐＋拖曳傘、水上摩托車、香蕉船為基準；海底漫步與其他加購未計。",
                 "kind": "activity",
@@ -1203,6 +1256,7 @@
                 },
                 "id": "s-fde119d910",
                 "routeIndices": [
+                    0,
                     2
                 ],
                 "needsBooking": true
@@ -1218,6 +1272,7 @@
                 "disclosureLabel": "按摩療程與預約",
                 "id": "s-8b6d3a7c25",
                 "routeIndices": [
+                    0,
                     3
                 ],
                 "needsBooking": true
@@ -1247,26 +1302,27 @@
                 "time": "20:30–23:30",
                 "title": "Soi 6・六巷小酌",
                 "summary": "留出前往六巷的時間，找間酒吧聊天、玩桌遊。",
-                "details": "<div class=\"detail-copy\"><p>從百貨或夜市前往六巷，依路線選叫車或雙條車；先確認方向與費用，不以固定 <mark class=\"cost-tag\">10 THB</mark> 當作保證票價。</p><p>飲品與互動飲料先看菜單，依店家營業及體力提早結束。今晚仍住芭達雅，4/15 才安排退房前往曼谷。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>從百貨或夜市前往六巷，依路線選叫車或雙條車；先確認方向與費用，不以固定 <mark class=\"cost-tag\">10 THB</mark> 當作保證票價。</p><p>飲品與互動飲料先看菜單，依店家營業及體力提早結束。今晚仍住芭達雅，4/15 才安排退房前往曼谷。</p></div><div class=\"detail-copy\"><p>晚間行程結束後返回同一間芭達雅民宿；回程叫車以住宿地址為目的地，車資另計。</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">返回民宿地圖</a></div>",
                 "icon": "fa-moon",
                 "notice": "",
                 "kind": "night",
                 "disclosureLabel": "",
                 "id": "s-3a66b1cdc8",
                 "routeIndices": [
-                    5
+                    5,
+                    7
                 ]
             }
         ],
         "intro": "把白天留給格蘭島，回來洗澡按摩，晚餐與逛街依體力安排。",
         "route": [
             {
-                "name": "海灘路住宿區",
-                "lat": 12.936,
-                "lon": 100.883,
-                "note": "民宿確切地址待提供，先標海灘路區域。",
+                "name": "芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
                 "approx": true,
-                "googleQuery": "Pattaya Beach Road Thailand",
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-8b6d3a7c25"
             },
             {
@@ -1323,6 +1379,15 @@
                 "optional": true,
                 "googleQuery": "Runway Street Food Pattaya Thailand",
                 "itemId": "s-40189c4331"
+            },
+            {
+                "name": "返回芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
+                "approx": true,
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
+                "itemId": "s-3a66b1cdc8"
             }
         ],
         "photoCaption": "格蘭島"
@@ -1367,7 +1432,7 @@
                 "time": "08:00–09:00（估）",
                 "title": "退房・打車前往東芭樂園",
                 "summary": "帶齊行李，另叫計程車／Grab 前往東芭樂園。",
-                "details": "<div class=\"detail-copy\"><p>早餐後退房，以四人及行李選擇合適車型。這段為芭達雅住宿 → 東芭樂園的單程叫車，和下午跨城包車分開安排、分開計價。</p><p>入園前先確認行李寄放方式；若園區不能寄放，需事先與接送業者安排保管，不能預設上午單程司機會留車等候。</p></div>",
+                "details": "<div class=\"detail-copy\"><p>早餐後退房，以四人及行李選擇合適車型。這段為芭達雅住宿 → 東芭樂園的單程叫車，和下午跨城包車分開安排、分開計價。</p><p>入園前先確認行李寄放方式；若園區不能寄放，需事先與接送業者安排保管，不能預設上午單程司機會留車等候。</p></div><div class=\"detail-copy\"><p>出發地點：芭達雅民宿，88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國。</p></div>",
                 "icon": "fa-car",
                 "kind": "transport",
                 "notice": "先確認行李寄放與下午包車的接人位置。",
@@ -1379,6 +1444,7 @@
                 },
                 "id": "s-e1a02702ae",
                 "routeIndices": [
+                    0,
                     1
                 ],
                 "needsBooking": true
@@ -1558,12 +1624,12 @@
         "intro": "上午逛東芭，午後坐貓貓船，入住曼谷後吃飯、逛娜娜，再沿素坤逸路散步。",
         "route": [
             {
-                "name": "海灘路住宿區",
-                "lat": 12.936,
-                "lon": 100.883,
-                "googleQuery": "Pattaya Beach Road Thailand",
-                "note": "芭達雅住宿區示意；退房後先叫單程車。",
+                "name": "芭達雅民宿",
+                "lat": 12.93,
+                "lon": 100.884,
                 "approx": true,
+                "googleQuery": "88 Soi Pattayasaisong 11, Pattaya City, Chon Buri 20150, Thailand",
+                "note": "民宿地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國；導航以地址搜尋結果確認入口。",
                 "itemId": "s-e1a02702ae"
             },
             {
@@ -2037,12 +2103,14 @@
         "id": "quote-s-493b28dc98",
         "day": "day3",
         "itemId": "s-493b28dc98",
-        "label": "Thai Sky Adventures 雙人跳傘",
-        "amount": 9700,
+        "label": "Thai Sky Adventures・Deluxe 跳傘與拍攝",
+        "amount": 15650,
         "currency": "THB",
         "basis": "person",
         "status": "estimate",
-        "note": "沿用原行程官網基本方案參考，不含未確認的攝影或其他加購。"
+        "note": "你選的 Deluxe；官網商品價查核 2026/11/17。含影片、照片、開傘後教練拍攝及芭達雅接送；重量加價與可能刷卡費未含。",
+        "sourceUrl": "https://thaiskyadventures.com/product/tandem-deluxe-skydive/",
+        "checkedAt": "2026-11-17"
     },
     {
         "id": "quote-s-78c0b9bd7c",
@@ -2254,7 +2322,7 @@
         "note": "尚無實際報價，不以零元算入；若已含於套票或住宿，勿重複填寫。"
     }
 ];
-            const expenseSeedRevision = "2026-11-26-flights-stays";
+            const expenseSeedRevision = "2026-11-26-home-skydive";
             const defaultExpenses = [
     {
         "id": "quote-s-95e9a46204",
@@ -2328,14 +2396,14 @@
         "id": "quote-s-493b28dc98",
         "day": "day3",
         "itemId": "s-493b28dc98",
-        "label": "Thai Sky Adventures・Deluxe 跳傘與拍攝",
-        "amount": 15650,
+        "label": "Thai Sky Adventures・雙人跳傘",
+        "amount": 13100,
         "currency": "THB",
         "basis": "person",
-        "status": "estimate",
-        "note": "你選的 Deluxe；官網商品價查核 2026/11/17。含影片、照片、開傘後教練拍攝及芭達雅接送；重量加價與可能刷卡費未含。",
-        "sourceUrl": "https://thaiskyadventures.com/product/tandem-deluxe-skydive/",
-        "checkedAt": "2026-11-17"
+        "status": "confirmed",
+        "note": "你提供的報價：13,100 THB／人，四人 52,400 THB；拍攝、接送與額外加價條件依實際訂單確認。",
+        "sourceUrl": "",
+        "checkedAt": "2026-11-26"
     },
     {
         "id": "quote-s-78c0b9bd7c",
@@ -2765,9 +2833,9 @@
         "currency": "THB",
         "basis": "group",
         "status": "unknown",
-        "note": "官網所連 2026 價目 PDF 列刷卡 2.5%；若整筆 62,600 適用，另約 1,565 THB，但是否收取須看結帳。超過 95 kg 重量加價、保險是否包含亦需確認，先不加進基本小計。",
-        "sourceUrl": "https://thaiskyadventures.com/wp-content/uploads/Price-list-TSA-April-2026.pdf",
-        "checkedAt": "2026-11-17"
+        "note": "付款方式、重量、保險及接送是否另收費，以本次 13,100 THB 方案的實際訂單確認；尚未報價，未計入小計。",
+        "sourceUrl": "",
+        "checkedAt": "2026-11-26"
     }
 ];
             const tripState = readTripState();

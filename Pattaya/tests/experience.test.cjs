@@ -52,16 +52,16 @@ test('All responsive variants and offline basic images exist',()=>{
 });
 
 test('The chosen Deluxe plan replaces the basic jump and all eight days expose individual expenses',()=>{
- const sky=costs.filter(row=>row.itemId===data.day3.items[0].id&&row.status!=='unknown');assert.equal(sky.length,1);assert.equal(sky[0].amount,15650);assert.equal(sky[0].amount*4,62600);
- assert(data.day3.items[0].summary.includes('62,600'));
- const total=tools.expenseTotals(costs,'all');assert.equal(total.confirmed.THB+total.estimate.THB,9214600);assert.equal(total.confirmed.TWD+total.estimate.TWD,7685100);
+ const sky=costs.filter(row=>row.itemId===data.day3.items[0].id&&row.status!=='unknown');assert.equal(sky.length,1);assert.equal(sky[0].amount,13100);assert.equal(sky[0].amount*4,52400);
+ assert(data.day3.items[0].summary.includes('52,400'));
+ const total=tools.expenseTotals(costs,'all');assert.equal(total.confirmed.THB+total.estimate.THB,8194600);assert.equal(total.confirmed.TWD+total.estimate.TWD,7685100);
  for(const day of Object.keys(data))assert(costs.some(row=>row.day===day));
  assert(!costs.some(row=>row.id.startsWith('unknown-')));
 });
 test('Price updates refresh unchanged seeds, preserve custom figures, and do not restore deleted old rows',()=>{
  const prior=JSON.parse(app.match(/const priorExpenseSeeds = (\[[\s\S]*?\n\]);/)[1]);
  const skyId=prior.find(row=>row.itemId===data.day3.items[0].id).id;
- const untouched=tools.reconcileExpenses(prior,prior,costs);assert.equal(untouched.find(row=>row.id===skyId).amount,15650);assert(untouched.some(row=>row.id==='ticket-zoo'));
+ const untouched=tools.reconcileExpenses(prior,prior,costs);assert.equal(untouched.find(row=>row.id===skyId).amount,13100);assert(untouched.some(row=>row.id==='ticket-zoo'));
  const edited=prior.map(row=>row.id===skyId?{...row,amount:16000,note:'my custom quote'}:row).filter(row=>row.id!==prior[0].id);
  const result=tools.reconcileExpenses(edited,prior,costs);assert.equal(result.find(row=>row.id===skyId).amount,16000);assert.equal(result.find(row=>row.id===skyId).note,'my custom quote');assert(!result.some(row=>row.id===prior[0].id));
  assert.equal(new Set(result.map(row=>row.id)).size,result.length);
