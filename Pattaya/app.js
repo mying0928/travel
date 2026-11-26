@@ -147,26 +147,12 @@
                 "needsBooking": true
             },
             {
-                "time": "15:30–16:30／17:00（估）",
-                "title": "LOF LAND → 芭達雅海灘路",
-                "summary": "拍照後繼續搭原包車，前往海灘路附近民宿。",
-                "details": "<div class=\"detail-copy\"><p>此段車程抓約 1～1.5 小時，費用已計入整段包車 1,800 THB，不另重複加總。</p></div>",
+                "time": "15:30–17:30（估）",
+                "title": "LOF LAND → 民宿・入住盥洗換裝",
+                "summary": "LOF LAND 結束後搭原包車回民宿，辦理入住、放行李與盥洗換裝，再出發去 DAM。",
+                "details": "<div class=\"detail-copy\"><p>此段車程抓約 1～1.5 小時，費用已計入整段包車 1,800 THB，不另重複加總。</p></div><div class=\"detail-copy\"><p>依民宿約定辦理入住。這段約 30～60 分鐘，優先留給盥洗換裝；午餐可在機場上車前簡單解決或先準備輕食。</p></div><div class=\"detail-copy\"><p><strong>芭達雅住宿：4/10 入住、4/15 退房，共 5 晚。</strong>每人 NT$3,968，四人 NT$15,872。</p><p>地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">住宿地址地圖</a></div>",
                 "kind": "transport",
                 "icon": "fa-car",
-                "notice": "",
-                "disclosureLabel": "",
-                "id": "s-4da50a9e78",
-                "routeIndices": [
-                    2
-                ]
-            },
-            {
-                "time": "16:30／17:00–17:30",
-                "title": "入住・盥洗換裝",
-                "summary": "抵達後先放行李、簡單整理，再出發去 DAM。",
-                "details": "<div class=\"detail-copy\"><p>依民宿約定辦理入住。這段約 30～60 分鐘，優先留給盥洗換裝；午餐可在機場上車前簡單解決或先準備輕食。</p></div><div class=\"detail-copy\"><p><strong>芭達雅住宿：4/10 入住、4/15 退房，共 5 晚。</strong>每人 NT$3,968，四人 NT$15,872。</p><p>地址：88 Soi Pattayasaisong 11, Pattaya City, 春武里 20150, 泰國</p></div><div class=\"trip-links\"><a class=\"trip-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=88+Soi+Pattayasaisong+11+Pattaya+20150\" target=\"_blank\" rel=\"noopener noreferrer\">住宿地址地圖</a></div>",
-                "kind": "activity",
-                "icon": "fa-house",
                 "notice": "加入 LOF LAND 後，下午休息時間較短；若晚到，先放行李再前往晚餐。",
                 "disclosureLabel": "",
                 "id": "s-7d521d25bb",
@@ -1979,7 +1965,7 @@
         "photoCaption": "BKK 蘇凡納布機場・出境報到大廳"
     }
 };
-            const legacyItemIds = {"day1":["s-a2a077bc48","s-e692da9752","s-46680b4569","s-34d03e99d2","s-95e9a46204","s-7361eefacf","s-4da50a9e78","s-7d521d25bb","s-ead83eefec","s-b4bed3a682","s-5d050d926d","s-8aebcc324b"],"day2":["s-abc08fe317","s-584c900b54","s-b0f19d3a07","s-1d97b35d1e","s-7754be56d9","s-325e2588e9","s-dfcef3dbb1","s-79bef5c9df","s-341770ae90","s-bfbe0387ee","s-1b08c846c6","s-4284ae4d92","s-34d077ae20","s-bc98b5f00d","s-04f0c2f556"],"day3":["s-493b28dc98","s-1f2c4d6113","s-f11619f31f","s-2eefc5a3b4","s-9a638904f0","s-78c0b9bd7c","s-16c03a16f0","s-117798c4ea","s-60702fef4a","s-3646f15f55"],"day4":["s-d64df5b01f","s-3c1126f221","s-79ee2fc29a","s-5cee1245ae","s-99d3c9dabb","s-ca389d2a79","s-8ce8fd8982","s-93ef7b2925","s-6e0abec254","s-1c1d312f97"],"day5":["s-fde119d910","s-8b6d3a7c25","s-40189c4331","s-3a66b1cdc8"],"day6":["s-e1a02702ae","s-d914f7d158","s-c0ac557b28","s-5a71b2aac1","s-5958cd7dd1","s-bd13dbbdc4","s-9ab860bd03","s-9a9cdf8192","s-283b1e2b39","s-962a781a66","s-b009b79df9"],"day7":["s-28d1cd31d8","s-2fbbfb5fbe","s-54d347115d","s-e49aa8b368","s-a4ff7bcc58","s-4eca03218a","s-b1fbdd4fff","s-4047c582f1"],"day8":["s-06f970dc3f","s-c1a362f048","s-f99b8f90ab"]};
+            const legacyItemIds = {"day1":["s-a2a077bc48","s-e692da9752","s-46680b4569","s-34d03e99d2","s-95e9a46204","s-7361eefacf","s-7d521d25bb","s-7d521d25bb","s-ead83eefec","s-b4bed3a682","s-5d050d926d","s-8aebcc324b"],"day2":["s-abc08fe317","s-584c900b54","s-b0f19d3a07","s-1d97b35d1e","s-7754be56d9","s-325e2588e9","s-dfcef3dbb1","s-79bef5c9df","s-341770ae90","s-bfbe0387ee","s-1b08c846c6","s-4284ae4d92","s-34d077ae20","s-bc98b5f00d","s-04f0c2f556"],"day3":["s-493b28dc98","s-1f2c4d6113","s-f11619f31f","s-2eefc5a3b4","s-9a638904f0","s-78c0b9bd7c","s-16c03a16f0","s-117798c4ea","s-60702fef4a","s-3646f15f55"],"day4":["s-d64df5b01f","s-3c1126f221","s-79ee2fc29a","s-5cee1245ae","s-99d3c9dabb","s-ca389d2a79","s-8ce8fd8982","s-93ef7b2925","s-6e0abec254","s-1c1d312f97"],"day5":["s-fde119d910","s-8b6d3a7c25","s-40189c4331","s-3a66b1cdc8"],"day6":["s-e1a02702ae","s-d914f7d158","s-c0ac557b28","s-5a71b2aac1","s-5958cd7dd1","s-bd13dbbdc4","s-9ab860bd03","s-9a9cdf8192","s-283b1e2b39","s-962a781a66","s-b009b79df9"],"day7":["s-28d1cd31d8","s-2fbbfb5fbe","s-54d347115d","s-e49aa8b368","s-a4ff7bcc58","s-4eca03218a","s-b1fbdd4fff","s-4047c582f1"],"day8":["s-06f970dc3f","s-c1a362f048","s-f99b8f90ab"]};
             const priorExpenseSeeds = [
     {
         "id": "quote-s-95e9a46204",

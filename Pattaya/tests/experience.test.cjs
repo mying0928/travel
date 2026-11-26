@@ -10,9 +10,9 @@ const costs=JSON.parse(app.match(/const defaultExpenses = (\[[\s\S]*?\n\]);/)[1]
 test('Bangkok calendar handles travel boundaries independent of device timezone',()=>{
  for(const [instant,day] of [['2027-04-09T16:59:59Z',null],['2027-04-09T17:00:00Z','day1'],['2027-04-16T23:30:00Z','day8'],['2027-04-17T16:59:59Z','day8'],['2027-04-17T17:00:00Z',null]])assert.equal(tools.bangkokClock(new Date(instant)).day,day);
 });
-test('All 73 stable item links are unique and resolve to the correct day',()=>{
+test('All 72 stable item links are unique and resolve to the correct day',()=>{
  const ids=new Set();for(const [day,value] of Object.entries(data))for(const item of value.items){const hash=tools.routeHash(day,item.id);assert(!ids.has(hash));ids.add(hash);assert.deepEqual(tools.parseRoute(hash,data),{day,item:item.id});}
- assert.equal(ids.size,73);assert.equal(tools.parseRoute('#day3/missing',data),null);assert.equal(tools.parseRoute('#%zz',data),null);
+ assert.equal(ids.size,72);assert.equal(tools.parseRoute('#day3/missing',data),null);assert.equal(tools.parseRoute('#%zz',data),null);
 });
 test('Old saved positions, details and photos migrate and survive inserting a new segment',()=>{
  const old={position:{day:'day3',item:'day3-item-5',offset:22},expanded:['day3-details-5'],photos:['day3-photo-5']};
